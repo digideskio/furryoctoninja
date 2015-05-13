@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <com.iangclifton.android.floatlabel.FloatLabel
-            android:id="@+id/editEmail"
+            android:id="@+id/etLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -22,7 +22,7 @@
 
 
         <com.iangclifton.android.floatlabel.FloatLabel
-            android:id="@+id/editPassword"
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -30,10 +30,11 @@
             android:inputType="textPassword"/>
 
         <com.hkm.ui.processbutton.iml.ActionProcessButton
-            android:id="@+id/btnSignIn"
+            android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="16dp"
+            android:enabled="false"
             android:text="Zaloguj"
             android:textColor="@android:color/white"
             android:textSize="18sp"

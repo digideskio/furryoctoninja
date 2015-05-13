@@ -8,11 +8,15 @@ import com.squareup.okhttp.OkHttpClient;
 import java.io.File;
 import java.io.IOException;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import pl.rspective.data.rest.McKinseyApi;
+import pl.rspective.data.repository.LoginRepository;
+import pl.rspective.data.repository.McKinseyLoginRepository;
+import pl.rspective.data.rest.McKinseyGeneralApi;
+import pl.rspective.data.rest.McKinseyLoginApi;
 import pl.rspective.data.rest.NetworkAction;
 import pl.rspective.data.rest.converter.RestDataConverter;
 import pl.rspective.mckinsey.McKinseyApp;
@@ -74,7 +78,19 @@ public final class RestModule {
 
     @Provides
     @Singleton
-    RestAdapter provideRestAdapter(Endpoint endpoint, Client client, final PublishSubject<NetworkAction> publishSubject) {
+    @Named("login")
+    RestAdapter provideLoginRestAdapter(Endpoint endpoint, Client client) {
+        return new RestAdapter.Builder() //
+                .setClient(client) //
+                .setLogLevel(RestAdapter.LogLevel.FULL) //
+                .setEndpoint(endpoint) //
+                .build();
+    }
+
+    @Provides
+    @Singleton
+    @Named("general")
+    RestAdapter provideGeneralRestAdapter(Endpoint endpoint, Client client, final PublishSubject<NetworkAction> publishSubject) {
         return new RestAdapter.Builder() //
                 .setClient(client) //
                 .setLogLevel(RestAdapter.LogLevel.FULL) //
@@ -104,8 +120,20 @@ public final class RestModule {
 
     @Provides
     @Singleton
-    McKinseyApi provideApi(RestAdapter restAdapter) {
-        return restAdapter.create(McKinseyApi.class);
+    McKinseyGeneralApi provideGeneralApi(@Named("general") RestAdapter restAdapter) {
+        return restAdapter.create(McKinseyGeneralApi.class);
+    }
+
+    @Provides
+    @Singleton
+    McKinseyLoginApi provideLoginApi(@Named("login") RestAdapter restAdapter) {
+        return restAdapter.create(McKinseyLoginApi.class);
+    }
+
+    @Provides
+    @Singleton
+    LoginRepository provideLoginRepository(McKinseyLoginApi api) {
+        return new McKinseyLoginRepository(api);
     }
 
 }

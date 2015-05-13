@@ -2,77 +2,109 @@ package pl.rspective.mckinsey.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.hkm.ui.processbutton.iml.ActionProcessButton;
+import com.iangclifton.android.floatlabel.FloatLabel;
 
 import javax.inject.Inject;
 
-import pl.rspective.data.rest.NetworkAction;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
+import pl.rspective.data.repository.LoginRepository;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.dagger.Injector;
-import rx.Observer;
+import retrofit.client.Response;
+import rx.Observable;
 import rx.Subscription;
-import rx.android.observables.AndroidObservable;
-import rx.subjects.PublishSubject;
+import rx.android.widget.OnTextChangeEvent;
+import rx.android.widget.WidgetObservable;
+import rx.functions.Action1;
+import rx.functions.Func2;
+
+import static com.google.common.base.Strings.isNullOrEmpty;
 
 
-public class LoginActivity extends AppCompatActivity implements Observer<NetworkAction>  {
+public class LoginActivity extends AppCompatActivity {
 
     @Inject
-    PublishSubject<NetworkAction> networkActivity;
+    LoginRepository loginRepository;
 
-    private Subscription subscription;
+    @InjectView(R.id.btn_login)
+    ActionProcessButton btnLogin;
+
+    @InjectView(R.id.etLogin)
+    FloatLabel etLogin;
+
+    @InjectView(R.id.etPassword)
+    FloatLabel etPassword;
+
+    private Observable<OnTextChangeEvent> loginChangeObservable;
+    private Observable<OnTextChangeEvent> passwordChangeObservable;
+
+    private Subscription validationSubscription;
+    private Subscription loginSubscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Injector.inject(this);
-
         setContentView(R.layout.activity_login);
+        ButterKnife.inject(this);
 
-        final ActionProcessButton btnSignIn = (ActionProcessButton) findViewById(R.id.btnSignIn);
-        btnSignIn.setMode(ActionProcessButton.Mode.ENDLESS);
+        btnLogin.setMode(ActionProcessButton.Mode.ENDLESS);
 
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
+        loginChangeObservable = WidgetObservable.text(etLogin.getEditText());
+        passwordChangeObservable = WidgetObservable.text(etPassword.getEditText());
+
+        combineFieldsEvents();
+    }
+
+    private void combineFieldsEvents() {
+        validationSubscription = Observable.combineLatest(loginChangeObservable, passwordChangeObservable, new Func2<OnTextChangeEvent, OnTextChangeEvent, Boolean>() {
             @Override
-            public void onClick(View view) {
-                btnSignIn.setEnabled(false);
-                btnSignIn.setProgress(100);
+            public Boolean call(OnTextChangeEvent onLoginChangeEvent, OnTextChangeEvent onPasswordChangeEvent) {
+                return !isNullOrEmpty(onLoginChangeEvent.text().toString()) && !isNullOrEmpty(onPasswordChangeEvent.text().toString());
+            }
+        }).subscribe(new Action1<Boolean>() {
+            @Override
+            public void call(Boolean fieldsValid) {
+                btnLogin.setEnabled(fieldsValid);
             }
         });
 
-        subscription = AndroidObservable.bindActivity(this, networkActivity).subscribe(this);
+    }
+
+    @OnClick(R.id.btn_login)
+    public void onLoginClick() {
+        btnLogin.setEnabled(false);
+        btnLogin.setProgress(1);
+
+        loginSubscription = loginRepository.userLogin(etLogin.getEditText().getText().toString(), etPassword.getEditText().getText().toString())
+                .subscribe(new Action1<Response>() {
+                    @Override
+                    public void call(Response response) {
+
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        btnLogin.setEnabled(true);
+                        btnLogin.setProgress(0);
+                    }
+                });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        if(subscription != null) {
-            subscription.unsubscribe();
-            subscription = null;
+        if(loginSubscription != null) {
+            loginSubscription.unsubscribe();
         }
-    }
 
-
-    @Override
-    public void onCompleted() {
-    }
-
-    @Override
-    public void onError(Throwable e) {
-
-    }
-
-    @Override
-    public void onNext(NetworkAction networkAction) {
-        switch (networkAction) {
-            case HTTP_REQUEST_START:
-                break;
-
-            case HTTP_REQUEST_END:
-                break;
+        if(validationSubscription != null) {
+            validationSubscription.unsubscribe();
         }
     }
 }

@@ -3,7 +3,6 @@ package com.hkm.ui.processbutton;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Parcel;
@@ -137,7 +136,7 @@ public abstract class ProcessButton extends FlatButton {
         setBackgroundCompat(getErrorDrawable());
     }
 
-    protected void onProgress() {
+    public void onProgress() {
         if (getLoadingText() != null) {
             setText(getLoadingText());
         }

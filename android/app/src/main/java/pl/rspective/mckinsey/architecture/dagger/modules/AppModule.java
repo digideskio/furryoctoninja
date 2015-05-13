@@ -10,6 +10,7 @@ import pl.rspective.mckinsey.McKinseyApp;
 @Module(
         includes = {
                 UiModule.class,
+                DataModule.class,
                 RestModule.class
         },
         injects = {
