@@ -9,6 +9,5 @@ dependencies {
     compile 'com.squareup.dagger:dagger:1.2.2'
     compile 'com.squareup.dagger:dagger-compiler:1.2.2'
 
-    compile 'com.netflix.rxjava:rxjava-android:0.20.7'
-    compile 'com.netflix.rxjava:rxjava-async-util:0.20.6'
+    compile 'io.reactivex:rxandroid:0.24.0'
 }
