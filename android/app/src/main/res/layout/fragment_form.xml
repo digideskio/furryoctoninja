@@ -5,27 +5,33 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <FrameLayout
+    <com.ogaclejapan.smarttablayout.SmartTabLayout
+        android:id="@+id/viewpagertab"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="48dp"
+        android:layout_margin="10dp"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        app:stl_defaultTabTextColor="@color/accent"
+        app:stl_defaultTabTextHorizontalPadding="20dp"
+        app:stl_dividerColor="@android:color/transparent"
+        app:stl_dividerThickness="0dp"
+        app:stl_indicatorColor="@color/primary"
+        app:stl_indicatorCornerRadius="20dp"
+        app:stl_defaultTabTextSize="14sp"
+        app:stl_indicatorInterpolation="smart"
+        app:stl_indicatorThickness="40dp"
+        app:stl_underlineColor="@android:color/transparent"
+        app:stl_underlineThickness="0dp"
+        />
 
-        <github.chenupt.springindicator.viewpager.ScrollerViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
-        <github.chenupt.springindicator.SpringIndicator
-            android:id="@+id/indicator"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            app:siIndicatorColor="@color/primary"
-            app:siIndicatorColors="@array/indicator_colors"
-            app:siSelectedTextColor="@android:color/white"
-            app:siTextColor="@color/primary_dark"
-            app:siTextSize="18sp"/>
-    </FrameLayout>
 
 </LinearLayout>

@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import butterknife.ButterKnife;
 import pl.rspective.mckinsey.R;
-import pl.rspective.mckinsey.ui.form.FormFragment;
+import pl.rspective.mckinsey.ui.form.MasterFormFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,8 +17,9 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.inject(this);
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fl_main_fragment_container, FormFragment.newInstance())
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fl_main_fragment_container, MasterFormFragment.newInstance())
                 .commit();
     }
 }

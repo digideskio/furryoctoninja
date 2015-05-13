@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.rspective.mckinsey.ui.common.AdapterListener;
-import pl.rspective.mckinsey.ui.form.FormFragment;
+import pl.rspective.mckinsey.ui.form.FormQuestionFragment;
 import pl.rspective.mckinsey.ui.utils.SmartFragmentStatePagerAdapter;
 
 public class FormQuestionPagerAdapter extends SmartFragmentStatePagerAdapter implements AdapterListener<String> {
@@ -16,7 +16,6 @@ public class FormQuestionPagerAdapter extends SmartFragmentStatePagerAdapter imp
 
     public FormQuestionPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
-
         questions = new ArrayList<>();
     }
 
@@ -40,12 +39,12 @@ public class FormQuestionPagerAdapter extends SmartFragmentStatePagerAdapter imp
 
     @Override
     public Fragment getItem(int position) {
-        return FormFragment.newInstance();
+        return FormQuestionFragment.newInstance();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return position+"";
+        return (position + 1) + "";
     }
 
 }

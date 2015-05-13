@@ -3,31 +3,32 @@ package pl.rspective.mckinsey.ui.form;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import github.chenupt.springindicator.SpringIndicator;
-import github.chenupt.springindicator.viewpager.ScrollerViewPager;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.ui.form.adapter.FormQuestionPagerAdapter;
 
-public class FormFragment extends Fragment {
+public class MasterFormFragment extends Fragment {
 
-    @InjectView(R.id.view_pager)
-    ScrollerViewPager viewPager;
+    @InjectView(R.id.viewpager)
+    ViewPager viewPager;
 
-    @InjectView(R.id.indicator)
-    SpringIndicator springIndicator;
+    @InjectView(R.id.viewpagertab)
+    SmartTabLayout smartTabLayout;
 
     private FormQuestionPagerAdapter adapter;
 
-    public static FormFragment newInstance() {
-        return new FormFragment();
+    public static MasterFormFragment newInstance() {
+        return new MasterFormFragment();
     }
 
     @Nullable
@@ -43,7 +44,8 @@ public class FormFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         adapter = new FormQuestionPagerAdapter(getFragmentManager());
-        adapter.updateData(new ArrayList<String>() {{
+
+        ArrayList<String> questions = new ArrayList<String>() {{
             add("test 1");
             add("test 1");
             add("test 1");
@@ -51,10 +53,23 @@ public class FormFragment extends Fragment {
             add("test 1");
             add("test 1");
             add("test 1");
-        }});
+            add("test 1");
+            add("test 1");
+            add("test 1");
+            add("test 1");
+            add("test 1");
+            add("test 1");
+            add("test 1");
+            add("test 1");
+            add("test 1");
+            add("test 1");
+            add("test 1");
+        }};
+
+        adapter.updateData(questions);
 
         viewPager.setAdapter(adapter);
-        viewPager.fixScrollSpeed();
-        springIndicator.setViewPager(viewPager);
+
+        smartTabLayout.setViewPager(viewPager);
     }
 }
