@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Routing;
 
 namespace Rspective.FurryOctoNinja.Web
 {
@@ -10,16 +11,26 @@ namespace Rspective.FurryOctoNinja.Web
         public static void Register(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
-                name: "ActionApi",
-                routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                name: "ControllerActionGetApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional, action = "Get"  },
+                constraints: new { id = @"\d?", httpMethod = new HttpMethodConstraint(new string[] { "GET" }) }
             );
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
+                name: "ControllerActionPostApi",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                defaults: new { id = RouteParameter.Optional, action = "Post" },
+                constraints: new { id = @"\d?", httpMethod = new HttpMethodConstraint(new string[] { "POST" }) }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "ControllerActionApi",
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional },
+                constraints: new { id = @"\d?" }
+            );
+
         }
     }
 }
