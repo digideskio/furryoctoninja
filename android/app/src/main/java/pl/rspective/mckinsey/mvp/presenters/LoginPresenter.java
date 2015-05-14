@@ -3,6 +3,7 @@ package pl.rspective.mckinsey.mvp.presenters;
 import javax.inject.Inject;
 
 import pl.rspective.data.repository.LoginRepository;
+import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.mvp.views.ILoginView;
 import retrofit.client.Response;
 import rx.Subscription;
@@ -48,7 +49,7 @@ public class LoginPresenter implements ILoginPresenter {
                     @Override
                     public void call(Throwable throwable) {
                         view.enableLoginButton();
-                        view.showErrorMessage();
+                        view.showErrorMessage(R.string.error_no_internet_connection);
                     }
                 });
     }

@@ -2,12 +2,16 @@ package pl.rspective.mckinsey.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import com.hkm.ui.processbutton.iml.ActionProcessButton;
 import com.iangclifton.android.floatlabel.FloatLabel;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.enums.SnackbarType;
 
 import javax.inject.Inject;
 
@@ -106,10 +110,16 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     }
 
     @Override
-    public void showErrorMessage() {
-        Toast.makeText(this, "It's fucked but this time I will let you in", Toast.LENGTH_SHORT).show();
+    public void showErrorMessage(@StringRes int messageResId) {
+        SnackbarManager.show(
+                Snackbar.with(this)
+                        .color(Color.parseColor("#f44336"))
+                        .type(SnackbarType.SINGLE_LINE)
+                        .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
+                        .text(getString(messageResId)));
 
-        runMainActivity();//TODO We don't have login method for now etc.
+
+//        runMainActivity();//TODO We don't have login method for now etc.
     }
 
     @Override
