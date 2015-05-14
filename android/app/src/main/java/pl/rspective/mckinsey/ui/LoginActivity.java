@@ -1,8 +1,10 @@
 package pl.rspective.mckinsey.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.hkm.ui.processbutton.iml.ActionProcessButton;
 import com.iangclifton.android.floatlabel.FloatLabel;
@@ -52,6 +54,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
 
+        loginPresenter.onResume(this);
         btnLogin.setMode(ActionProcessButton.Mode.ENDLESS);
 
         loginChangeObservable = WidgetObservable.text(etLogin.getEditText());
@@ -100,5 +103,19 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     public void enableLoginButton() {
         btnLogin.setEnabled(true);
         btnLogin.setProgress(0);
+    }
+
+    @Override
+    public void showErrorMessage() {
+        Toast.makeText(this, "It's fucked but this time I will let you in", Toast.LENGTH_SHORT).show();
+
+        runMainActivity();//TODO We don't have login method for now etc.
+    }
+
+    @Override
+    public void runMainActivity() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

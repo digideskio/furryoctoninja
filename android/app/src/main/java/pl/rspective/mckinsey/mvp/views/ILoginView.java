@@ -6,4 +6,8 @@ public interface ILoginView extends BaseView {
 
     void enableLoginButton();
 
+    void showErrorMessage();
+
+    void runMainActivity();
+
 }
