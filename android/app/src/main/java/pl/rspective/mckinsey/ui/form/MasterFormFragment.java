@@ -1,5 +1,6 @@
 package pl.rspective.mckinsey.ui.form;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,23 +11,21 @@ import android.view.ViewGroup;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
-import java.util.ArrayList;
-
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import pl.rspective.data.entity.Survey;
-import pl.rspective.data.repository.SurveyRepository;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.dagger.Injector;
+import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
+import pl.rspective.mckinsey.mvp.views.IFormView;
 import pl.rspective.mckinsey.ui.form.adapter.FormQuestionPagerAdapter;
-import rx.functions.Action1;
 
-public class MasterFormFragment extends Fragment {
+public class MasterFormFragment extends Fragment implements IFormView {
 
     @Inject
-    SurveyRepository surveyRepository;
+    IFormPresenter formPresenter;
 
     @InjectView(R.id.viewpager)
     ViewPager viewPager;
@@ -44,6 +43,8 @@ public class MasterFormFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Injector.inject(this);
+
+        formPresenter.onResume(this);
     }
 
     @Nullable
@@ -57,46 +58,30 @@ public class MasterFormFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        formPresenter.loadSurvey();
 
         adapter = new FormQuestionPagerAdapter(getFragmentManager());
+    }
 
-        ArrayList<String> questions = new ArrayList<String>() {{
-            add("test 1");
-            add("test 1");
-            add("test 1");
-            add("test 1");
-            add("test 1");
-            add("test 1");
-            add("test 1");
-            add("test 1");
-            add("test 1");
-            add("test 1");
-            add("test 1");
-            add("test 1");
-            add("test 1");
-            add("test 1");
-            add("test 1");
-            add("test 1");
-            add("test 1");
-            add("test 1");
-        }};
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        formPresenter.onDestroy();
+    }
 
-        adapter.updateData(questions);
+    @Override
+    public void updateUi(Survey survey) {
+        if(survey == null || survey.getQuestions() == null) {
+            return;
+        }
 
+        adapter.updateData(survey.getQuestions());
         viewPager.setAdapter(adapter);
-
         smartTabLayout.setViewPager(viewPager);
+    }
 
-        surveyRepository.getLatestSurvey()
-                .subscribe(new Action1<Survey>() {
-                    @Override
-                    public void call(Survey survey) {
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-
-                    }
-                });
+    @Override
+    public Context getViewContext() {
+        return getActivity();
     }
 }
