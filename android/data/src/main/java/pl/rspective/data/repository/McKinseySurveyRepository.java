@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import javax.inject.Inject;
 
 import pl.rspective.data.entity.Survey;
+import pl.rspective.data.local.SurveyStorage;
 import pl.rspective.data.rest.McKinseySurveyApi;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -14,11 +15,13 @@ import rx.schedulers.Schedulers;
 
 public class McKinseySurveyRepository implements SurveyRepository {
 
+    private SurveyStorage<String> surveyStorage;
     private McKinseySurveyApi api;
     private Gson gson;
 
     @Inject
-    public McKinseySurveyRepository(McKinseySurveyApi api) {
+    public McKinseySurveyRepository(SurveyStorage<String> surveyStorage, McKinseySurveyApi api) {
+        this.surveyStorage = surveyStorage;
         this.api = api;
 
         this.gson = new GsonBuilder().create();
@@ -29,6 +32,20 @@ public class McKinseySurveyRepository implements SurveyRepository {
         return api.fetchSurvey()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .onErrorReturn(new Func1<Throwable, String>() {
+                    @Override
+                    public String call(Throwable throwable) {
+                        return surveyStorage.load();
+                    }
+                })
+                .map(new Func1<String, String>() {
+                    @Override
+                    public String call(String s) {
+                        surveyStorage.clearSurvey();
+                        surveyStorage.save(s);
+                        return s;
+                    }
+                })
                 .map(new Func1<String, Survey>() {
                     @Override
                     public Survey call(String jsonData) {

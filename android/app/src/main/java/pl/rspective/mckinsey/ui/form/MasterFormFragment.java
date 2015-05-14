@@ -91,7 +91,6 @@ public class MasterFormFragment extends Fragment {
                 .subscribe(new Action1<Survey>() {
                     @Override
                     public void call(Survey survey) {
-
                     }
                 }, new Action1<Throwable>() {
                     @Override
