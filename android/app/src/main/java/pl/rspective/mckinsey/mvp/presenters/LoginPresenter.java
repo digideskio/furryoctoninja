@@ -6,6 +6,7 @@ import pl.rspective.data.repository.LoginRepository;
 import pl.rspective.mckinsey.mvp.views.ILoginView;
 import retrofit.client.Response;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 public class LoginPresenter implements ILoginPresenter {
@@ -37,15 +38,17 @@ public class LoginPresenter implements ILoginPresenter {
     @Override
     public void login(String login, String password) {
         loginSubscription = loginRepository.userLogin(login, password)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Response>() {
                     @Override
                     public void call(Response response) {
-
+                        view.runMainActivity();
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
                         view.enableLoginButton();
+                        view.showErrorMessage();
                     }
                 });
     }

@@ -51,7 +51,7 @@ public final class RestModule {
     @Provides
     @Singleton
     Endpoint provideEndpoint() {
-        return Endpoints.newFixedEndpoint("");
+        return Endpoints.newFixedEndpoint("http://furryoctoninja.apphb.com");
     }
 
     @Provides
