@@ -9,7 +9,7 @@ import rx.Observable;
 public interface McKinseyLoginApi {
 
     @FormUrlEncoded
-    @POST("/login")
+    @POST("/api/user/login")
     Observable<Response> login(@Field("login") String login, @Field("passsword") String password);
 
 }
