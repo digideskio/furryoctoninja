@@ -12,12 +12,21 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import pl.rspective.data.entity.Survey;
+import pl.rspective.data.repository.SurveyRepository;
 import pl.rspective.mckinsey.R;
+import pl.rspective.mckinsey.dagger.Injector;
 import pl.rspective.mckinsey.ui.form.adapter.FormQuestionPagerAdapter;
+import rx.functions.Action1;
 
 public class MasterFormFragment extends Fragment {
+
+    @Inject
+    SurveyRepository surveyRepository;
 
     @InjectView(R.id.viewpager)
     ViewPager viewPager;
@@ -29,6 +38,12 @@ public class MasterFormFragment extends Fragment {
 
     public static MasterFormFragment newInstance() {
         return new MasterFormFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Injector.inject(this);
     }
 
     @Nullable
@@ -71,5 +86,18 @@ public class MasterFormFragment extends Fragment {
         viewPager.setAdapter(adapter);
 
         smartTabLayout.setViewPager(viewPager);
+
+        surveyRepository.getLatestSurvey()
+                .subscribe(new Action1<Survey>() {
+                    @Override
+                    public void call(Survey survey) {
+
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                });
     }
 }

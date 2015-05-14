@@ -4,7 +4,7 @@ import retrofit.http.GET;
 import retrofit.http.POST;
 import rx.Observable;
 
-public interface McKinseyGeneralApi {
+public interface McKinseySurveyApi {
 
     @GET("/api/survey")
     Observable<String> fetchSurvey();

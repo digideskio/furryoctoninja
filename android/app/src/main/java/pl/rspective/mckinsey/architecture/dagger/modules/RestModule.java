@@ -15,7 +15,9 @@ import dagger.Module;
 import dagger.Provides;
 import pl.rspective.data.repository.LoginRepository;
 import pl.rspective.data.repository.McKinseyLoginRepository;
-import pl.rspective.data.rest.McKinseyGeneralApi;
+import pl.rspective.data.repository.McKinseySurveyRepository;
+import pl.rspective.data.repository.SurveyRepository;
+import pl.rspective.data.rest.McKinseySurveyApi;
 import pl.rspective.data.rest.McKinseyLoginApi;
 import pl.rspective.data.rest.NetworkAction;
 import pl.rspective.data.rest.converter.RestDataConverter;
@@ -120,8 +122,8 @@ public final class RestModule {
 
     @Provides
     @Singleton
-    McKinseyGeneralApi provideGeneralApi(@Named("general") RestAdapter restAdapter) {
-        return restAdapter.create(McKinseyGeneralApi.class);
+    McKinseySurveyApi provideGeneralApi(@Named("general") RestAdapter restAdapter) {
+        return restAdapter.create(McKinseySurveyApi.class);
     }
 
     @Provides
@@ -134,6 +136,12 @@ public final class RestModule {
     @Singleton
     LoginRepository provideLoginRepository(McKinseyLoginApi api) {
         return new McKinseyLoginRepository(api);
+    }
+
+    @Provides
+    @Singleton
+    SurveyRepository provideSurveyRepository(McKinseySurveyApi api) {
+        return new McKinseySurveyRepository(api);
     }
 
 }
