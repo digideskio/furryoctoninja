@@ -11,7 +11,7 @@
         android:name=".McKinseyApp"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".ui.ResultsActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
