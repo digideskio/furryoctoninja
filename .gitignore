@@ -205,3 +205,9 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+
+*.iml
+*/.idea/
+*/.gradle/
+android/local.properties
