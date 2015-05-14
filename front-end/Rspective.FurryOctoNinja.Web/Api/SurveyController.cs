@@ -16,7 +16,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
         [HttpGet, ActionName("users")]
         public HttpResponseMessage Users()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, "Users()");
+            return Request.CreateResponse(HttpStatusCode.OK, SurveyProgressMock.Mock);
         }
 
         [HttpGet, ActionName("results")]

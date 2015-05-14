@@ -7,7 +7,6 @@ using System.Web;
 
 namespace Rspective.FurryOctoNinja.Web.Helpers
 {
-    [CLSCompliant(false)]
     public class UnixDateTimeConverter : DateTimeConverterBase
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
