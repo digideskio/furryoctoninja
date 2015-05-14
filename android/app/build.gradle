@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def versionMajor = 1
+def versionMinor = 0
+def versionPatch = 0
+
 android {
     compileSdkVersion 21
     buildToolsVersion "22.0.1"
@@ -8,8 +12,17 @@ android {
         applicationId "pl.rspective.mckinsey"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+
+        versionCode versionMajor
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def oldFile = output.outputFile
+                def newPath = oldFile.name.replace(".apk", "${variant.versionName}.apk")
+                output.outputFile = new File(oldFile.parentFile, newPath)
+            }
+        }
 
         multiDexEnabled true
     }
