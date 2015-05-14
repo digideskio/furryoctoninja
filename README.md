@@ -26,4 +26,7 @@ Deployment: https://support.appharbor.com/kb/getting-started/deploying-your-firs
 
 /api/survey/results - GET
 
+/api/users/login - POST
+
+
 /api/survey/users - GET

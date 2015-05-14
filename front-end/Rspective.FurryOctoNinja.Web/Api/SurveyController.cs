@@ -26,7 +26,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
         }
 
         [HttpPost, ActionName("post")]
-        public HttpResponseMessage Post()
+        public HttpResponseMessage Save()
         {
             return Request.CreateResponse(HttpStatusCode.OK, "Save()");
         }
