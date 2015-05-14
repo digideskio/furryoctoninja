@@ -16,13 +16,9 @@ Deployment: https://support.appharbor.com/kb/getting-started/deploying-your-firs
 
 ## API
 
-/api/survey - GET
+/api/survey - GET (same as: /api/survey/get)
 
-/api/survey - POST
-
-/api/survey/get - GET
-
-/api/survey/post - POST
+/api/survey - POST (same as: /api/survey/post)
 
 /api/survey/results - GET
 
