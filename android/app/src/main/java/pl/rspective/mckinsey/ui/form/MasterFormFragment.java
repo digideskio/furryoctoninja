@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ToxicBakery.viewpager.transforms.ZoomOutSlideTransformer;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import javax.inject.Inject;
@@ -61,6 +62,7 @@ public class MasterFormFragment extends Fragment implements IFormView {
         formPresenter.loadSurvey();
 
         adapter = new FormQuestionPagerAdapter(getFragmentManager());
+        viewPager.setPageTransformer(true, new ZoomOutSlideTransformer());
     }
 
     @Override
