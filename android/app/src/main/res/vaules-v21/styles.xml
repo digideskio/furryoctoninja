@@ -17,7 +17,7 @@
         <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
 
-    <style name="CardQuestionViewStyle" parent="android:Widget.TextView">
+    <style name="CardAnswerViewStyle" parent="android:Widget.TextView">
         <item name="android:foreground">@drawable/card_settings_selector</item>
     </style>
 

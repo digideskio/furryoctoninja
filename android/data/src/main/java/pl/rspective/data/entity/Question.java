@@ -2,9 +2,10 @@ package pl.rspective.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Question {
+public class Question implements Serializable {
 
     @SerializedName("Id")
     private long id;
