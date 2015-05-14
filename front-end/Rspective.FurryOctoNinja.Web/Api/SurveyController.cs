@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using Rspective.FurryOctoNinja.Web.Models;
 using System.Net;
 using System.Net.Http;
+using System.Web.Http;
 
 namespace Rspective.FurryOctoNinja.Web.Api
 {
     public class SurveyController : System.Web.Http.ApiController
     {
-        [HttpGet]
+        [HttpGet] 
         public HttpResponseMessage Get()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, "Get()");
+            return Request.CreateResponse(HttpStatusCode.OK, SurveyMock.Mock);
         }
 
         [HttpGet]
