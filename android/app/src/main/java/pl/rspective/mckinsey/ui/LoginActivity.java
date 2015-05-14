@@ -1,5 +1,6 @@
 package pl.rspective.mckinsey.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -11,10 +12,10 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import pl.rspective.data.repository.LoginRepository;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.dagger.Injector;
-import retrofit.client.Response;
+import pl.rspective.mckinsey.mvp.presenters.ILoginPresenter;
+import pl.rspective.mckinsey.mvp.views.ILoginView;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.widget.OnTextChangeEvent;
@@ -25,10 +26,10 @@ import rx.functions.Func2;
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     @Inject
-    LoginRepository loginRepository;
+    ILoginPresenter loginPresenter;
 
     @InjectView(R.id.btn_login)
     ActionProcessButton btnLogin;
@@ -43,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
     private Observable<OnTextChangeEvent> passwordChangeObservable;
 
     private Subscription validationSubscription;
-    private Subscription loginSubscription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,31 +80,25 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setEnabled(false);
         btnLogin.setProgress(1);
 
-        loginSubscription = loginRepository.userLogin(etLogin.getEditText().getText().toString(), etPassword.getEditText().getText().toString())
-                .subscribe(new Action1<Response>() {
-                    @Override
-                    public void call(Response response) {
-
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        btnLogin.setEnabled(true);
-                        btnLogin.setProgress(0);
-                    }
-                });
+        loginPresenter.login(etLogin.getEditText().getText().toString(), etPassword.getEditText().getText().toString());
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        if(loginSubscription != null) {
-            loginSubscription.unsubscribe();
-        }
-
         if(validationSubscription != null) {
             validationSubscription.unsubscribe();
         }
+    }
+
+    @Override
+    public Context getViewContext() {
+        return this;
+    }
+
+    @Override
+    public void enableLoginButton() {
+        btnLogin.setEnabled(true);
+        btnLogin.setProgress(0);
     }
 }
