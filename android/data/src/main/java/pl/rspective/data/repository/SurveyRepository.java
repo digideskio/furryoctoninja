@@ -1,6 +1,9 @@
 package pl.rspective.data.repository;
 
+import java.util.List;
+
 import pl.rspective.data.entity.Survey;
+import pl.rspective.data.entity.User;
 import rx.Observable;
 
 public interface SurveyRepository {
@@ -11,6 +14,6 @@ public interface SurveyRepository {
 
 //    Observable<String> fetchSurveyResults();
 
-//    Observable<String> fetchSurveyUsers();
+    Observable<List<User>> fetchSurveyUsers();
 
 }

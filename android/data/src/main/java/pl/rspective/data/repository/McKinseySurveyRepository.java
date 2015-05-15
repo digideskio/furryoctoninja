@@ -1,11 +1,15 @@
 package pl.rspective.data.repository;
 
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import pl.rspective.data.entity.Survey;
+import pl.rspective.data.entity.User;
 import pl.rspective.data.local.SurveyStorage;
 import pl.rspective.data.rest.McKinseySurveyApi;
 import rx.Observable;
@@ -50,6 +54,25 @@ public class McKinseySurveyRepository implements SurveyRepository {
                     @Override
                     public Survey call(String jsonData) {
                         return gson.fromJson(jsonData, Survey.class);
+                    }
+                });
+    }
+
+    @Override
+    public Observable<List<User>> fetchSurveyUsers() {
+        return api.fetchSurveyUsers()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .onErrorReturn(new Func1<Throwable, String>() {
+                    @Override
+                    public String call(Throwable throwable) {
+                        return null; //TODO load user list from cache
+                    }
+                })
+                .map(new Func1<String, List<User>>() {
+                    @Override
+                    public List<User> call(String jsonData) {
+                        return gson.fromJson(jsonData, new TypeToken<List<User>>(){}.getType());
                     }
                 });
     }
