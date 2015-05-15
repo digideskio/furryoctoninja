@@ -6,8 +6,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,42 +21,23 @@ import com.yalantis.contextmenu.lib.interfaces.OnMenuItemLongClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.ui.form.MasterFormFragment;
 
-public class MainActivity extends AppCompatActivity  implements OnMenuItemClickListener, OnMenuItemLongClickListener {
-
-    @InjectView(R.id.toolbar)
-    Toolbar toolbar;
-
+public class MainActivity extends AbsActivity implements OnMenuItemClickListener, OnMenuItemLongClickListener {
     private DialogFragment menuDialogFragment;
+
+    @Override
+    protected int getActivityLayoutId() {
+        return R.layout.activity_main;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        ButterKnife.inject(this);
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fl_main_fragment_container, MasterFormFragment.newInstance())
-                .commit();
-
-        initToolbar();
+        addFragment(MasterFormFragment.newInstance(), false, R.id.fl_main_fragment_container);
         initMenuFragment();
-    }
-
-    private void initToolbar() {
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
     }
 
     private void initMenuFragment() {
