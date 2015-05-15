@@ -30,7 +30,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
         [HttpGet, ActionName("results")]
         public HttpResponseMessage Results()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, "Results()");
+            return Request.CreateResponse(HttpStatusCode.OK, SurveyResultsMock.Mock);
         }
 
         [HttpPost, ActionName("post")]
