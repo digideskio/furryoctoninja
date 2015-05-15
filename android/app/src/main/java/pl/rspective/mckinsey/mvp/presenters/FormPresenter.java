@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 
 import javax.inject.Inject;
 
+import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.Survey;
 import pl.rspective.data.local.LocalPreferences;
 import pl.rspective.data.local.SurveyLocalStorage;
@@ -36,15 +37,18 @@ public class FormPresenter implements IFormPresenter {
     }
 
     @Override
-    public void updateSurvey(Survey survey) {
+    public void updateSurvey(int number, Question question) {
+        survey.getQuestions().set(number, question);
+
         String surveyJson = gson.toJson(survey);
         localStorage.clear(StorageType.SURVEY);
         localStorage.save(StorageType.SURVEY, surveyJson);
+
+        formView.updateUi(survey);
     }
 
     @Override
     public void loadSurvey() {
-
         subscription = surveyRepository.fetchSurvey(!localPreferences.isUserFirstLogin())
                 .subscribe(new Action1<Survey>() {
                     @Override
@@ -65,7 +69,6 @@ public class FormPresenter implements IFormPresenter {
     @Override
     public void onResume(IFormView view) {
         this.formView = view;
-
     }
 
     @Override

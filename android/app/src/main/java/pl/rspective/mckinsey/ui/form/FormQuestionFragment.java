@@ -12,13 +12,19 @@ import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import pl.rspective.data.entity.Answer;
 import pl.rspective.data.entity.Question;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.ui.form.adapter.AnswerAdapter;
 
-public class FormQuestionFragment extends Fragment {
+public class FormQuestionFragment extends Fragment implements AnswerAdapter.AnswerListener {
+
+    public static interface QuestionListener {
+        void onQuestionUpdate(int number, Question question);
+    }
 
     private static final String QUESTION_EXTRA = "question_extra";
+    private static final String QUESTION_NUMBER_EXTRA = "question_number_extra";
 
     @InjectView(R.id.tv_form_question_title)
     TextView tvFormQuestionTitle;
@@ -26,12 +32,16 @@ public class FormQuestionFragment extends Fragment {
     @InjectView(R.id.list_survey_answers)
     RecyclerView recyclerViewAnswers;
 
+    private int questionNumber;
     private Question question;
     private AnswerAdapter adapter;
 
-    public static FormQuestionFragment newInstance(Question question) {
+    private QuestionListener questionListener;
+
+    public static FormQuestionFragment newInstance(int number, Question question) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(QUESTION_EXTRA, question);
+        bundle.putInt(QUESTION_NUMBER_EXTRA, number);
 
         FormQuestionFragment fragment = new FormQuestionFragment();
         fragment.setArguments(bundle);
@@ -43,7 +53,9 @@ public class FormQuestionFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         question = (Question) getArguments().getSerializable(QUESTION_EXTRA);
-        adapter = new AnswerAdapter();
+        questionNumber = getArguments().getInt(QUESTION_NUMBER_EXTRA);
+
+        adapter = new AnswerAdapter(this);
     }
 
     @Nullable
@@ -66,4 +78,24 @@ public class FormQuestionFragment extends Fragment {
         recyclerViewAnswers.setLayoutManager(llm);
         recyclerViewAnswers.setAdapter(adapter);
     }
+
+    @Override
+    public void onAnswerClick(int position, Answer answer) {
+        question.setUserAnswerId(answer.getId());
+
+        for(Answer a : question.getAnswers()) {
+            if(a.getId() == answer.getId()) {
+                a.setSelected(true);
+            } else {
+                a.setSelected(false);
+            }
+        }
+
+        questionListener.onQuestionUpdate(questionNumber, question);
+    }
+
+    public void setQuestionListener(QuestionListener questionListener) {
+        this.questionListener = questionListener;
+    }
+
 }

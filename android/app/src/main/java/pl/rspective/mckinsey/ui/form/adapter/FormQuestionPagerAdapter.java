@@ -14,10 +14,12 @@ import pl.rspective.mckinsey.ui.utils.SmartFragmentStatePagerAdapter;
 public class FormQuestionPagerAdapter extends SmartFragmentStatePagerAdapter implements AdapterListener<Question> {
 
     private List<Question> questions;
+    private FormQuestionFragment.QuestionListener questionListener;
 
-    public FormQuestionPagerAdapter(FragmentManager fragmentManager) {
+    public FormQuestionPagerAdapter(FragmentManager fragmentManager, FormQuestionFragment.QuestionListener questionListener) {
         super(fragmentManager);
-        questions = new ArrayList<>();
+        this.questionListener = questionListener;
+        this.questions = new ArrayList<>();
     }
 
     @Override
@@ -29,9 +31,7 @@ public class FormQuestionPagerAdapter extends SmartFragmentStatePagerAdapter imp
     }
 
     @Override
-    public void onItemClick(int position) {
-
-    }
+    public void onItemClick(int position) {}
 
     @Override
     public int getCount() {
@@ -40,7 +40,9 @@ public class FormQuestionPagerAdapter extends SmartFragmentStatePagerAdapter imp
 
     @Override
     public Fragment getItem(int position) {
-        return FormQuestionFragment.newInstance(questions.get(position));
+        FormQuestionFragment fragment = FormQuestionFragment.newInstance(position, questions.get(position));
+        fragment.setQuestionListener(questionListener);
+        return fragment;
     }
 
     @Override

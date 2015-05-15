@@ -17,10 +17,16 @@ import pl.rspective.mckinsey.ui.common.AdapterListener;
 
 public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerViewHolder> implements AdapterListener<Answer> {
 
-    private List<Answer> answers;
+    public static interface AnswerListener {
+        void onAnswerClick(int position, Answer answer);
+    }
 
-    public AnswerAdapter() {
-        answers = new ArrayList<>();
+    private List<Answer> answers;
+    private AnswerListener answerListener;
+
+    public AnswerAdapter(AnswerListener answerListener) {
+        this.answers = new ArrayList<>();
+        this.answerListener = answerListener;
     }
 
     @Override
@@ -32,7 +38,12 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerView
     @Override
     public void onBindViewHolder(AnswerViewHolder holder, int position) {
         Answer answer = answers.get(position);
-        holder.tvAnswer.setText(answer.getText());
+
+        if(answer.isSelected()) {
+            holder.tvAnswer.setText("ZAZNACZONA");
+        } else {
+            holder.tvAnswer.setText(answer.getText());
+        }
     }
 
     @Override
@@ -50,7 +61,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerView
 
     @Override
     public void onItemClick(int position) {
-
+        answerListener.onAnswerClick(position, answers.get(position));
     }
 
     public static class AnswerViewHolder extends RecyclerView.ViewHolder {

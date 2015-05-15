@@ -17,12 +17,12 @@ public class McKinseyLocalPreferences implements LocalPreferences {
 
     @Override
     public void setFirstUserLogin() {
-        preferences.edit().putBoolean(FIRST_USER_SUCCESS_LOGIN_KEY, false);
+        preferences.edit().putBoolean(FIRST_USER_SUCCESS_LOGIN_KEY, false).commit();
     }
 
     @Override
     public boolean isUserFirstLogin() {
         return preferences.getBoolean(FIRST_USER_SUCCESS_LOGIN_KEY, true);
     }
-    
+
 }

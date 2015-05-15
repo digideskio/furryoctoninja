@@ -12,6 +12,16 @@ public class Answer implements Serializable {
     @SerializedName("Text")
     private String text;
 
+    private boolean selected;
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
     public long getId() {
         return id;
     }

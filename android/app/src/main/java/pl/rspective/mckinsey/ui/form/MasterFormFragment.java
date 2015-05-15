@@ -16,6 +16,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.Survey;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.dagger.Injector;
@@ -23,7 +24,7 @@ import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
 import pl.rspective.mckinsey.mvp.views.IFormView;
 import pl.rspective.mckinsey.ui.form.adapter.FormQuestionPagerAdapter;
 
-public class MasterFormFragment extends Fragment implements IFormView {
+public class MasterFormFragment extends Fragment implements IFormView, FormQuestionFragment.QuestionListener {
 
     @Inject
     IFormPresenter formPresenter;
@@ -59,10 +60,11 @@ public class MasterFormFragment extends Fragment implements IFormView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        formPresenter.loadSurvey();
 
-        adapter = new FormQuestionPagerAdapter(getFragmentManager());
+        adapter = new FormQuestionPagerAdapter(getFragmentManager(), this);
         viewPager.setPageTransformer(true, new ZoomOutSlideTransformer());
+
+        formPresenter.loadSurvey();
     }
 
     @Override
@@ -85,5 +87,10 @@ public class MasterFormFragment extends Fragment implements IFormView {
     @Override
     public Context getViewContext() {
         return getActivity();
+    }
+
+    @Override
+    public void onQuestionUpdate(int number, Question question) {
+        formPresenter.updateSurvey(number, question);
     }
 }
