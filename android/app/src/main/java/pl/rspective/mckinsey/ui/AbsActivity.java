@@ -51,7 +51,7 @@ public abstract class AbsActivity extends AppCompatActivity {
         boolean fragmentPopped = getSupportFragmentManager().popBackStackImmediate(backStackName, 0);
         if (!fragmentPopped) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(containerId, fragment, backStackName).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            transaction.replace(containerId, fragment, backStackName).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 
             if (addToBackStack) {
                 transaction.addToBackStack(backStackName);

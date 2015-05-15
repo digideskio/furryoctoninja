@@ -23,6 +23,8 @@ import java.util.List;
 
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.ui.form.MasterFormFragment;
+import pl.rspective.mckinsey.ui.results.ResultFragment;
+import pl.rspective.mckinsey.ui.users.UserFragment;
 
 public class MainActivity extends AbsActivity implements OnMenuItemClickListener, OnMenuItemLongClickListener {
     private DialogFragment menuDialogFragment;
@@ -36,7 +38,7 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addFragment(MasterFormFragment.newInstance(), false, R.id.fl_main_fragment_container);
+        addFragment(MasterFormFragment.newInstance(), true, R.id.fl_main_fragment_container);
         initMenuFragment();
     }
 
@@ -107,7 +109,23 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
 
     @Override
     public void onMenuItemClick(View clickedView, int position) {
-        Toast.makeText(this, "Clicked on position: " + position, Toast.LENGTH_SHORT).show();
+        switch (position) {
+            case 0:
+                break;
+            case 1:
+                addFragment(MasterFormFragment.newInstance(), false, R.id.fl_main_fragment_container);
+                break;
+            case 2:
+                break;
+            case 3:
+                addFragment(ResultFragment.newInstance(), false, R.id.fl_main_fragment_container);
+                break;
+            case 4:
+                addFragment(UserFragment.newInstance(), false, R.id.fl_main_fragment_container);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
