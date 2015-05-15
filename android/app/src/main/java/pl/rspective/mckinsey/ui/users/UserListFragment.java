@@ -9,16 +9,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import pl.rspective.data.entity.User;
 import pl.rspective.mckinsey.R;
+import pl.rspective.mckinsey.ui.users.adapter.UserAdapter;
+import rx.Observable;
+import rx.functions.Func1;
 
-public class UserListFragment extends Fragment {
+public class UserListFragment extends Fragment implements MasterUserFragment.UserUpdateListListener {
 
     private static final String HAS_USERS_FILLEDOUT_THE_FORM_EXTRA = "has_users_filledout_form_extra";
 
     @InjectView(R.id.list_survey_users)
     RecyclerView listSurveyUsers;
+
+    private UserAdapter userAdapter;
+    private boolean hasFilleddout;
 
     public static UserListFragment newInstance(boolean hasFilledoutTheForm) {
         Bundle bundle = new Bundle();
@@ -28,6 +37,12 @@ public class UserListFragment extends Fragment {
         fragment.setArguments(bundle);
 
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        hasFilleddout = getArguments().getBoolean(HAS_USERS_FILLEDOUT_THE_FORM_EXTRA, false);
     }
 
     @Nullable
@@ -42,8 +57,24 @@ public class UserListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        userAdapter = new UserAdapter();
+
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         listSurveyUsers.setLayoutManager(llm);
+
+        listSurveyUsers.setAdapter(userAdapter);
+    }
+
+    @Override
+    public void onUserListReceived(List<User> users) {
+        userAdapter.updateData(Observable.from(users)
+                .filter(new Func1<User, Boolean>() {
+                    @Override
+                    public Boolean call(User user) {
+                        return user.isCompleted() == hasFilleddout;
+                    }
+                }).toList().toBlocking().single()
+        );
     }
 }

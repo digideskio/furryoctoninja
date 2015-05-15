@@ -9,12 +9,15 @@ import pl.rspective.data.repository.SurveyRepository;
 import pl.rspective.mckinsey.mvp.presenters.FormPresenter;
 import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
 import pl.rspective.mckinsey.mvp.presenters.ILoginPresenter;
+import pl.rspective.mckinsey.mvp.presenters.IUserPresenter;
 import pl.rspective.mckinsey.mvp.presenters.LoginPresenter;
+import pl.rspective.mckinsey.mvp.presenters.UserPresenter;
 
 @Module(
         injects = {
                 LoginPresenter.class,
-                FormPresenter.class
+                FormPresenter.class,
+                UserPresenter.class
         },
         includes = {
         },
@@ -33,5 +36,11 @@ public class PresenterModule {
     @Singleton
     public IFormPresenter provideFormPresenter(SurveyRepository surveyRepository) {
         return new FormPresenter(surveyRepository);
+    }
+
+    @Provides
+    @Singleton
+    public IUserPresenter provideUserPresenter(SurveyRepository surveyRepository) {
+        return new UserPresenter(surveyRepository);
     }
 }

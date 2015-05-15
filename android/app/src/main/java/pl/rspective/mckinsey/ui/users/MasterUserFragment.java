@@ -1,5 +1,6 @@
 package pl.rspective.mckinsey.ui.users;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,12 +11,29 @@ import android.view.ViewGroup;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import pl.rspective.data.entity.User;
 import pl.rspective.mckinsey.R;
+import pl.rspective.mckinsey.dagger.Injector;
+import pl.rspective.mckinsey.mvp.presenters.IUserPresenter;
+import pl.rspective.mckinsey.mvp.views.IUserView;
 import pl.rspective.mckinsey.ui.users.adapter.UsersFormPagerAdapter;
 
-public class MasterUserFragment extends Fragment {
+public class MasterUserFragment extends Fragment implements IUserView {
+
+    public static interface UserUpdateListListener {
+
+        void onUserListReceived(List<User> users);
+
+    }
+
+    @Inject
+    IUserPresenter presenter;
 
     @InjectView(R.id.view_pager_users)
     ViewPager viewPager;
@@ -27,6 +45,14 @@ public class MasterUserFragment extends Fragment {
 
     public static MasterUserFragment newInstance() {
         return new MasterUserFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Injector.inject(this);
+
+        presenter.onResume(this);
     }
 
     @Nullable
@@ -44,5 +70,19 @@ public class MasterUserFragment extends Fragment {
         adapter = new UsersFormPagerAdapter(getFragmentManager());
         viewPager.setAdapter(adapter);
         smartTabLayout.setViewPager(viewPager);
+
+        presenter.refreshUserList();
     }
+
+    @Override
+    public void updateUserList(List<User> users) {
+        ((UserUpdateListListener)adapter.getRegisteredFragment(0)).onUserListReceived(users);
+        ((UserUpdateListListener)adapter.getRegisteredFragment(1)).onUserListReceived(users);
+    }
+
+    @Override
+    public Context getViewContext() {
+        return getActivity();
+    }
+
 }

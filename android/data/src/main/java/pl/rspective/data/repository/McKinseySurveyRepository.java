@@ -1,8 +1,8 @@
 package pl.rspective.data.repository;
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -75,8 +75,19 @@ public class McKinseySurveyRepository implements SurveyRepository {
                     public List<User> call(String jsonData) {
                         surveyStorage.clear(StorageType.USERS);
                         surveyStorage.save(StorageType.USERS, jsonData);
-                        return gson.fromJson(jsonData, new TypeToken<List<User>>(){}.getType());
+                        return gson.fromJson(jsonData, UserListResponse.class).getUsers();
+//                        return gson.fromJson(jsonData, new TypeToken<List<pl.rspective.data.entity.User>>(){}.getType());
                     }
                 });
+    }
+
+    private class UserListResponse { //TODO remove Items from model
+
+        @SerializedName("Items")
+        private List<User> users;
+
+        public List<User> getUsers() {
+            return users;
+        }
     }
 }
