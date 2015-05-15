@@ -6,8 +6,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import pl.rspective.data.local.McKinseySurveyStorage;
-import pl.rspective.data.local.SurveyStorage;
+import pl.rspective.data.local.McKinseyStorageSurvey;
+import pl.rspective.data.local.SurveyLocalStorage;
 
 @Module(
         injects = {
@@ -22,8 +22,8 @@ public final class DataModule {
 
     @Provides
     @Singleton
-    SurveyStorage<String> provideSurveyStorage(SharedPreferences preferences) {
-        return new McKinseySurveyStorage(preferences);
+    SurveyLocalStorage<String> provideSurveyStorage(SharedPreferences preferences) {
+        return new McKinseyStorageSurvey(preferences);
     }
 
 }

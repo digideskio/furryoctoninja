@@ -13,7 +13,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import pl.rspective.data.local.SurveyStorage;
+import pl.rspective.data.local.SurveyLocalStorage;
 import pl.rspective.data.repository.LoginRepository;
 import pl.rspective.data.repository.McKinseyLoginRepository;
 import pl.rspective.data.repository.McKinseySurveyRepository;
@@ -141,7 +141,7 @@ public final class RestModule {
 
     @Provides
     @Singleton
-    SurveyRepository provideSurveyRepository(SurveyStorage<String> surveyStorage, McKinseySurveyApi api) {
+    SurveyRepository provideSurveyRepository(SurveyLocalStorage<String> surveyStorage, McKinseySurveyApi api) {
         return new McKinseySurveyRepository(surveyStorage, api);
     }
 

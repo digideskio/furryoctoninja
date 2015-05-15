@@ -10,7 +10,8 @@ import javax.inject.Inject;
 
 import pl.rspective.data.entity.Survey;
 import pl.rspective.data.entity.User;
-import pl.rspective.data.local.SurveyStorage;
+import pl.rspective.data.local.SurveyLocalStorage;
+import pl.rspective.data.local.model.StorageType;
 import pl.rspective.data.rest.McKinseySurveyApi;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -19,12 +20,12 @@ import rx.schedulers.Schedulers;
 
 public class McKinseySurveyRepository implements SurveyRepository {
 
-    private SurveyStorage<String> surveyStorage;
+    private SurveyLocalStorage<String> surveyStorage;
     private McKinseySurveyApi api;
     private Gson gson;
 
     @Inject
-    public McKinseySurveyRepository(SurveyStorage<String> surveyStorage, McKinseySurveyApi api) {
+    public McKinseySurveyRepository(SurveyLocalStorage<String> surveyStorage, McKinseySurveyApi api) {
         this.surveyStorage = surveyStorage;
         this.api = api;
 
@@ -39,14 +40,14 @@ public class McKinseySurveyRepository implements SurveyRepository {
                 .onErrorReturn(new Func1<Throwable, String>() {
                     @Override
                     public String call(Throwable throwable) {
-                        return surveyStorage.load();
+                        return surveyStorage.load(StorageType.SURVEY);
                     }
                 })
                 .map(new Func1<String, String>() {
                     @Override
                     public String call(String s) {
-                        surveyStorage.clearSurvey();
-                        surveyStorage.save(s);
+                        surveyStorage.clear(StorageType.SURVEY);
+                        surveyStorage.save(StorageType.SURVEY, s);
                         return s;
                     }
                 })
