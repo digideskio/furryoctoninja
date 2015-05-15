@@ -1,5 +1,9 @@
-﻿using Rspective.FurryOctoNinja.DataAccess;
+﻿using log4net;
+using log4net.Config;
+using Rspective.FurryOctoNinja.DataAccess;
 using Rspective.FurryOctoNinja.Web.Helpers;
+using System;
+using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -22,6 +26,32 @@ namespace Rspective.FurryOctoNinja.Web
 
             var container = UnityConfig.RegisterTypes();
             GlobalConfiguration.Configuration.DependencyResolver = new UnityResolver(container);
+
+            XmlConfigurator.Configure();
+        }
+
+        void Application_Error(object sender, EventArgs e)
+        {
+            // Code that runs when an unhandled error occurs
+
+            // Get the exception object.
+            Exception exc = Server.GetLastError();
+
+            // Handle HTTP errors
+            if (exc.GetType() == typeof(HttpException))
+            {
+                // The Complete Error Handling Example generates
+                // some errors using URLs with "NoCatch" in them;
+                // ignore these here to simulate what would happen
+                // if a global.asax handler were not implemented.
+                if (exc.Message.Contains("NoCatch") || exc.Message.Contains("maxUrlLength"))
+                    return;
+            }
+
+            LogManager.GetLogger("LeAppender").Error("[ERROR] Unexpected", exc);
+
+            // Clear the error from the server
+            Server.ClearError();
         }
     }
 }
