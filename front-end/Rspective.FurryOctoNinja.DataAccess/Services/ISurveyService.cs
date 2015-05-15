@@ -1,6 +1,9 @@
-﻿namespace Rspective.FurryOctoNinja.DataAccess.Services
+﻿using Rspective.FurryOctoNinja.DataAccess.DbModel;
+
+namespace Rspective.FurryOctoNinja.DataAccess.Services
 {
-    public interface ISurveyService
+    interface ISurveyService
     {
+        Survey GetSurvey();
     }
 }
