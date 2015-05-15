@@ -1,1 +1,1 @@
-include ':app', ':libraries:hkm-progress-button', ':common', ':data'
+include ':app', ':libraries:hkm-progress-button', ':common', ':data', ':domain'
