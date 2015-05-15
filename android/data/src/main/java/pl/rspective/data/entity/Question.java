@@ -13,8 +13,18 @@ public class Question implements Serializable {
     @SerializedName("Text")
     private String text;
 
+    private long userAnswerId;
+
     @SerializedName("Answers")
     private List<Answer> answers;
+
+    public long getUserAnswerId() {
+        return userAnswerId;
+    }
+
+    public void setUserAnswerId(long userAnswerId) {
+        this.userAnswerId = userAnswerId;
+    }
 
     public long getId() {
         return id;

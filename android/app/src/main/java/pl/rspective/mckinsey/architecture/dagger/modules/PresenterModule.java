@@ -4,6 +4,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import pl.rspective.data.local.LocalPreferences;
+import pl.rspective.data.local.SurveyLocalStorage;
 import pl.rspective.data.repository.LoginRepository;
 import pl.rspective.data.repository.SurveyRepository;
 import pl.rspective.mckinsey.mvp.presenters.FormPresenter;
@@ -34,8 +36,8 @@ public class PresenterModule {
 
     @Provides
     @Singleton
-    public IFormPresenter provideFormPresenter(SurveyRepository surveyRepository) {
-        return new FormPresenter(surveyRepository);
+    public IFormPresenter provideFormPresenter(SurveyRepository surveyRepository, SurveyLocalStorage<String> localStorage, LocalPreferences localPreferences) {
+        return new FormPresenter(surveyRepository, localStorage, localPreferences);
     }
 
     @Provides

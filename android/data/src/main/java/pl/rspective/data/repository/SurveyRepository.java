@@ -8,7 +8,7 @@ import rx.Observable;
 
 public interface SurveyRepository {
 
-    Observable<Survey> getLatestSurvey();
+    Observable<Survey> fetchSurvey(boolean useCache);
 
 //    Observable<String> submitSurvey();
 
