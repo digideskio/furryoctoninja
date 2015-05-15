@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace Rspective.FurryOctoNinja.DataAccess.Repositories
 {
-    public interface IRepository<T> : IDisposable where T : class
+    interface IRepository<T> : IDisposable where T : class
     {
         /// <summary>
         /// Gets all objects from database

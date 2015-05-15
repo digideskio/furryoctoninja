@@ -1,5 +1,5 @@
-﻿using Rspective.FurryOctoNinja.DataAccess.DbModel;
-using System;
+﻿using Rspective.FurryOctoNinja.DataAccess.Context;
+using Rspective.FurryOctoNinja.DataAccess.DbModel;
 using System.Data.Entity;
 
 namespace Rspective.FurryOctoNinja.DataAccess

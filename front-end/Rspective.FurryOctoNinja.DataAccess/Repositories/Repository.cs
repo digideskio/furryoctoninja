@@ -1,17 +1,18 @@
-﻿using System;
+﻿using Rspective.FurryOctoNinja.DataAccess.Context;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace Rspective.FurryOctoNinja.DataAccess.Repositories
 {
-    public class Repository<TObject> : IRepository<TObject> where TObject : class
+    class Repository<TObject> : IRepository<TObject> where TObject : class
     {
         protected DbContext Context;
 
-        public Repository(DbContext context)
+        public Repository(IUnitOfWork uow)
         {
-            Context = context;
+            Context = uow.Context;
         }
 
         protected DbSet<TObject> DbSet
