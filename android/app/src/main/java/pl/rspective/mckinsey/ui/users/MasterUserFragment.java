@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ToxicBakery.viewpager.transforms.ZoomOutSlideTransformer;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import java.util.List;
@@ -68,6 +69,7 @@ public class MasterUserFragment extends Fragment implements IUserView {
         super.onViewCreated(view, savedInstanceState);
 
         adapter = new UsersFormPagerAdapter(getFragmentManager());
+        viewPager.setPageTransformer(true, new ZoomOutSlideTransformer());
         viewPager.setAdapter(adapter);
         smartTabLayout.setViewPager(viewPager);
 
