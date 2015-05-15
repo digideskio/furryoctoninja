@@ -24,7 +24,7 @@ import java.util.List;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.ui.form.MasterFormFragment;
 import pl.rspective.mckinsey.ui.results.ResultFragment;
-import pl.rspective.mckinsey.ui.users.UserFragment;
+import pl.rspective.mckinsey.ui.users.MasterUserFragment;
 
 public class MainActivity extends AbsActivity implements OnMenuItemClickListener, OnMenuItemLongClickListener {
     private DialogFragment menuDialogFragment;
@@ -121,7 +121,7 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
                 addFragment(ResultFragment.newInstance(), false, R.id.fl_main_fragment_container);
                 break;
             case 4:
-                addFragment(UserFragment.newInstance(), false, R.id.fl_main_fragment_container);
+                addFragment(MasterUserFragment.newInstance(), false, R.id.fl_main_fragment_container);
                 break;
             default:
                 break;
