@@ -67,12 +67,14 @@ public class McKinseySurveyRepository implements SurveyRepository {
                 .onErrorReturn(new Func1<Throwable, String>() {
                     @Override
                     public String call(Throwable throwable) {
-                        return null; //TODO load user list from cache
+                        return surveyStorage.load(StorageType.USERS);
                     }
                 })
                 .map(new Func1<String, List<User>>() {
                     @Override
                     public List<User> call(String jsonData) {
+                        surveyStorage.clear(StorageType.USERS);
+                        surveyStorage.save(StorageType.USERS, jsonData);
                         return gson.fromJson(jsonData, new TypeToken<List<User>>(){}.getType());
                     }
                 });
