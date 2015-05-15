@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Rspective.FurryOctoNinja.DataAccess;
+using Rspective.FurryOctoNinja.Web.Helpers;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -19,6 +17,11 @@ namespace Rspective.FurryOctoNinja.Web
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            AutoMapperConfig.CreateMaps();
+
+            var container = UnityConfig.RegisterTypes();
+            GlobalConfiguration.Configuration.DependencyResolver = new UnityResolver(container);
         }
     }
 }

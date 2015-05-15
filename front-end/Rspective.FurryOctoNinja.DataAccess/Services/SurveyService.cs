@@ -1,7 +1,8 @@
-﻿using Rspective.FurryOctoNinja.DataAccess.Context;
-using Rspective.FurryOctoNinja.DataAccess.DbModel;
+﻿using AutoMapper;
+using Rspective.FurryOctoNinja.DataAccess.Context;
+using Rspective.FurryOctoNinja.DataAccess.DTO;
 using Rspective.FurryOctoNinja.DataAccess.Repositories;
-using System.Linq;
+using System;
 
 namespace Rspective.FurryOctoNinja.DataAccess.Services
 {
@@ -16,9 +17,15 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             this.surveyRepository = surveyRepository;
         }
 
-        public Survey GetSurvey()
+        public SurveyDTO GetSurvey()
         {
-            return surveyRepository.All().ToList().ElementAt(0);
+            var survey = surveyRepository.GetSurvey();
+            if (survey != null)
+            {
+                return Mapper.Map<SurveyDTO>(survey);
+            }
+
+            throw new InvalidOperationException();
         }
     }
 }

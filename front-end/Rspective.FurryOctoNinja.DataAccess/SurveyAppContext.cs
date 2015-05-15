@@ -6,6 +6,7 @@ namespace Rspective.FurryOctoNinja.DataAccess
     class SurveyAppContext : DbContext
     {
         public SurveyAppContext()
+            : base("name=surveyapp")
         {
             Database.SetInitializer<SurveyAppContext>(new SurveyAppDbSeed());
         }
