@@ -12,6 +12,9 @@ public class Answer implements Serializable {
     @SerializedName("Text")
     private String text;
 
+    @SerializedName("Count")
+    private int count;
+
     private boolean selected;
 
     public boolean isSelected() {
@@ -20,6 +23,10 @@ public class Answer implements Serializable {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    public int getCount() {
+        return count;
     }
 
     public long getId() {

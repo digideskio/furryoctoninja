@@ -27,11 +27,20 @@ import com.db.chart.view.animation.Animation;
 import com.db.chart.view.animation.easing.BaseEasingMethod;
 import com.db.chart.view.animation.easing.quint.QuintEaseOut;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import pl.rspective.data.entity.SurveyResult;
+import pl.rspective.data.repository.SurveyRepository;
 import pl.rspective.mckinsey.R;
+import pl.rspective.mckinsey.dagger.Injector;
+import rx.functions.Action1;
 
 public class ResultFragment extends Fragment {
+
+    @Inject
+    SurveyRepository surveyRepository;
 
     public static ResultFragment newInstance() {
         return new ResultFragment();
@@ -50,8 +59,20 @@ public class ResultFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         initBarChart();
-
         updateBarChart();
+
+        surveyRepository.fetchSurveyResults()
+                .subscribe(new Action1<SurveyResult>() {
+                    @Override
+                    public void call(SurveyResult surveyResult) {
+                        //TODO tutaj dstaniesz sobie dane. QuestionText/Answer Bandro zmieni żeby nazywały się tak jak survey to wtedy dobrze się zmapuje
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                    }
+                });
     }
 
     private final TimeInterpolator enterInterpolator = new DecelerateInterpolator(1.5f);
@@ -125,6 +146,7 @@ public class ResultFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Injector.inject(this);
 
         mCurrOverlapFactor = 1;
         mCurrEasing = new QuintEaseOut();
