@@ -21,12 +21,9 @@ namespace Rspective.FurryOctoNinja.Web.Api
         [HttpGet, ActionName("get")]
         public HttpResponseMessage Get()
         {
-            LogManager.GetLogger("LeAppender").Info("[INFO] GET");
-
             try {
                 return Request.CreateResponse(HttpStatusCode.OK, surveyService.GetSurvey());
             } catch(Exception ex) {
-
                 LogManager.GetLogger("LeAppender").Error("[ERROR] GET", ex);
             }
 
