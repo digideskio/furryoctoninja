@@ -4,7 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.nineoldandroids.animation.Animator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,18 +36,44 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerView
 
     @Override
     public AnswerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_question, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_answer, parent, false);
         return new AnswerViewHolder(this, itemView);
     }
 
     @Override
-    public void onBindViewHolder(AnswerViewHolder holder, int position) {
+    public void onBindViewHolder(final AnswerViewHolder holder, int position) {
         Answer answer = answers.get(position);
 
+        holder.tvAnswer.setText(answer.getText());
+
         if(answer.isSelected()) {
-            holder.tvAnswer.setText("ZAZNACZONA");
+            holder.ivAnswerCheck.setVisibility(View.VISIBLE);
+
+            YoYo.with(Techniques.ZoomIn)
+                    .duration(250)
+                    .playOn(holder.ivAnswerCheck);
         } else {
-            holder.tvAnswer.setText(answer.getText());
+            YoYo.with(Techniques.FadeOut)
+                    .duration(250)
+                    .withListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            holder.ivAnswerCheck.setVisibility(View.INVISIBLE);
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
+                        }
+                    })
+                    .playOn(holder.ivAnswerCheck);
         }
     }
 
@@ -68,6 +99,9 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerView
 
         @InjectView(R.id.tv_question_answer)
         TextView tvAnswer;
+
+        @InjectView(R.id.iv_answer_check)
+        ImageView ivAnswerCheck;
 
         public AnswerViewHolder(final AdapterListener<Answer> listener, View itemView) {
             super(itemView);
