@@ -1,5 +1,7 @@
 package pl.rspective.mckinsey.architecture.dagger.modules;
 
+import com.squareup.otto.Bus;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -36,8 +38,8 @@ public class PresenterModule {
 
     @Provides
     @Singleton
-    public IFormPresenter provideFormPresenter(SurveyRepository surveyRepository, SurveyLocalStorage<String> localStorage, LocalPreferences localPreferences) {
-        return new FormPresenter(surveyRepository, localStorage, localPreferences);
+    public IFormPresenter provideFormPresenter(Bus bus, SurveyRepository surveyRepository, SurveyLocalStorage<String> localStorage, LocalPreferences localPreferences) {
+        return new FormPresenter(bus, surveyRepository, localStorage, localPreferences);
     }
 
     @Provides
