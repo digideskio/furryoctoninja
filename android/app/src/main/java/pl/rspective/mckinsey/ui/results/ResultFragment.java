@@ -89,13 +89,21 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        adapter = new FormQuestionPagerAdapter(getFragmentManager(), this) {
-            @Override
-            public void onItemClick(int position) {
-                super.onItemClick(position);
-            }
-        };
+        adapter = new FormQuestionPagerAdapter(getFragmentManager(), this);
         viewPager.setPageTransformer(true, new ZoomOutSlideTransformer());
+        smartTabLayout.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+
+                if(mBarTooltip != null) {
+                    dismissBarTooltip(-1, -1, null);
+                }
+
+                idx = position;
+                updateBarChart(idx);
+            }
+        });
 
         initBarChart();
 
@@ -106,9 +114,6 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
                     @Override
                     public void call(SurveyResult surveyResult) {
                         ResultFragment.this.surveyResult = surveyResult;
-
-                        idx = (int) Math.floor(Math.random() * ResultFragment.this.surveyResult.getQuestions().size()); // TODO default 0, increment on swipe
-
                         updateBarChart(idx);
                     }
                 }, new Action1<Throwable>() {
@@ -197,6 +202,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     private void showBarTooltip(int setIndex, int entryIndex, Rect rect){
         mBarTooltip = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.bar_tooltip, null);
         mBarTooltip.setText(Integer.toString(surveyResult.getQuestions().get(idx).getAnswers().get(entryIndex).getCount()));
+        // FIXME how to eliminate dependency to idx?
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(rect.width(), rect.height());
         layoutParams.leftMargin = rect.left;
