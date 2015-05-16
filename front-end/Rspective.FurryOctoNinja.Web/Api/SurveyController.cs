@@ -1,8 +1,11 @@
 ﻿using Rspective.FurryOctoNinja.DataAccess.Services;
 using Rspective.FurryOctoNinja.Web.Models;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using log4net;
+using log4net.Config;
 
 namespace Rspective.FurryOctoNinja.Web.Api
 {
@@ -18,7 +21,16 @@ namespace Rspective.FurryOctoNinja.Web.Api
         [HttpGet, ActionName("get")]
         public HttpResponseMessage Get()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, surveyService.GetSurvey());
+            LogManager.GetLogger("LeAppender").Info("[INFO] GET");
+
+            try {
+                return Request.CreateResponse(HttpStatusCode.OK, surveyService.GetSurvey());
+            } catch(Exception ex) {
+
+                LogManager.GetLogger("LeAppender").Error("[ERROR] GET", ex);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.InternalServerError);
         }
 
         [HttpGet, ActionName("users")]
