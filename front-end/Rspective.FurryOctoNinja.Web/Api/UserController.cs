@@ -10,7 +10,12 @@ namespace Rspective.FurryOctoNinja.Web.Api
         [HttpPost, ActionName("login")]
         public HttpResponseMessage Create()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, "Login()");
+            return Request.CreateResponse(
+                HttpStatusCode.OK, 
+                new AuthenticationDetails() {
+                    Token = "bd14ec06f15041839d77e5282f75f239",
+                    Roles = new string[] { "Administrator", "User" }
+                });
         }
 
         [HttpPost, ActionName("post")]

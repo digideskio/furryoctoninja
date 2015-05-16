@@ -215,6 +215,7 @@
     <Compile Include="Helpers\UnixDateTimeConverter.cs" />
     <Compile Include="Helpers\UnixDateTimeHelper.cs" />
     <Compile Include="Models\Answer.cs" />
+    <Compile Include="Models\AuthenticationDetails.cs" />
     <Compile Include="Models\Mocks\SurveyResults.Mock.cs" />
     <Compile Include="Models\SurveyResultsAnswer.cs" />
     <Compile Include="Models\Question.cs" />
