@@ -16,30 +16,30 @@ namespace Rspective.FurryOctoNinja.Web.Models
                 {
                     Questions = new SurveyResultsQuestion[] { 
                         new SurveyResultsQuestion() {
-                            QuestionId = 1,
-                            QuestionText = "Czy lubisz koty?",
+                            Id = 1,
+                            Text = "Czy lubisz koty?",
                             Answers = new SurveyResultsAnswer[] {
-                                new SurveyResultsAnswer() { AnswerId = 1, AnswerText = "Tak", Count = 5 },
-                                new SurveyResultsAnswer() { AnswerId = 1, AnswerText = "Nie", Count = 10 },
-                                new SurveyResultsAnswer() { AnswerId = 1, AnswerText = "Nie wiem", Count = 3 }
+                                new SurveyResultsAnswer() { Id = 1, Text = "Tak", Count = 5 },
+                                new SurveyResultsAnswer() { Id = 2, Text = "Nie", Count = 10 },
+                                new SurveyResultsAnswer() { Id = 3, Text = "Nie wiem", Count = 3 }
                             }
                         },
                         new SurveyResultsQuestion() {
-                            QuestionId = 2,
-                            QuestionText = "Na kogo zagłosujesz w II turze wyborów?",
+                            Id = 2,
+                            Text = "Na kogo zagłosujesz w II turze wyborów?",
                             Answers = new SurveyResultsAnswer[] {
-                                new SurveyResultsAnswer() { AnswerId = 1, AnswerText = "Bronek", Count = 2 },
-                                new SurveyResultsAnswer() { AnswerId = 2, AnswerText = "Duda", Count = 2 },
-                                new SurveyResultsAnswer() { AnswerId = 3, AnswerText = "Sarna z krzesłem na głowie", Count = 14 }
+                                new SurveyResultsAnswer() { Id = 1, Text = "Bronek", Count = 2 },
+                                new SurveyResultsAnswer() { Id = 2, Text = "Duda", Count = 2 },
+                                new SurveyResultsAnswer() { Id = 3, Text = "Sarna z krzesłem na głowie", Count = 14 }
                             }
                         },
                         new SurveyResultsQuestion() {
-                            QuestionId = 1,
-                            QuestionText = "Czy kibucujesz Barcelonie?",
+                            Id = 3,
+                            Text = "Czy kibucujesz Barcelonie?",
                             Answers = new SurveyResultsAnswer[] {
-                                new SurveyResultsAnswer() { AnswerId = 1, AnswerText = "Tak", Count = 1 },
-                                new SurveyResultsAnswer() { AnswerId = 2, AnswerText = "Yes", Count = 17 },
-                                new SurveyResultsAnswer() { AnswerId = 3, AnswerText = "Oui", Count = 0 }
+                                new SurveyResultsAnswer() { Id = 1, Text = "Tak", Count = 1 },
+                                new SurveyResultsAnswer() { Id = 2, Text = "Yes", Count = 17 },
+                                new SurveyResultsAnswer() { Id = 3, Text = "Oui", Count = 0 }
                             }
                         }
                     }
