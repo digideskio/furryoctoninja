@@ -43,10 +43,10 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 
             this.tokenRepository.Invalidate(client, user, expiration);
             this.tokenRepository.Create(new ApplicationToken() {
-                Token =token,
+                Token = token,
                 Expiration = expiration,
-                Client = client,
-                User = user
+                ClientId = client.Id,
+                UserId = user.Id
             });
 
             this.ouw.SaveChanges();

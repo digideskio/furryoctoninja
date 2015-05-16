@@ -38,5 +38,18 @@ namespace Rspective.FurryOctoNinja.Web.Api
                     Roles = new string[] { "Admin", "User" }
                 });
         }
+        /*
+        [HttpPost, ActionName("refresh")]
+        public HttpResponseMessage Refresh()
+        {
+            return Request.CreateResponse(
+                HttpStatusCode.OK,
+                new AuthenticationDetails()
+                {
+                    Token = auth.Token,
+                    Expiration = auth.Expiration,
+                    Roles = new string[] { "Admin", "User" }
+                });
+        }*/
     }
 }

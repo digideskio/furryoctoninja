@@ -9,10 +9,12 @@ namespace Rspective.FurryOctoNinja.DataAccess.DbModel
         public int Id { get; set; }
 
         [Required]
-        public ApplicationClient Client { get; set; }
+        public int ClientId { get; set; }
+        public virtual ApplicationClient Client { get; set; }
 
         [Required]
-        public ApplicationUser User { get; set; }
+        public int UserId { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         [Required]
         public string Token { get; set; }
