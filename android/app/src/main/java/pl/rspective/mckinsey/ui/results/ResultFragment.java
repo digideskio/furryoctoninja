@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
@@ -88,6 +90,13 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+//        mBarChart.setOnTouchListener(new View.OnTouchListener() { // TODO how to delegate horizontal swipe events to viewPager?
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                return viewPager.dispatchTouchEvent(motionEvent);
+//            }
+//        });
 
         adapter = new FormQuestionPagerAdapter(getFragmentManager(), this);
         viewPager.setPageTransformer(true, new ZoomOutSlideTransformer());
@@ -173,7 +182,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
         BarSet barSet = new BarSet();
         for (int i = 0; i < question.getAnswers().size(); i++) {
             Bar bar = new Bar(String.valueOf("abcdefgh".charAt(i)), question.getAnswers().get(i).getCount());
-            bar.setColor(this.getResources().getColor(R.color.bar_fill1));
+            bar.setColor(this.getResources().getColor(R.color.bar_fill));
             barSet.addBar(bar);
         }
         mBarChart.addData(barSet);
