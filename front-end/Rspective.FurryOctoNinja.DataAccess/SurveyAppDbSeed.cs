@@ -4,7 +4,7 @@ using System.Data.Entity;
 
 namespace Rspective.FurryOctoNinja.DataAccess
 {
-    class SurveyAppDbSeed : DropCreateDatabaseIfModelChanges<SurveyAppContext>
+    class SurveyAppDbSeed : CreateDatabaseIfNotExists<SurveyAppContext>
     {
         protected override void Seed(SurveyAppContext context)
         {

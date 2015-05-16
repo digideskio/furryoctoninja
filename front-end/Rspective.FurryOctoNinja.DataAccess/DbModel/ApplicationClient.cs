@@ -26,6 +26,6 @@ namespace Rspective.FurryOctoNinja.DataAccess.DbModel
         public string SecretKey { get; set; }
 
         [DefaultValue(true)]
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
     }
 }
