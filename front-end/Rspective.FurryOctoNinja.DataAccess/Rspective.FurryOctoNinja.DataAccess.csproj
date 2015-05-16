@@ -77,6 +77,11 @@
     <Compile Include="DbModel\Question.cs" />
     <Compile Include="DbModel\Survey.cs" />
     <Compile Include="DbModel\ApplicationUser.cs" />
+    <Compile Include="Migrations\201505162124494_InitialCreate.cs" />
+    <Compile Include="Migrations\201505162124494_InitialCreate.Designer.cs">
+      <DependentUpon>201505162124494_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\ApplicationClientRepository.cs" />
     <Compile Include="Repositories\ApplicationUserRepository.cs" />
     <Compile Include="Repositories\IApplicationClientRepository.cs" />
@@ -105,7 +110,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201505162124494_InitialCreate.resx">
+      <DependentUpon>201505162124494_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

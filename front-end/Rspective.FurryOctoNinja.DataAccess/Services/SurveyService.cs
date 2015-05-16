@@ -20,6 +20,8 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
         public SurveyDTO GetSurvey()
         {
             var survey = surveyRepository.GetSurvey();
+
+            // TODO: Create Survet if it's empty
             if (survey != null)
             {
                 return Mapper.Map<SurveyDTO>(survey);
