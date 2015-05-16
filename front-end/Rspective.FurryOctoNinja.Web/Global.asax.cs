@@ -37,6 +37,8 @@ namespace Rspective.FurryOctoNinja.Web
             // Get the exception object.
             Exception exc = Server.GetLastError();
 
+            LogManager.GetLogger("LeAppender").Error("[ERROR] Unexpected", exc);
+
             // Handle HTTP errors
             if (exc.GetType() == typeof(HttpException))
             {
@@ -47,8 +49,6 @@ namespace Rspective.FurryOctoNinja.Web
                 if (exc.Message.Contains("NoCatch") || exc.Message.Contains("maxUrlLength"))
                     return;
             }
-
-            LogManager.GetLogger("LeAppender").Error("[ERROR] Unexpected", exc);
 
             // Clear the error from the server
             Server.ClearError();

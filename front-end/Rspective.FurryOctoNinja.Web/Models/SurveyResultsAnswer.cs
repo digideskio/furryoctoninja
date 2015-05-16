@@ -7,9 +7,9 @@ namespace Rspective.FurryOctoNinja.Web.Models
 {
     public class SurveyResultsAnswer
     {
-        public int AnswerId { get; set; }
+        public int Id { get; set; }
 
-        public string AnswerText { get; set; }
+        public string Text { get; set; }
 
         public int Count { get; set; }
     }
