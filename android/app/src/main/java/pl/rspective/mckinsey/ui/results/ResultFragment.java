@@ -62,7 +62,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     @Inject
     SurveyRepository surveyRepository;
 
-    private SurveyResult survey;
+    private SurveyResult surveyResult;
     private int idx;
 
     public static ResultFragment newInstance() {
@@ -89,7 +89,12 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        adapter = new FormQuestionPagerAdapter(getFragmentManager(), this);
+        adapter = new FormQuestionPagerAdapter(getFragmentManager(), this) {
+            @Override
+            public void onItemClick(int position) {
+                super.onItemClick(position);
+            }
+        };
         viewPager.setPageTransformer(true, new ZoomOutSlideTransformer());
 
         initBarChart();
@@ -100,9 +105,9 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
                 .subscribe(new Action1<SurveyResult>() {
                     @Override
                     public void call(SurveyResult surveyResult) {
-                        survey = surveyResult;
+                        ResultFragment.this.surveyResult = surveyResult;
 
-                        idx = (int) Math.floor(Math.random() * survey.getQuestions().size()); // TODO default 0, increment on swipe
+                        idx = (int) Math.floor(Math.random() * ResultFragment.this.surveyResult.getQuestions().size()); // TODO default 0, increment on swipe
 
                         updateBarChart(idx);
                     }
@@ -158,7 +163,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     private void updateBarChart(int idx) {
         mBarChart.reset();
 
-        Question question = survey.getQuestions().get(idx);
+        Question question = surveyResult.getQuestions().get(idx);
 
         BarSet barSet = new BarSet();
         for (int i = 0; i < question.getAnswers().size(); i++) {
@@ -191,7 +196,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     @SuppressLint("NewApi")
     private void showBarTooltip(int setIndex, int entryIndex, Rect rect){
         mBarTooltip = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.bar_tooltip, null);
-        mBarTooltip.setText(Integer.toString(survey.getQuestions().get(idx).getAnswers().get(entryIndex).getCount()));
+        mBarTooltip.setText(Integer.toString(surveyResult.getQuestions().get(idx).getAnswers().get(entryIndex).getCount()));
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(rect.width(), rect.height());
         layoutParams.leftMargin = rect.left;
