@@ -2,12 +2,14 @@ package pl.rspective.mckinsey.ui.results;
 
 import android.animation.TimeInterpolator;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ToxicBakery.viewpager.transforms.ZoomOutSlideTransformer;
 import com.db.chart.Tools;
 import com.db.chart.listener.OnEntryClickListener;
 import com.db.chart.model.Bar;
@@ -24,6 +27,7 @@ import com.db.chart.view.BarChartView;
 import com.db.chart.view.XController;
 import com.db.chart.view.YController;
 import com.db.chart.view.animation.Animation;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import javax.inject.Inject;
 
@@ -31,13 +35,29 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import pl.rspective.data.entity.Answer;
 import pl.rspective.data.entity.Question;
+import pl.rspective.data.entity.Survey;
 import pl.rspective.data.entity.SurveyResult;
 import pl.rspective.data.repository.SurveyRepository;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.dagger.Injector;
+import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
+import pl.rspective.mckinsey.mvp.views.IFormView;
+import pl.rspective.mckinsey.ui.form.FormQuestionFragment;
+import pl.rspective.mckinsey.ui.form.adapter.FormQuestionPagerAdapter;
 import rx.functions.Action1;
 
-public class ResultFragment extends Fragment {
+public class ResultFragment extends Fragment implements IFormView, FormQuestionFragment.QuestionListener {
+
+    @Inject
+    IFormPresenter formPresenter;
+
+    @InjectView(R.id.viewpager)
+    ViewPager viewPager;
+
+    @InjectView(R.id.viewpagertab)
+    SmartTabLayout smartTabLayout;
+
+    private FormQuestionPagerAdapter adapter;
 
     @Inject
     SurveyRepository surveyRepository;
@@ -47,6 +67,14 @@ public class ResultFragment extends Fragment {
 
     public static ResultFragment newInstance() {
         return new ResultFragment();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Injector.inject(this);
+
+        formPresenter.onResume(this);
     }
 
     @Nullable
@@ -61,7 +89,12 @@ public class ResultFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        adapter = new FormQuestionPagerAdapter(getFragmentManager(), this);
+        viewPager.setPageTransformer(true, new ZoomOutSlideTransformer());
+
         initBarChart();
+
+        formPresenter.loadSurvey();
 
         surveyRepository.fetchSurveyResults()
                 .subscribe(new Action1<SurveyResult>() {
@@ -106,14 +139,6 @@ public class ResultFragment extends Fragment {
                 dismissBarTooltip(-1, -1, null);
         }
     };
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Injector.inject(this);
-    }
-
 
 	/*------------------------------------*
 	 *              BARCHART              *
@@ -210,5 +235,32 @@ public class ResultFragment extends Fragment {
             if(entryIndex != -1)
                 showBarTooltip(setIndex, entryIndex, rect);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        formPresenter.onDestroy();
+    }
+
+    @Override
+    public void updateUi(Survey survey) {
+        if(survey == null || survey.getQuestions() == null) {
+            return;
+        }
+
+        adapter.updateData(survey.getQuestions());
+        viewPager.setAdapter(adapter);
+        smartTabLayout.setViewPager(viewPager);
+    }
+
+    @Override
+    public Context getViewContext() {
+        return getActivity();
+    }
+
+    @Override
+    public void onQuestionUpdate(int number, Question question) {
+        formPresenter.updateSurvey(number, question);
     }
 }

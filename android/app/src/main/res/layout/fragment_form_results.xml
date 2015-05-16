@@ -1,15 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:padding="10dp">
+
+        <com.ogaclejapan.smarttablayout.SmartTabLayout
+            android:id="@+id/viewpagertab"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:clipToPadding="false"
+            android:paddingBottom="8dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            app:stl_defaultTabTextColor="@android:color/white"
+            app:stl_defaultTabTextHorizontalPadding="20dp"
+            app:stl_defaultTabTextSize="14sp"
+            app:stl_dividerColor="@android:color/transparent"
+            app:stl_dividerThickness="0dp"
+            app:stl_indicatorColor="@color/accent"
+            app:stl_indicatorCornerRadius="20dp"
+            app:stl_indicatorInterpolation="smart"
+            app:stl_indicatorThickness="40dp"
+            app:stl_underlineColor="@android:color/transparent"
+            app:stl_underlineThickness="0dp"/>
+    </FrameLayout>
 
     <com.db.chart.view.BarChartView
         xmlns:chart="http://schemas.android.com/apk/res-auto"
         android:id="@+id/barchart"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".22"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:layout_marginTop="2dp"
         android:layout_marginLeft="7dp"
         android:layout_marginRight="7dp"
@@ -22,6 +50,15 @@
         chart:chart_axisColor="@color/axis"
         chart:chart_labelColor="@color/label"
         chart:chart_axisBorderSpacing="25dp"
+        />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         />
 
 </LinearLayout>
