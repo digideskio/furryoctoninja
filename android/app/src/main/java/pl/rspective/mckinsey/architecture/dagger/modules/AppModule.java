@@ -11,7 +11,8 @@ import pl.rspective.mckinsey.McKinseyApp;
         includes = {
                 UiModule.class,
                 DataModule.class,
-                RestModule.class
+                RestModule.class,
+                BusModule.class
         },
         injects = {
         },

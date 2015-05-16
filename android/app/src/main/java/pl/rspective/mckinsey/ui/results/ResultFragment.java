@@ -2,13 +2,17 @@ package pl.rspective.mckinsey.ui.results;
 
 import android.animation.TimeInterpolator;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
@@ -16,6 +20,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ToxicBakery.viewpager.transforms.ZoomOutSlideTransformer;
 import com.db.chart.Tools;
 import com.db.chart.listener.OnEntryClickListener;
 import com.db.chart.model.Bar;
@@ -24,26 +29,54 @@ import com.db.chart.view.BarChartView;
 import com.db.chart.view.XController;
 import com.db.chart.view.YController;
 import com.db.chart.view.animation.Animation;
-import com.db.chart.view.animation.easing.BaseEasingMethod;
-import com.db.chart.view.animation.easing.quint.QuintEaseOut;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import pl.rspective.data.entity.Answer;
+import pl.rspective.data.entity.Question;
+import pl.rspective.data.entity.Survey;
 import pl.rspective.data.entity.SurveyResult;
 import pl.rspective.data.repository.SurveyRepository;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.dagger.Injector;
+import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
+import pl.rspective.mckinsey.mvp.views.IFormView;
+import pl.rspective.mckinsey.ui.form.FormQuestionFragment;
+import pl.rspective.mckinsey.ui.form.adapter.FormQuestionPagerAdapter;
 import rx.functions.Action1;
 
-public class ResultFragment extends Fragment {
+public class ResultFragment extends Fragment implements IFormView, FormQuestionFragment.QuestionListener {
+
+    @Inject
+    IFormPresenter formPresenter;
+
+    @InjectView(R.id.viewpager)
+    ViewPager viewPager;
+
+    @InjectView(R.id.viewpagertab)
+    SmartTabLayout smartTabLayout;
+
+    private FormQuestionPagerAdapter adapter;
 
     @Inject
     SurveyRepository surveyRepository;
 
+    private SurveyResult surveyResult;
+    private int idx;
+
     public static ResultFragment newInstance() {
         return new ResultFragment();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Injector.inject(this);
+
+        formPresenter.onResume(this);
     }
 
     @Nullable
@@ -58,14 +91,39 @@ public class ResultFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+//        mBarChart.setOnTouchListener(new View.OnTouchListener() { // TODO how to delegate horizontal swipe events to viewPager?
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                return viewPager.dispatchTouchEvent(motionEvent);
+//            }
+//        });
+
+        adapter = new FormQuestionPagerAdapter(getFragmentManager(), this);
+        viewPager.setPageTransformer(true, new ZoomOutSlideTransformer());
+        smartTabLayout.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+
+                if(mBarTooltip != null) {
+                    dismissBarTooltip(-1, -1, null);
+                }
+
+                idx = position;
+                updateBarChart(idx);
+            }
+        });
+
         initBarChart();
-        updateBarChart();
+
+        formPresenter.loadSurvey();
 
         surveyRepository.fetchSurveyResults()
                 .subscribe(new Action1<SurveyResult>() {
                     @Override
                     public void call(SurveyResult surveyResult) {
-                        //TODO tutaj dstaniesz sobie dane. QuestionText/Answer Bandro zmieni żeby nazywały się tak jak survey to wtedy dobrze się zmapuje
+                        ResultFragment.this.surveyResult = surveyResult;
+                        updateBarChart(idx);
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -75,54 +133,13 @@ public class ResultFragment extends Fragment {
                 });
     }
 
-    private final TimeInterpolator enterInterpolator = new DecelerateInterpolator(1.5f);
-    private final TimeInterpolator exitInterpolator = new AccelerateInterpolator();
-
-
-    /**
-     * Order
-     */
-    private static float mCurrOverlapFactor;
-    private static int[] mCurrOverlapOrder;
-    private static float mOldOverlapFactor;
-    private static int[] mOldOverlapOrder;
-
-
-    /**
-     * Ease
-     */
-    private static BaseEasingMethod mCurrEasing;
-    private static BaseEasingMethod mOldEasing;
-
-
-    /**
-     * Enter
-     */
-    private static float mCurrStartX;
-    private static float mCurrStartY;
-    private static float mOldStartX;
-    private static float mOldStartY;
-
-
-    /**
-     * Alpha
-     */
-    private static int mCurrAlpha;
-    private static int mOldAlpha;
-
-
-    /**
-     * Bar
-     */
-    private final static int BAR_MAX = 10;
-    private final static int BAR_MIN = 0;
-    private final static String[] barLabels = {"A", "B", "C", "D", "E", "F", "G"};
-    private final static float [][] barValues = { {5, 3, 0, 8, 1, 1, 2} };
-
     @InjectView(R.id.barchart)
     BarChartView mBarChart;
     private Paint mBarGridPaint;
     private TextView mBarTooltip;
+
+    private final TimeInterpolator enterInterpolator = new DecelerateInterpolator(1.5f);
+    private final TimeInterpolator exitInterpolator = new AccelerateInterpolator();
 
     private final OnEntryClickListener barEntryListener = new OnEntryClickListener(){
         @Override
@@ -142,26 +159,6 @@ public class ResultFragment extends Fragment {
         }
     };
 
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Injector.inject(this);
-
-        mCurrOverlapFactor = 1;
-        mCurrEasing = new QuintEaseOut();
-        mCurrStartX = -1;
-        mCurrStartY = 0;
-        mCurrAlpha = -1;
-
-        mOldOverlapFactor = 1;
-        mOldEasing = new QuintEaseOut();
-        mOldStartX = -1;
-        mOldStartY = 0;
-        mOldAlpha = -1;
-    }
-
-
 	/*------------------------------------*
 	 *              BARCHART              *
 	 *------------------------------------*/
@@ -177,19 +174,15 @@ public class ResultFragment extends Fragment {
         mBarGridPaint.setStrokeWidth(Tools.fromDpToPx(.75f));
     }
 
-
-    private void updateBarChart(){
-
+    private void updateBarChart(int idx) {
         mBarChart.reset();
 
+        Question question = surveyResult.getQuestions().get(idx);
+
         BarSet barSet = new BarSet();
-        Bar bar;
-        for(int i = 0; i < barLabels.length; i++){
-            bar = new Bar(barLabels[i], barValues[0][i]);
-            if(i == 4)
-                bar.setColor(this.getResources().getColor(R.color.bar_highest));
-            else
-                bar.setColor(this.getResources().getColor(R.color.bar_fill1));
+        for (int i = 0; i < question.getAnswers().size(); i++) {
+            Bar bar = new Bar(String.valueOf("abcdefgh".charAt(i)), question.getAnswers().get(i).getCount());
+            bar.setColor(this.getResources().getColor(R.color.bar_fill));
             barSet.addBar(bar);
         }
         mBarChart.addData(barSet);
@@ -197,22 +190,28 @@ public class ResultFragment extends Fragment {
         mBarChart.setSetSpacing(Tools.fromDpToPx(3));
         mBarChart.setBarSpacing(Tools.fromDpToPx(14));
 
+        int max = 0;
+        for (Answer answer : question.getAnswers()) {
+            if (answer.getCount() > max) {
+                max = answer.getCount();
+            }
+        }
+
         mBarChart.setBorderSpacing(0)
-                .setAxisBorderValues(BAR_MIN, BAR_MAX, 2)
+                .setAxisBorderValues(0, max, 2)
                 .setGrid(BarChartView.GridType.FULL, mBarGridPaint)
                 .setYAxis(false)
                 .setXLabels(XController.LabelPosition.OUTSIDE)
                 .setYLabels(YController.LabelPosition.NONE)
-                .show(getAnimation(true))
-        //.show()
-        ;
+                .show(new Animation());
     }
 
 
     @SuppressLint("NewApi")
     private void showBarTooltip(int setIndex, int entryIndex, Rect rect){
         mBarTooltip = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.bar_tooltip, null);
-        mBarTooltip.setText(Integer.toString((int) barValues[setIndex][entryIndex]));
+        mBarTooltip.setText(Integer.toString(surveyResult.getQuestions().get(idx).getAnswers().get(entryIndex).getCount()));
+        // FIXME how to eliminate dependency to idx?
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(rect.width(), rect.height());
         layoutParams.leftMargin = rect.left;
@@ -258,31 +257,30 @@ public class ResultFragment extends Fragment {
         }
     }
 
-
-    private void updateValues(BarChartView chartView){
-
-        chartView.updateValues(0, barValues[1]);
-        chartView.updateValues(1, barValues[0]);
-        chartView.notifyDataUpdate();
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        formPresenter.onDestroy();
     }
 
+    @Override
+    public void updateUi(Survey survey) {
+        if(survey == null || survey.getQuestions() == null) {
+            return;
+        }
 
-	/*------------------------------------*
-	 *               GETTERS              *
-	 *------------------------------------*/
+        adapter.updateData(survey.getQuestions());
+        viewPager.setAdapter(adapter);
+        smartTabLayout.setViewPager(viewPager);
+    }
 
-    private Animation getAnimation(boolean newAnim){
-        if(newAnim)
-            return new Animation()
-                    .setAlpha(mCurrAlpha)
-                    .setEasing(mCurrEasing)
-                    .setOverlap(mCurrOverlapFactor, mCurrOverlapOrder)
-                    .setStartPoint(mCurrStartX, mCurrStartY);
-        else
-            return new Animation()
-                    .setAlpha(mOldAlpha)
-                    .setEasing(mOldEasing)
-                    .setOverlap(mOldOverlapFactor, mOldOverlapOrder)
-                    .setStartPoint(mOldStartX, mOldStartY);
+    @Override
+    public Context getViewContext() {
+        return getActivity();
+    }
+
+    @Override
+    public void onQuestionUpdate(int number, Question question) {
+        formPresenter.updateSurvey(number, question);
     }
 }

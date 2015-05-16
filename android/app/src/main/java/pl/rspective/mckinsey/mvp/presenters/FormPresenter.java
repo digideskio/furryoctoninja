@@ -2,6 +2,7 @@ package pl.rspective.mckinsey.mvp.presenters;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
 
@@ -11,12 +12,14 @@ import pl.rspective.data.local.LocalPreferences;
 import pl.rspective.data.local.SurveyLocalStorage;
 import pl.rspective.data.local.model.StorageType;
 import pl.rspective.data.repository.SurveyRepository;
+import pl.rspective.mckinsey.architecture.bus.events.AnswerUpdateEvent;
 import pl.rspective.mckinsey.mvp.views.IFormView;
 import rx.Subscription;
 import rx.functions.Action1;
 
 public class FormPresenter implements IFormPresenter {
 
+    private Bus bus;
     private LocalPreferences localPreferences;
     private SurveyRepository surveyRepository;
     private SurveyLocalStorage<String> localStorage;
@@ -28,7 +31,8 @@ public class FormPresenter implements IFormPresenter {
     private Survey survey;
 
     @Inject
-    public FormPresenter(SurveyRepository surveyRepository, SurveyLocalStorage<String> localStorage, LocalPreferences localPreferences) {
+    public FormPresenter(Bus bus, SurveyRepository surveyRepository, SurveyLocalStorage<String> localStorage, LocalPreferences localPreferences) {
+        this.bus = bus;
         this.localPreferences = localPreferences;
         this.surveyRepository = surveyRepository;
         this.localStorage = localStorage;
@@ -44,7 +48,7 @@ public class FormPresenter implements IFormPresenter {
         localStorage.clear(StorageType.SURVEY);
         localStorage.save(StorageType.SURVEY, surveyJson);
 
-        formView.updateUi(survey);
+        bus.post(new AnswerUpdateEvent(survey.getQuestions().get(number)));
     }
 
     @Override
@@ -61,6 +65,7 @@ public class FormPresenter implements IFormPresenter {
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
+                        boolean x = throwable == null;
 
                     }
                 });

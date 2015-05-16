@@ -93,4 +93,5 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
     public void onQuestionUpdate(int number, Question question) {
         formPresenter.updateSurvey(number, question);
     }
+
 }
