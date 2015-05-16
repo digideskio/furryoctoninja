@@ -64,6 +64,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -73,21 +75,23 @@
   <ItemGroup>
     <Compile Include="AutoMapperConfig.cs" />
     <Compile Include="DbModel\Answer.cs" />
+    <Compile Include="DbModel\ApplicationToken.cs" />
     <Compile Include="DbModel\ApplicationClient.cs" />
     <Compile Include="DbModel\Question.cs" />
     <Compile Include="DbModel\Survey.cs" />
     <Compile Include="DbModel\ApplicationUser.cs" />
-    <Compile Include="Migrations\201505162124494_InitialCreate.cs" />
-    <Compile Include="Migrations\201505162124494_InitialCreate.Designer.cs">
-      <DependentUpon>201505162124494_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201505162259403_Initial.cs" />
+    <Compile Include="Migrations\201505162259403_Initial.Designer.cs">
+      <DependentUpon>201505162259403_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\ApplicationClientRepository.cs" />
+    <Compile Include="Repositories\ApplicationTokenRepository.cs" />
     <Compile Include="Repositories\ApplicationUserRepository.cs" />
     <Compile Include="Repositories\IApplicationClientRepository.cs" />
+    <Compile Include="Repositories\IApplicationTokenRepository.cs" />
     <Compile Include="Repositories\IApplicationUserRepository.cs" />
     <Compile Include="Services\AuthService.cs" />
-    <Compile Include="SurveyAppDbSeed.cs" />
     <Compile Include="Context\DbContextFactory.cs" />
     <Compile Include="Context\IDbContextFactory.cs" />
     <Compile Include="DTO\AnswerDTO.cs" />
@@ -111,12 +115,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505162124494_InitialCreate.resx">
-      <DependentUpon>201505162124494_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <EmbeddedResource Include="Migrations\201505162259403_Initial.resx">
+      <DependentUpon>201505162259403_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />

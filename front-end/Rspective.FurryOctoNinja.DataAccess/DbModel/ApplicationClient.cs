@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rspective.FurryOctoNinja.DataAccess.DbModel
 {
@@ -25,7 +20,6 @@ namespace Rspective.FurryOctoNinja.DataAccess.DbModel
         [Required]
         public string SecretKey { get; set; }
 
-        [DefaultValue(true)]
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
     }
 }

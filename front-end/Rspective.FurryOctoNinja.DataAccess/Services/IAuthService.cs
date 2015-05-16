@@ -13,6 +13,6 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 
         AuthDTO Refresh(string token, string clientId);
 
-        bool IsAuthorized(string token, string requestedRole);
+        bool IsAuthorized(string token, string clientId, string requestedRole);
     }
 }

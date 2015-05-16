@@ -17,6 +17,7 @@ namespace Rspective.FurryOctoNinja.DataAccess
             container.RegisterType<ISurveyRepository, SurveyRepository>();
             container.RegisterType<IApplicationClientRepository, ApplicationClientRepository>();
             container.RegisterType<IApplicationUserRepository, ApplicationUserRepository>();
+            container.RegisterType<IApplicationTokenRepository, ApplicationTokenRepository>();
 
             container.RegisterType<ISurveyService, SurveyService>(new PerThreadLifetimeManager());
             container.RegisterType<IAuthService, AuthService>(new PerThreadLifetimeManager());

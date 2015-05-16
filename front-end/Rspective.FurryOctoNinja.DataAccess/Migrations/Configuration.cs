@@ -28,13 +28,15 @@
                 {
                     Name = "angularjs",
                     PublicKey = "El246n9cf1minYI0YGcBVQ8971fK8Gfp",
-                    SecretKey = "517DW0p493372N4s2753ply07p1tqe78"
+                    SecretKey = "517DW0p493372N4s2753ply07p1tqe78",
+                    IsActive = true
                 },
                 new ApplicationClient()
                 {
                     Name = "androidmobile",
                     PublicKey = "p35iw0R6RO1730BSK432qswrZldwY0jR",
-                    SecretKey = "PX5ie6aj22t7xi3J3u4xXR6r90RXPo88"
+                    SecretKey = "PX5ie6aj22t7xi3J3u4xXR6r90RXPo88",
+                    IsActive = true
                 }
             };
 
