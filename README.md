@@ -46,3 +46,13 @@ Deployment: https://support.appharbor.com/kb/getting-started/deploying-your-firs
 	Expiration: Date
 	Roles: [ "Admin", "User" ]
 }
+
+## Db Migrations
+
+Run from Package Manager Console on Rspective.FurryOctoNinja.DataAccess project:
+
+- To remove all data:
+Update-Database -TargetMigration:$InitialDatabase 
+
+- TO move to specific migration:
+Update-Database -TargetMigration:"InitialCreate"
