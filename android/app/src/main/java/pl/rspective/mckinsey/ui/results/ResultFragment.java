@@ -24,13 +24,13 @@ import com.db.chart.view.BarChartView;
 import com.db.chart.view.XController;
 import com.db.chart.view.YController;
 import com.db.chart.view.animation.Animation;
-import com.db.chart.view.animation.easing.BaseEasingMethod;
-import com.db.chart.view.animation.easing.quint.QuintEaseOut;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import pl.rspective.data.entity.Answer;
+import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.SurveyResult;
 import pl.rspective.data.repository.SurveyRepository;
 import pl.rspective.mckinsey.R;
@@ -41,6 +41,9 @@ public class ResultFragment extends Fragment {
 
     @Inject
     SurveyRepository surveyRepository;
+
+    private SurveyResult survey;
+    private int idx;
 
     public static ResultFragment newInstance() {
         return new ResultFragment();
@@ -59,13 +62,16 @@ public class ResultFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         initBarChart();
-        updateBarChart();
 
         surveyRepository.fetchSurveyResults()
                 .subscribe(new Action1<SurveyResult>() {
                     @Override
                     public void call(SurveyResult surveyResult) {
-                        //TODO tutaj dstaniesz sobie dane. QuestionText/Answer Bandro zmieni żeby nazywały się tak jak survey to wtedy dobrze się zmapuje
+                        survey = surveyResult;
+
+                        idx = (int) Math.floor(Math.random() * survey.getQuestions().size()); // TODO default 0, increment on swipe
+
+                        updateBarChart(idx);
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -75,54 +81,13 @@ public class ResultFragment extends Fragment {
                 });
     }
 
-    private final TimeInterpolator enterInterpolator = new DecelerateInterpolator(1.5f);
-    private final TimeInterpolator exitInterpolator = new AccelerateInterpolator();
-
-
-    /**
-     * Order
-     */
-    private static float mCurrOverlapFactor;
-    private static int[] mCurrOverlapOrder;
-    private static float mOldOverlapFactor;
-    private static int[] mOldOverlapOrder;
-
-
-    /**
-     * Ease
-     */
-    private static BaseEasingMethod mCurrEasing;
-    private static BaseEasingMethod mOldEasing;
-
-
-    /**
-     * Enter
-     */
-    private static float mCurrStartX;
-    private static float mCurrStartY;
-    private static float mOldStartX;
-    private static float mOldStartY;
-
-
-    /**
-     * Alpha
-     */
-    private static int mCurrAlpha;
-    private static int mOldAlpha;
-
-
-    /**
-     * Bar
-     */
-    private final static int BAR_MAX = 10;
-    private final static int BAR_MIN = 0;
-    private final static String[] barLabels = {"A", "B", "C", "D", "E", "F", "G"};
-    private final static float [][] barValues = { {5, 3, 0, 8, 1, 1, 2} };
-
     @InjectView(R.id.barchart)
     BarChartView mBarChart;
     private Paint mBarGridPaint;
     private TextView mBarTooltip;
+
+    private final TimeInterpolator enterInterpolator = new DecelerateInterpolator(1.5f);
+    private final TimeInterpolator exitInterpolator = new AccelerateInterpolator();
 
     private final OnEntryClickListener barEntryListener = new OnEntryClickListener(){
         @Override
@@ -147,18 +112,6 @@ public class ResultFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Injector.inject(this);
-
-        mCurrOverlapFactor = 1;
-        mCurrEasing = new QuintEaseOut();
-        mCurrStartX = -1;
-        mCurrStartY = 0;
-        mCurrAlpha = -1;
-
-        mOldOverlapFactor = 1;
-        mOldEasing = new QuintEaseOut();
-        mOldStartX = -1;
-        mOldStartY = 0;
-        mOldAlpha = -1;
     }
 
 
@@ -177,19 +130,15 @@ public class ResultFragment extends Fragment {
         mBarGridPaint.setStrokeWidth(Tools.fromDpToPx(.75f));
     }
 
-
-    private void updateBarChart(){
-
+    private void updateBarChart(int idx) {
         mBarChart.reset();
 
+        Question question = survey.getQuestions().get(idx);
+
         BarSet barSet = new BarSet();
-        Bar bar;
-        for(int i = 0; i < barLabels.length; i++){
-            bar = new Bar(barLabels[i], barValues[0][i]);
-            if(i == 4)
-                bar.setColor(this.getResources().getColor(R.color.bar_highest));
-            else
-                bar.setColor(this.getResources().getColor(R.color.bar_fill1));
+        for (int i = 0; i < question.getAnswers().size(); i++) {
+            Bar bar = new Bar(String.valueOf("abcdefgh".charAt(i)), question.getAnswers().get(i).getCount());
+            bar.setColor(this.getResources().getColor(R.color.bar_fill1));
             barSet.addBar(bar);
         }
         mBarChart.addData(barSet);
@@ -197,22 +146,27 @@ public class ResultFragment extends Fragment {
         mBarChart.setSetSpacing(Tools.fromDpToPx(3));
         mBarChart.setBarSpacing(Tools.fromDpToPx(14));
 
+        int max = 0;
+        for (Answer answer : question.getAnswers()) {
+            if (answer.getCount() > max) {
+                max = answer.getCount();
+            }
+        }
+
         mBarChart.setBorderSpacing(0)
-                .setAxisBorderValues(BAR_MIN, BAR_MAX, 2)
+                .setAxisBorderValues(0, max, 2)
                 .setGrid(BarChartView.GridType.FULL, mBarGridPaint)
                 .setYAxis(false)
                 .setXLabels(XController.LabelPosition.OUTSIDE)
                 .setYLabels(YController.LabelPosition.NONE)
-                .show(getAnimation(true))
-        //.show()
-        ;
+                .show(new Animation());
     }
 
 
     @SuppressLint("NewApi")
     private void showBarTooltip(int setIndex, int entryIndex, Rect rect){
         mBarTooltip = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.bar_tooltip, null);
-        mBarTooltip.setText(Integer.toString((int) barValues[setIndex][entryIndex]));
+        mBarTooltip.setText(Integer.toString(survey.getQuestions().get(idx).getAnswers().get(entryIndex).getCount()));
 
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(rect.width(), rect.height());
         layoutParams.leftMargin = rect.left;
@@ -256,33 +210,5 @@ public class ResultFragment extends Fragment {
             if(entryIndex != -1)
                 showBarTooltip(setIndex, entryIndex, rect);
         }
-    }
-
-
-    private void updateValues(BarChartView chartView){
-
-        chartView.updateValues(0, barValues[1]);
-        chartView.updateValues(1, barValues[0]);
-        chartView.notifyDataUpdate();
-    }
-
-
-	/*------------------------------------*
-	 *               GETTERS              *
-	 *------------------------------------*/
-
-    private Animation getAnimation(boolean newAnim){
-        if(newAnim)
-            return new Animation()
-                    .setAlpha(mCurrAlpha)
-                    .setEasing(mCurrEasing)
-                    .setOverlap(mCurrOverlapFactor, mCurrOverlapOrder)
-                    .setStartPoint(mCurrStartX, mCurrStartY);
-        else
-            return new Animation()
-                    .setAlpha(mOldAlpha)
-                    .setEasing(mOldEasing)
-                    .setOverlap(mOldOverlapFactor, mOldOverlapOrder)
-                    .setStartPoint(mOldStartX, mOldStartY);
     }
 }
