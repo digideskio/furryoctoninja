@@ -14,5 +14,8 @@ namespace Rspective.FurryOctoNinja.DataAccess
         public DbSet<Survey> Surveys { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
+
+        public DbSet<ApplicationClient> ApplicationClients { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

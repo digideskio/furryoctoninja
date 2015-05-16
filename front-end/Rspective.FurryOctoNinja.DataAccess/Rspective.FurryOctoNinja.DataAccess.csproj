@@ -45,6 +45,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="JWT">
+      <HintPath>..\packages\JWT.1.3.4\lib\3.5\JWT.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
@@ -70,12 +73,20 @@
   <ItemGroup>
     <Compile Include="AutoMapperConfig.cs" />
     <Compile Include="DbModel\Answer.cs" />
+    <Compile Include="DbModel\ApplicationClient.cs" />
     <Compile Include="DbModel\Question.cs" />
     <Compile Include="DbModel\Survey.cs" />
-    <Compile Include="DbSeed.cs" />
+    <Compile Include="DbModel\ApplicationUser.cs" />
+    <Compile Include="Repositories\ApplicationClientRepository.cs" />
+    <Compile Include="Repositories\ApplicationUserRepository.cs" />
+    <Compile Include="Repositories\IApplicationClientRepository.cs" />
+    <Compile Include="Repositories\IApplicationUserRepository.cs" />
+    <Compile Include="Services\AuthService.cs" />
+    <Compile Include="SurveyAppDbSeed.cs" />
     <Compile Include="Context\DbContextFactory.cs" />
     <Compile Include="Context\IDbContextFactory.cs" />
     <Compile Include="DTO\AnswerDTO.cs" />
+    <Compile Include="DTO\AuthDTO.cs" />
     <Compile Include="DTO\QuestionDTO.cs" />
     <Compile Include="DTO\SurveyDTO.cs" />
     <Compile Include="Repositories\IRepository.cs" />
@@ -85,6 +96,7 @@
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\SurveyRepository.cs" />
     <Compile Include="Context\UnitOfWork.cs" />
+    <Compile Include="Services\IAuthService.cs" />
     <Compile Include="Services\ISurveyService.cs" />
     <Compile Include="SurveyAppContext.cs" />
     <Compile Include="Services\SurveyService.cs" />

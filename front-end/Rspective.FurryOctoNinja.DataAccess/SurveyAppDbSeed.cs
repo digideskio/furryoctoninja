@@ -8,6 +8,68 @@ namespace Rspective.FurryOctoNinja.DataAccess
     {
         protected override void Seed(SurveyAppContext context)
         {
+            this.SeedUsers(context);
+            this.SeedSurveys(context);
+
+            base.Seed(context);
+        }
+
+        private void SeedClients(SurveyAppContext context)
+        {
+            var mock = new ApplicationClient[] {
+                new ApplicationClient() 
+                {
+                    Name = "angularjs",
+                    PublicKey = "El246n9cf1minYI0YGcBVQ8971fK8Gfp",
+                    SecretKey = "517DW0p493372N4s2753ply07p1tqe78tWV6xM4LJ06rpl3y956tQc7J5RnEkYV7"
+                },
+                new ApplicationClient()
+                {
+                    Name = "androidmobile",
+                    PublicKey = "p35iw0R6RO1730BSK432qswrZldwY0jR",
+                    SecretKey = "PX5ie6aj22t7xi3J3u4xXR6r90RXPo88l7WImQ2M1efG9tnG65N5fsQe3TSlDpV6"
+                }
+            };
+
+            foreach (var entry in mock)
+            {
+                context.ApplicationClients.Add(entry);
+            }
+        }
+
+        private void SeedUsers(SurveyAppContext context)
+        {
+            var mock = new ApplicationUser[] {
+                new ApplicationUser()
+                {
+                    Login = "bandro"
+                },
+                new ApplicationUser()
+                {
+                    Login = "pavel"
+                },
+                new ApplicationUser()
+                {
+                    Login = "polok"
+                },
+                new ApplicationUser()
+                {
+                    Login = "roger"
+                },
+                new ApplicationUser()
+                {
+                    Login = "admin"
+                }
+            };
+
+            foreach (var entry in mock)
+            {
+                context.ApplicationUsers.Add(entry);
+            }
+        }
+
+        private void SeedSurveys(SurveyAppContext context)
+        {
             var mock = new Survey()
             {
                 Title = "Test",
@@ -42,8 +104,6 @@ namespace Rspective.FurryOctoNinja.DataAccess
             };
 
             context.Surveys.Add(mock);
-
-            base.Seed(context);
         }
     }
 }

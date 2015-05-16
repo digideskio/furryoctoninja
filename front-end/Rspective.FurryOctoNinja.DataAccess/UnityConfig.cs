@@ -15,8 +15,11 @@ namespace Rspective.FurryOctoNinja.DataAccess
             container.RegisterType<IUnitOfWork, UnitOfWork>();
 
             container.RegisterType<ISurveyRepository, SurveyRepository>();
+            container.RegisterType<IApplicationClientRepository, ApplicationClientRepository>();
+            container.RegisterType<IApplicationUserRepository, ApplicationUserRepository>();
 
             container.RegisterType<ISurveyService, SurveyService>(new PerThreadLifetimeManager());
+            container.RegisterType<IAuthService, AuthService>(new PerThreadLifetimeManager());
 
             return container;
             //DependencyResolver.SetResolver(new UnityDependencyResolver(container));
