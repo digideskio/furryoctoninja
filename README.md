@@ -24,4 +24,25 @@ Deployment: https://support.appharbor.com/kb/getting-started/deploying-your-firs
 
 /api/survey/users - GET
 
-/api/user/login - POST
+/api/user/login - POST (deprecated)
+
+/api/auth/login - POST
+
+- Request:
+
+{
+    login : "bandro" ("polok", "pavel", "roger", "admin"),
+    password : ****,
+    clientId : "El246n9cf1minYI0YGcBVQ8971fK8Gfp" ("p35iw0R6RO1730BSK432qswrZldwY0jR" for mobile!)
+}
+
+- Response:
+
+400 - Bad Request, missing required parameters
+401 - Unauthorized, there is no user or client
+
+{
+	Token: "...",
+	Expiration: Date
+	Roles: [ "Admin", "User" ]
+}
