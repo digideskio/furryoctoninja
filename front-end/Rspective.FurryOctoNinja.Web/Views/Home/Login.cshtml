@@ -1,6 +1,37 @@
 ﻿@{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "SurveyApp - Login";
+    ViewBag.Class = "login-view";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Login</h2>
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/app/surveyapp.login.js"></script>
+}
+<div class="row" ng-controller="LoginController as login">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h4>Sign in</h4></div>
+            <div class="panel-body">
+                <form name="formLogin" ng-submit="validateForm(formLogin) && login.submit()">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label>Username</label>
+                            <input type="text" class="form-control input-lg" name="username" required placeholder="Login.." ng-model="login.login">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label>Password</label>
+                            <input type="password" class="form-control input-lg" name="password" required placeholder="Password.." ng-model="login.password">
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button class="btn btn-success pull-right" type="submit">Sign in</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+﻿@media (max-width: 992px) {
+    #main.container .container-centered .content {
+        width: auto;
+        max-width: none;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+}
