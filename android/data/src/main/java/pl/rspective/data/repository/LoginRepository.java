@@ -1,10 +1,10 @@
 package pl.rspective.data.repository;
 
-import retrofit.client.Response;
+import pl.rspective.data.rest.model.LoginResponse;
 import rx.Observable;
 
 public interface LoginRepository {
 
-    Observable<Response> userLogin(String login, String password);
+    Observable<LoginResponse> userLogin(String login, String password);
 
 }

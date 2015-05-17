@@ -3,7 +3,8 @@ package pl.rspective.data.repository;
 import javax.inject.Inject;
 
 import pl.rspective.data.rest.McKinseyLoginApi;
-import retrofit.client.Response;
+import pl.rspective.data.rest.model.LoginRequest;
+import pl.rspective.data.rest.model.LoginResponse;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
@@ -17,8 +18,8 @@ public class McKinseyLoginRepository implements LoginRepository {
     }
 
     @Override
-    public Observable<Response> userLogin(String login, String password) {
-        return api.login(login, password)
+    public Observable<LoginResponse> userLogin(String login, String password) {
+        return api.login(new LoginRequest(login, password))
                 .subscribeOn(Schedulers.io());
     }
 

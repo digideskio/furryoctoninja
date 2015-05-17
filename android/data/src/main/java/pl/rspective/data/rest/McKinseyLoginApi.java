@@ -1,15 +1,14 @@
 package pl.rspective.data.rest;
 
-import retrofit.client.Response;
-import retrofit.http.Field;
-import retrofit.http.FormUrlEncoded;
+import pl.rspective.data.rest.model.LoginRequest;
+import pl.rspective.data.rest.model.LoginResponse;
+import retrofit.http.Body;
 import retrofit.http.POST;
 import rx.Observable;
 
 public interface McKinseyLoginApi {
 
-    @FormUrlEncoded
-    @POST("/api/user/login")
-    Observable<Response> login(@Field("login") String login, @Field("passsword") String password);
+    @POST("/api/auth/login")
+    Observable<LoginResponse> login(@Body LoginRequest request);
 
 }
