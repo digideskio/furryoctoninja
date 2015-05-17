@@ -9,4 +9,6 @@ public interface IFormView extends BaseView {
 
     void showSubmitButton();
 
+    void showResultFragment();
+
 }

@@ -47,7 +47,7 @@ public class LoginPresenter implements ILoginPresenter {
                 .subscribe(new Action1<LoginResponse>() {
                     @Override
                     public void call(LoginResponse response) {
-                        userRepository.saveUser(new UserPrefs(response.getToken(), response.getUserRoles().get(0).name()));
+                        userRepository.saveUser(new UserPrefs(response.getToken(), response.getUserRoles().get(0)));
                         view.runMainActivity();
                     }
                 }, new Action1<Throwable>() {

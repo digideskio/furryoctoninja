@@ -10,9 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
@@ -276,6 +274,11 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
 
     @Override
     public void showSubmitButton() {
+
+    }
+
+    @Override
+    public void showResultFragment() {
 
     }
 

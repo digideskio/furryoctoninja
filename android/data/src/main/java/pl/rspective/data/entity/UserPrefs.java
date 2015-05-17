@@ -1,16 +1,18 @@
 package pl.rspective.data.entity;
 
+import pl.rspective.data.rest.model.UserRole;
+
 public class UserPrefs {
 
-    public static final UserPrefs USER_DEFAULT = new UserPrefs("", "");
+    public static final UserPrefs USER_DEFAULT = new UserPrefs("", UserRole.UNKNOWN);
 
     private String token;
 
-    private String role;
+    private UserRole role;
 
     public UserPrefs() {}
 
-    public UserPrefs(String token, String role) {
+    public UserPrefs(String token, UserRole role) {
         this.token = token;
         this.role = role;
     }
@@ -23,11 +25,11 @@ public class UserPrefs {
         this.token = token;
     }
 
-    public String getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 }

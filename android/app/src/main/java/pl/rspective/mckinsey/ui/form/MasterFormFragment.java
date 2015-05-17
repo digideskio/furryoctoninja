@@ -26,7 +26,9 @@ import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.dagger.Injector;
 import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
 import pl.rspective.mckinsey.mvp.views.IFormView;
+import pl.rspective.mckinsey.ui.AbsActivity;
 import pl.rspective.mckinsey.ui.form.adapter.FormQuestionPagerAdapter;
+import pl.rspective.mckinsey.ui.results.ResultFragment;
 
 public class MasterFormFragment extends Fragment implements IFormView, FormQuestionFragment.QuestionListener {
 
@@ -97,6 +99,11 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
         YoYo.with(Techniques.BounceInUp)
                 .duration(200)
                 .playOn(btnSurveySubmit);
+    }
+
+    @Override
+    public void showResultFragment() {
+        ((AbsActivity)getActivity()).addFragment(ResultFragment.newInstance(), false, R.id.fl_main_fragment_container);
     }
 
     @Override
