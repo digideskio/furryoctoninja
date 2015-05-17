@@ -77,7 +77,11 @@ Postman-Token: 15bcd829-1d98-82c8-ea14-30920b2221f9
 Response:
 
 ```
-400 - Bad Request, missing required parameters, user or client does not exists
+400 - Bad Request, missing required payload
+```
+
+```
+403 - Forbiden, user or client does not exists
 ```
 
 ```

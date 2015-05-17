@@ -2,8 +2,10 @@
     angular.module("surveyapp")
         .controller("MainController", main);
 
-    main.$inject = [];
+    main.$inject = [ "api" ];
 
-    function main() {
+    function main(api) {
+
+        api.auth.refresh();
     }
 })();

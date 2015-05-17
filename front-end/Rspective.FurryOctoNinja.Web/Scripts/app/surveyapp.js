@@ -1,11 +1,12 @@
 ﻿(function () {
-    angular.module("surveyapp", [])
+    angular.module("surveyapp", [ "angular-loading-bar", "LocalStorageModule"])
         .config(configure)
         .run(run);
 
-    configure.$inject = [];
+    configure.$inject = [ "localStorageServiceProvider" ];
 
-    function configure() {
+    function configure(localStorageServiceProvider) {
+        localStorageServiceProvider.setPrefix('myApsurveyApp');
     }
 
     run.$inject = [ "$rootScope" ];
