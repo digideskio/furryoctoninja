@@ -18,6 +18,7 @@ import pl.rspective.data.repository.LoginRepository;
 import pl.rspective.data.repository.McKinseyLoginRepository;
 import pl.rspective.data.repository.McKinseySurveyRepository;
 import pl.rspective.data.repository.SurveyRepository;
+import pl.rspective.data.repository.UserRepository;
 import pl.rspective.data.rest.McKinseySurveyApi;
 import pl.rspective.data.rest.McKinseyLoginApi;
 import pl.rspective.data.rest.NetworkAction;
@@ -141,8 +142,8 @@ public final class RestModule {
 
     @Provides
     @Singleton
-    SurveyRepository provideSurveyRepository(SurveyLocalStorage<String> surveyStorage, McKinseySurveyApi api) {
-        return new McKinseySurveyRepository(surveyStorage, api);
+    SurveyRepository provideSurveyRepository(UserRepository userRepository, SurveyLocalStorage<String> surveyStorage, McKinseySurveyApi api) {
+        return new McKinseySurveyRepository(userRepository, surveyStorage, api);
     }
 
 }
