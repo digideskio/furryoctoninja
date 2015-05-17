@@ -24,6 +24,7 @@ import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.dagger.Injector;
 import pl.rspective.mckinsey.mvp.presenters.IMainPresenter;
 import pl.rspective.mckinsey.mvp.views.IMainView;
+import pl.rspective.mckinsey.ui.results.ResultFragment;
 import pl.rspective.mckinsey.ui.users.MasterUserFragment;
 import rx.Observer;
 import rx.Subscription;
@@ -109,6 +110,9 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
                 finish();
                 break;
             case 2:
+                addFragment(ResultFragment.newInstance(), false, R.id.fl_main_fragment_container);
+                break;
+            case 3:
                 addFragment(MasterUserFragment.newInstance(), false, R.id.fl_main_fragment_container);
                 break;
             default:

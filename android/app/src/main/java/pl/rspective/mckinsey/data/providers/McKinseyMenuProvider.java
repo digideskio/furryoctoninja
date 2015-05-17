@@ -27,8 +27,12 @@ public class McKinseyMenuProvider implements MenuProvider {
             case USER:
                 break;
             case ADMIN:
+                MenuObject results = new MenuObject("Wyniki");
+                results.setResource(R.drawable.icn_2);
+                menuObjects.add(results);
+
                 MenuObject users = new MenuObject("Użytkownicy");
-                users.setResource(R.drawable.icn_2);
+                users.setResource(R.drawable.icn_3);
                 menuObjects.add(users);
                 break;
             default:
