@@ -10,4 +10,5 @@ public enum UserRole {
 
     @SerializedName("User")
     USER;
+
 }

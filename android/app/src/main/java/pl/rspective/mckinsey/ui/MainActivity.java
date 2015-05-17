@@ -1,9 +1,7 @@
 package pl.rspective.mckinsey.ui;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -11,16 +9,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
-import com.yalantis.contextmenu.lib.MenuObject;
 import com.yalantis.contextmenu.lib.MenuParams;
 import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
 import com.yalantis.contextmenu.lib.interfaces.OnMenuItemLongClickListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,9 +21,7 @@ import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.dagger.Injector;
 import pl.rspective.mckinsey.mvp.presenters.IMainPresenter;
 import pl.rspective.mckinsey.mvp.views.IMainView;
-import pl.rspective.mckinsey.ui.form.MasterFormFragment;
 import pl.rspective.mckinsey.ui.results.ResultFragment;
-import pl.rspective.mckinsey.ui.users.MasterUserFragment;
 
 public class MainActivity extends AbsActivity implements OnMenuItemClickListener, OnMenuItemLongClickListener, IMainView {
 
@@ -50,45 +41,17 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
         Injector.inject(this);
 
         addFragment(mainPresenter.getStartFragment(), true, R.id.fl_main_fragment_container);
-        initMenuFragment();
+        initMenuItems();
 
     }
 
-    private void initMenuFragment() {
+    private void initMenuItems() {
         MenuParams menuParams = new MenuParams();
         menuParams.setActionBarSize((int) getResources().getDimension(R.dimen.abc_action_bar_default_height_material));
-        menuParams.setMenuObjects(getMenuObjects());
+        menuParams.setMenuObjects(mainPresenter.getMainMenuItems());
         menuParams.setClosableOutside(false);
+
         menuDialogFragment = ContextMenuDialogFragment.newInstance(menuParams);
-    }
-
-    private List<MenuObject> getMenuObjects() {
-        List<MenuObject> menuObjects = new ArrayList<>();
-
-        MenuObject close = new MenuObject();
-        close.setResource(R.drawable.icn_close);
-
-        MenuObject send = new MenuObject("Wyloguj");
-        send.setResource(R.drawable.icn_1);
-
-        MenuObject survey = new MenuObject("Ankieta");
-        send.setResource(R.drawable.icn_1);
-
-        MenuObject like = new MenuObject("Wyniki");
-        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.icn_2);
-        like.setBitmap(b);
-
-        MenuObject addFr = new MenuObject("Użytkownicy");
-        BitmapDrawable bd = new BitmapDrawable(getResources(),
-                BitmapFactory.decodeResource(getResources(), R.drawable.icn_3));
-        addFr.setDrawable(bd);
-
-        menuObjects.add(close);
-        menuObjects.add(survey);
-        menuObjects.add(send);
-        menuObjects.add(like);
-        menuObjects.add(addFr);
-        return menuObjects;
     }
 
     @Override
@@ -125,15 +88,13 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
             case 0:
                 break;
             case 1:
-                addFragment(MasterFormFragment.newInstance(), false, R.id.fl_main_fragment_container);
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
                 break;
             case 2:
-                break;
-            case 3:
                 addFragment(ResultFragment.newInstance(), false, R.id.fl_main_fragment_container);
-                break;
-            case 4:
-                addFragment(MasterUserFragment.newInstance(), false, R.id.fl_main_fragment_container);
                 break;
             default:
                 break;
@@ -141,9 +102,7 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
     }
 
     @Override
-    public void onMenuItemLongClick(View clickedView, int position) {
-        Toast.makeText(this, "Long clicked on position: " + position, Toast.LENGTH_SHORT).show();
-    }
+    public void onMenuItemLongClick(View clickedView, int position) {}
 
     @Override
     public Context getViewContext() {
