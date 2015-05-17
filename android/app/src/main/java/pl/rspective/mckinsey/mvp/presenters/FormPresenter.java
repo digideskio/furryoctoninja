@@ -1,13 +1,12 @@
 package pl.rspective.mckinsey.mvp.presenters;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
 
+import pl.rspective.data.entity.Answer;
 import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.Survey;
 import pl.rspective.data.local.LocalPreferences;
@@ -30,7 +29,8 @@ public class FormPresenter implements IFormPresenter {
 
     private IFormView formView;
 
-    private Subscription subscription;
+    private Subscription subscriptionSurveyLoad;
+    private Subscription subscriptionSurveySubmit;
     private Gson gson;
     private Survey survey;
 
@@ -45,7 +45,21 @@ public class FormPresenter implements IFormPresenter {
     }
 
     @Override
-    public void updateSurvey(int number, Question question) {
+    public void updateSurvey(int number, Question question, Answer answer) {
+        if(survey.isSubmited()) {
+            return;
+        }
+
+        question.setUserAnswerId(answer.getId());
+
+        for(Answer a : question.getAnswers()) {
+            if(a.getId() == answer.getId()) {
+                a.setSelected(true);
+            } else {
+                a.setSelected(false);
+            }
+        }
+
         survey.getQuestions().set(number, question);
 
         boolean isReadyToSend = validateSurvey(survey);
@@ -55,11 +69,14 @@ public class FormPresenter implements IFormPresenter {
             formView.showSubmitButton();
         }
 
+        storeSurvey();
+        bus.post(new AnswerUpdateEvent(survey.getQuestions().get(number)));
+    }
+
+    private void storeSurvey() {
         String surveyJson = gson.toJson(survey);
         localStorage.clear(StorageType.SURVEY);
         localStorage.save(StorageType.SURVEY, surveyJson);
-
-        bus.post(new AnswerUpdateEvent(survey.getQuestions().get(number)));
     }
 
     private boolean validateSurvey(Survey survey) {
@@ -78,7 +95,7 @@ public class FormPresenter implements IFormPresenter {
 
     @Override
     public void loadSurvey() {
-        subscription = surveyRepository.fetchSurvey(!localPreferences.isUserFirstLogin())
+        subscriptionSurveyLoad = surveyRepository.fetchSurvey(!localPreferences.isUserFirstLogin())
                 .subscribe(new Action1<Survey>() {
                     @Override
                     public void call(Survey survey) {
@@ -94,8 +111,6 @@ public class FormPresenter implements IFormPresenter {
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        boolean x = throwable == null;
-
                     }
                 });
     }
@@ -108,20 +123,18 @@ public class FormPresenter implements IFormPresenter {
             submitRequest.addAnswer(q.getId(), q.getUserAnswerId());
         }
 
-        Gson gson1 = new Gson();
-        String json = gson1.toJson(submitRequest);
-        Log.v("JSON", json);
-
-        surveyRepository.submitSurvey(submitRequest)
+        subscriptionSurveySubmit = surveyRepository.submitSurvey(submitRequest)
                 .subscribe(new Action1<Response>() {
                     @Override
                     public void call(Response response) {
+                        survey.setSubmited(true);
+                        storeSurvey();
 
+                        formView.showResultFragment();
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-
                     }
                 });
     }
@@ -135,8 +148,12 @@ public class FormPresenter implements IFormPresenter {
     public void onDestroy() {
         this.formView = null;
 
-        if(subscription != null) {
-            subscription.unsubscribe();
+        if(subscriptionSurveyLoad != null) {
+            subscriptionSurveyLoad.unsubscribe();
+        }
+
+        if(subscriptionSurveySubmit != null) {
+            subscriptionSurveySubmit.unsubscribe();
         }
     }
 }

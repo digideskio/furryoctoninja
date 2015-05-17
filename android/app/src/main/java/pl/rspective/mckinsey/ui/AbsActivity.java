@@ -45,7 +45,7 @@ public abstract class AbsActivity extends AppCompatActivity {
         });
     }
 
-    protected void addFragment(Fragment fragment, boolean addToBackStack, int containerId) {
+    public void addFragment(Fragment fragment, boolean addToBackStack, int containerId) {
         invalidateOptionsMenu();
         String backStackName = fragment.getClass().getName();
         boolean fragmentPopped = getSupportFragmentManager().popBackStackImmediate(backStackName, 0);

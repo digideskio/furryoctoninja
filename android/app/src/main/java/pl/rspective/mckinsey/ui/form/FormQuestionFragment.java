@@ -27,7 +27,7 @@ import pl.rspective.mckinsey.ui.form.adapter.AnswerAdapter;
 public class FormQuestionFragment extends Fragment implements AnswerAdapter.AnswerListener {
 
     public static interface QuestionListener {
-        void onQuestionUpdate(int number, Question question);
+        void onQuestionUpdate(int number, Question question, Answer answer);
     }
 
     private static final String QUESTION_EXTRA = "question_extra";
@@ -67,6 +67,7 @@ public class FormQuestionFragment extends Fragment implements AnswerAdapter.Answ
         questionNumber = getArguments().getInt(QUESTION_NUMBER_EXTRA);
 
         adapter = new AnswerAdapter(this);
+
     }
 
     @Override
@@ -104,17 +105,7 @@ public class FormQuestionFragment extends Fragment implements AnswerAdapter.Answ
 
     @Override
     public void onAnswerClick(int position, Answer answer) {
-        question.setUserAnswerId(answer.getId());
-
-        for(Answer a : question.getAnswers()) {
-            if(a.getId() == answer.getId()) {
-                a.setSelected(true);
-            } else {
-                a.setSelected(false);
-            }
-        }
-
-        questionListener.onQuestionUpdate(questionNumber, question);
+        questionListener.onQuestionUpdate(questionNumber, question, answer);
     }
 
     public void setQuestionListener(QuestionListener questionListener) {

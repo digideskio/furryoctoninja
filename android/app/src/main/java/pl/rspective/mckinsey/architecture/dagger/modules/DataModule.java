@@ -12,6 +12,8 @@ import pl.rspective.data.local.McKinseyStorageSurvey;
 import pl.rspective.data.local.SurveyLocalStorage;
 import pl.rspective.data.repository.McKinseyUserRepository;
 import pl.rspective.data.repository.UserRepository;
+import pl.rspective.mckinsey.data.providers.McKinseyMenuProvider;
+import pl.rspective.mckinsey.data.providers.MenuProvider;
 
 @Module(
         injects = {
@@ -40,6 +42,12 @@ public final class DataModule {
     @Singleton
     UserRepository provideUserRepository() {
         return new McKinseyUserRepository();
+    }
+
+    @Provides
+    @Singleton
+    MenuProvider provideMenuProvider() {
+        return new McKinseyMenuProvider();
     }
 
 }
