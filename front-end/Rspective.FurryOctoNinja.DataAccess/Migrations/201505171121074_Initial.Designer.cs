@@ -13,7 +13,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201505170854291_Initial"; }
+            get { return "201505171121074_Initial"; }
         }
         
         string IMigrationMetadata.Source

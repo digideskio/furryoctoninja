@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Rspective.FurryOctoNinja.DataAccess.DbModel
@@ -11,6 +12,11 @@ namespace Rspective.FurryOctoNinja.DataAccess.DbModel
         [MaxLength(200)]
         [Required]
         public string Login { get; set; }
+
+        [MaxLength(200)]
+        [Required]
+        [IgnoreMap]
+        public string Password { get; set; }
 
         [Required]
         public virtual ICollection<ApplicationUserRole> Roles { get; set; }

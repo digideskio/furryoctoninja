@@ -1,10 +1,12 @@
 ﻿namespace Rspective.FurryOctoNinja.DataAccess.Migrations
 {
     using Rspective.FurryOctoNinja.DataAccess.DbModel;
+    using Rspective.FurryOctoNinja.DataAccess.Helpers;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using System.Security.Cryptography;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Rspective.FurryOctoNinja.DataAccess.SurveyAppContext>
     {
@@ -50,30 +52,37 @@
 
         private void SeedUsersAndRoles(SurveyAppContext context)
         {
+            var password = PasswordEncryptor.Encrypt("furryninja2014");
+
             var mock = new ApplicationUser[] {
                 new ApplicationUser()
                 {
                     Login = "bandro",
+                    Password = password,
                     Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "User" } }
                 },
                 new ApplicationUser()
                 {
                     Login = "pavel",
+                    Password = password,
                     Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "User" } }
                 },
                 new ApplicationUser()
                 {
                     Login = "polok",
+                    Password = password,
                     Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "User" } }
                 },
                 new ApplicationUser()
                 {
                     Login = "roger",
+                    Password = password,
                     Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "User" } }
                 },
                 new ApplicationUser()
                 {
                     Login = "admin",
+                    Password = password,
                     Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "Admin" } }
                 }
             };

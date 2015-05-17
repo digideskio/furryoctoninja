@@ -65,6 +65,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -83,9 +84,10 @@
     <Compile Include="DbModel\ApplicationUser.cs" />
     <Compile Include="DTO\AuthUserDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
-    <Compile Include="Migrations\201505170854291_Initial.cs" />
-    <Compile Include="Migrations\201505170854291_Initial.Designer.cs">
-      <DependentUpon>201505170854291_Initial.cs</DependentUpon>
+    <Compile Include="Helpers\PasswordEncryptor.cs" />
+    <Compile Include="Migrations\201505171121074_Initial.cs" />
+    <Compile Include="Migrations\201505171121074_Initial.Designer.cs">
+      <DependentUpon>201505171121074_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\ApplicationClientRepository.cs" />
@@ -121,8 +123,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505170854291_Initial.resx">
-      <DependentUpon>201505170854291_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505171121074_Initial.resx">
+      <DependentUpon>201505171121074_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
