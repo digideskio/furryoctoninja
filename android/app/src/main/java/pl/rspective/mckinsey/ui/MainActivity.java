@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 import com.yalantis.contextmenu.lib.MenuParams;
@@ -17,16 +18,29 @@ import com.yalantis.contextmenu.lib.interfaces.OnMenuItemLongClickListener;
 
 import javax.inject.Inject;
 
+import butterknife.InjectView;
+import pl.rspective.data.rest.NetworkAction;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.dagger.Injector;
 import pl.rspective.mckinsey.mvp.presenters.IMainPresenter;
 import pl.rspective.mckinsey.mvp.views.IMainView;
-import pl.rspective.mckinsey.ui.results.ResultFragment;
+import pl.rspective.mckinsey.ui.users.MasterUserFragment;
+import rx.Observer;
+import rx.Subscription;
+import rx.subjects.PublishSubject;
 
-public class MainActivity extends AbsActivity implements OnMenuItemClickListener, OnMenuItemLongClickListener, IMainView {
+public class MainActivity extends AbsActivity implements OnMenuItemClickListener, OnMenuItemLongClickListener, IMainView, Observer<NetworkAction> {
+
+    @Inject
+    PublishSubject<NetworkAction> networkActivity;
 
     @Inject
     IMainPresenter mainPresenter;
+
+    @InjectView(R.id.fl_loading_container)
+    FrameLayout loadingContainer;
+
+    private Subscription subscription;
 
     private DialogFragment menuDialogFragment;
 
@@ -43,6 +57,7 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
         addFragment(mainPresenter.getStartFragment(), true, R.id.fl_main_fragment_container);
         initMenuItems();
 
+        subscription = networkActivity.subscribe(this);
     }
 
     private void initMenuItems() {
@@ -94,7 +109,7 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
                 finish();
                 break;
             case 2:
-                addFragment(ResultFragment.newInstance(), false, R.id.fl_main_fragment_container);
+                addFragment(MasterUserFragment.newInstance(), false, R.id.fl_main_fragment_container);
                 break;
             default:
                 break;
@@ -108,4 +123,34 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
     public Context getViewContext() {
         return this;
     }
+
+    @Override
+    public void onCompleted() {
+    }
+
+    @Override
+    public void onError(Throwable e) {
+    }
+
+    @Override
+    public void onNext(NetworkAction networkAction) {
+        switch (networkAction) {
+            case HTTP_REQUEST_START:
+//                loadingContainer.setVisibility(View.VISIBLE);
+                break;
+
+            case HTTP_REQUEST_END:
+//                loadingContainer.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(subscription != null) {
+            subscription.unsubscribe();
+        }
+    }
+
 }
