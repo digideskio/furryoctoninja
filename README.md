@@ -14,6 +14,21 @@ Repository Url: https://furryoctoninja@appharbor.com/furryoctoninja.git
 
 Deployment: https://support.appharbor.com/kb/getting-started/deploying-your-first-application-using-git
 
+
+## Test Users:
+
+*login  : password*
+
+bandro : furryninja2014
+
+polok  : furryninja2014
+
+pavel  : furryninja2014
+
+roger  : furryninja2014
+
+admin  : furryninja2014
+
 ## API
 
 /api/survey - GET (same as: /api/survey/get)
