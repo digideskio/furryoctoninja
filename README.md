@@ -4,11 +4,11 @@
 
 [AppHarbor](https://appharbor.com)
 
-- Email    : dev@rspective.pl
+- Email: dev@rspective.pl
 
-- Username : furryoctoninja
+- Username: furryoctoninja
 
-- App url  :	http://furryoctoninja.apphb.com/
+- App url:	http://furryoctoninja.apphb.com/
 
 - Repository Url: https://furryoctoninja@appharbor.com/furryoctoninja.git
 
@@ -45,47 +45,73 @@ Add-Migrarion "Name"
 
 ## Test Users:
 
-*login  : password*
+*login: password*
 
-- bandro : furryninja2014
+- bandro: furryninja2014
 
-- polok  : furryninja2014
+- polok: furryninja2014
 
-- pavel  : furryninja2014
+- pavel: furryninja2014
 
-- roger  : furryninja2014
+- roger: furryninja2014
 
-- admin  : furryninja2014
+- admin: furryninja2014
+
+## Keys:
+
+- Client "AngularJS": El246n9cf1minYI0YGcBVQ8971fK8Gfp
+
+- Client "Android": p35iw0R6RO1730BSK432qswrZldwY0jR
+
+## Headers
+
+- Authorization
+
+1. Schema
+
+```
+Authorization: Token ClientId:GeneratedToken
+```
+
+2. Sample
+
+```
+Authorization: Token p35iw0R6RO1730BSK432qswrZldwY0jR:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJFeHBpcmF0aW9uIjoiXC9EYXRlKDE0MzQ2NjY1NzA5MzYpXC8iLCJDbGllbnQiOiJhbmRyb2lkbW9iaWxlIiwiVXNlcklkIjoxLCJSb2xlcyI6WyJVc2VyIl19.nz0_TEBAj5btNKnn7inPgFyLnvKGSp7IitUc9BtPHjk
+```
 
 ## API
 
-/api/survey - GET (same as: /api/survey/get)
+- /api/survey - GET (same as: /api/survey/get)
 
-/api/survey - POST (same as: /api/survey/post)
+- /api/survey - POST (same as: /api/survey/post)
 
-/api/survey/results - GET
+- /api/survey/results - GET
 
-/api/survey/users - GET
+- /api/survey/users - GET
 
-/api/user/login - POST (deprecated)
+- /api/auth/login - POST
 
-/api/auth/login - POST
+1. Request:
 
-- Request:
+```
 
-{
-    login : "bandro" ("polok", "pavel", "roger", "admin"),
-    password : ****,
-    clientId : "El246n9cf1minYI0YGcBVQ8971fK8Gfp" ("p35iw0R6RO1730BSK432qswrZldwY0jR" for mobile!)
-}
+```
 
-- Response:
+2. Response:
 
+```
 400 - Bad Request, missing required parameters
-401 - Unauthorized, there is no user or client
+```
 
+```
+401 - Unauthorized, there is no user or client
+```
+
+```
+200 - Success
 {
 	Token: "...",
-	Expiration: Date
+	Expiration: Date,
 	Roles: [ "Admin", "User" ]
 }
+```
