@@ -2,6 +2,7 @@ package pl.rspective.mckinsey.architecture.dagger.modules;
 
 import android.util.Log;
 
+import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -19,8 +20,8 @@ import pl.rspective.data.repository.McKinseyLoginRepository;
 import pl.rspective.data.repository.McKinseySurveyRepository;
 import pl.rspective.data.repository.SurveyRepository;
 import pl.rspective.data.repository.UserRepository;
-import pl.rspective.data.rest.McKinseySurveyApi;
 import pl.rspective.data.rest.McKinseyLoginApi;
+import pl.rspective.data.rest.McKinseySurveyApi;
 import pl.rspective.data.rest.NetworkAction;
 import pl.rspective.data.rest.converter.RestDataConverter;
 import pl.rspective.mckinsey.McKinseyApp;
@@ -118,7 +119,7 @@ public final class RestModule {
                         publishSubject.onNext(NetworkAction.HTTP_REQUEST_END);
                     }
                 })
-                .setConverter(new RestDataConverter())
+                .setConverter(new RestDataConverter(new GsonBuilder().create()))
                 .build();
     }
 

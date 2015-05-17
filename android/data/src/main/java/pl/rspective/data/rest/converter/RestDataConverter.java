@@ -2,6 +2,8 @@ package pl.rspective.data.rest.converter;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,13 +11,16 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 
 import retrofit.converter.ConversionException;
-import retrofit.converter.Converter;
+import retrofit.converter.GsonConverter;
 import retrofit.mime.TypedInput;
-import retrofit.mime.TypedOutput;
 
-public class RestDataConverter implements Converter {
+public class RestDataConverter extends GsonConverter {
 
     private static final String TAG = "RestDataConverter";
+
+    public RestDataConverter(Gson gson) {
+        super(gson);
+    }
 
     @Override
     public Object fromBody(TypedInput typedInput, Type type) throws ConversionException {
@@ -28,11 +33,6 @@ public class RestDataConverter implements Converter {
         }
 
         return jsonData;
-    }
-
-    @Override
-    public TypedOutput toBody(Object o) {
-        return null;
     }
 
     public static String fromStream(InputStream in) throws IOException {
