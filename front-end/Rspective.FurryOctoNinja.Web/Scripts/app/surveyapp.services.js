@@ -1,11 +1,15 @@
 ﻿(function () {
     angular.module("surveyapp")
         .service("api", api)
-        .service("loginManager", loginManager)
+        .service("token", token)
 
     api.$inject = [ "$http" ];
 
     function api($http) {
+    }
 
+    token.$inject = ["$http"];
+
+    function token($http) {
     }
 })();
