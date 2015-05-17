@@ -1,5 +1,7 @@
 package pl.rspective.mckinsey.architecture.dagger.modules;
 
+import android.support.annotation.StringRes;
+
 import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
@@ -14,15 +16,18 @@ import pl.rspective.data.repository.UserRepository;
 import pl.rspective.mckinsey.mvp.presenters.FormPresenter;
 import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
 import pl.rspective.mckinsey.mvp.presenters.ILoginPresenter;
+import pl.rspective.mckinsey.mvp.presenters.IMainPresenter;
 import pl.rspective.mckinsey.mvp.presenters.IUserPresenter;
 import pl.rspective.mckinsey.mvp.presenters.LoginPresenter;
+import pl.rspective.mckinsey.mvp.presenters.MainPresenter;
 import pl.rspective.mckinsey.mvp.presenters.UserPresenter;
 
 @Module(
         injects = {
                 LoginPresenter.class,
                 FormPresenter.class,
-                UserPresenter.class
+                UserPresenter.class,
+                MainPresenter.class
         },
         includes = {
         },
@@ -30,6 +35,12 @@ import pl.rspective.mckinsey.mvp.presenters.UserPresenter;
         library = true
 )
 public class PresenterModule {
+
+    @Provides
+    @Singleton
+    public IMainPresenter provideMainPresenter(UserRepository userRepositor, SurveyLocalStorage<String> surveyLocalStorage) {
+        return new MainPresenter(userRepositor, surveyLocalStorage);
+    }
 
     @Provides
     @Singleton

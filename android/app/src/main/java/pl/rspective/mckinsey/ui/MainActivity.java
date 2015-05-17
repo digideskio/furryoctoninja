@@ -1,5 +1,6 @@
 package pl.rspective.mckinsey.ui;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -21,12 +22,21 @@ import com.yalantis.contextmenu.lib.interfaces.OnMenuItemLongClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import pl.rspective.mckinsey.R;
+import pl.rspective.mckinsey.dagger.Injector;
+import pl.rspective.mckinsey.mvp.presenters.IMainPresenter;
+import pl.rspective.mckinsey.mvp.views.IMainView;
 import pl.rspective.mckinsey.ui.form.MasterFormFragment;
 import pl.rspective.mckinsey.ui.results.ResultFragment;
 import pl.rspective.mckinsey.ui.users.MasterUserFragment;
 
-public class MainActivity extends AbsActivity implements OnMenuItemClickListener, OnMenuItemLongClickListener {
+public class MainActivity extends AbsActivity implements OnMenuItemClickListener, OnMenuItemLongClickListener, IMainView {
+
+    @Inject
+    IMainPresenter mainPresenter;
+
     private DialogFragment menuDialogFragment;
 
     @Override
@@ -37,9 +47,11 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Injector.inject(this);
 
-        addFragment(MasterFormFragment.newInstance(), true, R.id.fl_main_fragment_container);
+        addFragment(mainPresenter.getStartFragment(), true, R.id.fl_main_fragment_container);
         initMenuFragment();
+
     }
 
     private void initMenuFragment() {
@@ -133,4 +145,8 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
         Toast.makeText(this, "Long clicked on position: " + position, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public Context getViewContext() {
+        return this;
+    }
 }
