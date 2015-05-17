@@ -7,6 +7,6 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
     {
         ApplicationToken Validate(string token, string clientId);
 
-        void Invalidate(ApplicationClient client, ApplicationUser user, DateTime expiration);
+        void Invalidate(ApplicationClient client, ApplicationUser user, DateTime? expiration);
     }
 }
