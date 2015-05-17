@@ -241,7 +241,9 @@
   <ItemGroup>
     <Compile Include="Api\AuthController.cs" />
     <Compile Include="Api\SurveyController.cs" />
+    <Compile Include="Auth\TokenAuthorizeAttribute.cs" />
     <Compile Include="Api\UserController.cs" />
+    <Compile Include="Auth\User.cs" />
     <Compile Include="AutoMapperConfig.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

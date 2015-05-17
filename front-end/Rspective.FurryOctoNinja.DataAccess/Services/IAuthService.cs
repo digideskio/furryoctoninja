@@ -9,10 +9,10 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 {
     public interface IAuthService
     {
-        AuthDTO Login(string login, string password, string clientId);
+        AuthDTO Login(string clientId, string login, string password);
 
-        AuthDTO Refresh(string token, string clientId);
+        AuthDTO Refresh(string clientId, string token);
 
-        bool IsAuthorized(string token, string clientId, string requestedRole);
+        AuthUserDTO Authorize(string clientId, string token, string[] roles);
     }
 }

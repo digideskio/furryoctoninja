@@ -5,7 +5,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
 {
     interface IApplicationTokenRepository : IRepository<ApplicationToken>
     {
-        ApplicationToken Validate(string token, string clientId);
+        ApplicationToken Validate(string clientId, string token);
 
         void Invalidate(ApplicationClient client, ApplicationUser user, DateTime? expiration);
     }

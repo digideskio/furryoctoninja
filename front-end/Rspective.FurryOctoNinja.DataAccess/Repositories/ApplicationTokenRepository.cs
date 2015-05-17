@@ -15,7 +15,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
         {
         }
         
-        public ApplicationToken Validate(string token, string clientId)
+        public ApplicationToken Validate(string clientId, string token)
         {
             return this.DbSet
                 .Include("Client")

@@ -81,6 +81,8 @@
     <Compile Include="DbModel\Question.cs" />
     <Compile Include="DbModel\Survey.cs" />
     <Compile Include="DbModel\ApplicationUser.cs" />
+    <Compile Include="DTO\AuthUserDTO.cs" />
+    <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Migrations\201505170854291_Initial.cs" />
     <Compile Include="Migrations\201505170854291_Initial.Designer.cs">
       <DependentUpon>201505170854291_Initial.cs</DependentUpon>

@@ -1,4 +1,5 @@
-﻿using Rspective.FurryOctoNinja.DataAccess.Context;
+﻿using AutoMapper;
+using Rspective.FurryOctoNinja.DataAccess.Context;
 using Rspective.FurryOctoNinja.DataAccess.DbModel;
 using Rspective.FurryOctoNinja.DataAccess.DTO;
 using Rspective.FurryOctoNinja.DataAccess.Repositories;
@@ -28,7 +29,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             this.tokenRepository = tokenRepository;
         }
 
-        public AuthDTO Login(string login, string password, string clientId)
+        public AuthDTO Login(string clientId, string login, string password)
         {
             var user = this.userRepositiory.Authenticate(login, password);
             var client = this.clientRepository.GetByPublicKey(clientId);
@@ -58,9 +59,9 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             };
         }
 
-        public AuthDTO Refresh(string token, string clientId)
+        public AuthDTO Refresh(string clientId, string token)
         {
-            var applicationToken = this.tokenRepository.Validate(token, clientId);
+            var applicationToken = this.tokenRepository.Validate(clientId, token);
 
             if (applicationToken == null)
             {
@@ -81,13 +82,13 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             };
         }
 
-        public bool IsAuthorized(string token, string clientId, string requestedRole)
+        public AuthUserDTO Authorize(string clientId, string token, string[] roles)
         {
-            var applicationToken = this.tokenRepository.Validate(token, clientId);
+            var applicationToken = this.tokenRepository.Validate(clientId, token);
 
             if (applicationToken == null) 
             {
-                return false;
+                return null;
             }
             
             try
@@ -95,12 +96,21 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
                 // TODO: Make use of passed token data
                 string jsonPayload = JWT.JsonWebToken.Decode(token, applicationToken.Client.SecretKey);
            
-                // TODO: Check user role
-                return !string.IsNullOrWhiteSpace(requestedRole) ? true : true;
+                var auth = new AuthUserDTO() {
+                     User = Mapper.Map<UserDTO>(applicationToken.User),
+                     IsAuthorized = true
+                };
+
+                if (roles != null && roles.Length > 0)
+                {
+                    auth.IsAuthorized = roles.Except(auth.User.Roles).Count() == 0;
+                }
+
+                return auth;
             }
             catch (JWT.SignatureVerificationException)
             {
-                return false;
+                return null;
             }
         }
 
