@@ -8,8 +8,11 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.ToxicBakery.viewpager.transforms.ZoomOutSlideTransformer;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import javax.inject.Inject;
@@ -28,6 +31,9 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
 
     @Inject
     IFormPresenter formPresenter;
+
+    @InjectView(R.id.btn_survey_submit)
+    Button btnSurveySubmit;
 
     @InjectView(R.id.viewpager)
     ViewPager viewPager;
@@ -82,6 +88,14 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
         adapter.updateData(survey.getQuestions());
         viewPager.setAdapter(adapter);
         smartTabLayout.setViewPager(viewPager);
+    }
+
+    @Override
+    public void showSubmitButton() {
+        btnSurveySubmit.setVisibility(View.VISIBLE);
+        YoYo.with(Techniques.BounceInUp)
+                .duration(200)
+                .playOn(btnSurveySubmit);
     }
 
     @Override

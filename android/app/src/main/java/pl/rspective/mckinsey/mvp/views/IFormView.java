@@ -7,4 +7,6 @@ public interface IFormView extends BaseView {
 
     void updateUi(Survey survey);
 
+    void showSubmitButton();
+
 }

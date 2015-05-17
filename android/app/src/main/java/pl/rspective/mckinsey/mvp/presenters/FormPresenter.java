@@ -44,11 +44,32 @@ public class FormPresenter implements IFormPresenter {
     public void updateSurvey(int number, Question question) {
         survey.getQuestions().set(number, question);
 
+        boolean isReadyToSend = validateSurvey(survey);
+        survey.setReady(isReadyToSend);
+
+        if(isReadyToSend) {//FIXME find better place for this part
+            formView.showSubmitButton();
+        }
+
         String surveyJson = gson.toJson(survey);
         localStorage.clear(StorageType.SURVEY);
         localStorage.save(StorageType.SURVEY, surveyJson);
 
         bus.post(new AnswerUpdateEvent(survey.getQuestions().get(number)));
+    }
+
+    private boolean validateSurvey(Survey survey) {
+        boolean readyToSend = true;
+
+        for(Question question : survey.getQuestions()) {
+            readyToSend = readyToSend && question.getUserAnswerId() > 0;
+
+            if(!readyToSend) {
+                break;
+            }
+        }
+
+        return readyToSend;
     }
 
     @Override
@@ -61,6 +82,10 @@ public class FormPresenter implements IFormPresenter {
 
                         FormPresenter.this.survey = survey;
                         formView.updateUi(survey);
+
+                        if(survey.isReady() && !survey.isSubmited()) {
+                            formView.showSubmitButton();
+                        }
                     }
                 }, new Action1<Throwable>() {
                     @Override
