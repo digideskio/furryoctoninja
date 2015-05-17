@@ -18,8 +18,9 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
         public ApplicationToken Validate(string token, string clientId)
         {
             return this.DbSet
-                .Include("ApplicationClients")
-                .Include("ApplicationUsers")
+                .Include("Client")
+                .Include("User")
+                .Include("User.Roles")
                 .FirstOrDefault(applicationToken => 
                     applicationToken.Client.PublicKey == clientId 
                     && applicationToken.Token == token 

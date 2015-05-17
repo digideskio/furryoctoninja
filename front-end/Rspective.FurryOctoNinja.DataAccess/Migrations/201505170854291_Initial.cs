@@ -27,6 +27,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Migrations
                         Name = c.String(nullable: false, maxLength: 50),
                         PublicKey = c.String(nullable: false, maxLength: 200),
                         SecretKey = c.String(nullable: false, maxLength: 200),
+                        TokenExpirationTime = c.Long(nullable: false),
                         IsActive = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
@@ -55,6 +56,18 @@ namespace Rspective.FurryOctoNinja.DataAccess.Migrations
                         Login = c.String(nullable: false, maxLength: 200),
                     })
                 .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.ApplicationUserRoles",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false),
+                        ApplicationUser_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.ApplicationUsers", t => t.ApplicationUser_Id)
+                .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
                 "dbo.Questions",
@@ -86,13 +99,16 @@ namespace Rspective.FurryOctoNinja.DataAccess.Migrations
             DropForeignKey("dbo.Questions", "Survey_Id", "dbo.Surveys");
             DropForeignKey("dbo.Answers", "Question_Id", "dbo.Questions");
             DropForeignKey("dbo.ApplicationTokens", "UserId", "dbo.ApplicationUsers");
+            DropForeignKey("dbo.ApplicationUserRoles", "ApplicationUser_Id", "dbo.ApplicationUsers");
             DropForeignKey("dbo.ApplicationTokens", "ClientId", "dbo.ApplicationClients");
             DropIndex("dbo.Questions", new[] { "Survey_Id" });
+            DropIndex("dbo.ApplicationUserRoles", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.ApplicationTokens", new[] { "UserId" });
             DropIndex("dbo.ApplicationTokens", new[] { "ClientId" });
             DropIndex("dbo.Answers", new[] { "Question_Id" });
             DropTable("dbo.Surveys");
             DropTable("dbo.Questions");
+            DropTable("dbo.ApplicationUserRoles");
             DropTable("dbo.ApplicationUsers");
             DropTable("dbo.ApplicationTokens");
             DropTable("dbo.ApplicationClients");

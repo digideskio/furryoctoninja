@@ -12,6 +12,6 @@ namespace Rspective.FurryOctoNinja.DataAccess.DTO
 
         public DateTime Expiration { get; set; }
 
-        public string Roles { get; set; }
+        public ICollection<string> Roles { get; set; }
     }
 }
