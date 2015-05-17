@@ -13,7 +13,9 @@ import pl.rspective.data.entity.User;
 import pl.rspective.data.local.SurveyLocalStorage;
 import pl.rspective.data.local.model.StorageType;
 import pl.rspective.data.rest.McKinseySurveyApi;
+import pl.rspective.data.rest.model.SurveySubmitRequest;
 import pl.rspective.data.rest.model.UserListResponse;
+import retrofit.client.Response;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -71,6 +73,13 @@ public class McKinseySurveyRepository implements SurveyRepository {
                         }
                     });
         }
+    }
+
+    @Override
+    public Observable<Response> submitSurvey(SurveySubmitRequest submitRequest) {
+        return api.submitSurvey(userRepository.getUserAuthorizationToken(), submitRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override

@@ -10,4 +10,6 @@ public interface IFormPresenter extends BasePresenter<IFormView> {
 
     void loadSurvey();
 
+    void submitSurvey();
+
 }

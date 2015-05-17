@@ -1,5 +1,7 @@
 package pl.rspective.mckinsey.mvp.presenters;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.otto.Bus;
@@ -12,8 +14,10 @@ import pl.rspective.data.local.LocalPreferences;
 import pl.rspective.data.local.SurveyLocalStorage;
 import pl.rspective.data.local.model.StorageType;
 import pl.rspective.data.repository.SurveyRepository;
+import pl.rspective.data.rest.model.SurveySubmitRequest;
 import pl.rspective.mckinsey.architecture.bus.events.AnswerUpdateEvent;
 import pl.rspective.mckinsey.mvp.views.IFormView;
+import retrofit.client.Response;
 import rx.Subscription;
 import rx.functions.Action1;
 
@@ -91,6 +95,32 @@ public class FormPresenter implements IFormPresenter {
                     @Override
                     public void call(Throwable throwable) {
                         boolean x = throwable == null;
+
+                    }
+                });
+    }
+
+    @Override
+    public void submitSurvey() {
+        SurveySubmitRequest submitRequest = new SurveySubmitRequest(survey.getId(), survey.getCreatedDate());
+
+        for(Question q : survey.getQuestions()) {
+            submitRequest.addAnswer(q.getId(), q.getUserAnswerId());
+        }
+
+        Gson gson1 = new Gson();
+        String json = gson1.toJson(submitRequest);
+        Log.v("JSON", json);
+
+        surveyRepository.submitSurvey(submitRequest)
+                .subscribe(new Action1<Response>() {
+                    @Override
+                    public void call(Response response) {
+
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
 
                     }
                 });

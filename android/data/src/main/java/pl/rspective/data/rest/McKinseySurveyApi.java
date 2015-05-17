@@ -1,6 +1,7 @@
 package pl.rspective.data.rest;
 
 import pl.rspective.data.rest.model.SurveySubmitRequest;
+import retrofit.client.Response;
 import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.Header;
@@ -13,7 +14,7 @@ public interface McKinseySurveyApi {
     Observable<String> fetchSurvey(@Header("Authorization") String auth);
 
     @POST("/api/survey")
-    Observable<String> submitSurvey(@Header("Authorization") String auth, @Body SurveySubmitRequest submitRequest);
+    Observable<Response> submitSurvey(@Header("Authorization") String auth, @Body SurveySubmitRequest submitRequest);
 
     @GET("/api/survey/results")
     Observable<String> fetchSurveyResults(@Header("Authorization") String auth);
