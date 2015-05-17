@@ -32,7 +32,6 @@
         }
 
         function hangleError(data) {
-            throw data.status;
             if (data.status === 401) { window.location = "/"; }
             else { throw data.status; }
         }

@@ -17,6 +17,7 @@ nav a.rspective object {
     height: 100%;
     width: 100%;
     padding-top: 4.75em;
+    overflow: auto;
 }
 
 #main.container .container-centered {

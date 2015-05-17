@@ -5,7 +5,6 @@
     main.$inject = [ "api" ];
 
     function main(api) {
-
         api.auth.refresh();
     }
 })();
