@@ -1,33 +1,61 @@
 # mckinsey
 
-## Front-End Deployment (Api + Website)
+## Live Environment
 
 [AppHarbor](https://appharbor.com)
 
-Email:    dev@rspective.pl
+- Email    : dev@rspective.pl
 
-Username: furryoctoninja
+- Username : furryoctoninja
 
-App url:	http://furryoctoninja.apphb.com/
+- App url  :	http://furryoctoninja.apphb.com/
 
-Repository Url: https://furryoctoninja@appharbor.com/furryoctoninja.git
+- Repository Url: https://furryoctoninja@appharbor.com/furryoctoninja.git
 
-Deployment: https://support.appharbor.com/kb/getting-started/deploying-your-first-application-using-git
+- Deployment Url: https://support.appharbor.com/kb/getting-started/deploying-your-first-application-using-git
+
+## Db Migrations
+
+Run from Package Manager Console on Rspective.FurryOctoNinja.DataAccess project:
+
+- To remove all data:
+
+```
+Update-Database -TargetMigration:$InitialDatabase 
+```
+
+- To move to latest version:
+
+```
+Update-Database
+```
+
+- To move to specific migration:
+
+```
+Update-Database -TargetMigration:"Migration name"
+```
+
+- To add new migraion:
+
+```
+Add-Migrarion "Name"
+```
 
 
 ## Test Users:
 
 *login  : password*
 
-bandro : furryninja2014
+- bandro : furryninja2014
 
-polok  : furryninja2014
+- polok  : furryninja2014
 
-pavel  : furryninja2014
+- pavel  : furryninja2014
 
-roger  : furryninja2014
+- roger  : furryninja2014
 
-admin  : furryninja2014
+- admin  : furryninja2014
 
 ## API
 
@@ -61,13 +89,3 @@ admin  : furryninja2014
 	Expiration: Date
 	Roles: [ "Admin", "User" ]
 }
-
-## Db Migrations
-
-Run from Package Manager Console on Rspective.FurryOctoNinja.DataAccess project:
-
-- To remove all data:
-Update-Database -TargetMigration:$InitialDatabase 
-
-- TO move to specific migration:
-Update-Database -TargetMigration:"InitialCreate"
