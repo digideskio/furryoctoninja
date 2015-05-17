@@ -6,6 +6,7 @@ import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
 
+import pl.rspective.data.entity.Answer;
 import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.Survey;
 import pl.rspective.data.local.LocalPreferences;
@@ -44,7 +45,21 @@ public class FormPresenter implements IFormPresenter {
     }
 
     @Override
-    public void updateSurvey(int number, Question question) {
+    public void updateSurvey(int number, Question question, Answer answer) {
+        if(survey.isSubmited()) {
+            return;
+        }
+
+        question.setUserAnswerId(answer.getId());
+
+        for(Answer a : question.getAnswers()) {
+            if(a.getId() == answer.getId()) {
+                a.setSelected(true);
+            } else {
+                a.setSelected(false);
+            }
+        }
+
         survey.getQuestions().set(number, question);
 
         boolean isReadyToSend = validateSurvey(survey);

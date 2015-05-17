@@ -288,7 +288,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     }
 
     @Override
-    public void onQuestionUpdate(int number, Question question) {
-        formPresenter.updateSurvey(number, question);
+    public void onQuestionUpdate(int number, Question question, Answer answer) {
+        formPresenter.updateSurvey(number, question, answer);
     }
 }

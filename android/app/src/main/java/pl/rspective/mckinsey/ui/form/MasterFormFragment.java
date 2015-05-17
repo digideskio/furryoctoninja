@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import pl.rspective.data.entity.Answer;
 import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.Survey;
 import pl.rspective.mckinsey.R;
@@ -112,8 +113,8 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
     }
 
     @Override
-    public void onQuestionUpdate(int number, Question question) {
-        formPresenter.updateSurvey(number, question);
+    public void onQuestionUpdate(int number, Question question, Answer answer) {
+        formPresenter.updateSurvey(number, question, answer);
     }
 
     @OnClick(R.id.btn_survey_submit)
