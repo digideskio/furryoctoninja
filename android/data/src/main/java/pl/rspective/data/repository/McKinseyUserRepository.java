@@ -23,6 +23,6 @@ public class McKinseyUserRepository implements UserRepository {
 
     @Override
     public String getUserAuthorizationToken() {
-        return LoginRequest.CLIENT_ID + ":" +userPrefs.getToken();
+        return "Token " + LoginRequest.CLIENT_ID + ":" +userPrefs.getToken();
     }
 }
