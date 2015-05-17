@@ -252,6 +252,8 @@
     <Compile Include="Models\SurveyProgressItem.cs" />
     <Compile Include="Models\SurveyResults.cs" />
     <Compile Include="Models\SurveyResultsQuestion.cs" />
+    <Compile Include="Models\SurveySave.cs" />
+    <Compile Include="Models\SurveySaveAnswer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

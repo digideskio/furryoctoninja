@@ -37,8 +37,13 @@ namespace Rspective.FurryOctoNinja.Web.Api
         }
 
         [HttpPost, ActionName("post")]
-        public HttpResponseMessage Save()
+        public HttpResponseMessage Save(SurveySave survey)
         {
+            if (survey == null || survey.Answers == null || survey.Answers.Count == 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
             return Request.CreateResponse(HttpStatusCode.OK, "Save()");
         }
     }
