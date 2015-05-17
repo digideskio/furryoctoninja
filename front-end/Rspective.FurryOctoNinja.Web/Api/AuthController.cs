@@ -30,7 +30,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
 
             if (auth == null)
             {
-                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
             return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<AuthenticationDetails>(auth));

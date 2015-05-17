@@ -2,7 +2,7 @@
 
 ## Live Environment
 
-[AppHarbor](https://appharbor.com)
+- Provider: [AppHarbor](https://appharbor.com)
 
 - Email: dev@rspective.pl
 
@@ -67,16 +67,16 @@ Add-Migrarion "Name"
 
 - Authorization
 
-1. Schema
+Schema
 
 ```
 Authorization: Token ClientId:GeneratedToken
 ```
 
-2. Sample
+Sample
 
 ```
-Authorization: Token p35iw0R6RO1730BSK432qswrZldwY0jR:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJFeHBpcmF0aW9uIjoiXC9EYXRlKDE0MzQ2NjY1NzA5MzYpXC8iLCJDbGllbnQiOiJhbmRyb2lkbW9iaWxlIiwiVXNlcklkIjoxLCJSb2xlcyI6WyJVc2VyIl19.nz0_TEBAj5btNKnn7inPgFyLnvKGSp7IitUc9BtPHjk
+Authorization: Token p35iw0R6RO1730BSK432qswrZldwY0jR:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJFeHBpcmF0aW9uIjoiXC9EYXRlKDE0MzQ2Njg0ODU2MDcpXC8iLCJDbGllbnQiOiJhbmRyb2lkbW9iaWxlIiwiVXNlcklkIjoxLCJSb2xlcyI6WyJVc2VyIl19.NOfH0mZP0qqIaXNvJTHGy4jubNBMkaG5phlN1t-AJ88
 ```
 
 ## API
@@ -91,27 +91,60 @@ Authorization: Token p35iw0R6RO1730BSK432qswrZldwY0jR:eyJ0eXAiOiJKV1QiLCJhbGciOi
 
 - /api/auth/login - POST
 
-1. Request:
+Request:
 
 ```
+POST /api/auth/login HTTP/1.1
+Host: localhost:50753
+Content-Type: application/json
+Cache-Control: no-cache
+Postman-Token: 15bcd829-1d98-82c8-ea14-30920b2221f9
 
+{ "login" : "bandro", "password" : "furryninja2014", "clientId" : "p35iw0R6RO1730BSK432qswrZldwY0jR" }
 ```
 
-2. Response:
+Response:
 
 ```
-400 - Bad Request, missing required parameters
-```
-
-```
-401 - Unauthorized, there is no user or client
+400 - Bad Request, missing required parameters, user or client does not exists
 ```
 
 ```
 200 - Success
 {
-	Token: "...",
-	Expiration: Date,
-	Roles: [ "Admin", "User" ]
+    "Token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJFeHBpcmF0aW9uIjoiXC9EYXRlKDE0MzQ2Njg0NDA1MjQpXC8iLCJDbGllbnQiOiJhbmRyb2lkbW9iaWxlIiwiVXNlcklkIjoxLCJSb2xlcyI6WyJVc2VyIl19.lunA5forY3VlaewaguFXr3nPfNKXQfXbPClY3p7pDyY",
+    "Expiration": "2015-06-18T22:55:35.9596025Z",
+    "Roles": [
+        "User"
+    ]
+}
+```
+
+- /api/auth/refresh - POST
+
+Request
+
+```
+POST /api/auth/refresh HTTP/1.1
+Host: localhost:50753
+Content-Type: application/json
+Authorization: Token p35iw0R6RO1730BSK432qswrZldwY0jR:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJFeHBpcmF0aW9uIjoiXC9EYXRlKDE0MzQ2Njg0NDA1MjQpXC8iLCJDbGllbnQiOiJhbmRyb2lkbW9iaWxlIiwiVXNlcklkIjoxLCJSb2xlcyI6WyJVc2VyIl19.lunA5forY3VlaewaguFXr3nPfNKXQfXbPClY3p7pDyY
+Cache-Control: no-cache
+Postman-Token: cc6add8a-2588-8d63-dcdd-7bdb56dde309
+```
+
+Response:
+
+```
+401 - Unauthorized
+```
+
+```
+{
+    "Token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJFeHBpcmF0aW9uIjoiXC9EYXRlKDE0MzQ2Njg0ODU2MDcpXC8iLCJDbGllbnQiOiJhbmRyb2lkbW9iaWxlIiwiVXNlcklkIjoxLCJSb2xlcyI6WyJVc2VyIl19.NOfH0mZP0qqIaXNvJTHGy4jubNBMkaG5phlN1t-AJ88",
+    "Expiration": "2015-06-18T23:01:25.6074447Z",
+    "Roles": [
+       "User"
+    ]
 }
 ```
