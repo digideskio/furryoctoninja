@@ -10,6 +10,8 @@ import pl.rspective.data.local.LocalPreferences;
 import pl.rspective.data.local.McKinseyLocalPreferences;
 import pl.rspective.data.local.McKinseyStorageSurvey;
 import pl.rspective.data.local.SurveyLocalStorage;
+import pl.rspective.data.repository.McKinseyUserRepository;
+import pl.rspective.data.repository.UserRepository;
 
 @Module(
         injects = {
@@ -32,6 +34,12 @@ public final class DataModule {
     @Singleton
     LocalPreferences provideLocalPreferences(SharedPreferences preferences) {
         return new McKinseyLocalPreferences(preferences);
+    }
+
+    @Provides
+    @Singleton
+    UserRepository provideUserRepository() {
+        return new McKinseyUserRepository();
     }
 
 }

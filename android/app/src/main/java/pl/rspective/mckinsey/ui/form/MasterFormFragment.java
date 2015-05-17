@@ -8,14 +8,18 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.ToxicBakery.viewpager.transforms.ZoomOutSlideTransformer;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.Survey;
 import pl.rspective.mckinsey.R;
@@ -28,6 +32,9 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
 
     @Inject
     IFormPresenter formPresenter;
+
+    @InjectView(R.id.btn_survey_submit)
+    Button btnSurveySubmit;
 
     @InjectView(R.id.viewpager)
     ViewPager viewPager;
@@ -85,6 +92,14 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
     }
 
     @Override
+    public void showSubmitButton() {
+        btnSurveySubmit.setVisibility(View.VISIBLE);
+        YoYo.with(Techniques.BounceInUp)
+                .duration(200)
+                .playOn(btnSurveySubmit);
+    }
+
+    @Override
     public Context getViewContext() {
         return getActivity();
     }
@@ -92,6 +107,11 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
     @Override
     public void onQuestionUpdate(int number, Question question) {
         formPresenter.updateSurvey(number, question);
+    }
+
+    @OnClick(R.id.btn_survey_submit)
+    public void onSurveySubmitClick() {
+        formPresenter.submitSurvey();
     }
 
 }

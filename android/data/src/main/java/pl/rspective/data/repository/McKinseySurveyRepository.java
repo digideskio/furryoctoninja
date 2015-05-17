@@ -13,7 +13,9 @@ import pl.rspective.data.entity.User;
 import pl.rspective.data.local.SurveyLocalStorage;
 import pl.rspective.data.local.model.StorageType;
 import pl.rspective.data.rest.McKinseySurveyApi;
+import pl.rspective.data.rest.model.SurveySubmitRequest;
 import pl.rspective.data.rest.model.UserListResponse;
+import retrofit.client.Response;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -22,12 +24,14 @@ import rx.schedulers.Schedulers;
 
 public class McKinseySurveyRepository implements SurveyRepository {
 
+    private UserRepository userRepository;
     private SurveyLocalStorage<String> surveyStorage;
     private McKinseySurveyApi api;
     private Gson gson;
 
     @Inject
-    public McKinseySurveyRepository(SurveyLocalStorage<String> surveyStorage, McKinseySurveyApi api) {
+    public McKinseySurveyRepository(UserRepository userRepository, SurveyLocalStorage<String> surveyStorage, McKinseySurveyApi api) {
+        this.userRepository = userRepository;
         this.surveyStorage = surveyStorage;
         this.api = api;
 
@@ -45,7 +49,7 @@ public class McKinseySurveyRepository implements SurveyRepository {
                 }
             });
         } else {
-            return api.fetchSurvey()
+            return api.fetchSurvey(userRepository.getUserAuthorizationToken())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .onErrorReturn(new Func1<Throwable, String>() {
@@ -72,8 +76,15 @@ public class McKinseySurveyRepository implements SurveyRepository {
     }
 
     @Override
+    public Observable<Response> submitSurvey(SurveySubmitRequest submitRequest) {
+        return api.submitSurvey(userRepository.getUserAuthorizationToken(), submitRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
     public Observable<SurveyResult> fetchSurveyResults() {
-        return api.fetchSurveyResults()
+        return api.fetchSurveyResults(userRepository.getUserAuthorizationToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Func1<String, SurveyResult>() {
@@ -86,7 +97,7 @@ public class McKinseySurveyRepository implements SurveyRepository {
 
     @Override
     public Observable<List<User>> fetchSurveyUsers() {
-        return api.fetchSurveyUsers()
+        return api.fetchSurveyUsers(userRepository.getUserAuthorizationToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorReturn(new Func1<Throwable, String>() {

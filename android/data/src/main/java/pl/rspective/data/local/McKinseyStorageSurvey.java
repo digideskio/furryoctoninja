@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import pl.rspective.data.local.model.StorageType;
 
-public class McKinseyStorageSurvey implements SurveyLocalStorage<String> {
+public class McKinseyStorageSurvey implements SurveyLocalStorage<String>{
 
     public static final String EMPTY_JSON = "{}";
 

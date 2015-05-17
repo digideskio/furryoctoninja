@@ -10,6 +10,7 @@ import pl.rspective.data.local.LocalPreferences;
 import pl.rspective.data.local.SurveyLocalStorage;
 import pl.rspective.data.repository.LoginRepository;
 import pl.rspective.data.repository.SurveyRepository;
+import pl.rspective.data.repository.UserRepository;
 import pl.rspective.mckinsey.mvp.presenters.FormPresenter;
 import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
 import pl.rspective.mckinsey.mvp.presenters.ILoginPresenter;
@@ -32,8 +33,8 @@ public class PresenterModule {
 
     @Provides
     @Singleton
-    public ILoginPresenter provideLoginPresenter(LoginRepository loginRepository) {
-        return new LoginPresenter(loginRepository);
+    public ILoginPresenter provideLoginPresenter(UserRepository userRepositor, LoginRepository loginRepository) {
+        return new LoginPresenter(userRepositor, loginRepository);
     }
 
     @Provides

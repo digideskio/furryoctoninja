@@ -275,6 +275,11 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     }
 
     @Override
+    public void showSubmitButton() {
+
+    }
+
+    @Override
     public Context getViewContext() {
         return getActivity();
     }

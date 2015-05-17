@@ -21,6 +21,9 @@ public class Survey {
     @SerializedName("Questions")
     private List<Question> questions;
 
+    private boolean ready;
+    private boolean submited;
+
     public long getId() {
         return id;
     }
@@ -39,5 +42,21 @@ public class Survey {
 
     public List<Question> getQuestions() {
         return questions;
+    }
+
+    public boolean isReady() {
+        return ready;
+    }
+
+    public void setReady(boolean ready) {
+        this.ready = ready;
+    }
+
+    public boolean isSubmited() {
+        return submited;
+    }
+
+    public void setSubmited(boolean submited) {
+        this.submited = submited;
     }
 }
