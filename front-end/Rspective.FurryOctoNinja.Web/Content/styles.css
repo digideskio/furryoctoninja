@@ -1,4 +1,15 @@
-﻿#main.container {
+﻿nav a.rspective {
+    display: inline-block;
+}
+
+nav a.rspective object {
+    width: 15em;
+    margin-top: -0.5em;
+    margin-bottom: -2.5em;
+    pointer-events: none;
+}
+
+#main.container {
     margin: 0;
     padding: 0;
     display: table;
@@ -19,13 +30,6 @@
     margin-right: auto;
 }
 
-label {
-    margin-top: 1em;
-}
-
-a.rspective object {
-    width: 15em;
-    margin-top: -0.5em;
-    margin-bottom: -2.5em;
-    pointer-events: none;
+#main.container .form-control {
+    margin-bottom: 1em;
 }
