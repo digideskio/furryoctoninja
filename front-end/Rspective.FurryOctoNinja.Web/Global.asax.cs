@@ -22,7 +22,8 @@ namespace Rspective.FurryOctoNinja.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            AutoMapperConfig.CreateMaps();
+            DataAccess.AutoMapperConfig.CreateMaps();
+            Web.AutoMapperConfig.CreateMaps();
 
             var container = UnityConfig.RegisterTypes();
             GlobalConfiguration.Configuration.DependencyResolver = new UnityResolver(container);

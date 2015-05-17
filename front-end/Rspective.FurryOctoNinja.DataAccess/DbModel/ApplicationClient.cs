@@ -20,6 +20,9 @@ namespace Rspective.FurryOctoNinja.DataAccess.DbModel
         [Required]
         public string SecretKey { get; set; }
 
+        [Required]
+        public long TokenExpirationTime { get; set; }
+
         public bool IsActive { get; set; }
     }
 }

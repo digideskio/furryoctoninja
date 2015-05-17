@@ -17,7 +17,7 @@
         protected override void Seed(Rspective.FurryOctoNinja.DataAccess.SurveyAppContext context)
         {
             this.SeedClients(context);
-            this.SeedUsers(context);
+            this.SeedUsersAndRoles(context);
             this.SeedSurveys(context);
         }
 
@@ -29,14 +29,16 @@
                     Name = "angularjs",
                     PublicKey = "El246n9cf1minYI0YGcBVQ8971fK8Gfp",
                     SecretKey = "517DW0p493372N4s2753ply07p1tqe78",
-                    IsActive = true
+                    IsActive = true,
+                    TokenExpirationTime = 30 // 30 minutes
                 },
                 new ApplicationClient()
                 {
                     Name = "androidmobile",
                     PublicKey = "p35iw0R6RO1730BSK432qswrZldwY0jR",
                     SecretKey = "PX5ie6aj22t7xi3J3u4xXR6r90RXPo88",
-                    IsActive = true
+                    IsActive = true,
+                    TokenExpirationTime = 46800 // 30 days
                 }
             };
 
@@ -46,28 +48,33 @@
             }
         }
 
-        private void SeedUsers(SurveyAppContext context)
+        private void SeedUsersAndRoles(SurveyAppContext context)
         {
             var mock = new ApplicationUser[] {
                 new ApplicationUser()
                 {
-                    Login = "bandro"
+                    Login = "bandro",
+                    Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "User" } }
                 },
                 new ApplicationUser()
                 {
-                    Login = "pavel"
+                    Login = "pavel",
+                    Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "User" } }
                 },
                 new ApplicationUser()
                 {
-                    Login = "polok"
+                    Login = "polok",
+                    Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "User" } }
                 },
                 new ApplicationUser()
                 {
-                    Login = "roger"
+                    Login = "roger",
+                    Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "User" } }
                 },
                 new ApplicationUser()
                 {
-                    Login = "admin"
+                    Login = "admin",
+                    Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "Admin" } }
                 }
             };
 

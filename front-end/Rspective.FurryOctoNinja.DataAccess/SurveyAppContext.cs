@@ -16,6 +16,7 @@ namespace Rspective.FurryOctoNinja.DataAccess
 
         public DbSet<ApplicationClient> ApplicationClients { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }
         public DbSet<ApplicationToken> ApplicationTokens { get; set; }
     }
 }

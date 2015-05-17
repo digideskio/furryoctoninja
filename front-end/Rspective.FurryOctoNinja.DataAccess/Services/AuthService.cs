@@ -38,7 +38,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
                 return null; 
             }
 
-            var expiration = DateTime.UtcNow.AddMinutes(30);
+            var expiration = DateTime.UtcNow.AddMinutes(client.TokenExpirationTime);
             var token = GenerateToken(client, user, expiration);
 
             this.tokenRepository.Invalidate(client, user, expiration);
@@ -53,7 +53,8 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 
             return new AuthDTO() {
                 Expiration = expiration,
-                Token = token
+                Token = token,
+                Roles = user.Roles.Select(role => role.Name).ToArray()
             };
         }
 
@@ -66,7 +67,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
                 return null;
             }
 
-            applicationToken.Expiration = DateTime.UtcNow;
+            applicationToken.Expiration = DateTime.UtcNow.AddMinutes(applicationToken.Client.TokenExpirationTime);
             applicationToken.Token = this.GenerateToken(applicationToken.Client, applicationToken.User, applicationToken.Expiration.GetValueOrDefault());
 
             this.tokenRepository.Update(applicationToken);
@@ -75,7 +76,8 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             return new AuthDTO()
             {
                 Token = applicationToken.Token,
-                Expiration = applicationToken.Expiration.GetValueOrDefault()
+                Expiration = applicationToken.Expiration.GetValueOrDefault(),
+                Roles = applicationToken.User.Roles.Select(role => role.Name).ToArray()
             };
         }
 
@@ -108,7 +110,8 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             {
                 { "Expiration", expiration },
                 { "Client", client.Name },
-                { "UserId", user.Id }
+                { "UserId", user.Id },
+                { "Roles", user.Roles.Select(role => role.Name).ToArray() }
             };
 
             return JWT.JsonWebToken.Encode(payload, client.SecretKey, JWT.JwtHashAlgorithm.HS256);

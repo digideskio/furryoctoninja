@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rspective.FurryOctoNinja.DataAccess.DbModel
 {
@@ -15,5 +11,8 @@ namespace Rspective.FurryOctoNinja.DataAccess.DbModel
         [MaxLength(200)]
         [Required]
         public string Login { get; set; }
+
+        [Required]
+        public virtual ICollection<ApplicationUserRole> Roles { get; set; }
     }
 }
