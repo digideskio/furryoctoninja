@@ -2,6 +2,7 @@
 using Rspective.FurryOctoNinja.DataAccess.Context;
 using Rspective.FurryOctoNinja.DataAccess.DbModel;
 using Rspective.FurryOctoNinja.DataAccess.DTO;
+using Rspective.FurryOctoNinja.DataAccess.Helpers;
 using Rspective.FurryOctoNinja.DataAccess.Repositories;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 
         public AuthDTO Login(string clientId, string login, string password)
         {
-            var user = this.userRepositiory.Authenticate(login, password);
+            var user = this.userRepositiory.Authenticate(login, PasswordEncryptor.Encrypt(password));
             var client = this.clientRepository.GetByPublicKey(clientId);
 
             if (user == null || client == null) 

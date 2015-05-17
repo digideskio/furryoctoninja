@@ -13,7 +13,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Helpers
         {
             using(var md5 = MD5.Create())
             {
-                byte[] data = md5.ComputeHash(Encoding.UTF8.GetBytes(password));
+                byte[] data = md5.ComputeHash(Encoding.UTF8.GetBytes(password ?? string.Empty));
                 var builder = new StringBuilder();
 
                 foreach (var character in data) 

@@ -17,7 +17,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
             // TODO: Add password validation
             return this.DbSet
                 .Include("Roles")
-                .FirstOrDefault(user => user.Login == login);
+                .FirstOrDefault(user => user.Login == login && user.Password == password);
         }
     }
 }
