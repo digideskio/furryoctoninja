@@ -54,7 +54,16 @@
                     return data.data;
                 })
                 .catch(handleError);
-        };;
+        };
+
+        self.user = {};
+        self.user.current = function () {
+            return $http(prepareRequest("GET", "/api/user/current", {}))
+                .then(function (data) {
+                    return data.data;
+                })
+                .catch(handleError);
+        }
 
         function prepareRequest(method, url, payload) {
             return {
@@ -69,7 +78,11 @@
         }
 
         function handleError(data) {
-            if (data.status === 401) { window.location = "/"; }
+            if (data.status === 401) {
+                authStorage.save(null);
+                window.location = "/";
+            }
+            
             else { throw data.status; }
         }
     }
@@ -100,7 +113,7 @@
             return current != null && current.Roles && current.Roles.indexOf("Admin") !== -1;
         };
 
-        self.isAuthenticated = function() {
+        self.isAuthenticated = function () {
             if (!current) { self.load(); }
             return !!self.token();
         };
