@@ -15,7 +15,7 @@ import pl.rspective.data.local.model.StorageType;
 import pl.rspective.data.repository.SurveyRepository;
 import pl.rspective.data.rest.model.SurveySubmitRequest;
 import pl.rspective.mckinsey.architecture.bus.events.AnswerUpdateEvent;
-import pl.rspective.mckinsey.data.data.SurveySubmitResultType;
+import pl.rspective.mckinsey.data.model.SurveySubmitResultType;
 import pl.rspective.mckinsey.mvp.views.IFormView;
 import retrofit.client.Response;
 import rx.Subscription;

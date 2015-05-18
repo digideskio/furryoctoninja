@@ -6,4 +6,7 @@ public interface LocalPreferences {
 
     boolean isUserFirstLogin();
 
+    void setAppEventStatus(int status);
+
+    int getAppEventStatus();
 }

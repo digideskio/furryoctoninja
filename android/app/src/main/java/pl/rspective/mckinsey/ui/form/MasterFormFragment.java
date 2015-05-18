@@ -26,7 +26,7 @@ import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.Survey;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.dagger.Injector;
-import pl.rspective.mckinsey.data.data.SurveySubmitResultType;
+import pl.rspective.mckinsey.data.model.SurveySubmitResultType;
 import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
 import pl.rspective.mckinsey.mvp.views.IFormView;
 import pl.rspective.mckinsey.ui.AbsActivity;

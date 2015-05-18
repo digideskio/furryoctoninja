@@ -1,4 +1,4 @@
-package pl.rspective.mckinsey.data.data;
+package pl.rspective.mckinsey.data.model;
 
 import android.support.annotation.StringRes;
 

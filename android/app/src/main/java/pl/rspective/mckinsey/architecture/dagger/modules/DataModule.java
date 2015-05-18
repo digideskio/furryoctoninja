@@ -14,9 +14,11 @@ import pl.rspective.data.repository.McKinseyUserRepository;
 import pl.rspective.data.repository.UserRepository;
 import pl.rspective.mckinsey.data.providers.McKinseyMenuProvider;
 import pl.rspective.mckinsey.data.providers.MenuProvider;
+import pl.rspective.mckinsey.infrastructure.onesignal.OneSignalReceiver;
 
 @Module(
         injects = {
+                OneSignalReceiver.class
         },
         includes = {
                 AndroidModule.class
