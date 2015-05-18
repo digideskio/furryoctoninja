@@ -5,23 +5,23 @@
     login.$inject = ["api"];
 
     function login(api) {
-        var that = this;
-        that.login = "";
-        that.password = "";
-        that.errors = {};
-        that.disabled = false;
+        var self = this;
+        self.login = "";
+        self.password = "";
+        self.errors = {};
+        self.disabled = false;
         var method = api.auth.login;
 
-        that.submit = function () {
-            that.errors = {};
-            that.disabled = true;
-            api.auth.login(that.login, that.password)
+        self.submit = function () {
+            self.errors = {};
+            self.disabled = true;
+            api.auth.login(self.login, self.password)
                 .then(function () {
                     window.location = "/Home/Index";
                 })
                 .catch(function (errorCode) {
-                    errorCode && (that.errors[errorCode] = true);
-                    that.disabled = false;
+                    errorCode && (self.errors[errorCode] = true);
+                    self.disabled = false;
                 })
 
             return false;

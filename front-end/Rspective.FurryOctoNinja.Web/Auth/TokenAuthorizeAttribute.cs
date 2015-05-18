@@ -52,6 +52,7 @@ namespace Rspective.FurryOctoNinja.Web.Auth
                     {
                         HttpContext.Current.User = new Auth.User()
                         {
+                            Id = auth.User.Id,
                             ClientId = clientId,
                             Token = token,
                             Name = auth.User.Name,

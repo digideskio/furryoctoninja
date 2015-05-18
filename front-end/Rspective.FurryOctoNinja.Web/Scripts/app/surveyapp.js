@@ -3,15 +3,15 @@
         .config(configure)
         .run(run);
 
-    configure.$inject = ["localStorageServiceProvider"];
+    configure.$inject = [ "localStorageServiceProvider" ];
 
     function configure(localStorageServiceProvider) {
         localStorageServiceProvider.setPrefix('myApsurveyApp');
     }
 
-    run.$inject = ["$rootScope"];
+    run.$inject = [ "$rootScope", "authStorage" ];
 
-    function run($rootScope) {
+    function run($rootScope, authStorage) {
 
         $rootScope.validateForm = function (form) {
             form._validated = true;

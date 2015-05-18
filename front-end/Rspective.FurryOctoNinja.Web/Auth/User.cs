@@ -18,6 +18,8 @@ namespace Rspective.FurryOctoNinja.Web.Auth
             get { return true; }
         }
 
+        public int Id { get; set; }
+
         public string Name
         {
             get;

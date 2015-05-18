@@ -7,17 +7,54 @@
 
     function api($http, authStorage) {
         var clientId = "El246n9cf1minYI0YGcBVQ8971fK8Gfp";
-        var that = this;
-        that.auth = {
-            login: apiAuthLogin,
-            refresh: apiAuthRefresh
+        var self = this;
+
+        self.auth = {};
+        self.auth.login = function (login, password) {
+            return $http.post('/api/auth/login', { login: login, password: password, clientId: clientId })
+                .then(function (data) {
+                    authStorage.save(data.data);
+                    return data.status;
+                })
+                .catch(handleError);
         };
-        that.survey = {
-            get: apiGetSurvey,
-            post: apiPostSurvey,
-            users: null,
-            results: null
+        self.auth.refresh = function () {
+            return $http(prepareRequest("POST", "/api/auth/refresh", {}))
+                .then(function (data) {
+                    authStorage.save(data.data);
+                    return data.status;
+                })
+                .catch(handleError);
         };
+
+        self.survey = {};
+        self.survey.get = function () {
+            return $http(prepareRequest("GET", "/api/survey", {}))
+                .then(function (data) {
+                    return data.data;
+                })
+                .catch(handleError);
+        };
+        self.survey.post = function (survey) {
+            return $http(prepareRequest("POST", "/api/survey", survey))
+                .then(function (data) {
+                })
+                .catch(handleError);
+        };
+        self.survey.users = function () {
+            return $http(prepareRequest("GET", "/api/survey/users", {}))
+                .then(function (data) {
+                    return data.data;
+                })
+                .catch(handleError);
+        };;
+        self.survey.results = function () {
+            return $http(prepareRequest("GET", "/api/survey/results", {}))
+                .then(function (data) {
+                    return data.data;
+                })
+                .catch(handleError);
+        };;
 
         function prepareRequest(method, url, payload) {
             return {
@@ -35,39 +72,6 @@
             if (data.status === 401) { window.location = "/"; }
             else { throw data.status; }
         }
-
-        function apiAuthLogin(login, password) {
-            return $http.post('/api/auth/login', { login: login, password: password, clientId: clientId })
-                .then(function (data) {
-                    authStorage.save(data.data);
-                    return data.status;
-                })
-                .catch(handleError);
-        }
-
-        function apiAuthRefresh() {
-            return $http(prepareRequest("POST", "/api/auth/refresh", {}))
-                .then(function (data) {
-                    authStorage.save(data.data);
-                    return data.status;
-                })
-                .catch(handleError);
-        }
-
-        function apiGetSurvey() {
-            return $http(prepareRequest("GET", "/api/survey", {}))
-                .then(function (data) {
-                    return data.data;
-                })
-                .catch(handleError);
-        }
-
-        function apiPostSurvey(survey) {
-            return $http(prepareRequest("POST", "/api/survey/post", survey))
-                .then(function (data) {
-                })
-                .catch(handleError);
-        }
     }
 
     authStorage.$inject = ["localStorageService"]
@@ -75,23 +79,30 @@
     function authStorage(localStorageService) {
         var current = null;
         var storageKey = "auth";
-        var that = this;
-        that.save = authSave;
-        that.load = authLoad;
-        that.token = authGetToken;
+        var self = this;
 
-        function authSave(auth) {
+        self.save = function(auth) {
             current = auth;
             localStorageService.set(storageKey, auth);
-        }
+        };
 
-        function authLoad() {
+        self.load = function() {
             current = localStorageService.get(storageKey);
-        }
+        };
 
-        function authGetToken() {
-            if (!current) { that.load(); }
+        self.token = function() {
+            if (!current) { self.load(); }
             return current && current.Token;
-        }
+        };
+
+        self.isAdmin = function() {
+            if (!current) { self.load(); }
+            return current != null && current.Roles && current.Roles.indexOf("Admin") !== -1;
+        };
+
+        self.isAuthenticated = function() {
+            if (!current) { self.load(); }
+            return !!self.token();
+        };
     }
 })();
