@@ -12,7 +12,16 @@
     run.$inject = ["$rootScope", "authStorage"];
 
     function run($rootScope, authStorage) {
-
+        $rootScope.isAuthenticated = function () {
+            return authStorage.isAuthenticated();
+        };
+        $rootScope.isAdmin = function () {
+            return authStorage.isAdmin();
+        };
+        $rootScope.logout = function () {
+            authStorage.save(null);
+            window.location = "/";
+        };
         $rootScope.validateForm = function (form) {
             form._validated = true;
 

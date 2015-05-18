@@ -2,9 +2,9 @@
     angular.module("surveyapp")
         .controller("LoginController", login);
 
-    login.$inject = ["api"];
+    login.$inject = ["api", "authStorage" ];
 
-    function login(api) {
+    function login(api, authStorage) {
         var self = this;
         self.login = "";
         self.password = "";
@@ -17,7 +17,7 @@
             self.disabled = true;
             api.auth.login(self.login, self.password)
                 .then(function () {
-                    window.location = "/Home/Index";
+                    redirectToApp();
                 })
                 .catch(function (errorCode) {
                     errorCode && (self.errors[errorCode] = true);
@@ -26,5 +26,13 @@
 
             return false;
         };
+
+        if (authStorage.isAuthenticated()) {
+            redirectToApp();
+        }
+
+        function redirectToApp() {
+            window.location = "/app";
+        }
     }
 })();

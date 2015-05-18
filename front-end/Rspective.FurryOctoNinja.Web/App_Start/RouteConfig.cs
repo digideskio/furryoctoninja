@@ -12,6 +12,12 @@ namespace Rspective.FurryOctoNinja.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            
+            routes.MapRoute(
+                name: "DefaultApp",
+                url: "app/{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
                 name: "Default",

@@ -25,6 +25,11 @@
                         return api.survey.get();
                     }]
                 }
-            });
+            })
+            .otherwise({
+                redirectTo: '/survey'
+            })
+        ;
+        >>>>>>> 04b1a0318810649f69188256fbc0b7f19e309b60
     }
 })();
