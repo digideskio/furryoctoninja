@@ -3,10 +3,17 @@
     <div class="panel-body">
         <div ng-repeat="question in main.survey.Questions">
             <div>
-                <div ng-bind="question.Text"></div>
-                <div ng-repeat="answer in question.Answers">
-                    <label ng-bind="answer.Text"></label>
-                </div>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-init="main.saveSurvey.Answers[$index].QuestionId = question.Id">
+                        <b>{{question.Text}}</b>
+                    </li>
+                </ul>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="answer in question.Answers">
+                        <input type="radio" id="answer_{{answer.Id}}" name="{{$parent.question.Id}}" value="{{answer.Id}}" ng-model="main.saveSurvey.Answers[$parent.$index].AnswerId" />
+                        <label ng-bind="answer.Text" for="answer_{{answer.Id}}"></label>
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="col-sm-12 text-center">

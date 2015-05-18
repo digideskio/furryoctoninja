@@ -5,11 +5,14 @@
     main.$inject = ["api", "survey"];
 
     function main(api, survey) {
-        api.auth.refresh();
-        this.survey = survey;
+        var self = this;
 
-        this.saveSurvey = {};
-        this.saveSurvey.Id = survey.Id;
-        this.saveSurvey.Answers = [];
+        api.auth.refresh();
+
+        self.survey = survey;
+
+        self.saveSurvey = {};
+        self.saveSurvey.Id = survey.Id;
+        self.saveSurvey.Answers = [];
     }
 })();
