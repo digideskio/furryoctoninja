@@ -1,29 +1,34 @@
 <div class="panel panel-default">
     <div class="panel-heading"><h4>{{main.survey.Title}}</h4></div>
     <div class="panel-body">
-        <div ng-repeat="question in main.survey.Questions" ng-init="main.displayedQuestion = 0">
-            <div ng-show="main.displayedQuestion === $index">
-                <ul class="list-group">
-                    <li class="list-group-item" ng-init="main.saveSurvey.Answers[$index].QuestionId = question.Id">
-                        <b>{{question.Text}}</b>
-                    </li>
-                </ul>
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="answer in question.Answers">
-                        <input type="radio" id="answer_{{answer.Id}}" name="{{$parent.question.Id}}" value="{{answer.Id}}"
-                               ng-model="main.saveSurvey.Answers[$parent.$index].AnswerId" />
-                        <label ng-bind="answer.Text" for="answer_{{answer.Id}}"></label>
-                    </li>
-                </ul>
+        <div class="row">
+            <div class="col-xs-12">
+                <div ng-repeat="question in main.survey.Questions" ng-init="main.displayedQuestion = 0">
+                    <div ng-show="main.displayedQuestion === $index">
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-init="main.saveSurvey.Answers[$index].QuestionId = question.Id">
+                                <b>{{question.Text}}</b>
+                            </li>
+                        </ul>
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="answer in question.Answers">
+                                <input type="radio" id="answer_{{answer.Id}}" name="{{$parent.question.Id}}" value="{{answer.Id}}"
+                                       ng-model="main.saveSurvey.Answers[$parent.$index].AnswerId" />
+                                <label ng-bind="answer.Text" for="answer_{{answer.Id}}"></label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-sm-12 text-center">
-            <ul class="pagination center-block" style="display:inline-block;" ng-repeat="question in main.survey.Questions">
-                <li><a ng-click="main.displayedQuestion = $index">{{ $index + 1 }}</a></li>
-            </ul>
-        </div>
-        <div class="col-sm-12 text-right">
-            <a class="btn btn-primary center-block" ng-click="main.submit()">Save</a>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <ul class="pagination center-block" style="display:inline-block;" ng-repeat="question in main.survey.Questions">
+                    <li><a ng-click="main.displayedQuestion = $index">{{ $index + 1 }}</a></li>
+                </ul>
+                <hr />
+                <button class="btn btn-success pull-right" ng-click="main.submit()">Save</button>
+            </div>
         </div>
     </div>
 </div>
