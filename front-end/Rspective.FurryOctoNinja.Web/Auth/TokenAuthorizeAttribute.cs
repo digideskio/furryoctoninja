@@ -39,14 +39,10 @@ namespace Rspective.FurryOctoNinja.Web.Auth
                 {
                     var clientId = parameters[0];
                     var token = parameters[1];
+                    var auth = this.authService.Authenticate(clientId, token);
 
                     actionContext.Request.Properties.Add(ClientKey, clientId);
                     actionContext.Request.Properties.Add(TokenKey, token);
-
-                    var auth = this.authService.Authorize(
-                        actionContext.Request.Properties[ClientKey] as string,
-                        actionContext.Request.Properties[TokenKey] as string,
-                        this.roles);
 
                     if (auth != null) 
                     {

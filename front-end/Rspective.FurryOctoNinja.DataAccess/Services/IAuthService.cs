@@ -8,6 +8,6 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 
         AuthDTO Refresh(string clientId, string token);
 
-        AuthUserDTO Authorize(string clientId, string token, string[] roles);
+        AuthUserDTO Authenticate(string clientId, string token);
     }
 }

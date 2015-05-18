@@ -38,6 +38,7 @@
         self.survey.post = function (survey) {
             return $http(prepareRequest("POST", "/api/survey", survey))
                 .then(function (data) {
+                    return data.data;
                 })
                 .catch(handleError);
         };
@@ -50,6 +51,13 @@
         };;
         self.survey.results = function () {
             return $http(prepareRequest("GET", "/api/survey/results", {}))
+                .then(function (data) {
+                    return data.data;
+                })
+                .catch(handleError);
+        };
+        self.survey.notify = function () {
+            return $http(prepareRequest("POST", "/api/survey/notify"))
                 .then(function (data) {
                     return data.data;
                 })
@@ -79,8 +87,8 @@
 
         function handleError(data) {
             if (data.status === 401) {
-                //authStorage.save(null);
-                //window.location = "/";
+                authStorage.save(null);
+                window.location = "/";
             }
             
             else { throw data.status; }
