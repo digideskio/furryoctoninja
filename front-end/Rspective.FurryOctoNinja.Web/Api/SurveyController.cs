@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using log4net;
 using log4net.Config;
+using Rspective.FurryOctoNinja.Web.Auth;
 
 namespace Rspective.FurryOctoNinja.Web.Api
 {
@@ -19,24 +20,28 @@ namespace Rspective.FurryOctoNinja.Web.Api
         }
 
         [HttpGet, ActionName("get")]
+        [TokenAuthorize(role: "User")]
         public HttpResponseMessage Get()
         {
             return Request.CreateResponse(HttpStatusCode.OK, surveyService.GetSurvey());
         }
 
         [HttpGet, ActionName("users")]
+        [TokenAuthorize(role: "Admin")]
         public HttpResponseMessage Users()
         {
             return Request.CreateResponse(HttpStatusCode.OK, SurveyProgressMock.Mock);
         }
 
         [HttpGet, ActionName("results")]
+        [TokenAuthorize(role: "User")]
         public HttpResponseMessage Results()
         {
             return Request.CreateResponse(HttpStatusCode.OK, SurveyResultsMock.Mock);
         }
 
         [HttpPost, ActionName("post")]
+        [TokenAuthorize(role: "User")]
         public HttpResponseMessage Save(SurveySave survey)
         {
             if (survey == null || survey.Answers == null || survey.Answers.Count == 0)
