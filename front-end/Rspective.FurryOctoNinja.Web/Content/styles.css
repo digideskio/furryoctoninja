@@ -85,6 +85,16 @@ a {
     cursor: pointer;
 }
 
+.list-group-item.selected {
+    color: #3c763d;
+    background-color: #dff0d8;
+}
+
+.pagination li.completed a {
+    color: #3c763d;
+    background-color: #dff0d8;
+}
+
 /************************************************
     Login page styles
  ************************************************/
