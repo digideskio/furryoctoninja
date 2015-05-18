@@ -94,21 +94,21 @@
         var storageKey = "auth";
         var self = this;
 
-        self.save = function(auth) {
+        self.save = function (auth) {
             current = auth;
             localStorageService.set(storageKey, auth);
         };
 
-        self.load = function() {
+        self.load = function () {
             current = localStorageService.get(storageKey);
         };
 
-        self.token = function() {
+        self.token = function () {
             if (!current) { self.load(); }
             return current && current.Token;
         };
 
-        self.isAdmin = function() {
+        self.isAdmin = function () {
             if (!current) { self.load(); }
             return current != null && current.Roles && current.Roles.indexOf("Admin") !== -1;
         };
