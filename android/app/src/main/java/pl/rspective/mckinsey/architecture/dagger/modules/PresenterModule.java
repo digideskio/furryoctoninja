@@ -37,8 +37,8 @@ public class PresenterModule {
 
     @Provides
     @Singleton
-    public IMainPresenter provideMainPresenter(MenuProvider menuProvider, UserRepository userRepository, SurveyLocalStorage<String> surveyLocalStorage) {
-        return new MainPresenter(menuProvider, userRepository, surveyLocalStorage);
+    public IMainPresenter provideMainPresenter(LocalPreferences localPreferences, MenuProvider menuProvider, UserRepository userRepository, SurveyLocalStorage<String> surveyLocalStorage) {
+        return new MainPresenter(localPreferences, menuProvider, userRepository, surveyLocalStorage);
     }
 
     @Provides
