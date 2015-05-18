@@ -7,6 +7,8 @@ using System.Web.Http;
 using log4net;
 using log4net.Config;
 using Rspective.FurryOctoNinja.Web.Auth;
+using Rspective.FurryOctoNinja.Web.Providers;
+using System.Threading.Tasks;
 
 namespace Rspective.FurryOctoNinja.Web.Api
 {
@@ -54,6 +56,15 @@ namespace Rspective.FurryOctoNinja.Web.Api
             // Return results with IsUserChoice field
 
             return Request.CreateResponse(HttpStatusCode.OK, "Save()");
+        }
+
+        [HttpPost, ActionName("notify")]
+        [TokenAuthorize(role: "Admin")]
+        public async Task<HttpResponseMessage> Notify()
+        {
+            await OneSignalProvider.NotifyMobileDevices();
+
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }
