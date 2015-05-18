@@ -102,7 +102,8 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 
                 if (roles != null && roles.Length > 0)
                 {
-                    auth.IsAuthorized = roles.Except(auth.User.Roles).Count() == 0;
+                    var roleList = auth.User.Roles.ToList();
+                    auth.IsAuthorized = roles.Any(role => roleList.IndexOf(role) != -1);
                 }
 
                 return auth;

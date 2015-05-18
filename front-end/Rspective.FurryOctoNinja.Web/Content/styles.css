@@ -80,6 +80,10 @@ nav a.rspective object {
     margin-bottom: 1em;
 }
 
+a {
+    cursor: pointer;
+}
+
 /************************************************
     Login page styles
  ************************************************/

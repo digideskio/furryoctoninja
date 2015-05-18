@@ -20,7 +20,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
         }
 
         [HttpGet, ActionName("get")]
-        [TokenAuthorize(role: "User")]
+        [TokenAuthorize(roles: new string[] { "User", "Admin" })]
         public HttpResponseMessage Get()
         {
             return Request.CreateResponse(HttpStatusCode.OK, surveyService.GetSurvey());
