@@ -15,6 +15,16 @@
                         return api.survey.get();
                     }]
                 }
+            })
+            .when('/admin/edit', {
+                controller: 'EditSurveyController',
+                controllerAs: 'edit',
+                templateUrl: '../../Templates/editor.html',
+                resolve: {
+                    survey: ["api", function (api) {
+                        return api.survey.get();
+                    }]
+                }
             });
     }
 })();

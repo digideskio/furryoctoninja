@@ -31,6 +31,7 @@ nav a.rspective object {
     margin-right: auto;
 }
 
-#main.container .form-control {
+#main.container .form-control, 
+#main.container .input-group-btn button {
     margin-bottom: 1em;
 }
