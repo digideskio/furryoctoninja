@@ -23,7 +23,7 @@
         self.notifyMobileDevices = function () {
             self.notifyDisabled = true;
             api.survey.notify()
-                .done(function () {
+                .then(function () {
                     self.notifyDisabled = false;
                 })
         };

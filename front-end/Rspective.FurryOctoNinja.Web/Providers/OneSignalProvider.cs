@@ -38,7 +38,7 @@ namespace Rspective.FurryOctoNinja.Web.Providers
                     }
                 },
                 { "data", new Dictionary<string, object>() {
-                        { "eventType", "URVEY-CHANGED" }
+                        { "eventType", "SURVEY-CHANGED" }
                     }
                 },
                 { "isAndroid", true }
