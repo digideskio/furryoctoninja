@@ -16,7 +16,7 @@
                     }]
                 }
             })
-            .when('/admin/edit', {
+            .when('/admin/survey', {
                 controller: 'EditSurveyController',
                 controllerAs: 'edit',
                 templateUrl: '../../Templates/editor.html',

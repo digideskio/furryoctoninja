@@ -34,7 +34,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
         }
 
         [HttpGet, ActionName("results")]
-        [TokenAuthorize(role: "User")]
+        [TokenAuthorize(roles: new string[] { "User", "Admin" })]
         public HttpResponseMessage Results()
         {
             return Request.CreateResponse(HttpStatusCode.OK, SurveyResultsMock.Mock);
@@ -48,6 +48,8 @@ namespace Rspective.FurryOctoNinja.Web.Api
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
+           
+            // HttpStatusCode.ResetContent // Survey has been modified, cannot be saved
 
             return Request.CreateResponse(HttpStatusCode.OK, "Save()");
         }

@@ -21,6 +21,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
         {
             var survey = surveyRepository.GetSurvey();
 
+            // TODO: Set IsFinished flag
             // TODO: Create Survet if it's empty
             if (survey != null)
             {
