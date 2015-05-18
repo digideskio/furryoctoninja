@@ -32,7 +32,7 @@
         }
 
         function redirectToApp() {
-            window.location = "/Home/Index";
+            window.location = "/app";
         }
     }
 })();

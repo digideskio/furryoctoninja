@@ -1,4 +1,7 @@
-﻿.navbar-header {
+﻿/************************************************
+    Generic styles
+ ************************************************/
+.navbar-header {
     float: left;
 }
 
@@ -25,12 +28,18 @@
 }
 
 .navbar-nav > li > a {
-  padding-top: 15px;
-  padding-bottom: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .navbar-right {
-  float: right!important;
+    float: right!important;
+}
+
+.navbar.sub-header {
+    border-radius: 0;
+    position: absolute;
+    width: 100%;
 }
 
 nav a.rspective {  
@@ -48,12 +57,11 @@ nav a.rspective object {
 
 #main.container {
     margin: 0;
-    padding: 0;
+    padding: 4.75em 0 0 0;
     display: table;
     position: absolute;
     height: 100%;
     width: 100%;
-    padding-top: 4.75em;
     overflow: auto;
 }
 
@@ -70,4 +78,16 @@ nav a.rspective object {
 
 #main.container .form-control {
     margin-bottom: 1em;
+}
+
+/************************************************
+    Login page styles
+ ************************************************/
+
+/************************************************
+    Main page styles
+ ************************************************/
+
+body.main-view #main.container {
+    padding-top: 9.5em;
 }

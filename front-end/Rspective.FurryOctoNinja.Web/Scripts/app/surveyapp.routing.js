@@ -15,6 +15,10 @@
                         return api.survey.get();
                     }]
                 }
-            });
+            })
+            .otherwise({
+                redirectTo: '/survey'
+            })
+            ;
     }
 })();

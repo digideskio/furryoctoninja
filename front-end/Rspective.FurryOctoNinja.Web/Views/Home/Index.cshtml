@@ -7,6 +7,19 @@
     <script type="text/javascript" src="~/Scripts/app/surveyapp.routing.js"></script>
     <script type="text/javascript" src="~/Scripts/app/surveyapp.main.js"></script>
 }
+
+@section menu {
+<div class="navbar navbar-default sub-header">
+    <div class="col-xs-12">
+        <div class="collapse navbar-collapse" id="navbar-collapse2">
+            <ul class="nav navbar-nav navbar-left">
+                <li class="active"><a href="./#/survey">Survey</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+}
+
 <section class="row">
     <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
         <div ng-view></div>
