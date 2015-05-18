@@ -266,6 +266,7 @@
     <Compile Include="Models\SurveyResultsQuestion.cs" />
     <Compile Include="Models\SurveySave.cs" />
     <Compile Include="Models\SurveySaveAnswer.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
