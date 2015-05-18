@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div ng-repeat="question in main.survey.Questions" ng-init="main.displayedQuestion = 0">
-                    <div ng-show="main.displayedQuestion === $index">
+                    <div ng-show="main.displayedQuestion === $index" ng-cloak>
                         <ul class="list-group">
                             <li class="list-group-item" ng-init="main.saveSurvey.Answers[$index].QuestionId = question.Id">
                                 <b>{{question.Text}}</b>
@@ -23,8 +23,10 @@
         </div>
         <div class="row">
             <div class="col-sm-12 text-center">
-                <ul class="pagination center-block" style="display:inline-block;" ng-repeat="question in main.survey.Questions">
-                    <li><a ng-click="main.displayedQuestion = $index">{{ $index + 1 }}</a></li>
+                <ul class="pagination center-block" style="display:inline-block;">
+                    <li ng-repeat="question in main.survey.Questions">
+                        <a ng-click="main.displayedQuestion = $index">{{ $index + 1 }}</a>
+                    </li>
                 </ul>
                 <hr />
                 <button class="btn btn-success pull-right" ng-click="main.submit()">Save</button>
