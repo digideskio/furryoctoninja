@@ -6,4 +6,15 @@
     <string name="action_settings">Settings</string>
 
     <string name="error_no_internet_connection">It\'s fucked but this time I will let you in</string>
+
+
+    <!-- Survey dialogs -->
+    <string name="survey_submit_ok">Ankieta został wysłana</string>
+    <string name="survey_submit_already_sent">Ankieta została wysłana już wcześniej</string>
+    <string name="survey_submit_was_changed">Ankieta uległa zmianie.\nNastąpi jej przeładowanie</string>
+    <string name="survey_submit_error">Ankieta nie została wysłanan.Sprawdź połączenie z internetem</string>
+
+    <string name="survey_submit_btn_close">Zamknij</string>
+    <string name="survey_submit_btn_cancel">Anuluj</string>
+
 </resources>
