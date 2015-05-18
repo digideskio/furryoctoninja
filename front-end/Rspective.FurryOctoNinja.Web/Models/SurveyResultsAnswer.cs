@@ -12,5 +12,7 @@ namespace Rspective.FurryOctoNinja.Web.Models
         public string Text { get; set; }
 
         public int Count { get; set; }
+
+        public bool? IsUserChoice { get; set; }
     }
 }

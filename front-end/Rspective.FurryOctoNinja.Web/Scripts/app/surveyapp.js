@@ -9,9 +9,15 @@
         localStorageServiceProvider.setPrefix('myApsurveyApp');
     }
 
-    run.$inject = ["$rootScope", "authStorage"];
+    run.$inject = ["$rootScope", "$location", "authStorage"];
 
-    function run($rootScope, authStorage) {
+    function run($rootScope, $location, authStorage) {
+        $rootScope.loadView = function (path) {
+            $location.path(path);
+        };
+        $rootScope.isView = function (path) {
+            return $location.path() === path;
+        };
         $rootScope.isAuthenticated = function () {
             return authStorage.isAuthenticated();
         };

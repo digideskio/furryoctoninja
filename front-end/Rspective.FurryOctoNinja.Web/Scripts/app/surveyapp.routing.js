@@ -16,7 +16,7 @@
                     }]
                 }
             })
-            .when('/admin/edit', {
+            .when('/admin/survey', {
                 controller: 'EditSurveyController',
                 controllerAs: 'edit',
                 templateUrl: '../../Templates/editor.html',
@@ -26,8 +26,25 @@
                     }]
                 }
             })
-            .otherwise({
-                redirectTo: '/survey'
+            .when('/admin/results', {
+                controller: 'MainController',
+                controllerAs: 'main',
+                templateUrl: '../../Templates/survey.html',
+                resolve: {
+                    survey: ["api", function (api) {
+                        return api.survey.get();
+                    }]
+                }
+            })
+            .when('/admin/users', {
+                controller: 'MainController',
+                controllerAs: 'main',
+                templateUrl: '../../Templates/survey.html',
+                resolve: {
+                    survey: ["api", function (api) {
+                        return api.survey.get();
+                    }]
+                }
             });
     }
 })();
