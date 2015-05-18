@@ -81,7 +81,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             };
         }
 
-        public AuthUserDTO Authorize(string clientId, string token, string[] roles)
+        public AuthUserDTO Authenticate(string clientId, string token)
         {
             var applicationToken = this.tokenRepository.Validate(clientId, token);
 
@@ -95,18 +95,9 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
                 // TODO: Make use of passed token data
                 string jsonPayload = JWT.JsonWebToken.Decode(token, applicationToken.Client.SecretKey);
            
-                var auth = new AuthUserDTO() {
-                     User = Mapper.Map<UserDTO>(applicationToken.User),
-                     IsAuthorized = true
-                };
-
-                if (roles != null && roles.Length > 0)
-                {
-                    var roleList = auth.User.Roles.ToList();
-                    auth.IsAuthorized = roles.Any(role => roleList.IndexOf(role) != -1);
-                }
-
-                return auth;
+                return new AuthUserDTO() {
+                     User = Mapper.Map<UserDTO>(applicationToken.User)
+                };;
             }
             catch (JWT.SignatureVerificationException)
             {
