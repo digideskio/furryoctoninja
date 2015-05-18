@@ -14,5 +14,9 @@
         self.saveSurvey = {};
         self.saveSurvey.Id = survey.Id;
         self.saveSurvey.Answers = [];
+
+        self.submit = function () {
+            api.survey.post(self.saveSurvey);
+        }
     }
 })();

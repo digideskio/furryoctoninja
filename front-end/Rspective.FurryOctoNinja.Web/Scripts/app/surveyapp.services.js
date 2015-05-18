@@ -14,7 +14,7 @@
         };
         that.survey = {
             get: apiGetSurvey,
-            post: null,
+            post: apiPostSurvey,
             users: null,
             results: null
         };
@@ -27,7 +27,7 @@
                     "Content-Type": "application/json",
                     "Authorization": "Token " + clientId + ":" + authStorage.token()
                 },
-                data: { test: 'test' }
+                data: payload
             }
         }
 
@@ -58,6 +58,13 @@
             return $http(prepareRequest("GET", "/api/survey", {}))
                 .then(function (data) {
                     return data.data;
+                })
+                .catch(handleError);
+        }
+
+        function apiPostSurvey(survey) {
+            return $http(prepareRequest("POST", "/api/survey/post", survey))
+                .then(function (data) {
                 })
                 .catch(handleError);
         }
