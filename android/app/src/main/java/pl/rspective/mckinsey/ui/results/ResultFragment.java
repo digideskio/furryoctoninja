@@ -40,6 +40,7 @@ import pl.rspective.data.entity.SurveyResult;
 import pl.rspective.data.repository.SurveyRepository;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.dagger.Injector;
+import pl.rspective.mckinsey.data.data.SurveySubmitResultType;
 import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
 import pl.rspective.mckinsey.mvp.views.IFormView;
 import pl.rspective.mckinsey.ui.form.FormQuestionFragment;
@@ -279,6 +280,11 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
 
     @Override
     public void showResultFragment() {
+
+    }
+
+    @Override
+    public void showSubmitDialog(SurveySubmitResultType type) {
 
     }
 

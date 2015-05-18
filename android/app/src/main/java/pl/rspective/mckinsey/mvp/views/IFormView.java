@@ -1,6 +1,7 @@
 package pl.rspective.mckinsey.mvp.views;
 
 import pl.rspective.data.entity.Survey;
+import pl.rspective.mckinsey.data.data.SurveySubmitResultType;
 import pl.rspective.mckinsey.mvp.BaseView;
 
 public interface IFormView extends BaseView {
@@ -10,6 +11,8 @@ public interface IFormView extends BaseView {
     void showSubmitButton();
 
     void showResultFragment();
+
+    void showSubmitDialog(SurveySubmitResultType type);
 
     void nextQuestion(int position);
 

@@ -26,6 +26,7 @@ import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.Survey;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.dagger.Injector;
+import pl.rspective.mckinsey.data.data.SurveySubmitResultType;
 import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
 import pl.rspective.mckinsey.mvp.views.IFormView;
 import pl.rspective.mckinsey.ui.AbsActivity;
@@ -56,6 +57,7 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Injector.inject(this);
+        setRetainInstance(true);
 
         formPresenter.onResume(this);
     }
@@ -109,6 +111,42 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
     }
 
     @Override
+    public void showSubmitDialog(SurveySubmitResultType resultType) {
+        SweetAlertDialog dialog;
+        switch (resultType) {
+            case SURVEY_OK:
+                dialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("")
+                        .setContentText(getString(resultType.getLabelTxtId()))
+                        .setConfirmText(getString(resultType.getButtonTxtId()))
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                                showResultFragment();
+                            }
+                        });
+                dialog.setCancelable(false);
+                dialog.show();
+                break;
+            case SURVEY_ERROR:
+                dialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Uwaga")
+                        .setContentText(getString(resultType.getLabelTxtId()))
+                        .setConfirmText(getString(resultType.getButtonTxtId()))
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                            }
+                        });
+                dialog.show();
+                break;
+
+        }
+    }
+
+    @Override
     public void nextQuestion(int position) {
         if (position < adapter.getCount() - 1) {
             viewPager.setCurrentItem(position + 1);
@@ -128,7 +166,7 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
     @OnClick(R.id.btn_survey_submit)
     public void onSurveySubmitClick() {
         new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Potwierdzenie?")
+                .setTitleText("Potwierdzenie")
                 .setContentText("Czy na pewno chcesz wysłać ankietę?")
                 .setConfirmText("Wyślij")
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
