@@ -108,6 +108,13 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
     }
 
     @Override
+    public void nextQuestion(int position) {
+        if(position < adapter.getCount() - 1) {
+            viewPager.setCurrentItem(position + 1);
+        }
+    }
+
+    @Override
     public Context getViewContext() {
         return getActivity();
     }

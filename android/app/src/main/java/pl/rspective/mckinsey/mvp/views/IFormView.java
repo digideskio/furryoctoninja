@@ -11,4 +11,6 @@ public interface IFormView extends BaseView {
 
     void showResultFragment();
 
+    void nextQuestion(int position);
+
 }
