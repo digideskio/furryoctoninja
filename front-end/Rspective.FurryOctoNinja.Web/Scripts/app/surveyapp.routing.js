@@ -36,6 +36,16 @@
                     }]
                 }
             })
+            .when('/admin/userresults', {
+                controller: 'MainController',
+                controllerAs: 'main',
+                templateUrl: '../../Templates/survey.html',
+                resolve: {
+                    survey: ["api", function (api) {
+                        return api.survey.get();
+                    }]
+                }
+            })
             .when('/admin/users', {
                 controller: 'MainController',
                 controllerAs: 'main',
