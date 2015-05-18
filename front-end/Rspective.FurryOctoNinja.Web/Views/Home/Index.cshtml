@@ -6,6 +6,7 @@
 @section scripts {
     <script type="text/javascript" src="~/Scripts/app/surveyapp.routing.js"></script>
     <script type="text/javascript" src="~/Scripts/app/surveyapp.main.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/surveyapp.edit.js"></script>
 }
 
 @section menu {
@@ -13,7 +14,10 @@
     <div class="col-xs-12">
         <div class="collapse navbar-collapse" id="navbar-collapse2">
             <ul class="nav navbar-nav navbar-left">
-                <li class="active"><a href="./#/survey">Survey</a></li>
+                <li ng-hide="isAdmin()" ng-cloak ng-class="{ active : isView('/survey') }"><a ng-click="loadView('/survey')">Survey</a></li>
+                <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/survey') }"><a ng-click="loadView('/admin/survey')">Survey</a></li>
+                <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/results') }"><a ng-click="loadView('/admin/results')">Results</a></li>
+                <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/users') }"><a ng-click="loadView('/admin/users')">Users</a></li>
             </ul>
         </div>
     </div>
@@ -25,4 +29,4 @@
         <div ng-view></div>
     </div>
 </section>
-        
+

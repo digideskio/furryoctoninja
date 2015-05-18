@@ -20,9 +20,10 @@ namespace Rspective.FurryOctoNinja.Web.Api
         }
 
         [HttpGet, ActionName("get")]
-        [TokenAuthorize(role: "User")]
+        [TokenAuthorize(roles: new string[] { "User", "Admin" })]
         public HttpResponseMessage Get()
         {
+            // Fill IsUserChoice
             return Request.CreateResponse(HttpStatusCode.OK, surveyService.GetSurvey());
         }
 
@@ -34,7 +35,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
         }
 
         [HttpGet, ActionName("results")]
-        [TokenAuthorize(role: "User")]
+        [TokenAuthorize(roles: new string[] { "User", "Admin" })]
         public HttpResponseMessage Results()
         {
             return Request.CreateResponse(HttpStatusCode.OK, SurveyResultsMock.Mock);
@@ -48,6 +49,9 @@ namespace Rspective.FurryOctoNinja.Web.Api
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
+           
+            // HttpStatusCode.ResetContent // Survey has been modified, cannot be saved
+            // Return results with IsUserChoice field
 
             return Request.CreateResponse(HttpStatusCode.OK, "Save()");
         }

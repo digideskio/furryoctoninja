@@ -49,14 +49,7 @@ namespace Rspective.FurryOctoNinja.Web.Auth
                 return true;
             }
 
-            bool result = true;
-
-            foreach(var role in roles) 
-            {
-                result = result && this.IsInRole(role);
-            }
-
-            return result;
+            return roles.Any(role => IsInRole(role));
         }
     }
 }

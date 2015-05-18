@@ -79,8 +79,8 @@
 
         function handleError(data) {
             if (data.status === 401) {
-                authStorage.save(null);
-                window.location = "/";
+                //authStorage.save(null);
+                //window.location = "/";
             }
             
             else { throw data.status; }
