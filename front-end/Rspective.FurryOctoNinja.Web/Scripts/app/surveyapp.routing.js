@@ -16,10 +16,10 @@
                     }]
                 }
             })
-            .when('/admin/survey', {
-                controller: 'MainController',
-                controllerAs: 'main',
-                templateUrl: '../../Templates/survey.html',
+            .when('/admin/edit', {
+                controller: 'EditSurveyController',
+                controllerAs: 'edit',
+                templateUrl: '../../Templates/editor.html',
                 resolve: {
                     survey: ["api", function (api) {
                         return api.survey.get();

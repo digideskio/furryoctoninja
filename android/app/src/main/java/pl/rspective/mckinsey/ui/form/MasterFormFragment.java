@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import pl.rspective.data.entity.Answer;
 import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.Survey;
@@ -85,7 +86,7 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
 
     @Override
     public void updateUi(Survey survey) {
-        if(survey == null || survey.getQuestions() == null) {
+        if (survey == null || survey.getQuestions() == null) {
             return;
         }
 
@@ -104,7 +105,14 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
 
     @Override
     public void showResultFragment() {
-        ((AbsActivity)getActivity()).addFragment(ResultFragment.newInstance(), false, R.id.fl_main_fragment_container);
+        ((AbsActivity) getActivity()).addFragment(ResultFragment.newInstance(), false, R.id.fl_main_fragment_container);
+    }
+
+    @Override
+    public void nextQuestion(int position) {
+        if (position < adapter.getCount() - 1) {
+            viewPager.setCurrentItem(position + 1);
+        }
     }
 
     @Override
@@ -119,7 +127,18 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
 
     @OnClick(R.id.btn_survey_submit)
     public void onSurveySubmitClick() {
-        formPresenter.submitSurvey();
+        new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Potwierdzenie?")
+                .setContentText("Czy na pewno chcesz wysłać ankietę?")
+                .setConfirmText("Wyślij")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                        formPresenter.submitSurvey();
+                    }
+                })
+                .show();
     }
 
 }

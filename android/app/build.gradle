@@ -67,6 +67,7 @@ dependencies {
     compile 'com.iangclifton.android:floatlabel:1.0.3'
     compile 'com.ogaclejapan.smarttablayout:library:1.1.3@aar'
     compile('com.lsjwzh:materialloadingprogressbar:0.5.3-RELEASE')
+    compile 'cn.pedant.sweetalert:library:1.3'
 
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.easing:library:1.0.1@aar'
