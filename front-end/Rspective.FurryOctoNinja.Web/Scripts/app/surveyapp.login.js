@@ -2,7 +2,7 @@
     angular.module("surveyapp")
         .controller("LoginController", login);
 
-    login.$inject = [ "api" ];
+    login.$inject = ["api"];
 
     function login(api) {
         var that = this;

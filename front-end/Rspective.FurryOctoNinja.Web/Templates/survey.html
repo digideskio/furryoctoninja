@@ -1,0 +1,18 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>{{main.survey.Title}}</h4></div>
+    <div class="panel-body">
+        <div ng-repeat="question in main.survey.Questions">
+            <div>
+                <div ng-bind="question.Text"></div>
+                <div ng-repeat="answer in question.Answers">
+                    <label ng-bind="answer.Text"></label>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 text-center">
+            <ul class="pagination center-block" style="display:inline-block;" ng-repeat="question in main.survey.Questions">
+                <li><a>{{ $index + 1 }}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

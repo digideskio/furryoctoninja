@@ -3,35 +3,35 @@
         .service("api", api)
         .service("authStorage", authStorage)
 
-    api.$inject = [ "$http", "authStorage" ];
+    api.$inject = ["$http", "authStorage"];
 
     function api($http, authStorage) {
         var clientId = "El246n9cf1minYI0YGcBVQ8971fK8Gfp";
         var that = this;
         that.auth = {
-            login   : apiAuthLogin,
-            refresh : apiAuthRefresh
+            login: apiAuthLogin,
+            refresh: apiAuthRefresh
         };
         that.survey = {
-            get     : null,
-            post    : null,
-            users   : null,
-            results : null
+            get: apiGetSurvey,
+            post: null,
+            users: null,
+            results: null
         };
 
         function prepareRequest(method, url, payload) {
             return {
-                method  : method,
-                url     : url,
-                headers : {
-                    "Content-Type"  : "application/json",
-                    "Authorization" : "Token " + clientId + ":" + authStorage.token()
+                method: method,
+                url: url,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Token " + clientId + ":" + authStorage.token()
                 },
                 data: { test: 'test' }
             }
         }
 
-        function hangleError(data) {
+        function handleError(data) {
             if (data.status === 401) { window.location = "/"; }
             else { throw data.status; }
         }
@@ -42,7 +42,7 @@
                     authStorage.save(data.data);
                     return data.status;
                 })
-                .catch(hangleError);
+                .catch(handleError);
         }
 
         function apiAuthRefresh() {
@@ -51,11 +51,19 @@
                     authStorage.save(data.data);
                     return data.status;
                 })
-                .catch(hangleError);
+                .catch(handleError);
+        }
+
+        function apiGetSurvey() {
+            return $http(prepareRequest("GET", "/api/survey", {}))
+                .then(function (data) {
+                    return data.data;
+                })
+                .catch(handleError);
         }
     }
 
-    authStorage.$inject = [ "localStorageService" ]
+    authStorage.$inject = ["localStorageService"]
 
     function authStorage(localStorageService) {
         var current = null;
