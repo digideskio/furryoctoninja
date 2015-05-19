@@ -22,6 +22,20 @@ namespace Rspective.FurryOctoNinja.Web
             );
 
             config.Routes.MapHttpRoute(
+                name: "ControllerActionDeleteApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional, action = "Delete" },
+                constraints: new { id = @"\d?", httpMethod = new HttpMethodConstraint(new string[] { "DELETE" }) }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "ControllerActionUpdateApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional, action = "Update" },
+                constraints: new { id = @"\d?", httpMethod = new HttpMethodConstraint(new string[] { "PUT" }) }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "ControllerActionApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional },

@@ -123,3 +123,15 @@ Response:
     ]
 }
 ```
+
+- /api/user/current - GET
+
+- /api/user/all - GET
+
+- /api/user - POST (same as: /api/user/post) 
+
+- /api/user - DELETE (same as: /api/user/delete) 
+
+- /api/user - PUT (same as: /api/user/put) 
+
+- /api/user - GET (same as: /api/user/get) 

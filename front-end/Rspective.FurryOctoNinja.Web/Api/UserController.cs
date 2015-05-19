@@ -31,5 +31,33 @@ namespace Rspective.FurryOctoNinja.Web.Api
         {
             return Request.CreateResponse(HttpStatusCode.OK, this.userService.GetAll());
         }
+
+        [HttpDelete, ActionName("delete")]
+        [TokenAuthorize(role: "Admin")]
+        public HttpResponseMessage Delete()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, "DELETE");
+        }
+
+        [HttpPut, ActionName("put")]
+        [TokenAuthorize(role: "Admin")]
+        public HttpResponseMessage Update()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, "UPDATE");
+        }
+
+        [HttpPost, ActionName("post")]
+        [TokenAuthorize(role: "Admin")]
+        public HttpResponseMessage Create()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, "POST");
+        }
+
+        [HttpGet, ActionName("get")]
+        [TokenAuthorize(role: "Admin")]
+        public HttpResponseMessage Get()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, "GET");
+        }
     }
 }
