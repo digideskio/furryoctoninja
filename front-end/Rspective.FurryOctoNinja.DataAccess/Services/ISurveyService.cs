@@ -8,7 +8,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
     {
         SurveyDTO GetSurvey();
 
-        void SaveUserAnswers(ICollection<SurveyAnswerDTO> answers);
+        void SaveUserAnswers(ICollection<AnswerSaveDTO> answers);
 
         SurveyResultsDTO GetResults(int userId);
 

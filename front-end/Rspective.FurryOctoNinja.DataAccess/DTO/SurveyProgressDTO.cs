@@ -1,5 +1,5 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 namespace Rspective.FurryOctoNinja.DataAccess.DTO
 {
     public class SurveyProgressDTO

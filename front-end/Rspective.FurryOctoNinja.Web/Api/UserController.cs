@@ -1,6 +1,4 @@
 ﻿using Rspective.FurryOctoNinja.Web.Auth;
-using Rspective.FurryOctoNinja.Web.Models;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web;

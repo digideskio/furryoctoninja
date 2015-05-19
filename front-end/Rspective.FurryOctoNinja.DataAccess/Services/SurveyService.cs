@@ -37,7 +37,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             throw new InvalidOperationException();
         }
 
-        public void SaveUserAnswers(ICollection<SurveyAnswerDTO> answers)
+        public void SaveUserAnswers(ICollection<AnswerSaveDTO> answers)
         {
             foreach (var answer in answers) {
                 this.userAnswerRepository.Create(Mapper.Map<UserAnswer>(answer));

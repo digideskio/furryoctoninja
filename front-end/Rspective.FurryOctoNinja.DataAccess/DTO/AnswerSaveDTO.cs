@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Rspective.FurryOctoNinja.DataAccess.DTO
 {
-    public class SurveyAnswerDTO
+    public class AnswerSaveDTO
     {
         public int UserId { get; set; }
 

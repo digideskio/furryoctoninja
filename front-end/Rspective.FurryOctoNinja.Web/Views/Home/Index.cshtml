@@ -18,8 +18,8 @@
             <ul class="nav navbar-nav navbar-left">
                 <li ng-hide="isAdmin()" ng-cloak ng-class="{ active : isView('/survey') }"><a ng-click="loadView('/survey')">Survey</a></li>
                 <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/survey') }"><a ng-click="loadView('/admin/survey')">Survey</a></li>
-                <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/results') }"><a ng-click="loadView('/admin/results')">Answers</a></li>
                 <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/progress') }"><a ng-click="loadView('/admin/progress')">Results</a></li>
+                <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/results') }"><a ng-click="loadView('/admin/results')">Progress</a></li>
                 <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/users') }"><a ng-click="loadView('/admin/users')">Users</a></li>
             </ul>
         </div>

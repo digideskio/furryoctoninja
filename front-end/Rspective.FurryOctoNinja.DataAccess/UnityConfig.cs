@@ -22,9 +22,9 @@ namespace Rspective.FurryOctoNinja.DataAccess
 
             container.RegisterType<ISurveyService, SurveyService>(new PerThreadLifetimeManager());
             container.RegisterType<IAuthService, AuthService>(new PerThreadLifetimeManager());
+            container.RegisterType<IUserService, UserService>(new PerThreadLifetimeManager());
 
             return container;
-            //DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
 }

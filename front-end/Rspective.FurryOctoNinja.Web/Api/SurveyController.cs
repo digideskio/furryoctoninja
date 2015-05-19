@@ -1,16 +1,12 @@
 ﻿using Rspective.FurryOctoNinja.DataAccess.Services;
+using Rspective.FurryOctoNinja.Web.Auth;
 using Rspective.FurryOctoNinja.Web.Models;
-using System;
+using Rspective.FurryOctoNinja.Web.Providers;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
-using log4net;
-using log4net.Config;
-using Rspective.FurryOctoNinja.Web.Auth;
-using Rspective.FurryOctoNinja.Web.Providers;
 using System.Threading.Tasks;
 using System.Web;
-using AutoMapper;
+using System.Web.Http;
 
 namespace Rspective.FurryOctoNinja.Web.Api
 {
