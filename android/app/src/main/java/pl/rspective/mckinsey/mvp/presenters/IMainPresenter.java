@@ -15,4 +15,6 @@ public interface IMainPresenter extends BasePresenter<IMainView> {
 
     List<MenuObject> getMainMenuItems();
 
+    void checkAppEventStatus();
+
 }

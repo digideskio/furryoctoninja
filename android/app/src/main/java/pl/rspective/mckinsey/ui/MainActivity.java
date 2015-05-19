@@ -19,6 +19,7 @@ import com.yalantis.contextmenu.lib.interfaces.OnMenuItemLongClickListener;
 import javax.inject.Inject;
 
 import butterknife.InjectView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import pl.rspective.data.rest.NetworkAction;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.dagger.Injector;
@@ -54,6 +55,9 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Injector.inject(this);
+
+        mainPresenter.onResume(this);
+        mainPresenter.checkAppEventStatus();
 
         addFragment(mainPresenter.getStartFragment(), true, R.id.fl_main_fragment_container);
         initMenuItems();
@@ -157,4 +161,12 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
         }
     }
 
+    @Override
+    public void showSurveyReloadDialog() {
+        new SweetAlertDialog(this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                .setTitleText("Nowa ankieta!")
+                .setContentText("Ankieta została przeładowana")
+                .setCustomImage(R.drawable.ic_launcher)
+                .show();
+    }
 }

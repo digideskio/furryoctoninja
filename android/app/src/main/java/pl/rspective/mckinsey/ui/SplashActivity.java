@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.onesignal.OneSignal;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -28,6 +29,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         ButterKnife.inject(this);
 
+        initOneSignalPushProvider();
+
         YoYo.with(Techniques.FadeIn)
                 .duration(SPLASH_DELAY_MILLIS)
                 .playOn(ivLogo);
@@ -43,4 +46,21 @@ public class SplashActivity extends AppCompatActivity {
         }, SPLASH_DELAY_MILLIS);
 
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        OneSignal.onPaused();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        OneSignal.onResumed();
+    }
+
+    private void initOneSignalPushProvider() {
+        OneSignal.init(this, "830542138421", "4e20a7ca-fd86-11e4-b8d4-83591acb8ccc");
+        OneSignal.sendTag("app", "furryoctoninja");
+    }
+
 }
