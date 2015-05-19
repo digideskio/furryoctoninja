@@ -41,6 +41,10 @@ public class MainPresenter implements IMainPresenter {
 
     @Override
     public Fragment getStartFragment() {
+        if(userRepository.loadUser().getRole().equals(UserRole.ADMIN)) {
+            return ResultFragment.newInstance();
+        }
+
         Gson gson = new GsonBuilder().create();
         Survey survey = gson.fromJson(surveyLocalStorage.load(StorageType.SURVEY), Survey.class);
 
