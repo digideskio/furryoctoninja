@@ -15,6 +15,7 @@ public class Answer implements Serializable {
     @SerializedName("Count")
     private int count;
 
+    @SerializedName("IsUserChoice")
     private boolean selected;
 
     public boolean isSelected() {

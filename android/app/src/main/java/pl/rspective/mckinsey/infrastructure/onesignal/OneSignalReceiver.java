@@ -13,6 +13,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.onesignal.GcmBroadcastReceiver;
+import com.squareup.otto.Bus;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -22,6 +23,7 @@ import pl.rspective.data.local.LocalPreferences;
 import pl.rspective.data.local.SurveyLocalStorage;
 import pl.rspective.data.local.model.StorageType;
 import pl.rspective.mckinsey.R;
+import pl.rspective.mckinsey.architecture.bus.events.SurveyResultsUpdateEvent;
 import pl.rspective.mckinsey.dagger.Injector;
 import pl.rspective.mckinsey.data.model.AppEventStatus;
 import pl.rspective.mckinsey.infrastructure.onesignal.model.McKinseyPushMessage;
@@ -44,6 +46,9 @@ public class OneSignalReceiver extends GcmBroadcastReceiver {
     @Inject
     SurveyLocalStorage<String> surveyLocalStorage;
 
+    @Inject
+    Bus bus;
+
     private Gson gson;
 
     public OneSignalReceiver() {
@@ -59,15 +64,22 @@ public class OneSignalReceiver extends GcmBroadcastReceiver {
         if (intent != null && intent.getExtras() != null && intent.getExtras().getString("custom") != null) {
             McKinseyPushMessage message = extractOnesignalMessage(intent);
 
-            if (message == null) {
+            if (message == null || message.getMetaData() == null || message.getMetaData().getPushType() == null) {
                 Log.d(TAG, "There was a problem to extract onesignal message from push payload");
                 return;
             }
 
-            generateNotification(context, context.getString(R.string.app_name), "Nowa ankieta"); //TODO Go to strings
+            switch (message.getMetaData().getPushType()) {
+                case SURVEY_CHANGED:
+                    generateNotification(context, context.getString(R.string.app_name), "Nowa ankieta"); //TODO Go to strings
+                    localPreferences.setAppEventStatus(AppEventStatus.SURVEY_UPDATE_PUSH_MESSAGE.ordinal());
+                    surveyLocalStorage.clear(StorageType.SURVEY);
 
-            localPreferences.setAppEventStatus(AppEventStatus.SURVEY_UPDATE_PUSH_MESSAGE.ordinal());
-            surveyLocalStorage.clear(StorageType.SURVEY);
+                    break;
+                case SURVEY_RESULTS_UPDATED:
+                    bus.post(new SurveyResultsUpdateEvent());
+                    break;
+            }
 
             abortBroadcast();
         }
