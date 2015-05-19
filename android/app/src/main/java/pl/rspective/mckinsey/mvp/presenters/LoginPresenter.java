@@ -8,6 +8,7 @@ import pl.rspective.data.repository.UserRepository;
 import pl.rspective.data.rest.model.LoginResponse;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.mvp.views.ILoginView;
+import retrofit.RetrofitError;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -54,8 +55,25 @@ public class LoginPresenter implements ILoginPresenter {
                     @Override
                     public void call(Throwable throwable) {
                         view.enableLoginButton();
-                        view.showErrorMessage(R.string.error_no_internet_connection);
+                        view.showErrorMessage(translateError(throwable));
                     }
                 });
+    }
+
+    private int translateError(Throwable throwable) {
+        if (throwable instanceof RetrofitError) {
+            RetrofitError retrofitError = (RetrofitError) throwable;
+            if (retrofitError.getKind() == RetrofitError.Kind.NETWORK) {
+                return R.string.network_error;
+            } else if (retrofitError.getResponse().getStatus() == 403) {
+                return R.string.invalid_login_or_password;
+            } else if (retrofitError.getResponse().getStatus() == 500) {
+                return R.string.internal_server_error;
+            } else {
+                return R.string.unkown_login_error;
+            }
+        } else {
+            return R.string.unkown_login_error;
+        }
     }
 }
