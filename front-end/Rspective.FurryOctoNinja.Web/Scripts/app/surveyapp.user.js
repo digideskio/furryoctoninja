@@ -2,14 +2,20 @@
     angular.module("surveyapp")
         .controller("UserController", user);
 
-    user.$inject = ["api", "users"];
+    user.$inject = ["dataRefresher", "api", "users"];
 
-    function user(api, users) {
+    function user(dataRefresher, api, users) {
         var self = this;
-
-        api.auth.refresh();
 
         self.json = JSON.stringify(users, null, 4);
         self.users = users;
+
+        dataRefresher.addTemporary(function () {
+            api.user.all()
+                .then(function (users) {
+                    self.json = JSON.stringify(users, null, 4);
+                    self.users = users;
+                });
+        }, 45);
     }
 })();

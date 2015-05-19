@@ -2,10 +2,11 @@
     angular.module("surveyapp")
         .service("api", api)
         .service("authStorage", authStorage)
+        .service("dataRefresher", dataRefresher)
 
-    api.$inject = ["$http", "authStorage"];
+    api.$inject = ["$http", "dataRefresher", "authStorage"];
 
-    function api($http, authStorage) {
+    function api($http, dataRefresher, authStorage) {
         var clientId = "El246n9cf1minYI0YGcBVQ8971fK8Gfp";
         var self = this;
 
@@ -80,6 +81,10 @@
                 .catch(handleError);
         };
 
+        dataRefresher.addPermanent(function () {
+            self.auth.refresh();
+        }, 300);
+
         function prepareRequest(method, url, payload) {
             return {
                 method: method,
@@ -133,4 +138,55 @@
             return !!self.token();
         };
     }
+
+    dataRefresher.$inject = ["$rootScope", "$timeout"];
+
+    function dataRefresher ($rootScope, $timeout) {
+        var self = this;
+        self.permanent = [];
+        self.temporary = [];
+
+        function guid () {
+            function s4() {
+                return Math.floor((1 + Math.random()) * 0x10000)
+                  .toString(16)
+                  .substring(1);
+            }
+            return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+        }
+
+        function addJob(collectionName) {
+            var collection = self[collectionName];
+            var result = {
+                name    : collectionName, 
+                index   : collection.length,
+                uuid    : guid()
+            };
+            collection.push(result.uuid);
+            return result;
+        }
+
+        function doJob (identifier, callback, delayInSeconds) {
+            $timeout(function () {
+                var collection = self[identifier.name];
+                if (collection.length > identifier.index && collection[identifier.index] === identifier.uuid) {
+                    callback();
+                    doJob(identifier, callback, delayInSeconds);
+                }
+            }, delayInSeconds * 1000)
+        }
+
+        self.addTemporary = function (callback, delayInSeconds) {
+            doJob(addJob("temporary"), callback, delayInSeconds);
+        };
+
+        self.addPermanent = function (callback, delayInSeconds) {
+            doJob(addJob("permanent"), callback, delayInSeconds);
+        };
+
+        $rootScope.$on("$routeChangeStart", function () {
+            self.temporary = [];
+        });
+    }
+
 })();

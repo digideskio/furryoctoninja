@@ -7,8 +7,6 @@
     function main(api, survey) {
         var self = this;
 
-        api.auth.refresh();
-
         self.survey = survey;
 
         self.saveSurvey = {};

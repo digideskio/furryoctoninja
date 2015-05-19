@@ -7,8 +7,6 @@
     function edit(api, survey) {
         var self = this;
         
-        api.auth.refresh();
-
         self.displayedQuestion = 0;
         self.updateDisplayedQuestion = function () {
             self.displayedQuestion = Math.min(self.displayedQuestion, (self.survey.Question || []).length);
