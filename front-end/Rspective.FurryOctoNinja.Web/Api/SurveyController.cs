@@ -27,9 +27,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
         [TokenAuthorize(roles: new string[] { "User", "Admin" })]
         public HttpResponseMessage Get()
         {
-            var survey = surveyService.GetSurvey();
-            var answers = surveyService.GetAnswers((HttpContext.Current.User as Auth.User).Id);
-
+            var survey = this.surveyService.GetSurvey();
             // TODO: Merge User and his answers
             return Request.CreateResponse(HttpStatusCode.OK, survey);
         }
@@ -39,6 +37,8 @@ namespace Rspective.FurryOctoNinja.Web.Api
         public HttpResponseMessage Progress()
         {
             var progress = this.surveyService.GetProgress();
+            // TODO: REMOVE MOCK
+            return Request.CreateResponse(HttpStatusCode.OK, SurveyProgressMock.Mock);
             return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<SurveyProgress>(progress));
         }
 
@@ -46,7 +46,10 @@ namespace Rspective.FurryOctoNinja.Web.Api
         [TokenAuthorize(roles: new string[] { "User", "Admin" })]
         public HttpResponseMessage Results()
         {
+            var results = this.surveyService.GetResults((HttpContext.Current.User as Auth.User).Id);
+            // TODO: REMOVE MOCK
             return Request.CreateResponse(HttpStatusCode.OK, SurveyResultsMock.Mock);
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<SurveyResults>(results));
         }
 
         [HttpPost, ActionName("post")]

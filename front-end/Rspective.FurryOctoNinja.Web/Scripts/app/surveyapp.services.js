@@ -42,7 +42,7 @@
                 })
                 .catch(handleError);
         };
-        self.survey.users = function () {
+        self.survey.progress = function () {
             return $http(prepareRequest("GET", "/api/survey/users", {}))
                 .then(function (data) {
                     return data.data;

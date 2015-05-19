@@ -44,14 +44,24 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             }
         }
 
-        public ICollection<SurveyAnswerDTO> GetAnswers(int? userId)
+        public SurveyResultsDTO GetResults(int userId)
         {
             var survey = this.GetSurvey();
-            var answers = userId.HasValue ? 
-                this.userAnswerRepository.GetForSingleUser(survey.Id, userId.Value)
-                : this.userAnswerRepository.GetForSurvey(survey.Id);
+            var answers = this.userAnswerRepository.GetForSurvey(survey.Id);
+            var userAnswers = this.userAnswerRepository.GetForSingleUser(survey.Id, userId);
 
-            return Mapper.Map<ICollection<SurveyAnswerDTO>>(answers);
+            var result = Mapper.Map<SurveyResultsDTO>(survey);
+
+            foreach (var question in result.Questions)
+            {
+                foreach (var answer in question.Answers)
+                {
+                    answer.Count = answers.Count(surveyAnswer => surveyAnswer.AnswerId == answer.Id && surveyAnswer.QuestionId == question.Id);
+                    answer.IsUserChoice = userAnswers.Any(userAnswer => userAnswer.AnswerId == answer.Id && userAnswer.QuestionId == question.Id);
+                }
+            }
+
+            return result;
         }
 
         public SurveyProgressDTO GetProgress()
@@ -71,11 +81,9 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
                 });
             }
 
-            return new SurveyProgressDTO()
-            {
-                SurveyId = survey.Id,
-                Items = items
-            };;
+            var result = Mapper.Map<SurveyProgressDTO>(survey);
+            result.Items = items;
+            return result;
         }
     }
 }

@@ -7,6 +7,8 @@
     <script type="text/javascript" src="~/Scripts/app/surveyapp.routing.js"></script>
     <script type="text/javascript" src="~/Scripts/app/surveyapp.main.js"></script>
     <script type="text/javascript" src="~/Scripts/app/surveyapp.edit.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/surveyapp.progress.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/surveyapp.results.js"></script>
 }
 
 @section menu {
@@ -17,7 +19,7 @@
                 <li ng-hide="isAdmin()" ng-cloak ng-class="{ active : isView('/survey') }"><a ng-click="loadView('/survey')">Survey</a></li>
                 <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/survey') }"><a ng-click="loadView('/admin/survey')">Survey</a></li>
                 <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/results') }"><a ng-click="loadView('/admin/results')">Answers</a></li>
-                <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/userresults') }"><a ng-click="loadView('/admin/userresults')">Results</a></li>
+                <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/progress') }"><a ng-click="loadView('/admin/progress')">Results</a></li>
                 <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/users') }"><a ng-click="loadView('/admin/users')">Users</a></li>
             </ul>
         </div>

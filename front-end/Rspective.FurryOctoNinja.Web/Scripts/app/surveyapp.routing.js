@@ -27,22 +27,22 @@
                 }
             })
             .when('/admin/results', {
-                controller: 'MainController',
-                controllerAs: 'main',
-                templateUrl: '../../Templates/survey.html',
+                controller: 'SurveyResultsController',
+                controllerAs: 'results',
+                templateUrl: '../../Templates/results.html',
                 resolve: {
-                    survey: ["api", function (api) {
-                        return api.survey.get();
+                    results: ["api", function (api) {
+                        return api.survey.results();
                     }]
                 }
             })
-            .when('/admin/userresults', {
-                controller: 'MainController',
-                controllerAs: 'main',
-                templateUrl: '../../Templates/survey.html',
+            .when('/admin/progress', {
+                controller: 'SurveyProgressController',
+                controllerAs: 'progress',
+                templateUrl: '../../Templates/progress.html',
                 resolve: {
-                    survey: ["api", function (api) {
-                        return api.survey.get();
+                    progress: ["api", function (api) {
+                        return api.survey.progress();
                     }]
                 }
             })

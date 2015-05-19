@@ -10,7 +10,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 
         void SaveUserAnswers(ICollection<SurveyAnswerDTO> answers);
 
-        ICollection<SurveyAnswerDTO> GetAnswers(int? userId);
+        SurveyResultsDTO GetResults(int userId);
 
         SurveyProgressDTO GetProgress();
     }
