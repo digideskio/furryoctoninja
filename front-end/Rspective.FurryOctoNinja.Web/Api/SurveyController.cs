@@ -71,5 +71,12 @@ namespace Rspective.FurryOctoNinja.Web.Api
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
+
+        [HttpPost, ActionName("reset")]
+        [TokenAuthorize(role: "Admin")]
+        public HttpResponseMessage Reset() {
+            this.surveyService.Reset();
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
     }
 }

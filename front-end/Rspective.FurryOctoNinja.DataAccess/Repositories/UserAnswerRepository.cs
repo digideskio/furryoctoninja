@@ -25,5 +25,10 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
                 .Where(answer => answer.SurveyId == surveyId)
                 .ToArray();
         }
+
+        public void Reset(int surveyId)
+        {
+            this.Delete(answer => answer.SurveyId == surveyId);
+        }
     }
 }

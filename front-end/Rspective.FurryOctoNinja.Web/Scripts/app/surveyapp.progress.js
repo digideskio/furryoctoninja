@@ -7,6 +7,22 @@
     function progress(dataRefresher, api, progress) {
         var self = this;
 
+        self.resetDisabled = false;
+        self.reset = function () {
+            self.resetDisabled = true;
+            api.survey.reset()
+                .then(function () {
+                    return api.survey.progress()
+                        .then(function (results) {
+                            self.json = JSON.stringify(results, null, 4);
+                            self.results = results;
+                        });
+                })
+                .then(function () {
+                    self.resetDisabled = false;
+                });
+        };
+
         self.doNotShow = null;
         self.progress = progress;
 

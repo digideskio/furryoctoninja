@@ -8,5 +8,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
         ICollection<UserAnswer> GetForSingleUser(int surveyId, int userId);
 
         ICollection<UserAnswer> GetForSurvey(int surveyId);
+
+        void Reset(int surveyId);
     }
 }

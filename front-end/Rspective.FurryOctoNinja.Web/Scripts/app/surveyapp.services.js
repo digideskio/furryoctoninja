@@ -64,6 +64,13 @@
                 })
                 .catch(handleError);
         };
+        self.survey.reset = function () {
+            return $http(prepareRequest("POST", "/api/survey/reset"))
+                .then(function (data) {
+                    return data.data;
+                })
+                .catch(handleError);
+        };
 
         self.user = {};
         self.user.current = function () {

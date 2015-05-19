@@ -11,8 +11,9 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
         private IUnitOfWork ouw;
         private IApplicationUserRepository userRepository;
 
-        public UserService(IApplicationUserRepository userRepository)
+        public UserService(IUnitOfWork ouw, IApplicationUserRepository userRepository)
         {
+            this.ouw = ouw;
             this.userRepository = userRepository;
         }
 

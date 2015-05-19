@@ -85,5 +85,11 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             result.Items = items;
             return result;
         }
+
+        public void Reset()
+        {
+            var survey = this.GetSurvey();
+            this.userAnswerRepository.Reset(survey.Id);
+        }
     }
 }

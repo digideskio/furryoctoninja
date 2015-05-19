@@ -13,5 +13,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
         SurveyResultsDTO GetResults(int userId);
 
         SurveyProgressDTO GetProgress();
+
+        void Reset();
     }
 }
