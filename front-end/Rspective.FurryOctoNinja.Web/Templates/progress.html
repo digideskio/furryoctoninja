@@ -1,12 +1,20 @@
 ﻿<div class="panel panel-default user-progress">
     <div class="panel-heading">
         <h4>Progress</h4>
+        <p>
+            <i class="glyphicon glyphicon-filter"></i>
+            <a ng-click="progress.doNotShow = null">All</a>
+            <span>|</span>
+            <a ng-click="progress.doNotShow = false">Completed</a>
+            <span>|</span>
+            <a ng-click="progress.doNotShow = true">Incomplete</a>
+        </p>
     </div>
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-12">
                 <ul class="list-group user-progress-list">
-                    <li class="list-group-item user-progress-list-item" ng-repeat="userProgress in progress.progress.Items">
+                    <li class="list-group-item user-progress-list-item" ng-cloak ng-repeat="userProgress in progress.progress.Items" ng-show="userProgress.Completed !== progress.doNotShow">
                         {{ userProgress.UserName }}
                         <span><i class="glyphicon" ng-class="{ 'glyphicon-ok' : userProgress.Completed, 'glyphicon-minus' : !userProgress.Completed }"></i></span>
                     </li>

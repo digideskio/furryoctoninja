@@ -7,6 +7,7 @@
     function progress(dataRefresher, api, progress) {
         var self = this;
 
+        self.doNotShow = null;
         self.progress = progress;
 
         dataRefresher.addTemporary(function () {
