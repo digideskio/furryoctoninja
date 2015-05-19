@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Rspective.FurryOctoNinja.DataAccess.DTO;
 using Rspective.FurryOctoNinja.DataAccess.Services;
 using Rspective.FurryOctoNinja.Web.Auth;
 using Rspective.FurryOctoNinja.Web.Models;
@@ -34,30 +35,33 @@ namespace Rspective.FurryOctoNinja.Web.Api
 
         [HttpDelete, ActionName("delete")]
         [TokenAuthorize(role: "Admin")]
-        public HttpResponseMessage Delete()
+        public HttpResponseMessage Delete(int userId)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, "DELETE");
+            this.userService.Delete(userId);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpPut, ActionName("put")]
         [TokenAuthorize(role: "Admin")]
-        public HttpResponseMessage Update()
+        public HttpResponseMessage Update(UserUpdate user)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, "UPDATE");
+            var updatedUser = this.userService.Update(Mapper.Map<UserUpdateDTO>(user));
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Models.User>(updatedUser));
         }
 
         [HttpPost, ActionName("post")]
         [TokenAuthorize(role: "Admin")]
-        public HttpResponseMessage Create()
+        public HttpResponseMessage Create(UserSave user)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, "POST");
+            var createdUser = this.userService.Save(Mapper.Map<UserSaveDTO>(user));
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Models.User>(createdUser));
         }
 
         [HttpGet, ActionName("get")]
         [TokenAuthorize(role: "Admin")]
-        public HttpResponseMessage Get()
+        public HttpResponseMessage Get(int userId)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, "GET");
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Models.User>(this.userService.Get(userId)));
         }
     }
 }

@@ -93,6 +93,7 @@
     <Compile Include="DTO\SurveySaveDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\UserSaveDTO.cs" />
+    <Compile Include="DTO\UserUpdateDTO.cs" />
     <Compile Include="Helpers\PasswordEncryptor.cs" />
     <Compile Include="Migrations\201505191406116_Initial.cs" />
     <Compile Include="Migrations\201505191406116_Initial.Designer.cs">

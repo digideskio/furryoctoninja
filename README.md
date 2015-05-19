@@ -18,6 +18,8 @@
 
 - PUSH service user: dev@rspective.pl
 
+- Template Url: http://www.bootstrapzero.com/bootstrap-template/google-plus
+
 ## Test Users:
 
 *login: password*
@@ -59,6 +61,10 @@ Authorization: Token p35iw0R6RO1730BSK432qswrZldwY0jR:eyJ0eXAiOiJKV1QiLCJhbGciOi
 - /api/survey - GET (same as: /api/survey/get)
 
 - /api/survey - POST (same as: /api/survey/post)
+
+- /api/survey/notify - POST
+
+- /api/survey/reset - POST
 
 - /api/survey/results - GET
 

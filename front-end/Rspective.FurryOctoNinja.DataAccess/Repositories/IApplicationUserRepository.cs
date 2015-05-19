@@ -7,6 +7,8 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
     {
         ApplicationUser Authenticate(string login, string password);
 
-        ICollection<ApplicationUser> GetAll();  
+        ICollection<ApplicationUser> GetAll();
+
+        ApplicationUser Get(int userId);
     }
 }
