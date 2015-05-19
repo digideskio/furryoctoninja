@@ -106,3 +106,15 @@ a {
 body.main-view #main.container {
     padding-top: 9.5em;
 }
+
+body.main-view .user-progress .user-progress-list .user-progress-list-item span {
+    float: right;
+}
+
+body.main-view .user-progress .user-progress-list .user-progress-list-item span .glyphicon-ok {
+    color: #3e8f3e;
+}
+
+body.main-view .user-progress .user-progress-list .user-progress-list-item span .glyphicon-minus {
+    color: #d2d2d2;
+}

@@ -1,11 +1,16 @@
-﻿<div class="panel panel-default">
+﻿<div class="panel panel-default user-progress">
     <div class="panel-heading">
         <h4>Progress</h4>
     </div>
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-12">
-                <span ng-bind="progress.json"></span>
+                <ul class="list-group user-progress-list">
+                    <li class="list-group-item user-progress-list-item" ng-repeat="userProgress in progress.progress.Items">
+                        {{ userProgress.UserName }}
+                        <span><i class="glyphicon" ng-class="{ 'glyphicon-ok' : userProgress.Completed, 'glyphicon-minus' : !userProgress.Completed }"></i></span>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
