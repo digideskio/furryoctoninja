@@ -1,14 +1,11 @@
 ﻿<div class="panel panel-default user-progress">
     <div class="panel-heading">
-        <h4>Progress</h4>
-        <p>
-            <i class="glyphicon glyphicon-filter"></i>
-            <a ng-click="progress.doNotShow = null">All</a>
-            <span>|</span>
-            <a ng-click="progress.doNotShow = false">Completed</a>
-            <span>|</span>
-            <a ng-click="progress.doNotShow = true">Incomplete</a>
-        </p>
+        <a class="pull-right" ng-click="progress.doNotShow = null">All</a>
+        <span class="pull-right">&nbsp;&nbsp;</span>
+        <a class="pull-right" ng-click="progress.doNotShow = false">Completed</a>
+        <span class="pull-right">&nbsp;&nbsp;</span>
+        <a class="pull-right" ng-click="progress.doNotShow = true">Incomplete</a>
+        <h4>Progress</h4>  
     </div>
     <div class="panel-body">
         <div class="row">
