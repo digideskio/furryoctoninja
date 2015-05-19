@@ -15,6 +15,7 @@ namespace Rspective.FurryOctoNinja.DataAccess
             container.RegisterType<IUnitOfWork, UnitOfWork>();
 
             container.RegisterType<ISurveyRepository, SurveyRepository>();
+            container.RegisterType<IUserAnswerRepository, UserAnswerRepository>();
             container.RegisterType<IApplicationClientRepository, ApplicationClientRepository>();
             container.RegisterType<IApplicationUserRepository, ApplicationUserRepository>();
             container.RegisterType<IApplicationTokenRepository, ApplicationTokenRepository>();

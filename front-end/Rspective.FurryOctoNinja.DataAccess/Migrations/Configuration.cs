@@ -58,30 +58,35 @@
                 new ApplicationUser()
                 {
                     Login = "bandro",
+                    Name = "Błażej Andraszyk",
                     Password = password,
                     Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "User" } }
                 },
                 new ApplicationUser()
                 {
                     Login = "pavel",
+                    Name = "Paweł Rychlik",
                     Password = password,
                     Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "User" } }
                 },
                 new ApplicationUser()
                 {
                     Login = "polok",
+                    Name = "Marcin Polak",
                     Password = password,
                     Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "User" } }
                 },
                 new ApplicationUser()
                 {
                     Login = "roger",
+                    Name = "Marcin Róg",
                     Password = password,
                     Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "User" } }
                 },
                 new ApplicationUser()
                 {
                     Login = "admin",
+                    Name = "Administrator",
                     Password = password,
                     Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "Admin" } }
                 }

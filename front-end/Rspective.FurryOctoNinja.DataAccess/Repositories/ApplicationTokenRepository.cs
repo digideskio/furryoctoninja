@@ -24,11 +24,11 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
                     && applicationToken.Expiration > DateTime.UtcNow);
         }
 
-        public void Invalidate(ApplicationClient client, ApplicationUser user, DateTime? expiration)
+        public void Invalidate(int clientId, int userId, DateTime? expiration)
         {
-            this.Delete(applicationToken => 
-                applicationToken.Client.Id == client.Id 
-                && applicationToken.User.Id == user.Id 
+            this.Delete(applicationToken =>
+                applicationToken.Client.Id == clientId
+                && applicationToken.User.Id == userId 
                 && (!expiration.HasValue || applicationToken.Expiration < expiration));
         }
     }

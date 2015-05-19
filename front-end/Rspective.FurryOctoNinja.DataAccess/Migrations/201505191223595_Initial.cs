@@ -55,6 +55,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Login = c.String(nullable: false, maxLength: 200),
                         Password = c.String(nullable: false, maxLength: 200),
+                        Name = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             

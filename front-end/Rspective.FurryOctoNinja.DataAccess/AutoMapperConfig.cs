@@ -12,6 +12,8 @@ namespace Rspective.FurryOctoNinja.DataAccess
             Mapper.CreateMap<Question, QuestionDTO>();
             Mapper.CreateMap<Answer, AnswerDTO>();
             Mapper.CreateMap<ApplicationUser, UserDTO>();
+            Mapper.CreateMap<UserAnswer, SurveyAnswerDTO>();
+            Mapper.CreateMap<SurveyAnswerDTO, UserAnswer>();
         }
     }
 }

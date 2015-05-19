@@ -19,6 +19,9 @@ namespace Rspective.FurryOctoNinja.DataAccess.DbModel
         public string Password { get; set; }
 
         [Required]
+        public string Name { get; set; }
+
+        [Required]
         public virtual ICollection<ApplicationUserRole> Roles { get; set; }
     }
 }
