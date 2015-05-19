@@ -11,16 +11,16 @@ namespace Rspective.FurryOctoNinja.Web.Providers
         private const string ApiKey = "NGUyMGE4NGMtZmQ4Ni0xMWU0LWI4ZDUtZTdhZDJjZTgxZWVk";
         private static readonly string NotificationUri = "https://onesignal.com/api/v1/notifications";
 
-        public async static Task<bool> NotifyMobileDevices()
+        public async static Task<bool> NotifyMobileDevices(string eventType, string title, string content)
         {
             var payload = new Dictionary<string, object>() {
                 { "app_id", AppId },
                 { "contents", new Dictionary<string, string>() {
-                        { "en", "The survey has been updated recently, please reaload your content." }
+                        { "en", content }
                     }
                 },
                 { "heading", new Dictionary<string, string>() {
-                        { "en", "Survey updated." }
+                        { "en", title }
                     }
                 },
                 { "tags", new Dictionary<string, string>[] {
@@ -32,7 +32,7 @@ namespace Rspective.FurryOctoNinja.Web.Providers
                     }
                 },
                 { "data", new Dictionary<string, object>() {
-                        { "eventType", "SURVEY-CHANGED" }
+                        { "eventType", eventType }
                     }
                 },
                 { "isAndroid", true }

@@ -49,7 +49,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
 
         [HttpPost, ActionName("post")]
         [TokenAuthorize(role: "User")]
-        public HttpResponseMessage Save(SurveySave survey)
+        public async Task<HttpResponseMessage> Save(SurveySave survey)
         {
             if (survey == null || survey.Answers == null || survey.Answers.Count == 0)
             {
@@ -62,14 +62,22 @@ namespace Rspective.FurryOctoNinja.Web.Api
             var userId = (HttpContext.Current.User as Auth.AuthenticatedUser).Id;
             this.surveyService.SaveSurvey(userId, Mapper.Map<SurveySaveDTO>(survey));
 
-            return Request.CreateResponse(HttpStatusCode.OK, "Save()");
+            await OneSignalProvider.NotifyMobileDevices(
+                "SURVEY-RESULTS-UPDATED", 
+                "Survey results updated.", 
+                "The survey's results has been posted recently, please reaload your content.");
+
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpPost, ActionName("notify")]
         [TokenAuthorize(role: "Admin")]
         public async Task<HttpResponseMessage> Notify()
         {
-            await OneSignalProvider.NotifyMobileDevices();
+            await OneSignalProvider.NotifyMobileDevices(
+                "SURVEY-CHANGED", 
+                "Survey updated.", 
+                "The survey has been updated recently, please reaload your content.");
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
