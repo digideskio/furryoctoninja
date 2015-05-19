@@ -155,6 +155,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     private final View.OnTouchListener barChartDelegateSwipeListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
+            mBarChart.onTouchEvent(motionEvent);
             return viewPager.dispatchTouchEvent(motionEvent);
         }
     };
