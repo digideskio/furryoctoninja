@@ -18,6 +18,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.DbModel
         [IgnoreMap]
         public string Password { get; set; }
 
+        [MaxLength(200)]
         [Required]
         public string Name { get; set; }
 

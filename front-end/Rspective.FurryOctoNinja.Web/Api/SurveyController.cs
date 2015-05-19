@@ -9,6 +9,8 @@ using log4net.Config;
 using Rspective.FurryOctoNinja.Web.Auth;
 using Rspective.FurryOctoNinja.Web.Providers;
 using System.Threading.Tasks;
+using System.Web;
+using AutoMapper;
 
 namespace Rspective.FurryOctoNinja.Web.Api
 {
@@ -25,15 +27,19 @@ namespace Rspective.FurryOctoNinja.Web.Api
         [TokenAuthorize(roles: new string[] { "User", "Admin" })]
         public HttpResponseMessage Get()
         {
-            // Fill IsUserChoice
-            return Request.CreateResponse(HttpStatusCode.OK, surveyService.GetSurvey());
+            var survey = surveyService.GetSurvey();
+            var answers = surveyService.GetAnswers((HttpContext.Current.User as Auth.User).Id);
+
+            // TODO: Merge User and his answers
+            return Request.CreateResponse(HttpStatusCode.OK, survey);
         }
 
         [HttpGet, ActionName("users")]
         [TokenAuthorize(role: "Admin")]
-        public HttpResponseMessage Users()
+        public HttpResponseMessage Progress()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, SurveyProgressMock.Mock);
+            var progress = this.surveyService.GetProgress();
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<SurveyProgress>(progress));
         }
 
         [HttpGet, ActionName("results")]

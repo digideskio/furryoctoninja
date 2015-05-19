@@ -54,25 +54,28 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             return Mapper.Map<ICollection<SurveyAnswerDTO>>(answers);
         }
 
-        public ICollection<SurveyResultsDTO> GetResults()
+        public SurveyProgressDTO GetProgress()
         {
             var survey = this.GetSurvey();
             var answers = this.userAnswerRepository.GetForSurvey(survey.Id);
             var users = this.userRepository.All();
-            var result = new List<SurveyResultsDTO>();
+            var items = new List<SurveyProgressItemDTO>();
 
             foreach (var user in users)
             {
-                result.Add(new SurveyResultsDTO()
+                items.Add(new SurveyProgressItemDTO()
                 {
-                    SurveyId = survey.Id,
                     UserId = user.Id,
                     UserName = user.Name,
-                    Answered = answers.Any(answer => answer.SurveyId == survey.Id && answer.UserId == user.Id)
+                    Completed = answers.Any(answer => answer.SurveyId == survey.Id && answer.UserId == user.Id)
                 });
             }
 
-            return result;
+            return new SurveyProgressDTO()
+            {
+                SurveyId = survey.Id,
+                Items = items
+            };;
         }
     }
 }

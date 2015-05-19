@@ -12,6 +12,6 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 
         ICollection<SurveyAnswerDTO> GetAnswers(int? userId);
 
-        ICollection<SurveyResultsDTO> GetResults();
+        SurveyProgressDTO GetProgress();
     }
 }

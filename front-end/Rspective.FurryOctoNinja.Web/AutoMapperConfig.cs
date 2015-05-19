@@ -9,6 +9,8 @@ namespace Rspective.FurryOctoNinja.Web
         public static void CreateMaps()
         {
             Mapper.CreateMap<AuthDTO, AuthenticationDetails>();
+            Mapper.CreateMap<SurveyProgressDTO, SurveyProgress>();
+            Mapper.CreateMap<SurveyProgressItemDTO, SurveyProgressItem>();
         }
     }
 }
