@@ -60,10 +60,10 @@
                 chart:chart_axisBorderSpacing="25dp"
                 />
 
-            <android.support.v4.view.ViewPager
+            <pl.rspective.mckinsey.ui.common.WrapContentHeightViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="800px"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 />
