@@ -1,7 +1,10 @@
-﻿using Rspective.FurryOctoNinja.DataAccess.Services;
+﻿using AutoMapper;
+using Rspective.FurryOctoNinja.DataAccess.DTO;
+using Rspective.FurryOctoNinja.DataAccess.Services;
 using Rspective.FurryOctoNinja.Web.Auth;
 using Rspective.FurryOctoNinja.Web.Models;
 using Rspective.FurryOctoNinja.Web.Providers;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -33,19 +36,15 @@ namespace Rspective.FurryOctoNinja.Web.Api
         public HttpResponseMessage Progress()
         {
             var progress = this.surveyService.GetProgress();
-            // TODO: REMOVE MOCK
-            return Request.CreateResponse(HttpStatusCode.OK, SurveyProgressMock.Mock);
-            //return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<SurveyProgress>(progress));
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<SurveyProgress>(progress));
         }
 
         [HttpGet, ActionName("results")]
         [TokenAuthorize(roles: new string[] { "User", "Admin" })]
         public HttpResponseMessage Results()
         {
-            var results = this.surveyService.GetResults((HttpContext.Current.User as Auth.AuthenticatedUser).Id);
-            // TODO: REMOVE MOCK
-            return Request.CreateResponse(HttpStatusCode.OK, SurveyResultsMock.Mock);
-            //return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<SurveyResults>(results));
+            var results = this.surveyService.GetResults((HttpContext.Current.User as Auth.AuthenticatedUser).Id);;
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<SurveyResults>(results));
         }
 
         [HttpPost, ActionName("post")]
@@ -57,8 +56,11 @@ namespace Rspective.FurryOctoNinja.Web.Api
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
            
-            // HttpStatusCode.ResetContent // Survey has been modified, cannot be saved
+            // TODO: HttpStatusCode.ResetContent // Survey has been modified, cannot be saved
             // Return results with IsUserChoice field
+
+            var userId = (HttpContext.Current.User as Auth.AuthenticatedUser).Id;
+            this.surveyService.SaveSurvey(userId, Mapper.Map<SurveySaveDTO>(survey));
 
             return Request.CreateResponse(HttpStatusCode.OK, "Save()");
         }

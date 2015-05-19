@@ -37,10 +37,25 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             throw new InvalidOperationException();
         }
 
-        public void SaveUserAnswers(ICollection<AnswerSaveDTO> answers)
+        public bool HasCompleted(int userId) 
         {
-            foreach (var answer in answers) {
-                this.userAnswerRepository.Create(Mapper.Map<UserAnswer>(answer));
+            var survey = this.GetSurvey();
+            return this.userAnswerRepository.HasCompleted(survey.Id, userId);
+        }
+        
+        public void SaveSurvey(int userId, SurveySaveDTO survey)
+        {
+            if (this.HasCompleted(userId))
+            {
+                // TODO: Handle already saved
+                return;
+            }
+
+            foreach (var answer in survey.Answers) {
+                var userAnswer = Mapper.Map<UserAnswer>(answer);
+                userAnswer.UserId = userId;
+                userAnswer.SurveyId = survey.Id;
+                this.userAnswerRepository.Create(userAnswer);
             }
         }
 

@@ -5,6 +5,6 @@ namespace Rspective.FurryOctoNinja.Web.Models
     {
         public int QuestionId { get; set; }
 
-        public int AnwserId { get; set; }
+        public int AnswerId { get; set; }
     }
 }

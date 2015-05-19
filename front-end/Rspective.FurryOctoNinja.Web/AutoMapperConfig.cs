@@ -15,6 +15,8 @@ namespace Rspective.FurryOctoNinja.Web
             Mapper.CreateMap<SurveyResultsAnswerDTO, SurveyResultsAnswer>();
             Mapper.CreateMap<SurveyResultsQuestionDTO, SurveyResultsQuestion>();
             Mapper.CreateMap<Auth.AuthenticatedUser, User>();
+            Mapper.CreateMap<SurveySave, SurveySaveDTO>();
+            Mapper.CreateMap<SurveySaveAnswer, SurveySaveAnswerDTO>();
         }
     }
 }

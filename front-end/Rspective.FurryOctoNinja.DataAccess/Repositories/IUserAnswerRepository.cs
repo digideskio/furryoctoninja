@@ -10,5 +10,9 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
         ICollection<UserAnswer> GetForSurvey(int surveyId);
 
         void Reset(int surveyId);
+
+        bool HasCompleted(int surveyId, int userId);
+
+        bool HasAnyoneCompleted(int surveyId);
     }
 }

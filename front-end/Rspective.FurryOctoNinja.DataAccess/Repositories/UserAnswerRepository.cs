@@ -30,5 +30,15 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
         {
             this.Delete(answer => answer.SurveyId == surveyId);
         }
+
+        public bool HasCompleted(int surveyId, int userId)
+        {
+            return this.DbSet.Any(answer => answer.SurveyId == surveyId && answer.UserId == userId);
+        }
+
+        public bool HasAnyoneCompleted(int surveyId)
+        {
+            return this.DbSet.Any(answer => answer.SurveyId == surveyId);
+        }
     }
 }
