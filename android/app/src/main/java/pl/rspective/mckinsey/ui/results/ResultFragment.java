@@ -19,7 +19,6 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ToxicBakery.viewpager.transforms.ZoomOutSlideTransformer;
 import com.db.chart.Tools;
 import com.db.chart.listener.OnEntryClickListener;
 import com.db.chart.model.Bar;
@@ -109,7 +108,6 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
         super.onViewCreated(view, savedInstanceState);
 
         adapter = new FormQuestionPagerAdapter(getFragmentManager(), this);
-        viewPager.setPageTransformer(true, new ZoomOutSlideTransformer());
         smartTabLayout.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
