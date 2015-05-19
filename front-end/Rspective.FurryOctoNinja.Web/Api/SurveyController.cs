@@ -4,7 +4,6 @@ using Rspective.FurryOctoNinja.DataAccess.Services;
 using Rspective.FurryOctoNinja.Web.Auth;
 using Rspective.FurryOctoNinja.Web.Models;
 using Rspective.FurryOctoNinja.Web.Providers;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -84,8 +83,15 @@ namespace Rspective.FurryOctoNinja.Web.Api
 
         [HttpPost, ActionName("reset")]
         [TokenAuthorize(role: "Admin")]
-        public HttpResponseMessage Reset() {
+        public async Task<HttpResponseMessage> Reset()
+        {
             this.surveyService.Reset();
+
+            await OneSignalProvider.NotifyMobileDevices(
+                "SURVEY-CHANGED",
+                "Survey updated.",
+                "The survey has been updated recently, please reaload your content.");
+
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
