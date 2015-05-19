@@ -19,6 +19,9 @@
                 })
                 .then(function () {
                     self.resetDisabled = false;
+                })
+                .catch(function () {
+                    self.resetDisabled = false;
                 });
         };
 
