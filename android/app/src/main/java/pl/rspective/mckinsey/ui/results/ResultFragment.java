@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
@@ -90,13 +91,6 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        mBarChart.setOnTouchListener(new View.OnTouchListener() { // TODO how to delegate horizontal swipe events to viewPager?
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                return viewPager.dispatchTouchEvent(motionEvent);
-//            }
-//        });
-
         adapter = new FormQuestionPagerAdapter(getFragmentManager(), this);
         viewPager.setPageTransformer(true, new ZoomOutSlideTransformer());
         smartTabLayout.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -158,6 +152,13 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
         }
     };
 
+    private final View.OnTouchListener barChartDelegateSwipeListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            return viewPager.dispatchTouchEvent(motionEvent);
+        }
+    };
+
 	/*------------------------------------*
 	 *              BARCHART              *
 	 *------------------------------------*/
@@ -165,6 +166,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     private void initBarChart(){
         mBarChart.setOnEntryClickListener(barEntryListener);
         mBarChart.setOnClickListener(barClickListener);
+        mBarChart.setOnTouchListener(barChartDelegateSwipeListener);
 
         mBarGridPaint = new Paint();
         mBarGridPaint.setColor(this.getResources().getColor(R.color.bar_grid));
