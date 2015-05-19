@@ -18,7 +18,6 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ToxicBakery.viewpager.transforms.ZoomOutSlideTransformer;
 import com.db.chart.Tools;
@@ -337,7 +336,6 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
 
     @Subscribe
     public void onSurveyResultsUpdateEvent(SurveyResultsUpdateEvent updateEvent) {
-        Toast.makeText(getActivity(), "Refresh", Toast.LENGTH_SHORT).show();
         formPresenter.loadSurvey();
     }
 }
