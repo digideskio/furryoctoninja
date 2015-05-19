@@ -14,6 +14,10 @@
 
 - Deployment Url: https://support.appharbor.com/kb/getting-started/deploying-your-first-application-using-git
 
+- PUSH service: https://www.onesignal.com
+
+- PUSH service user: dev@rspective.pl
+
 ## Test Users:
 
 *login: password*
