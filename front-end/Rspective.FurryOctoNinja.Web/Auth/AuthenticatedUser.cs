@@ -4,7 +4,7 @@ using System.Security.Principal;
 
 namespace Rspective.FurryOctoNinja.Web.Auth
 {
-    public class User : IPrincipal, IIdentity
+    public class AuthenticatedUser : IPrincipal, IIdentity
     {
         public string AuthenticationType
         {

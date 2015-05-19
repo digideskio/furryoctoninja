@@ -47,12 +47,12 @@
                 }
             })
             .when('/admin/users', {
-                controller: 'MainController',
-                controllerAs: 'main',
-                templateUrl: '../../Templates/survey.html',
+                controller: 'UserController',
+                controllerAs: 'user',
+                templateUrl: '../../Templates/users.html',
                 resolve: {
-                    survey: ["api", function (api) {
-                        return api.survey.get();
+                    users: ["api", function (api) {
+                        return api.user.all();
                     }]
                 }
             });

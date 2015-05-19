@@ -71,7 +71,14 @@
                     return data.data;
                 })
                 .catch(handleError);
-        }
+        };
+        self.user.all = function () {
+            return $http(prepareRequest("GET", "/api/user/all", {}))
+                .then(function (data) {
+                    return data.data;
+                })
+                .catch(handleError);
+        };
 
         function prepareRequest(method, url, payload) {
             return {

@@ -84,13 +84,14 @@
     <Compile Include="DbModel\ApplicationUser.cs" />
     <Compile Include="DbModel\UserAnswer.cs" />
     <Compile Include="DTO\AuthUserDTO.cs" />
-    <Compile Include="DTO\SurveyAnswerDTO.cs" />
+    <Compile Include="DTO\AnswerSaveDTO.cs" />
     <Compile Include="DTO\SurveyProgressDTO.cs" />
     <Compile Include="DTO\SurveyProgressItemDTO.cs" />
     <Compile Include="DTO\SurveyResultsDTO.cs" />
     <Compile Include="DTO\SurveyResultsAnswerDTO.cs" />
     <Compile Include="DTO\SurveyResultsQuestionDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="DTO\UserSaveDTO.cs" />
     <Compile Include="Helpers\PasswordEncryptor.cs" />
     <Compile Include="Migrations\201505191406116_Initial.cs" />
     <Compile Include="Migrations\201505191406116_Initial.Designer.cs">
@@ -121,6 +122,8 @@
     <Compile Include="Context\UnitOfWork.cs" />
     <Compile Include="Services\IAuthService.cs" />
     <Compile Include="Services\ISurveyService.cs" />
+    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="SurveyAppContext.cs" />
     <Compile Include="Services\SurveyService.cs" />
     <Compile Include="UnityConfig.cs" />

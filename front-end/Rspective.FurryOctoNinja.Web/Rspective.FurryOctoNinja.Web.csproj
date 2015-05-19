@@ -243,7 +243,7 @@
     <Compile Include="Api\SurveyController.cs" />
     <Compile Include="Auth\TokenAuthorizeAttribute.cs" />
     <Compile Include="Api\UserController.cs" />
-    <Compile Include="Auth\User.cs" />
+    <Compile Include="Auth\AuthenticatedUser.cs" />
     <Compile Include="AutoMapperConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -305,6 +305,7 @@
     <Content Include="Scripts\app\surveyapp.results.js" />
     <Content Include="Scripts\app\surveyapp.routing.js" />
     <Content Include="Scripts\app\surveyapp.services.js" />
+    <Content Include="Scripts\app\surveyapp.user.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
@@ -317,6 +318,7 @@
     <Content Include="Templates\progress.html" />
     <Content Include="Templates\results.html" />
     <Content Include="Templates\survey.html" />
+    <Content Include="Templates\users.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

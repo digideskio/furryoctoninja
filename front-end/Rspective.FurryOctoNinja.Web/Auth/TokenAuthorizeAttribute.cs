@@ -46,7 +46,7 @@ namespace Rspective.FurryOctoNinja.Web.Auth
 
                     if (auth != null) 
                     {
-                        HttpContext.Current.User = new Auth.User()
+                        HttpContext.Current.User = new Auth.AuthenticatedUser()
                         {
                             Id = auth.User.Id,
                             ClientId = clientId,
@@ -63,7 +63,7 @@ namespace Rspective.FurryOctoNinja.Web.Auth
 
         protected override bool IsAuthorized(System.Web.Http.Controllers.HttpActionContext actionContext)
         {
-            var user = HttpContext.Current.User as User;
+            var user = HttpContext.Current.User as AuthenticatedUser;
             return user != null && user.IsAuthorized(this.roles);
         }
     }

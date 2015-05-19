@@ -40,7 +40,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
         [TokenAuthorize]
         public HttpResponseMessage Refresh()
         {
-            var user = HttpContext.Current.User as Auth.User;
+            var user = HttpContext.Current.User as Auth.AuthenticatedUser;
             var auth = this.authService.Refresh(user.ClientId, user.Token);
             return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<AuthenticationDetails>(auth));
         }

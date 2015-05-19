@@ -42,7 +42,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
         [TokenAuthorize(roles: new string[] { "User", "Admin" })]
         public HttpResponseMessage Results()
         {
-            var results = this.surveyService.GetResults((HttpContext.Current.User as Auth.User).Id);
+            var results = this.surveyService.GetResults((HttpContext.Current.User as Auth.AuthenticatedUser).Id);
             // TODO: REMOVE MOCK
             return Request.CreateResponse(HttpStatusCode.OK, SurveyResultsMock.Mock);
             //return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<SurveyResults>(results));
