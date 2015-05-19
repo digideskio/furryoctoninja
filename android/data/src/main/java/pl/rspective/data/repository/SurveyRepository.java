@@ -3,7 +3,6 @@ package pl.rspective.data.repository;
 import java.util.List;
 
 import pl.rspective.data.entity.Survey;
-import pl.rspective.data.entity.SurveyResult;
 import pl.rspective.data.entity.User;
 import pl.rspective.data.rest.model.SurveySubmitRequest;
 import retrofit.client.Response;
@@ -15,7 +14,7 @@ public interface SurveyRepository {
 
     Observable<Response> submitSurvey(SurveySubmitRequest submitRequest);
 
-    Observable<SurveyResult> fetchSurveyResults();
+    Observable<Survey> fetchSurveyResults();
 
     Observable<List<User>> fetchSurveyUsers();
 

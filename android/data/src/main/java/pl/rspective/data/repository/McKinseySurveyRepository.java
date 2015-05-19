@@ -8,7 +8,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import pl.rspective.data.entity.Survey;
-import pl.rspective.data.entity.SurveyResult;
 import pl.rspective.data.entity.User;
 import pl.rspective.data.local.SurveyLocalStorage;
 import pl.rspective.data.local.model.StorageType;
@@ -83,14 +82,14 @@ public class McKinseySurveyRepository implements SurveyRepository {
     }
 
     @Override
-    public Observable<SurveyResult> fetchSurveyResults() {
+    public Observable<Survey> fetchSurveyResults() {
         return api.fetchSurveyResults(userRepository.getUserAuthorizationToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Func1<String, SurveyResult>() {
+                .map(new Func1<String, Survey>() {
                     @Override
-                    public SurveyResult call(String jsonData) {
-                        return gson.fromJson(jsonData, SurveyResult.class);
+                    public Survey call(String jsonData) {
+                        return gson.fromJson(jsonData, Survey.class);
                     }
                 });
     }
