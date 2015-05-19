@@ -39,7 +39,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
             var progress = this.surveyService.GetProgress();
             // TODO: REMOVE MOCK
             return Request.CreateResponse(HttpStatusCode.OK, SurveyProgressMock.Mock);
-            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<SurveyProgress>(progress));
+            //return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<SurveyProgress>(progress));
         }
 
         [HttpGet, ActionName("results")]
@@ -49,7 +49,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
             var results = this.surveyService.GetResults((HttpContext.Current.User as Auth.User).Id);
             // TODO: REMOVE MOCK
             return Request.CreateResponse(HttpStatusCode.OK, SurveyResultsMock.Mock);
-            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<SurveyResults>(results));
+            //return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<SurveyResults>(results));
         }
 
         [HttpPost, ActionName("post")]
