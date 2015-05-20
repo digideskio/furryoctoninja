@@ -96,6 +96,10 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
 
     @Override
     public void showSubmitButton() {
+        if(btnSurveySubmit.getVisibility() == View.VISIBLE) {
+            return;
+        }
+
         btnSurveySubmit.setVisibility(View.VISIBLE);
         YoYo.with(Techniques.BounceInUp)
                 .duration(200)
