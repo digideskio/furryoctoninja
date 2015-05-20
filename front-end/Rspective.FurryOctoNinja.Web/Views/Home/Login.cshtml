@@ -8,27 +8,25 @@
 }
 <section class="row" ng-controller="LoginController as login">
     <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-        <div class="alert alert-danger alert-dismissable" ng-cloak ng-show="login.errors[403] == true">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            Authentication error. Please, provide valid credentials.
-        </div>
         <div class="panel panel-default">
             <div class="panel-heading"><h4>Sign in</h4></div>
             <div class="panel-body">
                 <form name="formLogin" ng-submit="validateForm(formLogin) && login.submit()">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <label>Username</label>
-                            <input type="text" class="form-control input-lg" name="username" required placeholder="Login.." ng-model="login.login">
+                    <div ng-class="{ 'alert alert-danger': !!(login.errors.overallErrors) }">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default" disabled><i class="glyphicon glyphicon-user"></i></button>
+                            </div>
+                            <input type="text" class="form-control" name="login" ng-model="login.login" required maxlength="200" placeholder="Username.." />
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <label>Password</label>
-                            <input type="password" class="form-control input-lg" name="password" required placeholder="Password.." ng-model="login.password">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default" disabled><i class="glyphicon glyphicon-asterisk"></i></button>
+                            </div>
+                            <input type="password" class="form-control" ng-model="login.password" name="password" required maxlength="200" placeholder="Password.." />
                         </div>
+                        <span ng-if="!!login.errors.overallErrors" ng-repeat="error in login.errors.overallErrors">{{error}}</span>
                     </div>
-                    <hr />
                     <div class="row">
                         <div class="col-xs-12">
                             <button class="btn btn-success pull-right" type="submit" ng-disabled="login.disabled">Sign in</button>

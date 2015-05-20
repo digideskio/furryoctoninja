@@ -26,14 +26,14 @@ namespace Rspective.FurryOctoNinja.Web.Api
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            var auth = this.authService.Login(login.ClientId, login.Login, login.Password);
-
-            if (auth == null)
+            var loginValidation = this.authService.Login(login.ClientId, login.Login, login.Password);
+            
+            if (loginValidation.OverallErrors != null && loginValidation.OverallErrors.Count > 0)
             {
-                return Request.CreateResponse(HttpStatusCode.Forbidden);
+                return Request.CreateResponse(HttpStatusCode.BadRequest, loginValidation);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<AuthenticationDetails>(auth));
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<AuthenticationDetails>(loginValidation.Auth));
         }
         
         [HttpPost, ActionName("refresh")]

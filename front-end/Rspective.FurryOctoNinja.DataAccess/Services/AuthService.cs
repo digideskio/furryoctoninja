@@ -28,14 +28,17 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             this.tokenRepository = tokenRepository;
         }
 
-        public AuthDTO Login(string clientId, string login, string password)
+        public ValidateLoginDTO Login(string clientId, string login, string password)
         {
+            var result = new ValidateLoginDTO();
             var user = this.userRepositiory.Authenticate(login, PasswordEncryptor.Encrypt(password));
             var client = this.clientRepository.GetByPublicKey(clientId);
 
             if (user == null || client == null) 
-            { 
-                return null; 
+            {
+                var errors = new List<string>() { "User cannot be authenticated." };
+                result.OverallErrors = errors;
+                return result; 
             }
 
             var expiration = DateTime.UtcNow.AddMinutes(client.TokenExpirationTime);
@@ -49,11 +52,13 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
                 UserId = user.Id
             });
 
-            return new AuthDTO() {
+            result.Auth = new AuthDTO() {
                 Expiration = expiration,
                 Token = token,
                 Roles = user.Roles.Select(role => role.Name).ToArray()
             };
+
+            return result;
         }
 
         public AuthDTO Refresh(string clientId, string token)

@@ -101,7 +101,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
         {
             if (surveyService == null)
             {
-                Request.CreateResponse(HttpStatusCode.BadRequest);
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
             return Request.CreateResponse(HttpStatusCode.OK, this.surveyService.Validate(survey));

@@ -19,8 +19,13 @@
                 .then(function () {
                     redirectToApp();
                 })
-                .catch(function (errorCode) {
-                    errorCode && (self.errors[errorCode] = true);
+                .catch(function (error) {
+                    if (error.status == 400) {
+                        self.errors.overallErrors = error.data.OverallErrors;
+                    }
+
+                    console.log(self.errors.overallErrors);
+
                     self.disabled = false;
                 })
 

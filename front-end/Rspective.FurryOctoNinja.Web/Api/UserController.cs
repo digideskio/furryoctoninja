@@ -37,6 +37,12 @@ namespace Rspective.FurryOctoNinja.Web.Api
         [TokenAuthorize(role: "Admin")]
         public HttpResponseMessage Delete(int userId)
         {
+            var currentUser = HttpContext.Current.User as AuthenticatedUser;
+            if (currentUser.Id == userId)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
             this.userService.Delete(userId);
             return Request.CreateResponse(HttpStatusCode.OK);
         }

@@ -122,7 +122,7 @@
                 $("#modal-error-500").modal();
             }
 
-            throw data.status;
+            throw data;
         }
     }
 
