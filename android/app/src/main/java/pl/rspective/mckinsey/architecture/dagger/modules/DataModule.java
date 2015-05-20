@@ -42,8 +42,8 @@ public final class DataModule {
 
     @Provides
     @Singleton
-    UserRepository provideUserRepository() {
-        return new McKinseyUserRepository();
+    UserRepository provideUserRepository(SharedPreferences preferences) {
+        return new McKinseyUserRepository(preferences);
     }
 
     @Provides
