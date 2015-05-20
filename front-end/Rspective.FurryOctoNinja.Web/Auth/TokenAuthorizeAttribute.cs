@@ -52,6 +52,7 @@ namespace Rspective.FurryOctoNinja.Web.Auth
                             ClientId = clientId,
                             Token = token,
                             Name = auth.User.Name,
+                            Login = auth.User.Login,
                             Roles = auth.User.Roles
                         };
                     }

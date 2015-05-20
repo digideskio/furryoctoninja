@@ -255,6 +255,7 @@
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\AuthenticationDetails.cs" />
     <Compile Include="Models\AuthLogin.cs" />
+    <Compile Include="Models\UserUpdate.cs" />
     <Compile Include="Models\Mocks\SurveyResults.Mock.cs" />
     <Compile Include="Models\SurveyResultsAnswer.cs" />
     <Compile Include="Models\Question.cs" />
@@ -267,6 +268,7 @@
     <Compile Include="Models\SurveySave.cs" />
     <Compile Include="Models\SurveySaveAnswer.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserSave.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\OneSignalProvider.cs" />
   </ItemGroup>

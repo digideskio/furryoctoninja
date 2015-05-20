@@ -13,12 +13,14 @@
             api.survey.reset()
                 .then(function () {
                     return api.survey.progress()
-                        .then(function (results) {
-                            self.json = JSON.stringify(results, null, 4);
-                            self.results = results;
-                        });
+                })
+                .then(function (progress) {
+                    self.progress = progress;
                 })
                 .then(function () {
+                    self.resetDisabled = false;
+                })
+                .catch(function () {
                     self.resetDisabled = false;
                 });
         };
@@ -29,7 +31,7 @@
         dataRefresher.addTemporary(function () {
             api.survey.progress()
                 .then(function (progress) {
-                    self.users = progress;
+                    self.progress = progress;
                 });
         }, 45);
     }

@@ -115,9 +115,14 @@
             if (data.status === 401) {
                 authStorage.save(null);
                 window.location = "/";
+                return;
             }
 
-            else { throw data.status; }
+            if (data.status === 500) {
+                $("#modal-error-500").modal();
+            }
+
+            throw data.status;
         }
     }
 

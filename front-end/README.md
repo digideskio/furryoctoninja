@@ -27,3 +27,5 @@ Update-Database -TargetMigration:"Migration name"
 ```
 Add-Migrarion "Name"
 ```
+
+TEST

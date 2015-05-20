@@ -17,11 +17,12 @@ public class McKinseyPushMessage {
         return metaData;
     }
 
-    private class PushMessageMetaData {
-        private String eventType;
+    public static class PushMessageMetaData {
+        @SerializedName("eventType")
+        private PushType pushType;
 
-        public String getEventType() {
-            return eventType;
+        public PushType getPushType() {
+            return pushType;
         }
     }
 

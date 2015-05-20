@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace Rspective.FurryOctoNinja.DataAccess.DTO
+namespace Rspective.FurryOctoNinja.Web.Models
 {
-    public class UserSaveDTO
+    public class UserSave
     {
         public string Name { get; set; }
 
         public string Login { get; set; }
 
         public string Password { get; set; }
-
-        public ICollection<string> Roles { get; set; }
     }
 }

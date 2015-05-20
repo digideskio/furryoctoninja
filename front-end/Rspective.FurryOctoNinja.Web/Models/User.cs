@@ -8,6 +8,8 @@ namespace Rspective.FurryOctoNinja.Web.Models
 
         public string Name { get; set; }
 
+        public string Login { get; set; }
+
         public ICollection<string> Roles { get; set; }
     }
 }

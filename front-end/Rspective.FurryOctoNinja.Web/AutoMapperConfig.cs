@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Rspective.FurryOctoNinja.DataAccess.DTO;
+using Rspective.FurryOctoNinja.Web.Auth;
 using Rspective.FurryOctoNinja.Web.Models;
 
 namespace Rspective.FurryOctoNinja.Web
@@ -14,9 +15,11 @@ namespace Rspective.FurryOctoNinja.Web
             Mapper.CreateMap<SurveyResultsDTO, SurveyResults>();
             Mapper.CreateMap<SurveyResultsAnswerDTO, SurveyResultsAnswer>();
             Mapper.CreateMap<SurveyResultsQuestionDTO, SurveyResultsQuestion>();
-            Mapper.CreateMap<Auth.AuthenticatedUser, User>();
+            Mapper.CreateMap<AuthenticatedUser, User>();
             Mapper.CreateMap<SurveySave, SurveySaveDTO>();
             Mapper.CreateMap<SurveySaveAnswer, SurveySaveAnswerDTO>();
+            Mapper.CreateMap<UserSave, UserSaveDTO>();
+            Mapper.CreateMap<UserUpdate, UserUpdateDTO>();
         }
     }
 }

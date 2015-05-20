@@ -26,5 +26,12 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
                 .Include("Roles")
                 .ToArray();
         }
+
+        public ApplicationUser Get(int userId)
+        {
+            return this.DbSet
+                .Include("Roles")
+                .FirstOrDefault(user => user.Id == userId);
+        }
     }
 }

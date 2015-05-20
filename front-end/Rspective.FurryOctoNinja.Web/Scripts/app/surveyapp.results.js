@@ -12,13 +12,16 @@
             self.resetDisabled = true;
             api.survey.reset()
                 .then(function () {
-                    return api.survey.results()
-                        .then(function (results) {
-                            self.json = JSON.stringify(results, null, 4);
-                            self.results = results;
-                        });
+                    return api.survey.results();   
+                })
+                .then(function (results) {
+                    self.json = JSON.stringify(results, null, 4);
+                    self.results = results;
                 })
                 .then(function() {
+                    self.resetDisabled = false;
+                })
+                .catch(function() {
                     self.resetDisabled = false;
                 });
         };

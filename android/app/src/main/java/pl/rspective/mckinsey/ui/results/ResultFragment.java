@@ -19,7 +19,6 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ToxicBakery.viewpager.transforms.ZoomOutSlideTransformer;
 import com.db.chart.Tools;
 import com.db.chart.listener.OnEntryClickListener;
 import com.db.chart.model.Bar;
@@ -29,6 +28,8 @@ import com.db.chart.view.XController;
 import com.db.chart.view.YController;
 import com.db.chart.view.animation.Animation;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
@@ -37,9 +38,9 @@ import butterknife.InjectView;
 import pl.rspective.data.entity.Answer;
 import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.Survey;
-import pl.rspective.data.entity.SurveyResult;
 import pl.rspective.data.repository.SurveyRepository;
 import pl.rspective.mckinsey.R;
+import pl.rspective.mckinsey.architecture.bus.events.SurveyResultsUpdateEvent;
 import pl.rspective.mckinsey.dagger.Injector;
 import pl.rspective.mckinsey.data.model.SurveySubmitResultType;
 import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
@@ -49,6 +50,9 @@ import pl.rspective.mckinsey.ui.form.adapter.FormQuestionPagerAdapter;
 import rx.functions.Action1;
 
 public class ResultFragment extends Fragment implements IFormView, FormQuestionFragment.QuestionListener {
+
+    @Inject
+    Bus bus;
 
     @Inject
     IFormPresenter formPresenter;
@@ -64,7 +68,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     @Inject
     SurveyRepository surveyRepository;
 
-    private SurveyResult surveyResult;
+    private Survey surveyResult;
     private int idx;
 
     public static ResultFragment newInstance() {
@@ -77,6 +81,18 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
         Injector.inject(this);
 
         formPresenter.onResume(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        bus.register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        bus.unregister(this);
     }
 
     @Nullable
@@ -92,7 +108,6 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
         super.onViewCreated(view, savedInstanceState);
 
         adapter = new FormQuestionPagerAdapter(getFragmentManager(), this);
-        viewPager.setPageTransformer(true, new ZoomOutSlideTransformer());
         smartTabLayout.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -112,9 +127,9 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
         formPresenter.loadSurvey();
 
         surveyRepository.fetchSurveyResults()
-                .subscribe(new Action1<SurveyResult>() {
+                .subscribe(new Action1<Survey>() {
                     @Override
-                    public void call(SurveyResult surveyResult) {
+                    public void call(Survey surveyResult) {
                         ResultFragment.this.surveyResult = surveyResult;
                         updateBarChart(idx);
                     }
@@ -315,5 +330,10 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     @Override
     public void onQuestionUpdate(int number, Question question, Answer answer) {
         formPresenter.updateSurvey(number, question, answer);
+    }
+
+    @Subscribe
+    public void onSurveyResultsUpdateEvent(SurveyResultsUpdateEvent updateEvent) {
+        formPresenter.loadSurvey();
     }
 }
