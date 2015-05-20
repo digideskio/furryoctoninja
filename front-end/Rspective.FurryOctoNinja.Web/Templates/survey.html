@@ -3,6 +3,9 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-12">
+                <div class="alert alert-danger" ng-init="main.isValid = true" ng-hide="main.isValid">
+                    Please respond to question(s): {{main.errors.join(', ')}}.
+                </div>
                 <div ng-repeat="question in main.survey.Questions" ng-init="main.displayedQuestion = 0">
                     <div ng-show="main.displayedQuestion === $index" ng-cloak>
                         <ul class="list-group">
