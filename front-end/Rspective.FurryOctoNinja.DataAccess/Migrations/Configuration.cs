@@ -57,6 +57,13 @@
             var mock = new ApplicationUser[] {
                 new ApplicationUser()
                 {
+                    Login = "admin",
+                    Name = "Administrator",
+                    Password = password,
+                    Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "Admin" } }
+                },
+                new ApplicationUser()
+                {
                     Login = "bandro",
                     Name = "Błażej Andraszyk",
                     Password = password,
@@ -82,13 +89,6 @@
                     Name = "Marcin Róg",
                     Password = password,
                     Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "User" } }
-                },
-                new ApplicationUser()
-                {
-                    Login = "admin",
-                    Name = "Administrator",
-                    Password = password,
-                    Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "Admin" } }
                 }
             };
 

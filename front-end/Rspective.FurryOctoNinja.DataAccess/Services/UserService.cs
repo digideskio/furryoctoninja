@@ -2,6 +2,7 @@
 using Rspective.FurryOctoNinja.DataAccess.Context;
 using Rspective.FurryOctoNinja.DataAccess.DbModel;
 using Rspective.FurryOctoNinja.DataAccess.DTO;
+using Rspective.FurryOctoNinja.DataAccess.Helpers;
 using Rspective.FurryOctoNinja.DataAccess.Repositories;
 using System.Collections.Generic;
 
@@ -34,12 +35,13 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 
             if (this.userRepository.Exists(user.Login, null))
             {
-                var errors = new List<string>() { "The user with given login exists." };
+                var errors = new List<string>() { "The given login '" + user.Login + "' is already in use." };
                 result.OverallErrors = errors;
                 return result;
             }
 
             var applicationUser = Mapper.Map<ApplicationUser>(user);
+            applicationUser.Password = PasswordEncryptor.Encrypt(user.Password);
             applicationUser.Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "User" } };
 
             result.ValidatedUser = Mapper.Map<UserDTO>(this.userRepository.Create(applicationUser));
@@ -50,17 +52,19 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
         {
             var result = new ValidateUserDTO() { };
 
-            if (this.userRepository.Exists(user.Login, null))
+            if (this.userRepository.Exists(user.Login, user.Id))
             {
-                var errors = new List<string>() { "The user with given login exists." };
+                var errors = new List<string>() { "The given login '" + user.Login + "' is already in use." };
                 result.OverallErrors = errors;
                 return result;
             }
 
-            var applicationUser = Mapper.Map<ApplicationUser>(user);
-            // Map user roles
-            var userId = this.userRepository.Update(applicationUser);
-            result.ValidatedUser = this.Get(userId);
+            var applicationUser = this.userRepository.Get(user.Id);
+            applicationUser.Name = user.Name;
+            applicationUser.Login = user.Login;
+            applicationUser.Password = PasswordEncryptor.Encrypt(user.Password);
+            this.userRepository.Update(applicationUser);
+            result.ValidatedUser = this.Get(user.Id);
             return result;
         }
 

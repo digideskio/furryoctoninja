@@ -102,7 +102,7 @@
                 .catch(handleError);
         };
         self.user.get = function (id) {
-            return $http(prepareRequest("GET", "/api/user", { userId : id }))
+            return $http(prepareRequest("GET", "/api/user", { UserId : id }))
                 .then(function (data) {
                     return data.data;
                 })
@@ -123,7 +123,7 @@
                 .catch(handleError);
         };
         self.user.delete = function (id) {
-            return $http(prepareRequest("DELETE", "/api/user", { userId : id}))
+            return $http(prepareRequest("DELETE", "/api/user", { UserId : id }))
                 .then(function (data) {
                     return data.data;
                 })
