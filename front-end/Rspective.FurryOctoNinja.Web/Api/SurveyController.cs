@@ -12,7 +12,7 @@ using System.Web.Http;
 
 namespace Rspective.FurryOctoNinja.Web.Api
 {
-    public class SurveyController : System.Web.Http.ApiController
+    public class SurveyController : BaseController
     {
         ISurveyService surveyService;
 
@@ -25,9 +25,9 @@ namespace Rspective.FurryOctoNinja.Web.Api
         [TokenAuthorize(roles: new string[] { "User", "Admin" })]
         public HttpResponseMessage Get()
         {
-            var survey = this.surveyService.GetSurvey();
-            // TODO: Merge User and his answers
-            return Request.CreateResponse(HttpStatusCode.OK, survey);
+            var userId = base.AuthenticatedUser.Id;
+            var survey = this.surveyService.GetSurvey(userId);
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Survey>(survey));
         }
 
         [HttpGet, ActionName("users")]
@@ -42,7 +42,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
         [TokenAuthorize(roles: new string[] { "User", "Admin" })]
         public HttpResponseMessage Results()
         {
-            var results = this.surveyService.GetResults((HttpContext.Current.User as Auth.AuthenticatedUser).Id); ;
+            var results = this.surveyService.GetResults(base.AuthenticatedUser.Id); ;
             return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<SurveyResults>(results));
         }
 
@@ -58,7 +58,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
             // TODO: HttpStatusCode.ResetContent // Survey has been modified, cannot be saved
             // Return results with IsUserChoice field
 
-            var userId = (HttpContext.Current.User as Auth.AuthenticatedUser).Id;
+            var userId = base.AuthenticatedUser.Id;
             this.surveyService.SaveSurvey(userId, Mapper.Map<SurveySaveDTO>(survey));
 
             await OneSignalProvider.NotifyMobileDevices(
@@ -117,7 +117,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
             }
 
             this.surveyService.Save(survey);
-            return Request.CreateResponse(HttpStatusCode.OK, this.surveyService.GetSurvey());
+            return Request.CreateResponse(HttpStatusCode.OK, this.surveyService.GetSurvey(base.AuthenticatedUser.Id));
         }
     }
 }

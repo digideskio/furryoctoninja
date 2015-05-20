@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace Rspective.FurryOctoNinja.Web.Api
 {
-    public class UserController : ApiController
+    public class UserController : BaseController
     {
         private IUserService userService;
 
@@ -23,7 +23,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
         [TokenAuthorize]
         public HttpResponseMessage Current()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<User>(HttpContext.Current.User as AuthenticatedUser));
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<User>(base.AuthenticatedUser));
         }
 
         [HttpGet, ActionName("all")]
@@ -37,7 +37,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
         [TokenAuthorize(role: "Admin")]
         public HttpResponseMessage Remove(UserIdentifier id)
         {
-            var currentUser = HttpContext.Current.User as AuthenticatedUser;
+            var currentUser = base.AuthenticatedUser;
             if (currentUser.Id == id.UserId)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);

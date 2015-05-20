@@ -25,22 +25,28 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             this.userRepository = userRepository;
         }
 
-        public SurveyDTO GetSurvey()
+        public SurveyDTO GetSurvey(int? userId)
         {
             var survey = surveyRepository.GetSurvey();
 
             // TODO: Create Survet if it's empty
-            if (survey != null)
+            if (survey == null)
             {
-                return Mapper.Map<SurveyDTO>(survey);
+                throw new InvalidOperationException();;
             }
 
-            throw new InvalidOperationException();
+            var result = Mapper.Map<SurveyDTO>(survey);
+
+            if (userId.HasValue)
+            {
+                result.CompletedByUser = this.userAnswerRepository.HasCompleted(survey.Id, userId.Value);
+            }
+            return result;
         }
 
         public bool HasCompleted(int userId)
         {
-            var survey = this.GetSurvey();
+            var survey = this.GetSurvey(null);
             return this.userAnswerRepository.HasCompleted(survey.Id, userId);
         }
 
@@ -63,11 +69,12 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 
         public SurveyResultsDTO GetResults(int userId)
         {
-            var survey = this.GetSurvey();
+            var survey = this.GetSurvey(null);
             var answers = this.userAnswerRepository.GetForSurvey(survey.Id);
             var userAnswers = this.userAnswerRepository.GetForSingleUser(survey.Id, userId);
 
             var result = Mapper.Map<SurveyResultsDTO>(survey);
+            result.CompletedByUser = this.userAnswerRepository.HasCompleted(survey.Id, userId);
 
             foreach (var question in result.Questions)
             {
@@ -83,7 +90,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 
         public SurveyProgressDTO GetProgress()
         {
-            var survey = this.GetSurvey();
+            var survey = this.GetSurvey(null);
             var answers = this.userAnswerRepository.GetForSurvey(survey.Id);
             var users = this.userRepository.GetAllUsers();
             var items = new List<SurveyProgressItemDTO>();
@@ -105,7 +112,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 
         public void Reset()
         {
-            var survey = this.GetSurvey();
+            var survey = this.GetSurvey(null);
             this.userAnswerRepository.Reset(survey.Id);
         }
 

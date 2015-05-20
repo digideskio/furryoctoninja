@@ -11,5 +11,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.DTO
         public string Description { get; set; }
 
         public ICollection<SurveyResultsQuestionDTO> Questions { get; set; }
+
+        public bool CompletedByUser { get; set; }
     }
 }
