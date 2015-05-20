@@ -48,6 +48,12 @@
                         chart = new Chart(ctx).Bar(getChartData(), {});
                     }
                 });
+                scope.$watch("results.results", function (newValue, oldValue) {
+                    if (newValue !== oldValue) {
+                        chart.destroy();
+                        chart = new Chart(ctx).Bar(getChartData(), {});
+                    }
+                }, true);
             }
         }
     }
