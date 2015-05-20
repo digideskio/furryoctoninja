@@ -255,6 +255,7 @@
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\AuthenticationDetails.cs" />
     <Compile Include="Models\AuthLogin.cs" />
+    <Compile Include="Models\UserIdentifier.cs" />
     <Compile Include="Models\UserUpdate.cs" />
     <Compile Include="Models\Mocks\SurveyResults.Mock.cs" />
     <Compile Include="Models\SurveyResultsAnswer.cs" />

@@ -35,15 +35,15 @@ namespace Rspective.FurryOctoNinja.Web.Api
 
         [HttpDelete, ActionName("delete")]
         [TokenAuthorize(role: "Admin")]
-        public HttpResponseMessage Remove(int id)
+        public HttpResponseMessage Remove(UserIdentifier id)
         {
             var currentUser = HttpContext.Current.User as AuthenticatedUser;
-            if (currentUser.Id == id)
+            if (currentUser.Id == id.UserId)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            this.userService.Delete(id);
+            this.userService.Delete(id.UserId);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
@@ -75,9 +75,9 @@ namespace Rspective.FurryOctoNinja.Web.Api
 
         [HttpGet, ActionName("get")]
         [TokenAuthorize(role: "Admin")]
-        public HttpResponseMessage Get(int id)
+        public HttpResponseMessage Get(UserIdentifier id)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Models.User>(this.userService.Get(id)));
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Models.User>(this.userService.Get(id.UserId)));
         }
     }
 }
