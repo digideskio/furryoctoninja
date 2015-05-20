@@ -6,7 +6,12 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-12">
-                <div ng-repeat="question in results.results.Questions" ng-init="results.displayedQuestion = 0">
+                <chart results="results"></chart>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div ng-repeat="question in results.results.Questions">
                     <div ng-show="results.displayedQuestion === $index" ng-cloak>
                         <ul class="list-group">
                             <li class="list-group-item">
@@ -26,7 +31,7 @@
             <div class="col-xs-12 text-right">
                 <ul class="pagination center-block" style="display:inline-block;">
                     <li ng-repeat="question in results.results.Questions" ng-class="{ active: $index == results.displayedQuestion }">
-                        <a ng-click="results.displayedQuestion = $index">{{ $index + 1 }}</a>
+                        <a ng-click="results.displayedQuestion = $index;">{{ $index + 1 }}</a>
                     </li>
                 </ul>
                 <hr />

@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module("surveyapp", ["ngRoute", "angular-loading-bar", "LocalStorageModule"])
+    angular.module("surveyapp", ["ngRoute", "angular-loading-bar", "LocalStorageModule", "surveyapp.directives"])
         .config(configure)
         .run(run);
 

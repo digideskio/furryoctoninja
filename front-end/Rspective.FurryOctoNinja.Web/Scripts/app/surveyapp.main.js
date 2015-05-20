@@ -13,8 +13,23 @@
         self.saveSurvey.Id = survey.Id;
         self.saveSurvey.Answers = [];
 
+        self.validate = function () {
+            self.errors = [];
+            self.isValid = true;
+            self.saveSurvey.Answers.forEach(function (answer, index) {
+                if (!answer.AnswerId) {
+                    self.errors.push(index + 1);
+                }
+                self.isValid = self.isValid && !!answer.AnswerId;
+            });
+        };
+
         self.submit = function () {
-            api.survey.post(self.saveSurvey);
+            self.validate();
+
+            if (self.isValid) {
+                api.survey.post(self.saveSurvey);
+            }
         }
     }
 })();
