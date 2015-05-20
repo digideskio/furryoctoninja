@@ -21,5 +21,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
         ValidateSurveyDTO Validate(SurveyDTO survey);
 
         void Save(SurveyDTO survey);
+
+        bool ValidateSave(int userId, SurveySaveDTO survey);
     }
 }
