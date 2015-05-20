@@ -12,33 +12,42 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-12">
-                <div ng-repeat="question in edit.survey.Questions" ng-show="edit.displayedQuestion === $index" ng-cloak>
+                <div class="alert alert-danger" ng-if="edit.errors.overral">
+                    <span ng-repeat="error in edit.errors.overral">{{error}}</span>
+                </div>
+                <div ng-repeat="question in edit.survey.Questions" ng-show="edit.displayedQuestion === $index || edit.mode === 'validation'" ng-cloak>
                     <div ng-cloak>
-                        <label for="question_{{$index}}">Question:</label>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" ng-click="edit.survey.Questions.splice($index, 1);edit.updateDisplayedQuestion();">
-                                    <i class="glyphicon glyphicon-remove"></i>
-                                </button>
+                        <div ng-class="{ 'alert alert-danger': !!(edit.errors.questions[$index]) }">
+                            <label for="question_{{$index}}">Question:</label>
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" ng-click="edit.survey.Questions.splice($index, 1);edit.updateDisplayedQuestion();">
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                    </button>
+                                </div>
+                                <input id="question_{{$index}}" class="form-control" ng-model="question.Text" required maxlength="200" placeholder="Question.." />
                             </div>
-                            <input id="question_{{$index}}" class="form-control" ng-model="question.Text" required maxlength="200" placeholder="Question.." />
+                            <span ng-if="!!edit.errors.questions[$index]">{{edit.errors.questions[$index]}}</span>
                         </div>
-                        <label>Answers:</label>
-                        <div class="input-group" ng-repeat="answer in question.Answers">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" ng-click="question.Answers.splice($index, 1)">
-                                    <i class="glyphicon glyphicon-remove"></i>
-                                </button>
+                        <div ng-class="{ 'alert alert-danger': !!(edit.errors.answers[$index]) }">
+                            <label>Answers:</label>
+                            <div class="input-group" ng-repeat="answer in question.Answers">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" ng-click="question.Answers.splice($index, 1)">
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                    </button>
+                                </div>
+                                <input class="form-control" ng-model="answer.Text" required maxlength="200" placeholder="Answer {{$index + 1}}.." />
                             </div>
-                            <input class="form-control" ng-model="answer.Text" required maxlength="200" placeholder="Answer {{$index + 1}}.." />
-                        </div>
-                        <div class="input-group" ng-init="newAnswer = ''">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" ng-click="question.Answers.push({Text:newAnswer});newAnswer='';" ng-disabled="!newAnswer">
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                </button>
+                            <div class="input-group" ng-init="newAnswer = ''">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" ng-click="question.Answers.push({Text:newAnswer});newAnswer='';" ng-disabled="!newAnswer">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>
+                                </div>
+                                <input class="form-control" ng-model="newAnswer" required maxlength="200" placeholder="Another answer.." />
                             </div>
-                            <input class="form-control" ng-model="newAnswer" required maxlength="200" placeholder="Another answer.." />
+                            <span ng-if="!!edit.errors.answers[$index]">{{edit.errors.answers[$index]}}</span>
                         </div>
                     </div>
                     <hr />
@@ -47,7 +56,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12 text-center">
-                <ul class="pagination center-block" style="display:inline-block;">
+                <ul class="pagination center-block" style="display:inline-block;" ng-show="edit.mode === 'editor'">
                     <li ng-repeat="question in edit.survey.Questions">
                         <a ng-click="edit.displayedQuestion = $index">{{ $index + 1 }}</a>
                     </li>

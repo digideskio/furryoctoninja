@@ -80,5 +80,17 @@ namespace Rspective.FurryOctoNinja.Web.Api
             this.surveyService.Reset();
             return Request.CreateResponse(HttpStatusCode.OK);
         }
+
+        [HttpPost, ActionName("validate")]
+        [TokenAuthorize(role: "Admin")]
+        public HttpResponseMessage Validate(SurveyDTO survey)
+        {
+            if (surveyService == null)
+            {
+                Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, this.surveyService.Validate(survey));
+        }
     }
 }

@@ -11,6 +11,12 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 {
     class SurveyService : ISurveyService
     {
+        private const int MinQuestionsCount = 5;
+        private const int MaxQuestionsCount = 20;
+
+        private const int MinAnswersCount = 2;
+        private const int MaxAnswersCount = 8;
+
         private IUnitOfWork ouw;
         private ISurveyRepository surveyRepository;
         private IUserAnswerRepository userAnswerRepository;
@@ -37,12 +43,12 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             throw new InvalidOperationException();
         }
 
-        public bool HasCompleted(int userId) 
+        public bool HasCompleted(int userId)
         {
             var survey = this.GetSurvey();
             return this.userAnswerRepository.HasCompleted(survey.Id, userId);
         }
-        
+
         public void SaveSurvey(int userId, SurveySaveDTO survey)
         {
             if (this.HasCompleted(userId))
@@ -51,7 +57,8 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
                 return;
             }
 
-            foreach (var answer in survey.Answers) {
+            foreach (var answer in survey.Answers)
+            {
                 var userAnswer = Mapper.Map<UserAnswer>(answer);
                 userAnswer.UserId = userId;
                 userAnswer.SurveyId = survey.Id;
@@ -105,6 +112,63 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
         {
             var survey = this.GetSurvey();
             this.userAnswerRepository.Reset(survey.Id);
+        }
+
+        public ValidateSurveyDTO Validate(SurveyDTO survey)
+        {
+            if (survey == null)
+            {
+                throw new ArgumentNullException("survey");
+            }
+
+            var result = new ValidateSurveyDTO()
+            {
+                OverallErrors = new List<string>(),
+                QuestionsErrors = new List<string>(),
+                AnswersErrors = new List<string>(),
+            };
+
+            // exclude empty questions with all empty answers from validation
+            var questions = (survey.Questions ?? new List<QuestionDTO>())
+                .Where(q =>
+                    !q.Answers.All(a => string.IsNullOrEmpty(a.Text) &&
+                    !string.IsNullOrEmpty(q.Text)
+                ));
+
+            if (questions.Count() < MinQuestionsCount || questions.Count() > MaxQuestionsCount)
+            {
+                result.OverallErrors.Add(string.Format("Survey can have number of questions between {0} and {1}.", MinQuestionsCount, MaxQuestionsCount));
+            }
+
+            foreach (QuestionDTO question in questions)
+            {
+                var questionError = string.Empty;
+                var answersError = string.Empty;
+
+                if (string.IsNullOrEmpty(question.Text))
+                {
+                    questionError = "Question cannot be empty.";
+                }
+
+                question.Answers = question.Answers.Where(a => !string.IsNullOrEmpty(a.Text));
+                if (question.Answers.Count() < MinAnswersCount || question.Answers.Count() > MaxAnswersCount)
+                {
+                    answersError = string.Format("Question can have number of answers between {0} and {1}", MinAnswersCount, MaxAnswersCount);
+                }
+
+                result.QuestionsErrors.Add(questionError);
+                result.AnswersErrors.Add(answersError);
+            }
+
+            survey.Questions = questions;
+            result.ValidatedSurvey = survey;
+
+            result.IsValid =
+                !result.OverallErrors.Any() &&
+                !result.QuestionsErrors.Any() &&
+                !result.AnswersErrors.Any();
+
+            return result;
         }
     }
 }

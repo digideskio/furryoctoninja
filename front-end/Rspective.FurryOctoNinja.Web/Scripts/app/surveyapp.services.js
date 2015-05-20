@@ -71,6 +71,13 @@
                 })
                 .catch(handleError);
         };
+        self.survey.validate = function (survey) {
+            return $http(prepareRequest("POST", "api/survey/validate", survey))
+                .then(function (data) {
+                    return data.data;
+                })
+                .catch(handleError);
+        };
 
         self.user = {};
         self.user.current = function () {
@@ -109,7 +116,7 @@
                 authStorage.save(null);
                 window.location = "/";
             }
-            
+
             else { throw data.status; }
         }
     }
@@ -148,12 +155,12 @@
 
     dataRefresher.$inject = ["$rootScope", "$timeout"];
 
-    function dataRefresher ($rootScope, $timeout) {
+    function dataRefresher($rootScope, $timeout) {
         var self = this;
         self.permanent = [];
         self.temporary = [];
 
-        function guid () {
+        function guid() {
             function s4() {
                 return Math.floor((1 + Math.random()) * 0x10000)
                   .toString(16)
@@ -165,15 +172,15 @@
         function addJob(collectionName) {
             var collection = self[collectionName];
             var result = {
-                name    : collectionName, 
-                index   : collection.length,
-                uuid    : guid()
+                name: collectionName,
+                index: collection.length,
+                uuid: guid()
             };
             collection.push(result.uuid);
             return result;
         }
 
-        function doJob (identifier, callback, delayInSeconds) {
+        function doJob(identifier, callback, delayInSeconds) {
             $timeout(function () {
                 var collection = self[identifier.name];
                 if (collection.length > identifier.index && collection[identifier.index] === identifier.uuid) {

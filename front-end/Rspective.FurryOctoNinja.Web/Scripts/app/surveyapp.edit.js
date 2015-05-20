@@ -6,7 +6,7 @@
 
     function edit(api, survey) {
         var self = this;
-        
+
         self.displayedQuestion = 0;
         self.updateDisplayedQuestion = function () {
             self.displayedQuestion = Math.min(self.displayedQuestion, (self.survey.Question || []).length);
@@ -24,6 +24,21 @@
                 .then(function () {
                     self.notifyDisabled = false;
                 })
+        };
+
+        self.mode = "editor";
+        self.submit = function () {
+            api.survey
+                .validate(self.survey)
+                .then(function (result) {
+                    self.mode = "validation";
+                    self.survey = result.ValidatedSurvey;
+
+                    self.errors = {};
+                    self.errors.overral = result.OverallErrors;
+                    self.errors.questions = result.QuestionsErrors;
+                    self.errors.answers = result.AnswersErrors;
+                });
         };
 
         self.survey = survey;
