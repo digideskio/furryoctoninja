@@ -11,8 +11,24 @@
                 controllerAs: 'main',
                 templateUrl: '../../Templates/survey.html',
                 resolve: {
-                    survey: ["api", function (api) {
-                        return api.survey.get();
+                    survey: ["api", "$location", function (api, $location) {
+                        return api.survey.get()
+                            .then(function (data) {
+                                if (data.CompletedByUser) {
+                                    return $location.path("/survey/results");
+                                }
+                                return data;
+                            });
+                    }]
+                }
+            })
+            .when('/survey/results', {
+                controller: 'SurveyResultsController',
+                controllerAs: 'results',
+                templateUrl: '../../Templates/results.html',
+                resolve: {
+                    results: ["api", function (api) {
+                        return api.survey.results();
                     }]
                 }
             })

@@ -6,7 +6,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 {
     public interface ISurveyService
     {
-        SurveyDTO GetSurvey();
+        SurveyDTO GetSurvey(int? userId);
 
         void SaveSurvey(int userId, SurveySaveDTO surveySave);
 

@@ -2,9 +2,9 @@
     angular.module("surveyapp")
         .controller("MainController", main);
 
-    main.$inject = ["api", "survey"];
+    main.$inject = ["api", "survey", "$location"];
 
-    function main(api, survey) {
+    function main(api, survey, $location) {
         var self = this;
 
         self.survey = survey;
@@ -28,7 +28,9 @@
             self.validate();
 
             if (self.isValid) {
-                api.survey.post(self.saveSurvey);
+                api.survey.post(self.saveSurvey).then(function () {
+                    $location.path("/survey/results");
+                });
             }
         }
     }

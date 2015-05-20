@@ -16,5 +16,7 @@ namespace Rspective.FurryOctoNinja.Web.Models
         public DateTime CreatedDate { get; set; }
 
         public IEnumerable<Question> Questions { get; set; }
+
+        public bool CompletedByUser { get; set; }
     }
 }

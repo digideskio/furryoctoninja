@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Rspective.FurryOctoNinja.Web.Api
 {
-    public class AuthController : ApiController
+    public class AuthController : BaseController
     {
         private IAuthService authService;
 
@@ -40,7 +40,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
         [TokenAuthorize]
         public HttpResponseMessage Refresh()
         {
-            var user = HttpContext.Current.User as Auth.AuthenticatedUser;
+            var user = base.AuthenticatedUser;
             var auth = this.authService.Refresh(user.ClientId, user.Token);
             return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<AuthenticationDetails>(auth));
         }

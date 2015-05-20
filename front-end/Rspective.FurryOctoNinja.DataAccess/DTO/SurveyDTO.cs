@@ -14,5 +14,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.DTO
         public DateTime CreatedDate { get; set; }
 
         public IEnumerable<QuestionDTO> Questions { get; set; }
+
+        public bool CompletedByUser { get; set; }
     }
 }
