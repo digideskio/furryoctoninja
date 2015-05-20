@@ -98,6 +98,7 @@
     <Compile Include="DTO\UserUpdateDTO.cs" />
     <Compile Include="DTO\ValidateUserDTO.cs" />
     <Compile Include="Helpers\PasswordEncryptor.cs" />
+    <Compile Include="Helpers\SurveyValidator.cs" />
     <Compile Include="Migrations\201505191406116_Initial.cs" />
     <Compile Include="Migrations\201505191406116_Initial.Designer.cs">
       <DependentUpon>201505191406116_Initial.cs</DependentUpon>
