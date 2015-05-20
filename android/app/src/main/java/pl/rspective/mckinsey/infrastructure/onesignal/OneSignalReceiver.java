@@ -21,7 +21,6 @@ import javax.inject.Inject;
 
 import pl.rspective.data.local.LocalPreferences;
 import pl.rspective.data.local.SurveyLocalStorage;
-import pl.rspective.data.local.model.StorageType;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.architecture.bus.events.SurveyResultsUpdateEvent;
 import pl.rspective.mckinsey.dagger.Injector;
@@ -30,7 +29,7 @@ import pl.rspective.mckinsey.infrastructure.onesignal.model.McKinseyPushMessage;
 
 public class OneSignalReceiver extends GcmBroadcastReceiver {
 
-    private static final String TAG = "OneSignalReceiver";
+    private static final String TAG = "McKinseyPushMessageReceiver";
 
     public static class NotificationIdGenerator {
         private static final AtomicInteger c = new AtomicInteger(0);
@@ -70,13 +69,17 @@ public class OneSignalReceiver extends GcmBroadcastReceiver {
             }
 
             switch (message.getMetaData().getPushType()) {
+                case SURVEY_RESTART:
+                    generateNotification(context, context.getString(R.string.app_name), "Dostępna jest nowa ankieta"); //TODO Go to strings
+                    localPreferences.setAppEventStatus(AppEventStatus.SURVEY_RESTART_PUSH_MESSAGE.ordinal());
+                    Log.d(TAG, "Survey was restarted");
+                    break;
                 case SURVEY_CHANGED:
-                    generateNotification(context, context.getString(R.string.app_name), "Nowa ankieta"); //TODO Go to strings
-                    localPreferences.setAppEventStatus(AppEventStatus.SURVEY_UPDATE_PUSH_MESSAGE.ordinal());
-                    surveyLocalStorage.clear(StorageType.SURVEY);
-
+                    localPreferences.setAppEventStatus(AppEventStatus.SURVEY_CHANGED_PUSH_MESSAGE.ordinal());
+                    Log.d(TAG, "Survey was changed");
                     break;
                 case SURVEY_RESULTS_UPDATED:
+                    Log.d(TAG, "Refresh user list event");
                     bus.post(new SurveyResultsUpdateEvent());
                     break;
             }

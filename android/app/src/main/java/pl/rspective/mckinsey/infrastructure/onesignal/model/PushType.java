@@ -8,5 +8,8 @@ public enum PushType {
     SURVEY_CHANGED,
 
     @SerializedName("SURVEY-RESULTS-UPDATED")
-    SURVEY_RESULTS_UPDATED;
+    SURVEY_RESULTS_UPDATED,
+
+    @SerializedName("SURVEY-RESTART")
+    SURVEY_RESTART;
 }

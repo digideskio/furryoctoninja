@@ -65,7 +65,7 @@ public class MainPresenter implements IMainPresenter {
         AppEventStatus eventStatus = AppEventStatus.valueOf(localPreferences.getAppEventStatus());
 
         switch (eventStatus) {
-            case SURVEY_UPDATE_PUSH_MESSAGE:
+            case SURVEY_CHANGED_PUSH_MESSAGE:
                 if(userRepository.loadUser().getRole().equals(UserRole.USER)) {
                     localPreferences.setSurveyLoaded(true);
                     localPreferences.setAppEventStatus(AppEventStatus.NO_EVENTS.ordinal());

@@ -3,7 +3,8 @@ package pl.rspective.mckinsey.data.model;
 public enum AppEventStatus {
 
     NO_EVENTS,
-    SURVEY_UPDATE_PUSH_MESSAGE;
+    SURVEY_CHANGED_PUSH_MESSAGE,
+    SURVEY_RESTART_PUSH_MESSAGE;
 
     public static AppEventStatus valueOf(int index) {
         for(AppEventStatus status : values()) {
