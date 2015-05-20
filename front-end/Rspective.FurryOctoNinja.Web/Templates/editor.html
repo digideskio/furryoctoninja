@@ -12,7 +12,7 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-12">
-                <div class="alert alert-danger" ng-if="edit.errors.overral">
+                <div class="alert alert-danger" ng-show="!!edit.errors.overral.length">
                     <span ng-repeat="error in edit.errors.overral">{{error}}</span>
                 </div>
                 <div ng-repeat="question in edit.survey.Questions" ng-show="edit.displayedQuestion === $index || edit.mode === 'validation'" ng-cloak>
@@ -56,8 +56,8 @@
         </div>
         <div class="row">
             <div class="col-sm-12 text-center">
-                <ul class="pagination center-block" style="display:inline-block;" ng-show="edit.mode === 'editor'">
-                    <li ng-repeat="question in edit.survey.Questions">
+                <ul class="pagination center-block" style="display:inline-block;">
+                    <li ng-repeat="question in edit.survey.Questions" ng-show="edit.mode === 'editor'">
                         <a ng-click="edit.displayedQuestion = $index">{{ $index + 1 }}</a>
                     </li>
                     <li>

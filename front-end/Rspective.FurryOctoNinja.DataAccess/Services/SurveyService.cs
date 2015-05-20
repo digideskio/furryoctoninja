@@ -129,11 +129,8 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             };
 
             // exclude empty questions with all empty answers from validation
-            var questions = (survey.Questions ?? new List<QuestionDTO>())
-                .Where(q =>
-                    !q.Answers.All(a => string.IsNullOrEmpty(a.Text) &&
-                    !string.IsNullOrEmpty(q.Text)
-                ));
+            var questions = (survey.Questions ?? new List<QuestionDTO>());
+            questions = questions.Except(questions.Where(q => string.IsNullOrEmpty(q.Text) && q.Answers.All(a => string.IsNullOrEmpty(a.Text))));
 
             if (questions.Count() < MinQuestionsCount || questions.Count() > MaxQuestionsCount)
             {
@@ -153,7 +150,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
                 question.Answers = question.Answers.Where(a => !string.IsNullOrEmpty(a.Text));
                 if (question.Answers.Count() < MinAnswersCount || question.Answers.Count() > MaxAnswersCount)
                 {
-                    answersError = string.Format("Question can have number of answers between {0} and {1}", MinAnswersCount, MaxAnswersCount);
+                    answersError = string.Format("Question can have number of answers between {0} and {1}.", MinAnswersCount, MaxAnswersCount);
                 }
 
                 result.QuestionsErrors.Add(questionError);
@@ -165,8 +162,8 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 
             result.IsValid =
                 !result.OverallErrors.Any() &&
-                !result.QuestionsErrors.Any() &&
-                !result.AnswersErrors.Any();
+                !result.QuestionsErrors.Any(x => !string.IsNullOrEmpty(x)) &&
+                !result.AnswersErrors.Any(x => !string.IsNullOrEmpty(x));
 
             return result;
         }
