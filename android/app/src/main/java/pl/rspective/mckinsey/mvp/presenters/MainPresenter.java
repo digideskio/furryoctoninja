@@ -64,17 +64,18 @@ public class MainPresenter implements IMainPresenter {
     public void checkAppEventStatus() {
         AppEventStatus eventStatus = AppEventStatus.valueOf(localPreferences.getAppEventStatus());
 
-        switch (eventStatus) {
+        switch (eventStatus) { //TODO Clear when we need, etc
             case SURVEY_CHANGED_PUSH_MESSAGE:
-                if(userRepository.loadUser().getRole().equals(UserRole.USER)) {
-                    localPreferences.setSurveyLoaded(true);
-                    localPreferences.setAppEventStatus(AppEventStatus.NO_EVENTS.ordinal());
-                    view.showSurveyReloadDialog();
-                }
+                break;
+            case SURVEY_RESTART_PUSH_MESSAGE:
+                localPreferences.setSurveyLoaded(true);
+                view.showSurveyReloadDialog();
                 break;
             case NO_EVENTS:
                 break;
         }
+
+        localPreferences.setAppEventStatus(AppEventStatus.NO_EVENTS.ordinal());
     }
 
     @Override
