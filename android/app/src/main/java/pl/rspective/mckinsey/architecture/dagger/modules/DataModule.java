@@ -18,7 +18,8 @@ import pl.rspective.mckinsey.infrastructure.onesignal.OneSignalReceiver;
 
 @Module(
         injects = {
-                OneSignalReceiver.class
+                OneSignalReceiver.class,
+                McKinseyMenuProvider.class
         },
         includes = {
                 AndroidModule.class

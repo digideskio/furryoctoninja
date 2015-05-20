@@ -1,14 +1,26 @@
 package pl.rspective.mckinsey.data.providers;
 
+import android.content.res.Resources;
+
 import com.yalantis.contextmenu.lib.MenuObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import pl.rspective.data.rest.model.UserRole;
 import pl.rspective.mckinsey.R;
+import pl.rspective.mckinsey.dagger.Injector;
 
 public class McKinseyMenuProvider implements MenuProvider {
+
+    @Inject
+    Resources resources;
+
+    public McKinseyMenuProvider() {
+        Injector.inject(this);
+    }
 
     @Override
     public List<MenuObject> provideMenuList(UserRole userRole) {
@@ -18,7 +30,7 @@ public class McKinseyMenuProvider implements MenuProvider {
         close.setResource(R.drawable.ic_close);
         close.setBgResource(R.color.primary_dark);
 
-        MenuObject logout = new MenuObject("Wyloguj");
+        MenuObject logout = new MenuObject(resources.getString(R.string.menu_label_logout));
         logout.setResource(R.drawable.ic_logout);
         logout.setBgResource(R.color.primary_dark);
 
@@ -29,12 +41,12 @@ public class McKinseyMenuProvider implements MenuProvider {
             case USER:
                 break;
             case ADMIN:
-                MenuObject results = new MenuObject("Wyniki");
+                MenuObject results = new MenuObject(resources.getString(R.string.menu_label_results));
                 results.setResource(R.drawable.ic_results);
                 results.setBgResource(R.color.primary_dark);
                 menuObjects.add(results);
 
-                MenuObject users = new MenuObject("Użytkownicy");
+                MenuObject users = new MenuObject(resources.getString(R.string.menu_label_users));
                 users.setResource(R.drawable.ic_users);
                 users.setBgResource(R.color.primary_dark);
                 menuObjects.add(users);
