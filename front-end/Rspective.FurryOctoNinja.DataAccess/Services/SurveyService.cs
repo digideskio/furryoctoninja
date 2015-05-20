@@ -90,7 +90,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
         {
             var survey = this.GetSurvey();
             var answers = this.userAnswerRepository.GetForSurvey(survey.Id);
-            var users = this.userRepository.All();
+            var users = this.userRepository.GetAllUsers();
             var items = new List<SurveyProgressItemDTO>();
 
             foreach (var user in users)

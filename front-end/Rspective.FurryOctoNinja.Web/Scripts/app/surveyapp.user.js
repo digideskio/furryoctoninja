@@ -7,13 +7,24 @@
     function user(dataRefresher, api, users) {
         var self = this;
 
-        self.json = JSON.stringify(users, null, 4);
+        self.edited = -1;
         self.users = users;
+
+        self.edit = function (user) {
+            self.edited = user.Id;
+        };
+
+        self.create = function () {
+            return false;
+        };
+
+        self.update = function () {
+            return false;
+        };
 
         dataRefresher.addTemporary(function () {
             api.user.all()
                 .then(function (users) {
-                    self.json = JSON.stringify(users, null, 4);
                     self.users = users;
                 });
         }, 45);

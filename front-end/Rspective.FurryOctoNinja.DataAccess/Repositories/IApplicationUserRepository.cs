@@ -9,6 +9,8 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
 
         ICollection<ApplicationUser> GetAll();
 
+        ICollection<ApplicationUser> GetAllUsers();
+
         ApplicationUser Get(int userId);
     }
 }
