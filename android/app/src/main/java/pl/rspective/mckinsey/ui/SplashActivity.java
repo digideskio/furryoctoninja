@@ -11,9 +11,13 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.onesignal.OneSignal;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import pl.rspective.data.repository.UserRepository;
 import pl.rspective.mckinsey.R;
+import pl.rspective.mckinsey.dagger.Injector;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -22,12 +26,16 @@ public class SplashActivity extends AppCompatActivity {
     @InjectView(R.id.iv_splash_logo)
     ImageView ivLogo;
 
+    @Inject
+    UserRepository userRepository;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash);
         ButterKnife.inject(this);
+        Injector.inject(this);
 
         initOneSignalPushProvider();
 
@@ -38,7 +46,12 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                Intent intent = null;
+                if (userRepository.loadUser().getToken().isEmpty()) {
+                    intent = new Intent(SplashActivity.this, LoginActivity.class);
+                } else {
+                    intent = new Intent(SplashActivity.this, MainActivity.class);
+                }
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();

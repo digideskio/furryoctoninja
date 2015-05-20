@@ -4,6 +4,7 @@ package pl.rspective.mckinsey.architecture.dagger.modules;
 import dagger.Module;
 import pl.rspective.mckinsey.ui.LoginActivity;
 import pl.rspective.mckinsey.ui.MainActivity;
+import pl.rspective.mckinsey.ui.SplashActivity;
 import pl.rspective.mckinsey.ui.form.FormQuestionFragment;
 import pl.rspective.mckinsey.ui.form.MasterFormFragment;
 import pl.rspective.mckinsey.ui.results.ResultFragment;
@@ -12,6 +13,7 @@ import pl.rspective.mckinsey.ui.users.UserListFragment;
 
 @Module(
         injects = {
+                SplashActivity.class,
                 MainActivity.class,
                 LoginActivity.class,
                 FormQuestionFragment.class,
