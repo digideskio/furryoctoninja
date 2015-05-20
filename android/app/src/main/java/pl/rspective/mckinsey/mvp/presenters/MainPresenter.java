@@ -11,7 +11,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import pl.rspective.data.entity.Survey;
-import pl.rspective.data.entity.UserPrefs;
 import pl.rspective.data.local.LocalPreferences;
 import pl.rspective.data.local.SurveyLocalStorage;
 import pl.rspective.data.local.model.StorageType;
@@ -76,6 +75,11 @@ public class MainPresenter implements IMainPresenter {
             case NO_EVENTS:
                 break;
         }
+    }
+
+    @Override
+    public void userLogout() {
+        userRepository.clearUser();
     }
 
     @Override
