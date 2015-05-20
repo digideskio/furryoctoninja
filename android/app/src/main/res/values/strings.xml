@@ -19,9 +19,6 @@
     <string name="survey_submit_was_changed">Ankieta uległa zmianie.\nNastąpi jej przeładowanie</string>
     <string name="survey_submit_error">Ankieta nie została wysłana. Sprawdź połączenie z internetem</string>
 
-    <string name="survey_submit_btn_close">Zamknij</string>
-    <string name="survey_submit_btn_cancel">Anuluj</string>
-
     <!-- Push messages -->
     <string name="push_message_new_survey_subtitle">Dostępna jest nowa ankieta</string>
 
@@ -29,5 +26,10 @@
     <string name="menu_label_logout">Wyloguj</string>
     <string name="menu_label_results">Wyniki</string>
     <string name="menu_label_users">Użytkownicy</string>
+
+    <!-- Buttons -->
+    <string name="button_survey_send">Wyślij</string>
+    <string name="survey_submit_btn_close">Zamknij</string>
+    <string name="survey_submit_btn_cancel">Anuluj</string>
 
 </resources>

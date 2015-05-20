@@ -38,16 +38,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Wyślij"
-        android:visibility="gone"/>
+        android:background="@drawable/button_survey_submit_selector"
+        android:text="@string/button_survey_send"
+        android:padding="10dp"
+        android:textColor="@color/text_submit_selector"
+        android:visibility="visible"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/btn_survey_submit"
+        android:layout_below="@id/fl_tabs"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_below="@id/fl_tabs"/>
+        android:layout_marginRight="15dp"/>
 
 </RelativeLayout>
