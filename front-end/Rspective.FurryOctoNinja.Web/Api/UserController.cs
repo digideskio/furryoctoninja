@@ -52,7 +52,12 @@ namespace Rspective.FurryOctoNinja.Web.Api
         public HttpResponseMessage Update(UserUpdate user)
         {
             var updatedUser = this.userService.Update(Mapper.Map<UserUpdateDTO>(user));
-            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Models.User>(updatedUser));
+            if (updatedUser.OverallErrors != null && updatedUser.OverallErrors.Count > 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, updatedUser);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Models.User>(updatedUser.ValidatedUser));
         }
 
         [HttpPost, ActionName("post")]
@@ -60,6 +65,11 @@ namespace Rspective.FurryOctoNinja.Web.Api
         public HttpResponseMessage Create(UserSave user)
         {
             var createdUser = this.userService.Save(Mapper.Map<UserSaveDTO>(user));
+            if (createdUser.OverallErrors != null && createdUser.OverallErrors.Count > 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, createdUser);
+            }
+
             return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Models.User>(createdUser));
         }
 
