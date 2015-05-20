@@ -34,8 +34,8 @@
                         <a ng-click="results.displayedQuestion = $index;">{{ $index + 1 }}</a>
                     </li>
                 </ul>
-                <hr />
-                <button class="btn btn-danger" ng-click="results.reset()" ng-disabled="results.resetDisabled">Reset</button>
+                <hr ng-show="isAdmin()" />
+                <button class="btn btn-danger" ng-show="isAdmin()" ng-click="results.reset()" ng-disabled="results.resetDisabled">Reset</button>
             </div>
         </div>
     </div>
