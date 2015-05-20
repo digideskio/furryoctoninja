@@ -3,6 +3,9 @@ package pl.rspective.mckinsey.mvp.presenters;
 import javax.inject.Inject;
 
 import pl.rspective.data.entity.UserPrefs;
+import pl.rspective.data.local.LocalPreferences;
+import pl.rspective.data.local.SurveyLocalStorage;
+import pl.rspective.data.local.model.StorageType;
 import pl.rspective.data.repository.LoginRepository;
 import pl.rspective.data.repository.UserRepository;
 import pl.rspective.data.rest.model.LoginResponse;
@@ -17,14 +20,19 @@ public class LoginPresenter implements ILoginPresenter {
 
     private UserRepository userRepository;
     private LoginRepository loginRepository;
+    private SurveyLocalStorage<String> surveyLocalStorage;
+    private LocalPreferences localPreferences;
 
     private Subscription loginSubscription;
     private ILoginView view;
 
     @Inject
-    public LoginPresenter(UserRepository userRepository, LoginRepository loginRepository) {
+    public LoginPresenter(UserRepository userRepository, LoginRepository loginRepository,
+                          SurveyLocalStorage<String> surveyLocalStorage, LocalPreferences localPreferences) {
         this.userRepository = userRepository;
         this.loginRepository = loginRepository;
+        this.surveyLocalStorage = surveyLocalStorage;
+        this.localPreferences = localPreferences;
     }
 
     @Override
@@ -49,6 +57,8 @@ public class LoginPresenter implements ILoginPresenter {
                     @Override
                     public void call(LoginResponse response) {
                         userRepository.saveUser(new UserPrefs(response.getToken(), response.getUserRoles().get(0)));
+                        surveyLocalStorage.clear(StorageType.SURVEY);
+                        localPreferences.setSurveyLoaded(true);
                         view.runMainActivity();
                     }
                 }, new Action1<Throwable>() {

@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 public class McKinseyLocalPreferences implements LocalPreferences {
 
-    private static final String FIRST_USER_SUCCESS_LOGIN_KEY = "mckinsey_user_first_success_login";
+    private static final String SURVEY_LOADED_KEY = "mckinsey_survey_loaded";
     private static final String APP_EVENT_STATUS_KEY = "mckinsey_app_event_status";
 
     private SharedPreferences preferences;
@@ -17,13 +17,13 @@ public class McKinseyLocalPreferences implements LocalPreferences {
     }
 
     @Override
-    public void setFirstUserLogin(boolean firstLogin) {
-        preferences.edit().putBoolean(FIRST_USER_SUCCESS_LOGIN_KEY, firstLogin).commit();
+    public void setSurveyLoaded(boolean firstLogin) {
+        preferences.edit().putBoolean(SURVEY_LOADED_KEY, firstLogin).commit();
     }
 
     @Override
-    public boolean isUserFirstLogin() {
-        return preferences.getBoolean(FIRST_USER_SUCCESS_LOGIN_KEY, true);
+    public boolean isSurveyLoaded() {
+        return preferences.getBoolean(SURVEY_LOADED_KEY, true);
     }
 
     @Override
