@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 
 import com.ToxicBakery.viewpager.transforms.ZoomOutSlideTransformer;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
@@ -20,6 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import pl.rspective.data.entity.User;
 import pl.rspective.mckinsey.R;
+import pl.rspective.mckinsey.architecture.bus.events.SurveyResultsUpdateEvent;
 import pl.rspective.mckinsey.dagger.Injector;
 import pl.rspective.mckinsey.mvp.presenters.IUserPresenter;
 import pl.rspective.mckinsey.mvp.views.IUserView;
@@ -32,6 +35,9 @@ public class MasterUserFragment extends Fragment implements IUserView {
         void onUserListReceived(List<User> users);
 
     }
+
+    @Inject
+    Bus bus;
 
     @Inject
     IUserPresenter presenter;
@@ -85,6 +91,23 @@ public class MasterUserFragment extends Fragment implements IUserView {
     @Override
     public Context getViewContext() {
         return getActivity();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        bus.register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        bus.unregister(this);
+    }
+
+    @Subscribe
+    public void onSurveyUserListUpdateEvent(SurveyResultsUpdateEvent updateEvent) {
+        presenter.refreshUserList();
     }
 
 }

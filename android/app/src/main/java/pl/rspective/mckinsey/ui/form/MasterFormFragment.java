@@ -57,7 +57,11 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
         super.onCreate(savedInstanceState);
         Injector.inject(this);
         setRetainInstance(true);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
         formPresenter.onResume(this);
     }
 
@@ -138,6 +142,7 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
+                                btnSurveySubmit.setEnabled(true);
                                 sDialog.dismissWithAnimation();
                             }
                         });
@@ -173,6 +178,7 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
+                        btnSurveySubmit.setEnabled(false);
                         sDialog.dismissWithAnimation();
                         formPresenter.submitSurvey();
                     }

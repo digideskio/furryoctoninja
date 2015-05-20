@@ -79,13 +79,14 @@ public class OneSignalReceiver extends GcmBroadcastReceiver {
                     Log.d(TAG, "Survey was changed");
                     break;
                 case SURVEY_RESULTS_UPDATED:
-                    Log.d(TAG, "Refresh user list event");
+                    Log.d(TAG, "Refresh survey results");
                     bus.post(new SurveyResultsUpdateEvent());
                     break;
             }
 
-            abortBroadcast();
         }
+
+        abortBroadcast();
 
     }
 

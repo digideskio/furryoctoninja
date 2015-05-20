@@ -22,6 +22,7 @@
     <color name="indicator_4">#FDBC7D</color>
 
     <color name="error_red">#f44336</color>
+    <color name="error_red_dark">#fff42822</color>
 
     <color name="text">#ffffff</color>
     <color name="button_hey">#6eabb2</color>
@@ -38,4 +39,10 @@
     <color name="bar_grid">#1Aaa3302</color>
     <color name="bar_tooltip">#65b045</color>
 
+    <!-- Override dialog colors-->
+    <color name="blue_btn_bg_pressed_color">@color/blue_primary_dark</color>
+    <color name="blue_btn_bg_color">@color/blue_primary</color>
+
+    <color name="red_btn_bg_pressed_color">@color/error_red_dark</color>
+    <color name="red_btn_bg_color">@color/error_red</color>
 </resources>

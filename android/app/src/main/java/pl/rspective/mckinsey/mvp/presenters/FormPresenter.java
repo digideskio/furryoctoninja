@@ -72,6 +72,7 @@ public class FormPresenter implements IFormPresenter {
 
         storeSurvey();
         formView.nextQuestion(number);
+
         bus.post(new AnswerUpdateEvent(survey.getQuestions().get(number)));
     }
 
@@ -132,7 +133,6 @@ public class FormPresenter implements IFormPresenter {
                         survey.setSubmited(true);
                         storeSurvey();
                         formView.showSubmitDialog(SurveySubmitResultType.SURVEY_OK);
-//                        formView.showResultFragment();
                     }
                 }, new Action1<Throwable>() {
                     @Override
