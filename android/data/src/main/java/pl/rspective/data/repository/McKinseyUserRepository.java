@@ -41,7 +41,7 @@ public class McKinseyUserRepository implements UserRepository {
     public UserPrefs loadUser() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setToken(preferences.getString(USER_TOKEN_KEY, UserPrefs.USER_DEFAULT.getToken()));
-        userPrefs.setRole(UserRole.valueOf(preferences.getString(USER_ROLE_KEY,UserPrefs.USER_DEFAULT.getToken())));
+        userPrefs.setRole(UserRole.valueOf(preferences.getString(USER_ROLE_KEY,UserPrefs.USER_DEFAULT.getRole().name())));
         return userPrefs;
     }
 
