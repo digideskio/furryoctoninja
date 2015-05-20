@@ -1,19 +1,71 @@
-﻿<div class="panel panel-default">
+﻿<div class="panel panel-default" ng-cloack ng-show="user.edited == -1">
     <div class="panel-heading">
         <h4>Users</h4>
     </div>
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-12">
-                <span ng-bind="user.json"></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
                 <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="singleUser in user.users">{{ singleUser.Name }}</li>
+                    <li class="list-group-item" ng-repeat="singleUser in user.users">
+                        {{ singleUser.Name }}
+                        <a class="pull-right" ng-click="user.edit(singleUser)"><i class="glyphicon glyphicon-edit"></i></a>
+                        <span class="pull-right">&nbsp;&nbsp;</span>
+                        <a class="pull-right danger" ng-show="singleUser.Roles.indexOf('Admin') === -1">
+                            <i class="glyphicon glyphicon glyphicon-trash"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
+        <hr />
+        <div class="row">
+            <div class="col-xs-12 text-right">
+                <button type="button" class="btn btn-success" ng-click="user.edited = 0">Add new</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default" ng-cloack ng-show="user.edited > 0">
+    <div class="panel-heading">
+        <h4>Edit user</h4>
+    </div>
+    <div class="panel-body">
+        <form name="formUserCreate" ng-submit="validateForm(formUserCreate) && user.update()">
+            <div class="row">
+                <div class="col-xs-12">
+
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-xs-12 text-right">
+                    <button type="button" class="btn btn-default" ng-click="user.edited = -1">Cancel</button>
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="panel panel-default" ng-show="user.edited == 0">
+    <div class="panel-heading">
+        <h4>Create new user</h4>
+    </div>
+    <div class="panel-body">
+        <form name="formUserCreate" ng-submit="validateForm(formUserCreate) && user.create()">
+            <div class="row">
+                <div class="col-xs-12">
+
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-xs-12 text-right">
+                    <button type="button" class="btn btn-default" ng-click="user.edited = -1">Cancel</button>
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
