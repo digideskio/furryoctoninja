@@ -1,5 +1,6 @@
 <div class="panel panel-default">
     <div class="panel-heading">
+        <h4>Survey</h4>
         <div class="form-group">
             <label for="survey_title">Title:</label>
             <input id="survey_title" class="form-control" type="text" ng-model="edit.survey.Title" required maxlength="200" placeholder="Title.." />
@@ -10,6 +11,7 @@
         </div>
     </div>
     <div class="panel-body">
+        <hr />
         <div class="row">
             <div class="col-xs-12">
                 <div class="alert alert-danger" ng-show="!!edit.errors.overral.length">
@@ -50,7 +52,6 @@
                             <span ng-if="!!edit.errors.answers[$index]">{{edit.errors.answers[$index]}}</span>
                         </div>
                     </div>
-                    <hr />
                 </div>
             </div>
         </div>
@@ -67,10 +68,13 @@
                         </button>
                     </li>
                 </ul>
-                <hr />
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <button class="btn btn-warning" ng-click="edit.notifyMobileDevices()" ng-disabled="edit.notifyDisabled">Notify</button>
                 <button class="btn btn-success" ng-click="edit.submit()">Save</button>
-                <hr />
-                <button class="btn btn-success" ng-click="edit.notifyMobileDevices()" ng-disabled="edit.notifyDisabled">Notify</button>
             </div>
         </div>
     </div>

@@ -16,7 +16,11 @@
                         <span><i class="glyphicon" ng-class="{ 'glyphicon-ok' : userProgress.Completed, 'glyphicon-minus' : !userProgress.Completed }"></i></span>
                     </li>
                 </ul>
-                <hr/>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-xs-12 text-right">
                 <button class="btn btn-danger" ng-click="progress.reset()" ng-disabled="progress.resetDisabled">Reset</button>
             </div>
         </div>
