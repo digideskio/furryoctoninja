@@ -5,29 +5,24 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.view.animation.ScaleAnimation;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.ChartData;
-import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.DefaultValueFormatter;
+import com.github.mikephil.charting.utils.ValueFormatter;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.inject.Inject;
 
@@ -48,27 +43,23 @@ import pl.rspective.mckinsey.ui.form.adapter.FormQuestionPagerAdapter;
 import rx.functions.Action1;
 
 
-public class ResultFragment extends Fragment implements OnChartGestureListener, IFormView, FormQuestionFragment.QuestionListener {
+public class ResultFragment extends Fragment implements IFormView, FormQuestionFragment.QuestionListener {
 
     @Inject
     Bus bus;
-
     @Inject
     IFormPresenter formPresenter;
+    @Inject
+    SurveyRepository surveyRepository;
 
     @InjectView(R.id.viewpager)
     ViewPager viewPager;
-
     @InjectView(R.id.viewpagertab)
     SmartTabLayout smartTabLayout;
-
     @InjectView(R.id.barchart)
     BarChart mChart;
 
     private FormQuestionPagerAdapter adapter;
-
-    @Inject
-    SurveyRepository surveyRepository;
 
     private Survey surveyResult;
     private int idx;
@@ -79,64 +70,29 @@ public class ResultFragment extends Fragment implements OnChartGestureListener, 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        View v = inflater.inflate(R.layout.fragment_simple_bar, container, false);
         View v = inflater.inflate(R.layout.fragment_form_results, container, false);
-
         ButterKnife.inject(this, v);
 
-        // create a new chart object
-//        mChart = new BarChart(getActivity());
         mChart.setDescription("");
-        mChart.setOnChartGestureListener(this);
         mChart.setMarkerView(new MyMarkerView(getActivity(), R.layout.custom_marker_view));
         mChart.setHighlightIndicatorEnabled(false);
         mChart.setDrawGridBackground(false);
         mChart.setDrawBarShadow(false);
-
-        //mChart.setData(updateBarChart(0));
-
+        mChart.setDrawValueAboveBar(true);
         mChart.getAxisRight().setEnabled(false);
+        mChart.getAxisLeft().setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return String.valueOf((int) Math.floor(value));
+            }
+        });
+        mChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        mChart.getLegend().setEnabled(false);
 
         XAxis xAxis = mChart.getXAxis();
-        xAxis.setEnabled(false);
-
-        // programatically add the chart
-//        FrameLayout parent = (FrameLayout) v.findViewById(R.id.parentLayout);
-//        parent.addView(mChart);
-
-
+        xAxis.setEnabled(true);
 
         return v;
-    }
-
-    @Override
-    public void onChartLongPressed(MotionEvent me) {
-        Log.i("LongPress", "Chart longpressed.");
-    }
-
-    @Override
-    public void onChartDoubleTapped(MotionEvent me) {
-        Log.i("DoubleTap", "Chart double-tapped.");
-    }
-
-    @Override
-    public void onChartSingleTapped(MotionEvent me) {
-        Log.i("SingleTap", "Chart single-tapped.");
-    }
-
-    @Override
-    public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
-        Log.i("Fling", "Chart flinged. VeloX: " + velocityX + ", VeloY: " + velocityY);
-    }
-
-    @Override
-    public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
-        Log.i("Scale / Zoom", "ScaleX: " + scaleX + ", ScaleY: " + scaleY);
-    }
-
-    @Override
-    public void onChartTranslate(MotionEvent me, float dX, float dY) {
-        Log.i("Translate / Move", "dX: " + dX + ", dY: " + dY);
     }
 
     @Override
@@ -186,38 +142,36 @@ public class ResultFragment extends Fragment implements OnChartGestureListener, 
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-
+                        Object x = throwable == null;
+                        x = throwable;
                     }
                 });
     }
 
     private void updateBarChart(int idx) {
+        if (surveyResult == null) {
+            return;
+        }
+
         Question question = surveyResult.getQuestions().get(idx);
 
         ArrayList<BarEntry> entries = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
         for (int i = 0; i < question.getAnswers().size(); i++) {
-            entries.add(new BarEntry(question.getAnswers().get(i).getCount(), i, String.valueOf("abcdefgh".charAt(i))));
+            entries.add(new BarEntry(question.getAnswers().get(i).getCount(), i)); //, String.valueOf("abcdefgh".charAt(i))));
             labels.add(String.valueOf("abcdefgh".charAt(i)));
         }
 
         BarDataSet ds = new BarDataSet(entries, "hello");
         ds.setColors(ColorTemplate.LIBERTY_COLORS);
 
-        ArrayList<BarDataSet> sets = new ArrayList<>();
-        sets.add(ds);
-        BarData data =  new BarData(labels, sets);
-        mChart.setData(data);
-    }
+        mChart.clearAnimation();
 
-    private int findMaxAnswersCount(Question question) {
-        int max = 0;
-        for (Answer answer : question.getAnswers()) {
-            if (answer.getCount() > max) {
-                max = answer.getCount();
-            }
-        }
-        return max;
+        BarData data =  new BarData(labels, ds);
+        mChart.setData(data);
+//        mChart.invalidate();
+
+        mChart.animateY(500);
     }
 
     @Override

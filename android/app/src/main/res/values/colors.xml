@@ -31,8 +31,4 @@
     <color name="axis">#ffffff</color>
     <color name="label">#ffffff</color>
 
-    <color name="bar_fill">#4285f4</color>
-    <color name="bar_grid">#1Aaa3302</color>
-    <color name="bar_tooltip">#65b045</color>
-
 </resources>
