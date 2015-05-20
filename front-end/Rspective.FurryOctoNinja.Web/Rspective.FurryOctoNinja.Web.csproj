@@ -305,6 +305,7 @@
     <Content Include="Scripts\app\surveyapp.main.js" />
     <Content Include="Scripts\app\surveyapp.progress.js" />
     <Content Include="Scripts\app\surveyapp.results.js" />
+    <Content Include="Scripts\app\surveyapp.directives.js" />
     <Content Include="Scripts\app\surveyapp.routing.js" />
     <Content Include="Scripts\app\surveyapp.services.js" />
     <Content Include="Scripts\app\surveyapp.user.js" />
