@@ -15,10 +15,12 @@ public class McKinseyMenuProvider implements MenuProvider {
         List<MenuObject> menuObjects = new ArrayList<>();
 
         MenuObject close = new MenuObject();
-        close.setResource(R.drawable.icn_close);
+        close.setResource(R.drawable.ic_close);
+        close.setBgResource(R.color.primary_dark);
 
         MenuObject logout = new MenuObject("Wyloguj");
-        logout.setResource(R.drawable.icn_1);
+        logout.setResource(R.drawable.ic_logout);
+        logout.setBgResource(R.color.primary_dark);
 
         menuObjects.add(close);
         menuObjects.add(logout);
@@ -28,11 +30,13 @@ public class McKinseyMenuProvider implements MenuProvider {
                 break;
             case ADMIN:
                 MenuObject results = new MenuObject("Wyniki");
-                results.setResource(R.drawable.icn_2);
+                results.setResource(R.drawable.ic_results);
+                results.setBgResource(R.color.primary_dark);
                 menuObjects.add(results);
 
                 MenuObject users = new MenuObject("Użytkownicy");
-                users.setResource(R.drawable.icn_3);
+                users.setResource(R.drawable.ic_users);
+                users.setBgResource(R.color.primary_dark);
                 menuObjects.add(users);
                 break;
             default:
