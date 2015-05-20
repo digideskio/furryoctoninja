@@ -42,7 +42,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Helpers
 
             if (questions.Count() < MinQuestionsCount || questions.Count() > MaxQuestionsCount)
             {
-                result.OverallErrors.Add(string.Format("Survey can have number of questions between {0} and {1}.", MinQuestionsCount, MaxQuestionsCount));
+                result.OverallErrors.Add(string.Format("Survey cannot have less than {0} and more than {1} questions.", MinQuestionsCount, MaxQuestionsCount));
             }
 
             foreach (QuestionDTO question in questions)
@@ -58,7 +58,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Helpers
                 question.Answers = question.Answers.Where(a => !string.IsNullOrEmpty(a.Text));
                 if (question.Answers.Count() < MinAnswersCount || question.Answers.Count() > MaxAnswersCount)
                 {
-                    answersError = string.Format("Question can have number of answers between {0} and {1}.", MinAnswersCount, MaxAnswersCount);
+                    answersError = string.Format("Question cannot have less than {0} and more than {1} answers.", MinAnswersCount, MaxAnswersCount);
                 }
 
                 result.QuestionsErrors.Add(questionError);

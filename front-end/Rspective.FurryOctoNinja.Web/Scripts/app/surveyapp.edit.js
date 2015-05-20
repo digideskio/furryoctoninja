@@ -47,6 +47,7 @@
                             .update(self.survey)
                             .then(function (survey) {
                                 self.survey = survey;
+                                self.mode = "editor";
                             });
                     }
                 });
