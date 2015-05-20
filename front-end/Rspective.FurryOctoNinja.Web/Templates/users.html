@@ -8,9 +8,11 @@
                 <ul class="list-group">
                     <li class="list-group-item" ng-repeat="singleUser in user.users">
                         {{ singleUser.Name }}
-                        <a class="pull-right" ng-click="user.edit(singleUser)"><i class="glyphicon glyphicon-edit"></i></a>
+                        <a class="pull-right" ng-click="user.edit(singleUser, $index)" ng-show="singleUser.Roles.indexOf('Admin') === -1" ng-disabled="user.updateDisabled">
+                            <i class="glyphicon glyphicon-edit"></i>
+                        </a>
                         <span class="pull-right">&nbsp;&nbsp;</span>
-                        <a class="pull-right danger" ng-show="singleUser.Roles.indexOf('Admin') === -1">
+                        <a class="pull-right danger" ng-click="user.delete(singleUser, $index)" ng-show="singleUser.Roles.indexOf('Admin') === -1" ng-disabled="user.updateDisabled">
                             <i class="glyphicon glyphicon glyphicon-trash"></i>
                         </a>
                     </li>
@@ -31,43 +33,43 @@
         <h4>Edit user</h4>
     </div>
     <div class="panel-body">
-        <form name="formUserCreate" ng-submit="validateForm(formUserCreate) && user.update()">
+        <form name="formUserUpdate" ng-submit="validateForm(formUserUpdate) && user.update()">
             <div class="row">
                 <div class="col-xs-12">
-                    <div ng-class="{ 'alert alert-danger': !!(user.errors.create) }">
+                    <div ng-class="{ 'alert alert-danger': !!(user.errors.update) }">
                         <div class="input-group">
                             <div class="input-group-btn">
                                 <button class="btn btn-default" disabled>
                                     <i class="glyphicon glyphicon-user"></i>
                                 </button>
                             </div>
-                            <input type="text" class="form-control" ng-model="user.edited.Name" required maxlength="200" placeholder="Name.." />
+                            <input type="text" class="form-control" ng-model="user.updated.Name" required maxlength="200" placeholder="Name.." />
                         </div>
                         <div class="input-group">
                             <div class="input-group-btn">
                                 <button class="btn btn-default" disabled>
-                                    <i class="glyphicon glyphicon-remove"></i>
+                                    <i class="glyphicon glyphicon-user"></i>
                                 </button>
                             </div>
-                            <input type="text" class="form-control" ng-model="user.edited.Login" required maxlength="200" placeholder="Login.." />
+                            <input type="text" class="form-control" ng-model="user.updated.Login" required maxlength="200" placeholder="Login.." />
                         </div>
                         <div class="input-group">
                             <div class="input-group-btn">
                                 <button class="btn btn-default" disabled>
-                                    <i class="glyphicon glyphicon-remove"></i>
+                                    <i class="glyphicon glyphicon-asterisk"></i>
                                 </button>
                             </div>
-                            <input type="password" class="form-control" ng-model="user.edited.Password" required maxlength="200" placeholder="Password.." />
+                            <input type="password" class="form-control" ng-model="user.updated.Password" required maxlength="200" placeholder="Password.." />
                         </div>
-                        <span ng-if="!!(user.errors.create)" ng-repeat="error in user.errors.create">{{error}}</span>
+                        <span ng-if="!!(user.errors.update)" ng-repeat="error in user.errors.update">{{error}}</span>
                     </div>
                 </div>
             </div>
             <hr />
             <div class="row">
                 <div class="col-xs-12 text-right">
-                    <button type="button" class="btn btn-default" ng-click="user.mode = -1">Cancel</button>
-                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-default" ng-disabled="user.updateDisabled" ng-click="user.mode = -1">Cancel</button>
+                    <button type="submit" class="btn btn-success" ng-disabled="user.updateDisabled">Save</button>
                 </div>
             </div>
         </form>
@@ -82,7 +84,7 @@
         <form name="formUserCreate" ng-submit="validateForm(formUserCreate) && user.create()">
             <div class="row">
                 <div class="col-xs-12">
-                    <div ng-class="{ 'alert alert-danger': !!(user.errors.edit) }">
+                    <div ng-class="{ 'alert alert-danger': !!(user.errors.create) }">
                         <div class="input-group">
                             <div class="input-group-btn">
                                 <button class="btn btn-default" disabled>
@@ -94,7 +96,7 @@
                         <div class="input-group">
                             <div class="input-group-btn">
                                 <button class="btn btn-default" disabled>
-                                    <i class="glyphicon glyphicon-remove"></i>
+                                    <i class="glyphicon glyphicon-user"></i>
                                 </button>
                             </div>
                             <input type="text" class="form-control" ng-model="user.created.Login" required maxlength="200" placeholder="Login.." />
@@ -102,20 +104,20 @@
                         <div class="input-group">
                             <div class="input-group-btn">
                                 <button class="btn btn-default" disabled>
-                                    <i class="glyphicon glyphicon-remove"></i>
+                                    <i class="glyphicon glyphicon-asterisk"></i>
                                 </button>
                             </div>
                             <input type="password" class="form-control" ng-model="user.created.Password" required maxlength="200" placeholder="Password.." />
                         </div>
-                        <span ng-if="!!(user.errors.create)" ng-repeat="error in user.errors.edit">{{error}}</span>
+                        <span ng-if="!!(user.errors.create)" ng-repeat="error in user.errors.create">{{error}}</span>
                     </div>
                 </div>
             </div>
             <hr />
             <div class="row">
                 <div class="col-xs-12 text-right">
-                    <button type="button" class="btn btn-default" ng-click="user.mode = -1">Cancel</button>
-                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-default" ng-disabled="user.createDisabled" ng-click="user.mode = -1">Cancel</button>
+                    <button type="submit" class="btn btn-success" ng-disabled="user.createDisabled">Save</button>
                 </div>
             </div>
         </form>

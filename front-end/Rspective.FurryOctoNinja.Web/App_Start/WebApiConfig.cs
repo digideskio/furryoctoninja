@@ -31,7 +31,7 @@ namespace Rspective.FurryOctoNinja.Web
             config.Routes.MapHttpRoute(
                 name: "ControllerActionUpdateApi",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional, action = "Update" },
+                defaults: new { id = RouteParameter.Optional, action = "Put" },
                 constraints: new { id = @"\d?", httpMethod = new HttpMethodConstraint(new string[] { "PUT" }) }
             );
 
