@@ -140,18 +140,18 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
 
     @Override
     public void onError(Throwable e) {
-        loadingContainer.setVisibility(View.GONE);
+//        loadingContainer.setVisibility(View.GONE);
     }
 
     @Override
     public void onNext(NetworkAction networkAction) {
         switch (networkAction) {
             case HTTP_REQUEST_START:
-                loadingContainer.setVisibility(View.VISIBLE);
+//                loadingContainer.setVisibility(View.VISIBLE);
                 break;
 
             case HTTP_REQUEST_END:
-                loadingContainer.setVisibility(View.GONE);
+//                loadingContainer.setVisibility(View.GONE);
                 break;
         }
     }

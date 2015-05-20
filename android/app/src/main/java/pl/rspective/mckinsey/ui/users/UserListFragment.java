@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import java.util.List;
 
@@ -25,6 +26,9 @@ public class UserListFragment extends Fragment implements MasterUserFragment.Use
 
     @InjectView(R.id.list_survey_users)
     RecyclerView listSurveyUsers;
+
+    @InjectView(R.id.rl_empty_list)
+    RelativeLayout rlEmptyView;
 
     private UserAdapter userAdapter;
     private boolean hasFilleddout;
@@ -68,13 +72,20 @@ public class UserListFragment extends Fragment implements MasterUserFragment.Use
 
     @Override
     public void onUserListReceived(List<User> users) {
-        userAdapter.updateData(Observable.from(users)
+        List<User> u = Observable.from(users)
                 .filter(new Func1<User, Boolean>() {
                     @Override
                     public Boolean call(User user) {
                         return user.isCompleted() == hasFilleddout;
                     }
-                }).toList().toBlocking().single()
-        );
+                }).toList().toBlocking().single();
+
+        userAdapter.updateData(u);
+
+        if(u == null || u.isEmpty()) {
+            rlEmptyView.setVisibility(View.VISIBLE);
+        } else {
+            rlEmptyView.setVisibility(View.GONE);
+        }
     }
 }
