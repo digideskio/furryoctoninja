@@ -21,8 +21,10 @@ public class Survey {
     @SerializedName("Questions")
     private List<Question> questions;
 
-    private boolean ready;
+    @SerializedName("CompletedByUser")
     private boolean submited;
+
+    private boolean ready;
 
     public long getId() {
         return id;

@@ -105,8 +105,13 @@ public class FormPresenter implements IFormPresenter {
                         localPreferences.setSurveyLoaded(false);
 
                         FormPresenter.this.survey = survey;
-                        formView.updateUi(survey);
 
+                        if(survey.isSubmited()) {
+                            formView.showResultFragment();
+                            return;
+                        }
+
+                        formView.updateUi(survey);
                         if(survey.isReady() && !survey.isSubmited()) {
                             formView.showSubmitButton();
                         }
