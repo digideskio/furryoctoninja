@@ -31,12 +31,16 @@ public class MainPresenter implements IMainPresenter {
 
     private IMainView view;
 
+    private Gson gson;
+
     @Inject
     public MainPresenter(LocalPreferences localPreferences, MenuProvider menuProvider, UserRepository userRepository, SurveyLocalStorage<String> surveyLocalStorage) {
         this.localPreferences = localPreferences;
         this.menuProvider = menuProvider;
         this.userRepository = userRepository;
         this.surveyLocalStorage =  surveyLocalStorage;
+
+        this.gson = new GsonBuilder().create();
     }
 
     @Override
@@ -45,7 +49,6 @@ public class MainPresenter implements IMainPresenter {
             return ResultFragment.newInstance();
         }
 
-        Gson gson = new GsonBuilder().create();
         Survey survey = gson.fromJson(surveyLocalStorage.load(StorageType.SURVEY), Survey.class);
 
         if(survey == null || !survey.isSubmited()) {
@@ -64,8 +67,14 @@ public class MainPresenter implements IMainPresenter {
     public void checkAppEventStatus() {
         AppEventStatus eventStatus = AppEventStatus.valueOf(localPreferences.getAppEventStatus());
 
-        switch (eventStatus) { //TODO Clear when we need, etc
+        switch (eventStatus) {
             case SURVEY_CHANGED_PUSH_MESSAGE:
+                Survey survey = gson.fromJson(surveyLocalStorage.load(StorageType.SURVEY), Survey.class);
+
+                if(survey == null || !survey.isSubmited()) {
+                    localPreferences.setSurveyLoaded(true);
+                    view.showSurveyReloadDialog();
+                }
                 break;
             case SURVEY_RESTART_PUSH_MESSAGE:
                 localPreferences.setSurveyLoaded(true);
