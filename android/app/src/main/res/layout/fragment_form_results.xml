@@ -32,30 +32,86 @@
             app:stl_underlineThickness="0dp"/>
     </FrameLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
 
-        <com.db.chart.view.BarChartView
-            android:id="@+id/barchart"
-            xmlns:chart="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart1"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="7dp"
-            android:layout_marginRight="7dp"
-            android:layout_marginTop="2dp"
-            android:layout_weight="0.4"
-            android:background="#a0c3ff"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            chart:chart_axisBorderSpacing="25dp"
-            chart:chart_axisColor="@color/axis"
-            chart:chart_labelColor="@color/label"
-            />
+            android:layout_height="match_parent"
+            android:layout_above="@+id/seekBar1" />
+
+        <SeekBar
+            android:id="@+id/seekBar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="8dp"
+            android:layout_toLeftOf="@+id/tvYMax"
+            android:layout_marginRight="5dp"
+            android:max="200"
+            android:paddingBottom="12dp" />
+
+        <SeekBar
+            android:id="@+id/seekBar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/seekBar2"
+            android:layout_margin="8dp"
+            android:layout_marginBottom="35dp"
+            android:layout_toLeftOf="@+id/tvXMax"
+            android:layout_marginRight="5dp"
+            android:max="1500"
+            android:paddingBottom="12dp" />
+
+        <TextView
+            android:id="@+id/tvXMax"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/seekBar1"
+            android:layout_alignParentRight="true"
+            android:text="500"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="10dp"
+            android:gravity="right"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/tvYMax"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/seekBar2"
+            android:layout_alignParentRight="true"
+            android:text="500"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="10dp"
+            android:gravity="right"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+
+
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text=""
+            android:textSize="12dp"
+            android:textColor="@android:color/white"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
@@ -66,6 +122,7 @@
             android:layout_weight="0.6"
             />
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
+    </RelativeLayout>
 
 </LinearLayout>
