@@ -168,7 +168,7 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
         new SweetAlertDialog(this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
                 .setTitleText("Nowa ankieta!")
                 .setContentText("Ankieta została przeładowana")
-                .setCustomImage(R.drawable.ic_launcher)
+                .setCustomImage(R.drawable.ic_synchronisation)
                 .show();
     }
 }
