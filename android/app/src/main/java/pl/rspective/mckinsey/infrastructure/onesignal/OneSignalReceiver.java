@@ -84,8 +84,9 @@ public class OneSignalReceiver extends GcmBroadcastReceiver {
                     break;
             }
 
-            abortBroadcast();
         }
+
+        abortBroadcast();
 
     }
 
