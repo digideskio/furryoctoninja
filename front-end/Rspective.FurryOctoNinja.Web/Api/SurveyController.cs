@@ -42,7 +42,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
         [TokenAuthorize(roles: new string[] { "User", "Admin" })]
         public HttpResponseMessage Results()
         {
-            var results = this.surveyService.GetResults((HttpContext.Current.User as Auth.AuthenticatedUser).Id);;
+            var results = this.surveyService.GetResults((HttpContext.Current.User as Auth.AuthenticatedUser).Id); ;
             return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<SurveyResults>(results));
         }
 
@@ -54,7 +54,7 @@ namespace Rspective.FurryOctoNinja.Web.Api
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
-           
+
             // TODO: HttpStatusCode.ResetContent // Survey has been modified, cannot be saved
             // Return results with IsUserChoice field
 
@@ -62,8 +62,8 @@ namespace Rspective.FurryOctoNinja.Web.Api
             this.surveyService.SaveSurvey(userId, Mapper.Map<SurveySaveDTO>(survey));
 
             await OneSignalProvider.NotifyMobileDevices(
-                "SURVEY-RESULTS-UPDATED", 
-                "Survey results updated.", 
+                "SURVEY-RESULTS-UPDATED",
+                "Survey results updated.",
                 "The survey's results has been posted recently, please reaload your content.");
 
             return Request.CreateResponse(HttpStatusCode.OK);
@@ -74,8 +74,8 @@ namespace Rspective.FurryOctoNinja.Web.Api
         public async Task<HttpResponseMessage> Notify()
         {
             await OneSignalProvider.NotifyMobileDevices(
-                "SURVEY-CHANGED", 
-                "Survey updated.", 
+                "SURVEY-CHANGED",
+                "Survey updated.",
                 "The survey has been updated recently, please reaload your content.");
 
             return Request.CreateResponse(HttpStatusCode.OK);
@@ -105,6 +105,19 @@ namespace Rspective.FurryOctoNinja.Web.Api
             }
 
             return Request.CreateResponse(HttpStatusCode.OK, this.surveyService.Validate(survey));
+        }
+
+        [HttpPost, ActionName("update")]
+        [TokenAuthorize(role: "Admin")]
+        public HttpResponseMessage UpdateSurvey(SurveyDTO survey)
+        {
+            if (survey == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
+            this.surveyService.Save(survey);
+            return Request.CreateResponse(HttpStatusCode.OK, this.surveyService.GetSurvey());
         }
     }
 }

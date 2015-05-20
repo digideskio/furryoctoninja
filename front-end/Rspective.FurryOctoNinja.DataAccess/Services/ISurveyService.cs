@@ -19,5 +19,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
         void Reset();
 
         ValidateSurveyDTO Validate(SurveyDTO survey);
+
+        void Save(SurveyDTO survey);
     }
 }

@@ -118,5 +118,19 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 
             return new SurveyValidator(survey, this.userAnswerRepository.HasAnyoneCompleted(survey.Id)).Validate();
         }
+
+        public void Save(SurveyDTO survey)
+        {
+            if (survey == null)
+            {
+                throw new ArgumentNullException("survey");
+            }
+
+            ValidateSurveyDTO result = this.Validate(survey);
+            if (result.IsValid)
+            {
+                this.surveyRepository.Update(Mapper.Map<Survey>(result.ValidatedSurvey));
+            }
+        }
     }
 }

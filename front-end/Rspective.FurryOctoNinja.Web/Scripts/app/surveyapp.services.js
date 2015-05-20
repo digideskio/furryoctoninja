@@ -78,6 +78,13 @@
                 })
                 .catch(handleError);
         };
+        self.survey.update = function (survey) {
+            return $http(prepareRequest("POST", "api/survey/update", survey))
+                .then(function (data) {
+                    return data.data;
+                })
+                .catch(handleError);
+        };
 
         self.user = {};
         self.user.current = function () {

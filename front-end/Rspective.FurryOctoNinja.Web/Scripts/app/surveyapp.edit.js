@@ -38,6 +38,17 @@
                     self.errors.overral = result.OverallErrors;
                     self.errors.questions = result.QuestionsErrors;
                     self.errors.answers = result.AnswersErrors;
+
+                    return result.IsValid;
+                })
+                .then(function (isValid) {
+                    if (isValid) {
+                        api.survey
+                            .update(self.survey)
+                            .then(function (survey) {
+                                self.survey = survey;
+                            });
+                    }
                 });
         };
 

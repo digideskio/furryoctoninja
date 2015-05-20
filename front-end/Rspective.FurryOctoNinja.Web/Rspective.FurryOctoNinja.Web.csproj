@@ -308,9 +308,14 @@
     <Content Include="Scripts\app\surveyapp.routing.js" />
     <Content Include="Scripts\app\surveyapp.services.js" />
     <Content Include="Scripts\app\surveyapp.user.js" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
+    <Content Include="Scripts\d3\d3.js" />
+    <Content Include="Scripts\d3\d3.min.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
+    <Content Include="Scripts\d3\LICENSE" />
     <None Include="Scripts\jquery-1.9.0-vsdoc.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
