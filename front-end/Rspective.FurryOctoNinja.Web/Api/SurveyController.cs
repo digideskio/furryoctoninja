@@ -55,11 +55,15 @@ namespace Rspective.FurryOctoNinja.Web.Api
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            // TODO: HttpStatusCode.ResetContent // Survey has been modified, cannot be saved
-            // Return results with IsUserChoice field
-
             var userId = base.AuthenticatedUser.Id;
-            this.surveyService.SaveSurvey(userId, Mapper.Map<SurveySaveDTO>(survey));
+            var surveyDTO = Mapper.Map<SurveySaveDTO>(survey);
+
+            if (!this.surveyService.ValidateSave(userId, surveyDTO))
+            {
+                return Request.CreateResponse(HttpStatusCode.ResetContent);
+            }
+
+            this.surveyService.SaveSurvey(userId, surveyDTO);
 
             await OneSignalProvider.NotifyMobileDevices(
                 "SURVEY-RESULTS-UPDATED",

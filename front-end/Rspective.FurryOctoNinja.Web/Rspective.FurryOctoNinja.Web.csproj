@@ -258,11 +258,9 @@
     <Compile Include="Models\AuthLogin.cs" />
     <Compile Include="Models\UserIdentifier.cs" />
     <Compile Include="Models\UserUpdate.cs" />
-    <Compile Include="Models\Mocks\SurveyResults.Mock.cs" />
     <Compile Include="Models\SurveyResultsAnswer.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Survey.cs" />
-    <Compile Include="Models\Mocks\Survey.Mock.cs" />
     <Compile Include="Models\SurveyProgress.cs" />
     <Compile Include="Models\SurveyProgressItem.cs" />
     <Compile Include="Models\SurveyResults.cs" />
@@ -345,9 +343,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Mocks\SurveyProgress.Mock.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rspective.FurryOctoNinja.DataAccess\Rspective.FurryOctoNinja.DataAccess.csproj">

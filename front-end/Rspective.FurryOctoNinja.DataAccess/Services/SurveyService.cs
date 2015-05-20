@@ -139,5 +139,19 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
                 this.surveyRepository.Update(Mapper.Map<Survey>(result.ValidatedSurvey));
             }
         }
+
+        public bool ValidateSave(int userId, SurveySaveDTO surveySave)
+        {
+            var survey = this.GetSurvey(null);
+
+            // TODO: Validate dates!
+
+            if (this.userAnswerRepository.HasCompleted(surveySave.Id, userId))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
