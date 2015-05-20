@@ -70,7 +70,7 @@ public class OneSignalReceiver extends GcmBroadcastReceiver {
 
             switch (message.getMetaData().getPushType()) {
                 case SURVEY_RESTART:
-                    generateNotification(context, context.getString(R.string.app_name), "Dostępna jest nowa ankieta"); //TODO Go to strings
+                    generateNotification(context, context.getString(R.string.app_name), context.getString(R.string.push_message_new_survey_subtitle));
                     localPreferences.setAppEventStatus(AppEventStatus.SURVEY_RESTART_PUSH_MESSAGE.ordinal());
                     Log.d(TAG, "Survey was restarted");
                     break;
@@ -104,7 +104,7 @@ public class OneSignalReceiver extends GcmBroadcastReceiver {
         Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_launcher)//TODO generate small icon
+                .setSmallIcon(R.drawable.ic_notification)
                 .setAutoCancel(true)
                 .setContentTitle(title)
                 .setLargeIcon(largeIcon)

@@ -23,4 +23,7 @@
     <string name="survey_submit_btn_close">Zamknij</string>
     <string name="survey_submit_btn_cancel">Anuluj</string>
 
+    <!-- Push messages -->
+    <string name="push_message_new_survey_subtitle">Dostępna jest nowa ankieta</string>
+
 </resources>
