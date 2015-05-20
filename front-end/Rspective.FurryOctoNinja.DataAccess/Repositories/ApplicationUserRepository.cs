@@ -41,5 +41,10 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
                 .Include("Roles")
                 .FirstOrDefault(user => user.Id == userId);
         }
+
+        public bool Exists(string login, int? exceptId)
+        {
+            return this.DbSet.Any(user => user.Login == login && (!exceptId.HasValue || exceptId.Value != user.Id));
+        }
     }
 }

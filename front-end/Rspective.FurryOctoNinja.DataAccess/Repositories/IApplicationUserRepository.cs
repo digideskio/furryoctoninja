@@ -12,5 +12,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
         ICollection<ApplicationUser> GetAllUsers();
 
         ApplicationUser Get(int userId);
+
+        bool Exists(string login, int? exceptId);
     }
 }

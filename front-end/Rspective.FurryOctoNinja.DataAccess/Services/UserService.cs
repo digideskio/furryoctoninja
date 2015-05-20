@@ -27,29 +27,41 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
         {
             return Mapper.Map<UserDTO>(this.userRepository.Get(userId));
         }
-        
-        public int Save(UserSaveDTO user)
+
+        public ValidateUserDTO Save(UserSaveDTO user)
         {
+            var result = new ValidateUserDTO() { };
+
+            if (this.userRepository.Exists(user.Login, null))
+            {
+                var errors = new List<string>() { "The user with given login exists." };
+                result.OverallErrors = errors;
+                return result;
+            }
+
             var applicationUser = Mapper.Map<ApplicationUser>(user);
+            applicationUser.Roles = new ApplicationUserRole[] { new ApplicationUserRole() { Name = "User" } };
 
-            applicationUser.Roles = new ApplicationUserRole[] {
-                new ApplicationUserRole() { Name = "User" }
-            };
-
-            return this.userRepository.Create(applicationUser).Id;
+            result.ValidatedUser = Mapper.Map<UserDTO>(this.userRepository.Create(applicationUser));
+            return result;
         }
 
-        public UserDTO Update(UserUpdateDTO user)
+        public ValidateUserDTO Update(UserUpdateDTO user)
         {
+            var result = new ValidateUserDTO() { };
+
+            if (this.userRepository.Exists(user.Login, null))
+            {
+                var errors = new List<string>() { "The user with given login exists." };
+                result.OverallErrors = errors;
+                return result;
+            }
+
             var applicationUser = Mapper.Map<ApplicationUser>(user);
-
-            applicationUser.Roles = new ApplicationUserRole[] {
-                new ApplicationUserRole() { Name = "User" }
-            };
-
+            // Map user roles
             var userId = this.userRepository.Update(applicationUser);
-
-            return this.Get(userId);
+            result.ValidatedUser = this.Get(userId);
+            return result;
         }
 
         public void Delete(int userId)

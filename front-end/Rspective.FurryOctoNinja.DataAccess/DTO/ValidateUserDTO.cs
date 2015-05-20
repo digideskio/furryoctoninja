@@ -10,6 +10,6 @@ namespace Rspective.FurryOctoNinja.DataAccess.DTO
     {
         public IList<string> OverallErrors { get; set; }
 
-        public AuthDTO ValidatedUser { get; set; }
+        public UserDTO ValidatedUser { get; set; }
     }
 }
