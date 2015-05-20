@@ -132,7 +132,6 @@ public class FormPresenter implements IFormPresenter {
                         survey.setSubmited(true);
                         storeSurvey();
                         formView.showSubmitDialog(SurveySubmitResultType.SURVEY_OK);
-//                        formView.showResultFragment();
                     }
                 }, new Action1<Throwable>() {
                     @Override

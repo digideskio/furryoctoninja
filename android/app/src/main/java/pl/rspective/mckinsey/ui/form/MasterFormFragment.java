@@ -138,6 +138,7 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
+                                btnSurveySubmit.setEnabled(true);
                                 sDialog.dismissWithAnimation();
                             }
                         });
@@ -173,6 +174,7 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
+                        btnSurveySubmit.setEnabled(false);
                         sDialog.dismissWithAnimation();
                         formPresenter.submitSurvey();
                     }
