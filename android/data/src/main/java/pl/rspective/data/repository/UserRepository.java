@@ -8,6 +8,8 @@ public interface UserRepository {
 
     UserPrefs loadUser();
 
+    void clearUser();
+
     String getUserAuthorizationToken();
 
 }

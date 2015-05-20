@@ -17,4 +17,6 @@ public interface IMainPresenter extends BasePresenter<IMainView> {
 
     void checkAppEventStatus();
 
+    void userLogout();
+
 }

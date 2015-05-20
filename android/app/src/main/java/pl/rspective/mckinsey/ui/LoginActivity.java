@@ -117,9 +117,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
                         .type(SnackbarType.SINGLE_LINE)
                         .duration(Snackbar.SnackbarDuration.LENGTH_SHORT)
                         .text(getString(messageResId)));
-
-
-//        runMainActivity();//TODO We don't have login method for now etc.
     }
 
     @Override

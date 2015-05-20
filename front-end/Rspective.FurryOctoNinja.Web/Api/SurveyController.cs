@@ -88,9 +88,9 @@ namespace Rspective.FurryOctoNinja.Web.Api
             this.surveyService.Reset();
 
             await OneSignalProvider.NotifyMobileDevices(
-                "SURVEY-CHANGED",
-                "Survey updated.",
-                "The survey has been updated recently, please reaload your content.");
+                "SURVEY-RESTART",
+                "Survey reseted.",
+                "The survey has been reseted recently, please reaload your content.");
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }

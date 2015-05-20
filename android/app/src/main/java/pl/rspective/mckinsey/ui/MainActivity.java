@@ -108,6 +108,8 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
             case 0:
                 break;
             case 1:
+                mainPresenter.userLogout();
+
                 Intent intent = new Intent(this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);

@@ -11,6 +11,7 @@
         self.created = { Id: undefined, Name:undefined, Login: undefined, Password: undefined };
         self.mode = -1;
 
+        self.errors = {};
         self.users = users;
 
         self.edit = function (user) {
@@ -19,11 +20,37 @@
             self.edited.Password = "";
         };
 
+        self.createDisabled = false;
         self.create = function () {
+            self.createDisabled = true;
+            api.user.create(self.created)
+                .then(function (user) {
+                })
+                .catch(function (error) {
+                    if (error.status == 400) {
+                        self.errors.create = error.data.OverallError;
+                    }
+
+                    self.createDisabled = false;
+                });
+
             return false;
         };
 
+        self.updateDisabled = false;
         self.update = function () {
+            self.updateDisabled = true;
+            api.user.update(self.edited)
+                .then(function (user) {
+                })
+                .catch(function (error) {
+                    if (error.status == 400) {
+                        self.errors.update = error.data.OverallError;
+                    }
+
+                    self.updateDisabled = false;
+                });
+
             return false;
         };
 
