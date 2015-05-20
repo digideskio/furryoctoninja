@@ -72,6 +72,7 @@ public class FormPresenter implements IFormPresenter {
 
         storeSurvey();
         formView.nextQuestion(number);
+
         bus.post(new AnswerUpdateEvent(survey.getQuestions().get(number)));
     }
 

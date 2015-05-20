@@ -57,7 +57,11 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
         super.onCreate(savedInstanceState);
         Injector.inject(this);
         setRetainInstance(true);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
         formPresenter.onResume(this);
     }
 
