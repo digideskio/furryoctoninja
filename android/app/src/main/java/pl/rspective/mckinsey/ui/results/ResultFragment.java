@@ -6,18 +6,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.ScaleAnimation;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.DefaultValueFormatter;
 import com.github.mikephil.charting.utils.ValueFormatter;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.squareup.otto.Bus;
@@ -58,7 +54,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     @InjectView(R.id.viewpagertab)
     SmartTabLayout smartTabLayout;
     @InjectView(R.id.barchart)
-    BarChart mChart;
+    PieChart mChart;
 
     private FormQuestionPagerAdapter adapter;
 
@@ -75,27 +71,10 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
         ButterKnife.inject(this, v);
 
         mChart.setDescription("");
-        mChart.setMarkerView(new MyMarkerView(getActivity(), R.layout.custom_marker_view));
-        mChart.setHighlightIndicatorEnabled(false);
-        mChart.setDrawGridBackground(false);
-        mChart.setDrawBarShadow(false);
-        mChart.setDrawValueAboveBar(true);
-        mChart.getAxisRight().setEnabled(false);
-        mChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        mChart.getXAxis().setEnabled(true);
-        mChart.getLegend().setEnabled(false);
-        mChart.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return viewPager.dispatchTouchEvent(motionEvent);
-            }
-        });
-        mChart.getAxisLeft().setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                return String.valueOf((int) Math.floor(value));
-            }
-        });
+        mChart.setDrawCenterText(true);
+        mChart.setCenterTextSize(15);
+        mChart.getLegend().setTextSize(15);
+        mChart.setNoDataText("Brak danych");
 
         return v;
     }
@@ -159,33 +138,35 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
 
         Question question = surveyResult.getQuestions().get(idx);
 
-        ArrayList<BarEntry> entries = new ArrayList<>();
+        int sum = 0;
+        ArrayList<Entry> entries = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
         for (int i = 0; i < question.getAnswers().size(); i++) {
-            entries.add(new BarEntry(question.getAnswers().get(i).getCount(), i));
-            labels.add(String.valueOf("abcdefgh".charAt(i)));
+            int count = question.getAnswers().get(i).getCount();
+            if (count > 0) {
+                entries.add(new Entry(count, i));
+                labels.add(String.valueOf("abcdefgh".charAt(i) + ")"));
+                sum += question.getAnswers().get(i).getCount();
+            }
         }
 
-        BarDataSet ds = new BarDataSet(entries, "");
-        ds.setColors(ColorTemplate.LIBERTY_COLORS);
+        PieDataSet ds = new PieDataSet(entries, "");
+        ds.setColors(ColorTemplate.VORDIPLOM_COLORS);
 
-        BarData data =  new BarData(labels, ds);
-        data.setDrawValues(false);
+        PieData data =  new PieData(labels, ds);
+        data.setValueTextSize(15);
+        data.setDrawValues(true);
+        data.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return String.valueOf((int) Math.floor(value));
+            }
+        });
 
         mChart.clearAnimation();
         mChart.setData(data);
-        mChart.getAxisLeft().setLabelCount(findMaxAnswersCount(question));
+        mChart.setCenterText("Razem:\n" + sum);
         mChart.animateY(500);
-    }
-
-    private int findMaxAnswersCount(Question question) {
-        int max = 0;
-        for (Answer answer : question.getAnswers()) {
-            if (answer.getCount() > max) {
-                max = answer.getCount();
-            }
-        }
-        return max;
     }
 
     @Override
