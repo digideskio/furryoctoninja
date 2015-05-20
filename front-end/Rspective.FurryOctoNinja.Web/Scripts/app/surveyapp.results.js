@@ -12,20 +12,21 @@
             self.resetDisabled = true;
             api.survey.reset()
                 .then(function () {
-                    return api.survey.results();   
+                    return api.survey.results();
                 })
                 .then(function (results) {
                     self.results = results;
                 })
-                .then(function() {
+                .then(function () {
                     self.resetDisabled = false;
                 })
-                .catch(function() {
+                .catch(function () {
                     self.resetDisabled = false;
                 });
         };
 
         self.results = results;
+        self.displayedQuestion = 0;
 
         dataRefresher.addTemporary(function () {
             api.survey.results()
