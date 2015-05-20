@@ -9,9 +9,9 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
 
         UserDTO Get(int userId);
 
-        int Save(UserSaveDTO user);
-        
-        UserDTO Update(UserUpdateDTO user);
+        ValidateUserDTO Save(UserSaveDTO user);
+
+        ValidateUserDTO Update(UserUpdateDTO user);
 
         void Delete(int userId);
     }

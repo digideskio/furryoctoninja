@@ -7,11 +7,16 @@
     function user(dataRefresher, api, users) {
         var self = this;
 
-        self.edited = -1;
+        self.edited = { Id: undefined, Name:undefined, Login: undefined, Password: undefined };
+        self.created = { Id: undefined, Name:undefined, Login: undefined, Password: undefined };
+        self.mode = -1;
+
         self.users = users;
 
         self.edit = function (user) {
-            self.edited = user.Id;
+            self.mode = user.Id;
+            angular.extend(self.edited, user);
+            self.edited.Password = "";
         };
 
         self.create = function () {

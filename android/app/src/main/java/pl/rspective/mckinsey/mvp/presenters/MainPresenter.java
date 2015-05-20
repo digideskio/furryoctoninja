@@ -11,6 +11,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import pl.rspective.data.entity.Survey;
+import pl.rspective.data.entity.UserPrefs;
 import pl.rspective.data.local.LocalPreferences;
 import pl.rspective.data.local.SurveyLocalStorage;
 import pl.rspective.data.local.model.StorageType;
@@ -67,7 +68,7 @@ public class MainPresenter implements IMainPresenter {
         switch (eventStatus) {
             case SURVEY_UPDATE_PUSH_MESSAGE:
                 if(userRepository.loadUser().getRole().equals(UserRole.USER)) {
-                    localPreferences.setFirstUserLogin(true);
+                    localPreferences.setSurveyLoaded(true);
                     localPreferences.setAppEventStatus(AppEventStatus.NO_EVENTS.ordinal());
                     view.showSurveyReloadDialog();
                 }

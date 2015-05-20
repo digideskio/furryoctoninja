@@ -97,11 +97,11 @@ public class FormPresenter implements IFormPresenter {
 
     @Override
     public void loadSurvey() {
-        subscriptionSurveyLoad = surveyRepository.fetchSurvey(!localPreferences.isUserFirstLogin())
+        subscriptionSurveyLoad = surveyRepository.fetchSurvey(!localPreferences.isSurveyLoaded())
                 .subscribe(new Action1<Survey>() {
                     @Override
                     public void call(Survey survey) {
-                        localPreferences.setFirstUserLogin(false);
+                        localPreferences.setSurveyLoaded(false);
 
                         FormPresenter.this.survey = survey;
                         formView.updateUi(survey);

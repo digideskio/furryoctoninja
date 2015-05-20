@@ -15,7 +15,6 @@
                     return api.survey.results();   
                 })
                 .then(function (results) {
-                    self.json = JSON.stringify(results, null, 4);
                     self.results = results;
                 })
                 .then(function() {
@@ -26,13 +25,11 @@
                 });
         };
 
-        self.json = JSON.stringify(results, null, 4);
         self.results = results;
 
         dataRefresher.addTemporary(function () {
             api.survey.results()
                .then(function (results) {
-                   self.json = JSON.stringify(results, null, 4);
                    self.results = results;
                });
         }, 45);

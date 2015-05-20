@@ -1,16 +1,35 @@
-﻿<div class="panel panel-default">
+﻿<div class="panel panel-default" ng-cloak ng-if="results.results">
     <div class="panel-heading">
         <h4>Results</h4>
+        <h5>{{results.results.Title}}</h5>
     </div>
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-12">
-                <span ng-bind="results.json"></span>
+                <div ng-repeat="question in results.results.Questions" ng-init="results.displayedQuestion = 0">
+                    <div ng-show="results.displayedQuestion === $index" ng-cloak>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <b>{{question.Text}}</b>
+                            </li>
+                        </ul>
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="answer in question.Answers" ng-class="{ selected: answer.IsUserChoice }">
+                                <label for="answer_{{answer.Id}}">{{answer.Text}} ({{answer.Count}})</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-        <hr />
         <div class="row">
             <div class="col-xs-12 text-right">
+                <ul class="pagination center-block" style="display:inline-block;">
+                    <li ng-repeat="question in results.results.Questions" ng-class="{ active: $index == results.displayedQuestion }">
+                        <a ng-click="results.displayedQuestion = $index">{{ $index + 1 }}</a>
+                    </li>
+                </ul>
+                <hr />
                 <button class="btn btn-danger" ng-click="results.reset()" ng-disabled="results.resetDisabled">Reset</button>
             </div>
         </div>

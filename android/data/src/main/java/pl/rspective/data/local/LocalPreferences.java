@@ -2,9 +2,9 @@ package pl.rspective.data.local;
 
 public interface LocalPreferences {
 
-    void setFirstUserLogin(boolean firstLogin);
+    void setSurveyLoaded(boolean firstLogin);
 
-    boolean isUserFirstLogin();
+    boolean isSurveyLoaded();
 
     void setAppEventStatus(int status);
 

@@ -43,8 +43,8 @@ public class PresenterModule {
 
     @Provides
     @Singleton
-    public ILoginPresenter provideLoginPresenter(UserRepository userRepositor, LoginRepository loginRepository) {
-        return new LoginPresenter(userRepositor, loginRepository);
+    public ILoginPresenter provideLoginPresenter(UserRepository userRepositor, LoginRepository loginRepository, SurveyLocalStorage<String> localStorage, LocalPreferences localPreferences) {
+        return new LoginPresenter(userRepositor, loginRepository, localStorage, localPreferences);
     }
 
     @Provides
