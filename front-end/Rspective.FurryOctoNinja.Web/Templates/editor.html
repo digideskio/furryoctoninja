@@ -62,8 +62,7 @@
                         <a ng-click="edit.displayedQuestion = $index">{{ $index + 1 }}</a>
                     </li>
                     <li>
-                        <button class="btn btn-success" ng-click="edit.addQuestion();"
-                                ng-disabled="((edit.survey.Questions || []).length === 0) ? false : !edit.survey.Questions[edit.survey.Questions.length - 1].Text">
+                        <button class="btn btn-success" ng-click="edit.addQuestion();">
                             Add new
                         </button>
                     </li>
