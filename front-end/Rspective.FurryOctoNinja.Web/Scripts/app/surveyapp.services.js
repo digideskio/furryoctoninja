@@ -101,6 +101,34 @@
                 })
                 .catch(handleError);
         };
+        self.user.get = function (id) {
+            return $http(prepareRequest("GET", "/api/user", { userId : id }))
+                .then(function (data) {
+                    return data.data;
+                })
+                .catch(handleError);
+        };
+        self.user.create = function (user) {
+            return $http(prepareRequest("POST", "/api/user", user))
+                .then(function (data) {
+                    return data.data;
+                })
+                .catch(handleError);
+        };
+        self.user.update = function (user) {
+            return $http(prepareRequest("PUT", "/api/user", user))
+                .then(function (data) {
+                    return data.data;
+                })
+                .catch(handleError);
+        };
+        self.user.delete = function (id) {
+            return $http(prepareRequest("DELETE", "/api/user", { userId : id}))
+                .then(function (data) {
+                    return data.data;
+                })
+                .catch(handleError);
+        };
 
         dataRefresher.addPermanent(function () {
             self.auth.refresh();
