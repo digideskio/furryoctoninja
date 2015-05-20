@@ -209,17 +209,13 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
 
         int max = findMaxAnswersCount(question);
 
-        if (max % 2 == 1) {
-            max += 1; // avoid IllegalArgumentException: Step value must be a divisor of distance between minValue and maxValue
-        }
-
         mBarChart.setBorderSpacing(0)
                 .setAxisBorderValues(0, max + (max % 2), 2) //
                 .setGrid(BarChartView.GridType.FULL, mBarGridPaint)
                 .setYAxis(false)
                 .setXLabels(XController.LabelPosition.OUTSIDE)
                 .setYLabels(YController.LabelPosition.NONE)
-                .show(new Animation());
+                .show();
     }
 
     private int findMaxAnswersCount(Question question) {
