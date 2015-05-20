@@ -45,6 +45,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerView
         Answer answer = answers.get(position);
 
         holder.tvAnswer.setText(answer.getText());
+        holder.tvAnswerIndex.setText("abcdefgh".charAt(position) + ")");
 
         if(answer.isSelected()) {
             holder.ivAnswerCheck.setVisibility(View.VISIBLE);
@@ -99,6 +100,9 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerView
 
         @InjectView(R.id.tv_question_answer)
         TextView tvAnswer;
+
+        @InjectView(R.id.tv_question_answer_index)
+        TextView tvAnswerIndex;
 
         @InjectView(R.id.iv_answer_check)
         ImageView ivAnswerCheck;

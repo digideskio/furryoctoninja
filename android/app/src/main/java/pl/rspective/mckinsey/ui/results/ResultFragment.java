@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.ScaleAnimation;
@@ -80,17 +81,21 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
         mChart.setDrawBarShadow(false);
         mChart.setDrawValueAboveBar(true);
         mChart.getAxisRight().setEnabled(false);
+        mChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        mChart.getXAxis().setEnabled(true);
+        mChart.getLegend().setEnabled(false);
+        mChart.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return viewPager.dispatchTouchEvent(motionEvent);
+            }
+        });
         mChart.getAxisLeft().setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
                 return String.valueOf((int) Math.floor(value));
             }
         });
-        mChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        mChart.getLegend().setEnabled(false);
-
-        XAxis xAxis = mChart.getXAxis();
-        xAxis.setEnabled(true);
 
         return v;
     }
@@ -142,8 +147,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        Object x = throwable == null;
-                        x = throwable;
+
                     }
                 });
     }
@@ -158,20 +162,30 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
         ArrayList<BarEntry> entries = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
         for (int i = 0; i < question.getAnswers().size(); i++) {
-            entries.add(new BarEntry(question.getAnswers().get(i).getCount(), i)); //, String.valueOf("abcdefgh".charAt(i))));
+            entries.add(new BarEntry(question.getAnswers().get(i).getCount(), i));
             labels.add(String.valueOf("abcdefgh".charAt(i)));
         }
 
-        BarDataSet ds = new BarDataSet(entries, "hello");
+        BarDataSet ds = new BarDataSet(entries, "");
         ds.setColors(ColorTemplate.LIBERTY_COLORS);
 
-        mChart.clearAnimation();
-
         BarData data =  new BarData(labels, ds);
-        mChart.setData(data);
-//        mChart.invalidate();
+        data.setDrawValues(false);
 
+        mChart.clearAnimation();
+        mChart.setData(data);
+        mChart.getAxisLeft().setLabelCount(findMaxAnswersCount(question));
         mChart.animateY(500);
+    }
+
+    private int findMaxAnswersCount(Question question) {
+        int max = 0;
+        for (Answer answer : question.getAnswers()) {
+            if (answer.getCount() > max) {
+                max = answer.getCount();
+            }
+        }
+        return max;
     }
 
     @Override
