@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Rspective.FurryOctoNinja.DataAccess.DbModel
 {
@@ -10,6 +11,11 @@ namespace Rspective.FurryOctoNinja.DataAccess.DbModel
 
         [MaxLength(200)]
         public string Text { get; set; }
+
+        [Key, ForeignKey("Survey")]
+        public int SurveyId { get; set; }
+
+        public virtual Survey Survey { get; set; }
 
         public virtual ICollection<Answer> Answers { get; set; }
     }
