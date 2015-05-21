@@ -103,7 +103,7 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
 
     @Override
     public void showSubmitButton() {
-        if(btnSurveySubmit.getVisibility() == View.VISIBLE) {
+        if (btnSurveySubmit.getVisibility() == View.VISIBLE) {
             return;
         }
 
@@ -135,6 +135,34 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
                             }
                         });
                 dialog.setCancelable(false);
+                dialog.show();
+                break;
+            case SURVEY_ALREADY_SEND:
+                dialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Uwaga")
+                        .setContentText(getString(resultType.getLabelTxtId()))
+                        .setConfirmText(getString(resultType.getButtonTxtId()))
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                showResultFragment();
+                                sDialog.dismissWithAnimation();
+                            }
+                        });
+                dialog.show();
+                break;
+            case SURVEY_WAS_CHANGED:
+                dialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Uwaga")
+                        .setContentText(getString(resultType.getLabelTxtId()))
+                        .setConfirmText(getString(resultType.getButtonTxtId()))
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                formPresenter.resetSurvey();
+                                sDialog.dismissWithAnimation();
+                            }
+                        });
                 dialog.show();
                 break;
             case SURVEY_ERROR:

@@ -151,21 +151,7 @@ public class FormPresenter implements IFormPresenter {
                 .subscribe(new Action1<Response>() {
                     @Override
                     public void call(Response response) {
-                        switch(response.getStatus()) {
-                            case SurveyResultCode.SURVEY_CHANED_RESPONSE:
-                                Log.d(TAG, "205 - survey was changed");
-                                formView.showSubmitDialog(SurveySubmitResultType.SURVEY_ERROR);
-                                return;
-                            case SurveyResultCode.SURVEY_ALREADY_SUBMITED_RESPONSE:
-                                Log.d(TAG, "409 - survey already sent");
-                                return;
-                            case SurveyResultCode.SURVEY_OK_RESPONSE:
-                                Log.d(TAG, "200 - everything is fine");
-                                survey.setSubmited(true);
-                                storeSurvey();
-                                formView.showSubmitDialog(SurveySubmitResultType.SURVEY_OK);
-                                return;
-                        }
+                        handleSurveySubmitResponse(response);
 
                     }
                 }, new Action1<Throwable>() {
@@ -174,6 +160,32 @@ public class FormPresenter implements IFormPresenter {
                         formView.showSubmitDialog(SurveySubmitResultType.SURVEY_ERROR);
                     }
                 });
+    }
+
+    @Override
+    public void resetSurvey() {
+        localPreferences.setSurveyLoaded(true);
+        localStorage.clear(StorageType.SURVEY);
+        loadSurvey();
+    }
+
+    private void handleSurveySubmitResponse(Response response) {
+        switch(response.getStatus()) {
+            case SurveyResultCode.SURVEY_CHANGED_RESPONSE:
+                Log.d(TAG, "205 - survey was changed");
+                formView.showSubmitDialog(SurveySubmitResultType.SURVEY_WAS_CHANGED);
+                return;
+            case SurveyResultCode.SURVEY_ALREADY_SUBMITED_RESPONSE:
+                Log.d(TAG, "409 - survey already sent");
+                formView.showSubmitDialog(SurveySubmitResultType.SURVEY_ALREADY_SEND);
+                return;
+            case SurveyResultCode.SURVEY_OK_RESPONSE:
+                Log.d(TAG, "200 - everything is fine");
+                survey.setSubmited(true);
+                storeSurvey();
+                formView.showSubmitDialog(SurveySubmitResultType.SURVEY_OK);
+                return;
+        }
     }
 
     @Override
