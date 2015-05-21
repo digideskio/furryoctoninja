@@ -152,6 +152,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
 
         PieDataSet ds = new PieDataSet(entries, "");
         ds.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        ds.setSliceSpace(3);
 
         PieData data =  new PieData(labels, ds);
         data.setValueTextSize(15);
@@ -162,9 +163,10 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
                 return String.valueOf((int) Math.floor(value));
             }
         });
-
+        mChart.highlightValues(null); // undo all highlights
         mChart.clearAnimation();
         mChart.setData(data);
+        mChart.highlightValues(null); // undo all highlights
         mChart.setCenterText("Razem:\n" + sum);
         mChart.animateY(500);
     }

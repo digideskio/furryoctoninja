@@ -13,7 +13,9 @@ import pl.rspective.data.local.LocalPreferences;
 import pl.rspective.data.local.SurveyLocalStorage;
 import pl.rspective.data.local.model.StorageType;
 import pl.rspective.data.repository.SurveyRepository;
+import pl.rspective.data.repository.UserRepository;
 import pl.rspective.data.rest.model.SurveySubmitRequest;
+import pl.rspective.data.rest.model.UserRole;
 import pl.rspective.mckinsey.architecture.bus.events.AnswerUpdateEvent;
 import pl.rspective.mckinsey.data.model.SurveySubmitResultType;
 import pl.rspective.mckinsey.mvp.views.IFormView;
@@ -25,6 +27,7 @@ public class FormPresenter implements IFormPresenter {
 
     private Bus bus;
     private LocalPreferences localPreferences;
+    private UserRepository userRepository;
     private SurveyRepository surveyRepository;
     private SurveyLocalStorage<String> localStorage;
 
@@ -36,9 +39,10 @@ public class FormPresenter implements IFormPresenter {
     private Survey survey;
 
     @Inject
-    public FormPresenter(Bus bus, SurveyRepository surveyRepository, SurveyLocalStorage<String> localStorage, LocalPreferences localPreferences) {
+    public FormPresenter(Bus bus, SurveyRepository surveyRepository, UserRepository userRepository, SurveyLocalStorage<String> localStorage, LocalPreferences localPreferences) {
         this.bus = bus;
         this.localPreferences = localPreferences;
+        this.userRepository = userRepository;
         this.surveyRepository = surveyRepository;
         this.localStorage = localStorage;
 
@@ -47,6 +51,13 @@ public class FormPresenter implements IFormPresenter {
 
     @Override
     public void updateSurvey(int number, Question question, Answer answer) {
+
+        // no need for any action if ADMIN
+        if (userRepository.loadUser().getRole() == UserRole.ADMIN) {
+            return;
+        }
+
+        // no need for any action if already submitted
         if(survey.isSubmited()) {
             return;
         }
