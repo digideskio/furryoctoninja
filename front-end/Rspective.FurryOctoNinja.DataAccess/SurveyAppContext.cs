@@ -1,4 +1,5 @@
 ﻿using Rspective.FurryOctoNinja.DataAccess.DbModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 
 namespace Rspective.FurryOctoNinja.DataAccess
@@ -19,5 +20,20 @@ namespace Rspective.FurryOctoNinja.DataAccess
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }
         public DbSet<ApplicationToken> ApplicationTokens { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Survey>()
+                .HasMany(s => s.Questions)
+                .WithRequired(q => q.Survey)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Question>()
+                .HasMany(s => s.Answers)
+                .WithRequired(q => q.Question)
+                .WillCascadeOnDelete(true);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

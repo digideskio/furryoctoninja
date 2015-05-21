@@ -136,7 +136,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             ValidateSurveyDTO result = this.Validate(survey);
             if (result.IsValid)
             {
-                this.surveyRepository.Update(Mapper.Map<Survey>(result.ValidatedSurvey));
+                this.surveyRepository.UpdateSurvey(survey);
             }
         }
 
