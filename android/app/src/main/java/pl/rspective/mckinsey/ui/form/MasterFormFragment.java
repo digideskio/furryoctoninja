@@ -14,6 +14,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
@@ -25,6 +26,7 @@ import pl.rspective.data.entity.Answer;
 import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.Survey;
 import pl.rspective.mckinsey.R;
+import pl.rspective.mckinsey.architecture.bus.events.SurveyChangedEvent;
 import pl.rspective.mckinsey.dagger.Injector;
 import pl.rspective.mckinsey.data.model.SurveySubmitResultType;
 import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
@@ -223,6 +225,24 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
                         btnSurveySubmit.setEnabled(false);
                         sDialog.dismissWithAnimation();
                         formPresenter.submitSurvey();
+                    }
+                })
+                .show();
+    }
+
+    @Subscribe
+    public void onSurveyChangedEvent(SurveyChangedEvent changedEvent) {
+        formPresenter.resetSurvey();
+        formPresenter.loadSurvey();
+
+        new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Ankieta aktualizacja")
+                .setContentText("Nastąpiła aktualizacja ankiety")
+                .setConfirmText("Ok")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
                     }
                 })
                 .show();
