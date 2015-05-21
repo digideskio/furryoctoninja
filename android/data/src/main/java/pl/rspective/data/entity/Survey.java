@@ -16,7 +16,7 @@ public class Survey {
     private String description;
 
     @SerializedName("CreatedDate")
-    private String createdDate; // FIXME long
+    private long createdDate;
 
     @SerializedName("Questions")
     private List<Question> questions;
@@ -38,7 +38,7 @@ public class Survey {
         return description;
     }
 
-    public String getCreatedDate() { // FIXME long
+    public long getCreatedDate() { // FIXME long
         return createdDate;
     }
 

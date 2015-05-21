@@ -1,5 +1,7 @@
 package pl.rspective.mckinsey.mvp.presenters;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.otto.Bus;
@@ -14,6 +16,7 @@ import pl.rspective.data.local.SurveyLocalStorage;
 import pl.rspective.data.local.model.StorageType;
 import pl.rspective.data.repository.SurveyRepository;
 import pl.rspective.data.repository.UserRepository;
+import pl.rspective.data.rest.SurveyResultCode;
 import pl.rspective.data.rest.model.SurveySubmitRequest;
 import pl.rspective.data.rest.model.UserRole;
 import pl.rspective.mckinsey.architecture.bus.events.AnswerUpdateEvent;
@@ -24,6 +27,8 @@ import rx.Subscription;
 import rx.functions.Action1;
 
 public class FormPresenter implements IFormPresenter {
+
+    private static final String TAG = "FormPresenter";
 
     private Bus bus;
     private LocalPreferences localPreferences;
@@ -146,9 +151,22 @@ public class FormPresenter implements IFormPresenter {
                 .subscribe(new Action1<Response>() {
                     @Override
                     public void call(Response response) {
-                        survey.setSubmited(true);
-                        storeSurvey();
-                        formView.showSubmitDialog(SurveySubmitResultType.SURVEY_OK);
+                        switch(response.getStatus()) {
+                            case SurveyResultCode.SURVEY_CHANED_RESPONSE:
+                                Log.d(TAG, "205 - survey was changed");
+                                formView.showSubmitDialog(SurveySubmitResultType.SURVEY_ERROR);
+                                return;
+                            case SurveyResultCode.SURVEY_ALREADY_SUBMITED_RESPONSE:
+                                Log.d(TAG, "409 - survey already sent");
+                                return;
+                            case SurveyResultCode.SURVEY_OK_RESPONSE:
+                                Log.d(TAG, "200 - everything is fine");
+                                survey.setSubmited(true);
+                                storeSurvey();
+                                formView.showSubmitDialog(SurveySubmitResultType.SURVEY_OK);
+                                return;
+                        }
+
                     }
                 }, new Action1<Throwable>() {
                     @Override

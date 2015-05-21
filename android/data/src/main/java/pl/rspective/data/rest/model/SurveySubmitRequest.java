@@ -5,20 +5,13 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-{ id:”id ankiety”,timestamp:”12345623432”,answers: [
-    { pytanie: id, odpowiedz: id },
-        …
-        ]
-        }
- */
 public class SurveySubmitRequest {
 
     @SerializedName("Id")
     private long id;
 
-//    @SerializedName("Timestamp")
-//    private String timestamp; //FIXME long
+    @SerializedName("Modified")
+    private long timestamp;
 
     @SerializedName("Answers")
     private List<AnswerRequest> surveyAnswers;
@@ -26,9 +19,9 @@ public class SurveySubmitRequest {
     public SurveySubmitRequest() {
     }
 
-    public SurveySubmitRequest(long id, String timestamp) {
+    public SurveySubmitRequest(long id, long timestamp) {
         this.id = id;
-//        this.timestamp = timestamp;
+        this.timestamp = timestamp;
         this.surveyAnswers = new ArrayList<>();
     }
 
