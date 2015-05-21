@@ -166,7 +166,6 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
         mChart.highlightValues(null); // undo all highlights
         mChart.clearAnimation();
         mChart.setData(data);
-        mChart.highlightValues(null); // undo all highlights
         mChart.setCenterText("Razem:\n" + sum);
         mChart.animateY(500);
     }
