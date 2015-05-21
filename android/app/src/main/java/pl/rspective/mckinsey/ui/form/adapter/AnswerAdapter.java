@@ -20,6 +20,8 @@ import pl.rspective.data.entity.Answer;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.ui.common.AdapterListener;
 
+import static com.norbsoft.typefacehelper.TypefaceHelper.typeface;
+
 public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerViewHolder> implements AdapterListener<Answer> {
 
     public static interface AnswerListener {
@@ -37,6 +39,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerView
     @Override
     public AnswerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_answer, parent, false);
+        typeface(itemView);
         return new AnswerViewHolder(this, itemView);
     }
 

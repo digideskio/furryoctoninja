@@ -24,6 +24,8 @@ import pl.rspective.mckinsey.architecture.bus.events.AnswerUpdateEvent;
 import pl.rspective.mckinsey.dagger.Injector;
 import pl.rspective.mckinsey.ui.form.adapter.AnswerAdapter;
 
+import static com.norbsoft.typefacehelper.TypefaceHelper.typeface;
+
 public class FormQuestionFragment extends Fragment implements AnswerAdapter.AnswerListener {
 
     public static interface QuestionListener {
@@ -87,6 +89,7 @@ public class FormQuestionFragment extends Fragment implements AnswerAdapter.Answ
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_form_answers, container, false);
         ButterKnife.inject(this, view);
+        typeface(view);
         return view;
     }
 

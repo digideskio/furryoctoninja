@@ -32,6 +32,8 @@ import pl.rspective.mckinsey.ui.AbsActivity;
 import pl.rspective.mckinsey.ui.form.adapter.FormQuestionPagerAdapter;
 import pl.rspective.mckinsey.ui.results.ResultFragment;
 
+import static com.norbsoft.typefacehelper.TypefaceHelper.typeface;
+
 public class MasterFormFragment extends Fragment implements IFormView, FormQuestionFragment.QuestionListener {
 
     @Inject
@@ -70,6 +72,7 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_form, container, false);
         ButterKnife.inject(this, view);
+        typeface(view);
         return view;
     }
 

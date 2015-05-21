@@ -71,7 +71,7 @@ public class MainPresenter implements IMainPresenter {
             case SURVEY_CHANGED_PUSH_MESSAGE:
                 Survey survey = gson.fromJson(surveyLocalStorage.load(StorageType.SURVEY), Survey.class);
 
-                if(survey == null || !survey.isSubmited()) {
+                if(survey == null || !survey.isSubmited() && userRepository.loadUser().getRole().equals(UserRole.USER)) {
                     localPreferences.setSurveyLoaded(true);
                     view.showSurveyReloadDialog();
                 }

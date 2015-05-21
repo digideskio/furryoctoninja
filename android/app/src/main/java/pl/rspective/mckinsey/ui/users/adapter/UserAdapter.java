@@ -15,6 +15,8 @@ import pl.rspective.data.entity.User;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.ui.common.AdapterListener;
 
+import static com.norbsoft.typefacehelper.TypefaceHelper.typeface;
+
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> implements AdapterListener<User> {
 
     private List<User> users;
@@ -26,6 +28,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @Override
     public UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_user, parent, false);
+        typeface(itemView);
         return new UserViewHolder(this, itemView);    }
 
     @Override
