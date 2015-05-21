@@ -25,9 +25,11 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import pl.rspective.data.entity.Answer;
 import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.Survey;
+import pl.rspective.data.local.LocalPreferences;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.architecture.bus.events.SurveyChangedEvent;
 import pl.rspective.mckinsey.dagger.Injector;
+import pl.rspective.mckinsey.data.model.AppEventStatus;
 import pl.rspective.mckinsey.data.model.SurveySubmitResultType;
 import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
 import pl.rspective.mckinsey.mvp.views.IFormView;
@@ -41,6 +43,9 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
 
     @Inject
     Bus bus;
+
+    @Inject
+    LocalPreferences localPreferences;
 
     @Inject
     IFormPresenter formPresenter;
@@ -232,6 +237,8 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
 
     @Subscribe
     public void onSurveyChangedEvent(SurveyChangedEvent changedEvent) {
+        localPreferences.setAppEventStatus(AppEventStatus.NO_EVENTS.ordinal());
+
         formPresenter.resetSurvey();
         formPresenter.loadSurvey();
 

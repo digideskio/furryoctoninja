@@ -9,4 +9,6 @@ public interface IFormResultView extends BaseView {
 
     void showResultFragment();
 
+    void showFormFragment();
+
 }

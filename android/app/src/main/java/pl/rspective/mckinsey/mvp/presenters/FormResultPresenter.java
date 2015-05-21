@@ -41,7 +41,7 @@ public class FormResultPresenter implements IFormResultPresenter {
     @Override
     public void restartSurvey() {
         formPresenter.resetSurvey();
-        view.showResultFragment();
+        view.showFormFragment();
     }
 
     @Override

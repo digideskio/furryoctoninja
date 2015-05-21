@@ -28,13 +28,16 @@ import butterknife.InjectView;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.Survey;
+import pl.rspective.data.local.LocalPreferences;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.architecture.bus.events.SurveyRestartEvent;
 import pl.rspective.mckinsey.architecture.bus.events.SurveyResultsUpdateEvent;
 import pl.rspective.mckinsey.dagger.Injector;
+import pl.rspective.mckinsey.data.model.AppEventStatus;
 import pl.rspective.mckinsey.mvp.presenters.IFormResultPresenter;
 import pl.rspective.mckinsey.mvp.views.IFormResultView;
 import pl.rspective.mckinsey.ui.AbsActivity;
+import pl.rspective.mckinsey.ui.form.MasterFormFragment;
 import pl.rspective.mckinsey.ui.form.adapter.FormQuestionPagerAdapter;
 
 
@@ -42,6 +45,9 @@ public class ResultFragment extends Fragment implements IFormResultView {
 
     @Inject
     Bus bus;
+
+    @Inject
+    LocalPreferences localPreferences;
 
     @Inject
     IFormResultPresenter formPresenter;
@@ -136,7 +142,7 @@ public class ResultFragment extends Fragment implements IFormResultView {
         ds.setColors(ColorTemplate.VORDIPLOM_COLORS);
         ds.setSliceSpace(3);
 
-        PieData data =  new PieData(labels, ds);
+        PieData data = new PieData(labels, ds);
         data.setValueTextSize(15);
         data.setDrawValues(true);
         data.setValueFormatter(new ValueFormatter() {
@@ -160,7 +166,7 @@ public class ResultFragment extends Fragment implements IFormResultView {
 
     @Override
     public void updateUi(Survey survey) {
-        if(survey == null || survey.getQuestions() == null) {
+        if (survey == null || survey.getQuestions() == null) {
             return;
         }
 
@@ -183,6 +189,11 @@ public class ResultFragment extends Fragment implements IFormResultView {
         ((AbsActivity) getActivity()).addFragment(ResultFragment.newInstance(), false, R.id.fl_main_fragment_container);
     }
 
+    @Override
+    public void showFormFragment() {
+        ((AbsActivity) getActivity()).addFragment(MasterFormFragment.newInstance(), false, R.id.fl_main_fragment_container);
+    }
+
 
     @Subscribe
     public void onSurveyResultsUpdateEvent(SurveyResultsUpdateEvent updateEvent) {
@@ -191,18 +202,21 @@ public class ResultFragment extends Fragment implements IFormResultView {
 
     @Subscribe
     public void onSurveyResetEvent(SurveyRestartEvent surveyRestartEvent) {
-       new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+        localPreferences.setAppEventStatus(AppEventStatus.NO_EVENTS.ordinal());
+
+        new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("Nowa ankieta!")
-                .setContentText("Ankieta została przeładowana")
+                .setContentText("Nastąpi ponowne załadowanie ankiety")
                 .setConfirmText("Ok")
-               .setCustomImage(R.drawable.ic_synchronisation)
+                .setCustomImage(R.drawable.ic_synchronisation)
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();
                         formPresenter.restartSurvey();
                     }
-                });
+                })
+                .show();
 
     }
 }
