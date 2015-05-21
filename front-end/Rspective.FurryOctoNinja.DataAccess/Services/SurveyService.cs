@@ -123,7 +123,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
                 throw new ArgumentNullException("survey");
             }
 
-            return new SurveyValidator(survey, this.userAnswerRepository.HasAnyoneCompleted(survey.Id)).Validate();
+            return new SurveyValidator(survey, this.surveyRepository.GetSurvey(), this.userAnswerRepository.HasAnyoneCompleted(survey.Id)).Validate();
         }
 
         public void Save(SurveyDTO survey)
@@ -136,7 +136,14 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             ValidateSurveyDTO result = this.Validate(survey);
             if (result.IsValid)
             {
-                this.surveyRepository.UpdateSurvey(survey);
+                if (this.userAnswerRepository.HasAnyoneCompleted(survey.Id))
+                {
+                    this.surveyRepository.MakeCorrections(result.ValidatedSurvey);
+                }
+                else
+                {
+                    this.surveyRepository.RecreteSurvey(survey);
+                }
             }
         }
 

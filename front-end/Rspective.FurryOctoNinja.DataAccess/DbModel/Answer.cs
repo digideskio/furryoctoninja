@@ -8,11 +8,6 @@ namespace Rspective.FurryOctoNinja.DataAccess.DbModel
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        public int QuestionId { get; set; }
-
-        public virtual Question Question { get; set; }
-
         [MaxLength(200)]
         public string Text { get; set; }
     }

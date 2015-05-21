@@ -6,6 +6,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
     interface ISurveyRepository : IRepository<Survey>
     {
         Survey GetSurvey();
-        void UpdateSurvey(SurveyDTO dto);
+        void RecreteSurvey(SurveyDTO dto);
+        void MakeCorrections(SurveyDTO surveyDTO);
     }
 }

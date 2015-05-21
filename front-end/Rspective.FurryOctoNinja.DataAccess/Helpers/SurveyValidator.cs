@@ -1,4 +1,6 @@
-﻿using Rspective.FurryOctoNinja.DataAccess.DTO;
+﻿using AutoMapper;
+using Rspective.FurryOctoNinja.DataAccess.DbModel;
+using Rspective.FurryOctoNinja.DataAccess.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +10,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Helpers
     class SurveyValidator
     {
         private readonly SurveyDTO survey;
+        private readonly Survey original;
         private readonly bool hasAnyoneCompleted;
 
         private const int MinQuestionsCount = 5;
@@ -16,14 +19,20 @@ namespace Rspective.FurryOctoNinja.DataAccess.Helpers
         private const int MinAnswersCount = 2;
         private const int MaxAnswersCount = 8;
 
-        public SurveyValidator(SurveyDTO survey, bool hasAnyoneCompleted)
+        public SurveyValidator(SurveyDTO survey, Survey original, bool hasAnyoneCompleted)
         {
             if (survey == null)
             {
                 throw new ArgumentNullException("survey");
             }
 
+            if (original == null)
+            {
+                throw new ArgumentNullException("original");
+            }
+
             this.survey = survey;
+            this.original = original;
             this.hasAnyoneCompleted = hasAnyoneCompleted;
         }
 
@@ -75,27 +84,23 @@ namespace Rspective.FurryOctoNinja.DataAccess.Helpers
         {
             var result = new ValidateSurveyDTO() { };
 
-            // check for addition/removal of question/answer
+            // check for addition of question/answer
             if (this.survey.Questions.Any(q => q.Id == default(int)) ||
                 this.survey.Questions.SelectMany(q => q.Answers).Any(a => a.Id == default(int)))
             {
-                result.OverallErrors.Add("You cannot add/remove questions/answers if anyone has completed the survey.");
+                result.OverallErrors.Add("You cannot add new questions or answers if anyone has completed the survey.");
             }
 
-            // restore survey:
-            // 1. keep changes for exitings questions/answers
-            // 2. remove added questions
-            // 3. remove added answers
-
-            result.ValidatedSurvey = this.survey;
-            var questions = survey.Questions.Where(q => q.Id != default(int));
-
-            foreach (QuestionDTO question in questions)
+            // check for removal of question/answer
+            if (this.survey.Questions.Count(q => q.Id != default(int)) != this.original.Questions.Count() ||
+                this.survey.Questions.SelectMany(q => q.Answers).Count(a => a.Id != default(int)) != this.original.Questions.SelectMany(q => q.Answers).Select(a => a.Id).Count())
             {
-                question.Answers = question.Answers.Where(a => a.Id != default(int));
+                result.OverallErrors.Add("You cannot remove existing questions or answers if anyone has completed the survey.");
             }
 
-            result.ValidatedSurvey.Questions = questions;
+            // restore survey
+
+            result.ValidatedSurvey = result.IsValid ? this.survey : Mapper.Map<SurveyDTO>(this.original);
             return result;
         }
     }
