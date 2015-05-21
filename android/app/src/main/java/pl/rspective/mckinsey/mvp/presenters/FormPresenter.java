@@ -122,11 +122,11 @@ public class FormPresenter implements IFormPresenter {
 
                         FormPresenter.this.survey = survey;
 
-                        formView.updateUi(survey);
-
                         if(survey.isSubmited()) {
                             formView.showResultFragment();
                         }
+
+                        formView.updateUi(survey);
 
                         if(survey.isReady() && !survey.isSubmited()) {
                             formView.showSubmitButton();

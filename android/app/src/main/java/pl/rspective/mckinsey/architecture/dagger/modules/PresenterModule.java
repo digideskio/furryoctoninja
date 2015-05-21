@@ -13,7 +13,9 @@ import pl.rspective.data.repository.SurveyRepository;
 import pl.rspective.data.repository.UserRepository;
 import pl.rspective.mckinsey.data.providers.MenuProvider;
 import pl.rspective.mckinsey.mvp.presenters.FormPresenter;
+import pl.rspective.mckinsey.mvp.presenters.FormResultPresenter;
 import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
+import pl.rspective.mckinsey.mvp.presenters.IFormResultPresenter;
 import pl.rspective.mckinsey.mvp.presenters.ILoginPresenter;
 import pl.rspective.mckinsey.mvp.presenters.IMainPresenter;
 import pl.rspective.mckinsey.mvp.presenters.IUserPresenter;
@@ -57,5 +59,11 @@ public class PresenterModule {
     @Singleton
     public IUserPresenter provideUserPresenter(SurveyRepository surveyRepository) {
         return new UserPresenter(surveyRepository);
+    }
+
+    @Provides
+    @Singleton
+    public IFormResultPresenter provideFormResultPresenter(Bus bus, SurveyRepository surveyRepository) {
+        return new FormResultPresenter(bus, surveyRepository);
     }
 }

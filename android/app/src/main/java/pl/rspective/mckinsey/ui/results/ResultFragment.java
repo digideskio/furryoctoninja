@@ -25,34 +25,30 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import pl.rspective.data.entity.Answer;
 import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.Survey;
-import pl.rspective.data.repository.SurveyRepository;
 import pl.rspective.mckinsey.R;
 import pl.rspective.mckinsey.architecture.bus.events.SurveyResultsUpdateEvent;
 import pl.rspective.mckinsey.dagger.Injector;
-import pl.rspective.mckinsey.data.model.SurveySubmitResultType;
-import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
-import pl.rspective.mckinsey.mvp.views.IFormView;
-import pl.rspective.mckinsey.ui.form.FormQuestionFragment;
+import pl.rspective.mckinsey.mvp.presenters.IFormResultPresenter;
+import pl.rspective.mckinsey.mvp.views.IFormResultView;
 import pl.rspective.mckinsey.ui.form.adapter.FormQuestionPagerAdapter;
-import rx.functions.Action1;
 
 
-public class ResultFragment extends Fragment implements IFormView, FormQuestionFragment.QuestionListener {
+public class ResultFragment extends Fragment implements IFormResultView {
 
     @Inject
     Bus bus;
+
     @Inject
-    IFormPresenter formPresenter;
-    @Inject
-    SurveyRepository surveyRepository;
+    IFormResultPresenter formPresenter;
 
     @InjectView(R.id.viewpager)
     ViewPager viewPager;
+
     @InjectView(R.id.viewpagertab)
     SmartTabLayout smartTabLayout;
+
     @InjectView(R.id.barchart)
     PieChart mChart;
 
@@ -102,7 +98,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        adapter = new FormQuestionPagerAdapter(getFragmentManager(), this);
+        adapter = new FormQuestionPagerAdapter(getFragmentManager(), null);
         smartTabLayout.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -111,20 +107,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
             }
         });
 
-        surveyRepository.fetchSurveyResults()
-                .subscribe(new Action1<Survey>() {
-                    @Override
-                    public void call(Survey surveyResult) {
-                        updateUi(surveyResult);
-                        ResultFragment.this.surveyResult = surveyResult;
-                        updateBarChart(0);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-
-                    }
-                });
+        formPresenter.loadSurveyResults();
     }
 
     private void updateBarChart(int idx) {
@@ -178,29 +161,13 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
             return;
         }
 
+        this.surveyResult = survey;
+
+        updateBarChart(0);
+
         adapter.updateData(survey.getQuestions());
         viewPager.setAdapter(adapter);
         smartTabLayout.setViewPager(viewPager);
-    }
-
-    @Override
-    public void showSubmitButton() {
-
-    }
-
-    @Override
-    public void showResultFragment() {
-
-    }
-
-    @Override
-    public void showSubmitDialog(SurveySubmitResultType type) {
-
-    }
-
-    @Override
-    public void nextQuestion(int position) {
-
     }
 
     @Override
@@ -208,13 +175,8 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
         return getActivity();
     }
 
-    @Override
-    public void onQuestionUpdate(int number, Question question, Answer answer) {
-        formPresenter.updateSurvey(number, question, answer);
-    }
-
     @Subscribe
     public void onSurveyResultsUpdateEvent(SurveyResultsUpdateEvent updateEvent) {
-        formPresenter.loadSurvey();
+        formPresenter.loadSurveyResults();
     }
 }

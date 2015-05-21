@@ -108,7 +108,9 @@ public class FormQuestionFragment extends Fragment implements AnswerAdapter.Answ
 
     @Override
     public void onAnswerClick(int position, Answer answer) {
-        questionListener.onQuestionUpdate(questionNumber, question, answer);
+        if(questionListener != null) {
+            questionListener.onQuestionUpdate(questionNumber, question, answer);
+        }
     }
 
     public void setQuestionListener(QuestionListener questionListener) {
