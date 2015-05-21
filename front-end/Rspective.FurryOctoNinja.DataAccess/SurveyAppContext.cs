@@ -22,7 +22,7 @@ namespace Rspective.FurryOctoNinja.DataAccess
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Survey>()
+            /*modelBuilder.Entity<Survey>()
                 .HasMany(s => s.Questions)
                 .WithRequired(q => q.Survey)
                 .WillCascadeOnDelete(true);
@@ -45,7 +45,7 @@ namespace Rspective.FurryOctoNinja.DataAccess
             modelBuilder.Entity<UserAnswer>()
                 .HasRequired(ua => ua.Survey)
                 .WithRequiredDependent()
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(false);*/
 
             base.OnModelCreating(modelBuilder);
         }
