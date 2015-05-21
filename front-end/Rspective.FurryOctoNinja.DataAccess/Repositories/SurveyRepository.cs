@@ -21,6 +21,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
                 .Include("Questions")
                 .Include("Questions.Answers")
                 .FirstOrDefault();
+
             if (survey.Questions == null)
             {
                 survey.Questions = new List<Question>();
@@ -45,7 +46,11 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
                 throw new InvalidOperationException();
             }
 
-            this.Delete(survey);
+            Context.Set<Answer>().RemoveRange(survey.Questions.SelectMany(q => q.Answers));
+            Context.Set<Question>().RemoveRange(survey.Questions);
+            Context.Set<Survey>().Remove(survey);
+            Context.SaveChanges();
+
             this.Create(Mapper.Map<Survey>(dto));
         }
 

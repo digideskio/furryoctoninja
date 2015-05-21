@@ -29,10 +29,14 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
         {
             var survey = surveyRepository.GetSurvey();
 
-            // TODO: Create Survet if it's empty
             if (survey == null)
             {
-                throw new InvalidOperationException();;
+                survey = this.surveyRepository.Create(new Survey()
+                {
+                    Title = "Title",
+                    Description = "Description",
+                    CreatedDate = DateTime.UtcNow
+                });
             }
 
             var result = Mapper.Map<SurveyDTO>(survey);
@@ -41,6 +45,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             {
                 result.CompletedByUser = this.userAnswerRepository.HasCompleted(survey.Id, userId.Value);
             }
+
             return result;
         }
 
