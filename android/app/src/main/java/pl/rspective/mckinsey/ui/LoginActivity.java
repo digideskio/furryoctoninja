@@ -30,6 +30,7 @@ import rx.functions.Action1;
 import rx.functions.Func2;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
+import static com.norbsoft.typefacehelper.TypefaceHelper.typeface;
 
 
 public class LoginActivity extends AppCompatActivity implements ILoginView {
@@ -65,6 +66,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         passwordChangeObservable = WidgetObservable.text(etPassword.getEditText());
 
         combineFieldsEvents();
+
+        typeface(this);
     }
 
     private void combineFieldsEvents() {

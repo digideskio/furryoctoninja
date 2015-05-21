@@ -28,6 +28,8 @@ import pl.rspective.mckinsey.mvp.presenters.IUserPresenter;
 import pl.rspective.mckinsey.mvp.views.IUserView;
 import pl.rspective.mckinsey.ui.users.adapter.UsersFormPagerAdapter;
 
+import static com.norbsoft.typefacehelper.TypefaceHelper.typeface;
+
 public class MasterUserFragment extends Fragment implements IUserView {
 
     public static interface UserUpdateListListener {
@@ -67,6 +69,7 @@ public class MasterUserFragment extends Fragment implements IUserView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_form_users_master, container, false);
         ButterKnife.inject(this, view);
+        typeface(view);
         return view;
     }
 

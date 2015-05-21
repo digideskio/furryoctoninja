@@ -20,6 +20,8 @@ import pl.rspective.mckinsey.ui.users.adapter.UserAdapter;
 import rx.Observable;
 import rx.functions.Func1;
 
+import static com.norbsoft.typefacehelper.TypefaceHelper.typeface;
+
 public class UserListFragment extends Fragment implements MasterUserFragment.UserUpdateListListener {
 
     private static final String HAS_USERS_FILLEDOUT_THE_FORM_EXTRA = "has_users_filledout_form_extra";
@@ -54,6 +56,7 @@ public class UserListFragment extends Fragment implements MasterUserFragment.Use
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_form_users_list, container, false);
         ButterKnife.inject(this, view);
+        typeface(view);
         return view;
     }
 

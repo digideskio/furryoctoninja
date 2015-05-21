@@ -31,6 +31,8 @@ import rx.Observer;
 import rx.Subscription;
 import rx.subjects.PublishSubject;
 
+import static com.norbsoft.typefacehelper.TypefaceHelper.typeface;
+
 public class MainActivity extends AbsActivity implements OnMenuItemClickListener, OnMenuItemLongClickListener, IMainView, Observer<NetworkAction> {
 
     @Inject
@@ -63,6 +65,8 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
         initMenuItems();
 
         subscription = networkActivity.subscribe(this);
+
+        typeface(this);
     }
 
     private void initMenuItems() {
