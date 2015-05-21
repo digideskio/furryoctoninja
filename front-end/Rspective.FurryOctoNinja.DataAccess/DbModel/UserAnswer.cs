@@ -13,17 +13,17 @@ namespace Rspective.FurryOctoNinja.DataAccess.DbModel
 
         public virtual ApplicationUser User { get; set; }
 
-        [ForeignKey("Survey")]
+        [Required]
         public int SurveyId { get; set; }
 
         public virtual Survey Survey { get; set; }
 
-        [ForeignKey("Question")]
+        [Required]
         public int QuestionId { get; set; }
 
         public virtual Question Question { get; set; }
 
-        [ForeignKey("Answer")]
+        [Required]
         public int AnswerId { get; set; }
 
         public virtual Answer Answer { get; set; }

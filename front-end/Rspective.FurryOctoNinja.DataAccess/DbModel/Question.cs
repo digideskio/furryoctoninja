@@ -12,7 +12,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.DbModel
         [MaxLength(200)]
         public string Text { get; set; }
 
-        [ForeignKey("Survey")]
+        [Required]
         public int SurveyId { get; set; }
 
         public virtual Survey Survey { get; set; }
