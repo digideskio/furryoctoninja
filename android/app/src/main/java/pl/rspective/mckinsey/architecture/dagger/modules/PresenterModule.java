@@ -63,7 +63,7 @@ public class PresenterModule {
 
     @Provides
     @Singleton
-    public IFormResultPresenter provideFormResultPresenter(Bus bus, SurveyRepository surveyRepository) {
-        return new FormResultPresenter(bus, surveyRepository);
+    public IFormResultPresenter provideFormResultPresenter(IFormPresenter formPresenter, SurveyRepository surveyRepository) {
+        return new FormResultPresenter(formPresenter, surveyRepository);
     }
 }

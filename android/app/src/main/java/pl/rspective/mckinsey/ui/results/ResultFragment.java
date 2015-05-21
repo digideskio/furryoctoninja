@@ -25,13 +25,16 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.Survey;
 import pl.rspective.mckinsey.R;
+import pl.rspective.mckinsey.architecture.bus.events.SurveyRestartEvent;
 import pl.rspective.mckinsey.architecture.bus.events.SurveyResultsUpdateEvent;
 import pl.rspective.mckinsey.dagger.Injector;
 import pl.rspective.mckinsey.mvp.presenters.IFormResultPresenter;
 import pl.rspective.mckinsey.mvp.views.IFormResultView;
+import pl.rspective.mckinsey.ui.AbsActivity;
 import pl.rspective.mckinsey.ui.form.adapter.FormQuestionPagerAdapter;
 
 
@@ -175,8 +178,31 @@ public class ResultFragment extends Fragment implements IFormResultView {
         return getActivity();
     }
 
+    @Override
+    public void showResultFragment() {
+        ((AbsActivity) getActivity()).addFragment(ResultFragment.newInstance(), false, R.id.fl_main_fragment_container);
+    }
+
+
     @Subscribe
     public void onSurveyResultsUpdateEvent(SurveyResultsUpdateEvent updateEvent) {
         formPresenter.loadSurveyResults();
+    }
+
+    @Subscribe
+    public void onSurveyResetEvent(SurveyRestartEvent surveyRestartEvent) {
+       new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("Nowa ankieta!")
+                .setContentText("Ankieta została przeładowana")
+                .setConfirmText("Ok")
+               .setCustomImage(R.drawable.ic_synchronisation)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                        formPresenter.restartSurvey();
+                    }
+                });
+
     }
 }

@@ -7,4 +7,6 @@ public interface IFormResultPresenter extends BasePresenter<IFormResultView> {
 
     void loadSurveyResults();
 
+    void restartSurvey();
+
 }

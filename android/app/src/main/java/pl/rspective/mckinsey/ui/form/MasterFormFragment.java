@@ -13,6 +13,7 @@ import android.widget.Button;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
 
@@ -35,6 +36,9 @@ import pl.rspective.mckinsey.ui.results.ResultFragment;
 import static com.norbsoft.typefacehelper.TypefaceHelper.typeface;
 
 public class MasterFormFragment extends Fragment implements IFormView, FormQuestionFragment.QuestionListener {
+
+    @Inject
+    Bus bus;
 
     @Inject
     IFormPresenter formPresenter;
@@ -64,7 +68,14 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
     @Override
     public void onResume() {
         super.onResume();
+        bus.register(this);
         formPresenter.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        bus.unregister(this);
     }
 
     @Nullable

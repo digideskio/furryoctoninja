@@ -1,7 +1,5 @@
 package pl.rspective.mckinsey.mvp.presenters;
 
-import com.squareup.otto.Bus;
-
 import javax.inject.Inject;
 
 import pl.rspective.data.entity.Survey;
@@ -12,15 +10,15 @@ import rx.functions.Action1;
 
 public class FormResultPresenter implements IFormResultPresenter {
 
-    private Bus bus;
+    private IFormPresenter formPresenter;
     private SurveyRepository surveyRepository;
     private Subscription subscriptionSurveyResult;
 
     private IFormResultView view;
 
     @Inject
-    public FormResultPresenter(Bus bus, SurveyRepository surveyRepository) {
-        this.bus = bus;
+    public FormResultPresenter(IFormPresenter formPresenter, SurveyRepository surveyRepository) {
+        this.formPresenter = formPresenter;
         this.surveyRepository = surveyRepository;
     }
 
@@ -38,6 +36,12 @@ public class FormResultPresenter implements IFormResultPresenter {
 
                     }
                 });
+    }
+
+    @Override
+    public void restartSurvey() {
+        formPresenter.resetSurvey();
+        view.showResultFragment();
     }
 
     @Override

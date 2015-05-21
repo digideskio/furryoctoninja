@@ -7,4 +7,6 @@ public interface IFormResultView extends BaseView {
 
     void updateUi(Survey survey);
 
+    void showResultFragment();
+
 }
