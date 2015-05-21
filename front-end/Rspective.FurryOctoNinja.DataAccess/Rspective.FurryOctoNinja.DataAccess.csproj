@@ -94,6 +94,7 @@
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\UserSaveDTO.cs" />
     <Compile Include="DTO\ValidateLoginDTO.cs" />
+    <Compile Include="DTO\ValidateSaveDTO.cs" />
     <Compile Include="DTO\ValidateSurveyDTO.cs" />
     <Compile Include="DTO\UserUpdateDTO.cs" />
     <Compile Include="DTO\ValidateUserDTO.cs" />

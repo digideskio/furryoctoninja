@@ -58,7 +58,13 @@ namespace Rspective.FurryOctoNinja.Web.Api
             var userId = base.AuthenticatedUser.Id;
             var surveyDTO = Mapper.Map<SurveySaveDTO>(survey);
 
-            if (!this.surveyService.ValidateSave(userId, surveyDTO))
+            var validation = this.surveyService.ValidateSave(userId, surveyDTO);
+            if (validation.AlreadyCompleted)
+            {
+                return Request.CreateResponse(HttpStatusCode.Conflict);
+            }
+
+            if (validation.ContentChanged)
             {
                 return Request.CreateResponse(HttpStatusCode.ResetContent);
             }

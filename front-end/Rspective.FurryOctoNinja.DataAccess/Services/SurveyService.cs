@@ -152,18 +152,17 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
             }
         }
 
-        public bool ValidateSave(int userId, SurveySaveDTO surveySave)
+        public ValidateSaveDTO ValidateSave(int userId, SurveySaveDTO surveySave)
         {
             var survey = this.GetSurvey(null);
 
             // TODO: Validate dates!
 
-            if (this.userAnswerRepository.HasCompleted(surveySave.Id, userId))
-            {
-                return false;
-            }
+            var result = new ValidateSaveDTO();
 
-            return true;
+            result.AlreadyCompleted = this.userAnswerRepository.HasCompleted(surveySave.Id, userId);
+
+            return result;
         }
     }
 }

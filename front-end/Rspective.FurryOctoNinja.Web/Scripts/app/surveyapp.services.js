@@ -140,7 +140,9 @@
                 url: url,
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Token " + clientId + ":" + authStorage.token()
+                    "Authorization": "Token " + clientId + ":" + authStorage.token(),
+                    "Cache-Control": "no-cache, no-store, must-revalidate",
+                    "Pragma": "no-cache"
                 },
                 data: payload
             }
