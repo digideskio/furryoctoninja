@@ -59,7 +59,6 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     private FormQuestionPagerAdapter adapter;
 
     private Survey surveyResult;
-    private int idx;
 
     public static Fragment newInstance() {
         return new ResultFragment();
@@ -108,20 +107,17 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-
-                idx = position;
-                updateBarChart(idx);
+                updateBarChart(position);
             }
         });
-
-        formPresenter.loadSurvey();
 
         surveyRepository.fetchSurveyResults()
                 .subscribe(new Action1<Survey>() {
                     @Override
                     public void call(Survey surveyResult) {
+                        updateUi(surveyResult);
                         ResultFragment.this.surveyResult = surveyResult;
-                        updateBarChart(idx);
+                        updateBarChart(0);
                     }
                 }, new Action1<Throwable>() {
                     @Override
