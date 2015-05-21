@@ -1,5 +1,4 @@
 ﻿using Rspective.FurryOctoNinja.DataAccess.DbModel;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 
 namespace Rspective.FurryOctoNinja.DataAccess
@@ -32,6 +31,21 @@ namespace Rspective.FurryOctoNinja.DataAccess
                 .HasMany(s => s.Answers)
                 .WithRequired(q => q.Question)
                 .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<UserAnswer>()
+                .HasRequired(ua => ua.Answer)
+                .WithRequiredDependent()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<UserAnswer>()
+                .HasRequired(ua => ua.Question)
+                .WithRequiredDependent()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<UserAnswer>()
+                .HasRequired(ua => ua.Survey)
+                .WithRequiredDependent()
+                .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);
         }

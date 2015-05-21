@@ -8,7 +8,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.DbModel
         [Key]
         public int Id { get; set; }
 
-        [Key, ForeignKey("Question")]
+        [ForeignKey("Question")]
         public int QuestionId { get; set; }
 
         public virtual Question Question { get; set; }
