@@ -156,11 +156,15 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
         {
             var survey = this.GetSurvey(null);
 
-            // TODO: Validate dates!
+            // truncate milliseconds
+            var created = survey.CreatedDate.AddMilliseconds(-survey.CreatedDate.Millisecond);
+            var modified = surveySave.Modified.AddMilliseconds(-surveySave.Modified.Millisecond);
 
-            var result = new ValidateSaveDTO();
-
-            result.AlreadyCompleted = this.userAnswerRepository.HasCompleted(surveySave.Id, userId);
+            var result = new ValidateSaveDTO()
+            {
+                AlreadyCompleted = this.userAnswerRepository.HasCompleted(surveySave.Id, userId),
+                ContentChanged = created > modified,
+            };
 
             return result;
         }
