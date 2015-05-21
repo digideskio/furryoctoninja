@@ -51,7 +51,10 @@ namespace Rspective.FurryOctoNinja.DataAccess.Repositories
             Context.Set<Survey>().Remove(survey);
             Context.SaveChanges();
 
-            this.Create(Mapper.Map<Survey>(dto));
+            var @new = Mapper.Map<Survey>(dto);
+            @new.CreatedDate = DateTime.UtcNow;
+
+            this.Create(@new);
         }
 
         public void MakeCorrections(SurveyDTO surveyDTO)

@@ -102,6 +102,7 @@
         {
             var mock = new Survey()
             {
+                CreatedDate = DateTime.UtcNow,
                 Title = "Test",
                 Description = "Some test survey",
                 Questions = new Question[] { 

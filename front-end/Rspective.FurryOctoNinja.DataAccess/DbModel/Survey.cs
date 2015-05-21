@@ -17,8 +17,7 @@ namespace Rspective.FurryOctoNinja.DataAccess.DbModel
         public string Description { get; set; }
 
         [DataType(DataType.DateTime)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)] 
-        public DateTime? CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         public virtual ICollection<Question> Questions { get; set; }
     }

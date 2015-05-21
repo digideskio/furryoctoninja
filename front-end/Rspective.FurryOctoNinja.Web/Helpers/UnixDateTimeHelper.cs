@@ -21,7 +21,7 @@ namespace Rspective.FurryOctoNinja.Web.Helpers
             }
 
             var epoc = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            var delta = self.ToUniversalTime() - epoc;
+            var delta = self - epoc;
 
             if (delta.TotalSeconds < 0) throw new ArgumentOutOfRangeException(InvalidUnixEpochErrorMessage);
 

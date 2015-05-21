@@ -10,6 +10,7 @@
         self.survey = survey;
 
         self.saveSurvey = {};
+        self.saveSurvey.Modified = survey.CreatedDate;
         self.saveSurvey.Id = survey.Id;
         self.saveSurvey.Answers = [];
 
