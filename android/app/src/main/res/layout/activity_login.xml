@@ -43,7 +43,7 @@
             custom:pb_colorPressed="@color/blue_pressed"
             custom:pb_colorProgress="@color/purple_progress"
             custom:pb_textComplete="Koniec"
-            custom:pb_textProgress="Loading"/>
+            custom:pb_textProgress="Logowanie"/>
 
     </LinearLayout>
 
