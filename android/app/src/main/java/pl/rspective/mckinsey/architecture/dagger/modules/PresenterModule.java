@@ -43,14 +43,14 @@ public class PresenterModule {
 
     @Provides
     @Singleton
-    public ILoginPresenter provideLoginPresenter(UserRepository userRepositor, LoginRepository loginRepository, SurveyLocalStorage<String> localStorage, LocalPreferences localPreferences) {
-        return new LoginPresenter(userRepositor, loginRepository, localStorage, localPreferences);
+    public ILoginPresenter provideLoginPresenter(UserRepository userRepository, LoginRepository loginRepository, SurveyLocalStorage<String> localStorage, LocalPreferences localPreferences) {
+        return new LoginPresenter(userRepository, loginRepository, localStorage, localPreferences);
     }
 
     @Provides
     @Singleton
-    public IFormPresenter provideFormPresenter(Bus bus, SurveyRepository surveyRepository, SurveyLocalStorage<String> localStorage, LocalPreferences localPreferences) {
-        return new FormPresenter(bus, surveyRepository, localStorage, localPreferences);
+    public IFormPresenter provideFormPresenter(Bus bus, SurveyRepository surveyRepository, UserRepository userRepository, SurveyLocalStorage<String> localStorage, LocalPreferences localPreferences) {
+        return new FormPresenter(bus, surveyRepository, userRepository, localStorage, localPreferences);
     }
 
     @Provides

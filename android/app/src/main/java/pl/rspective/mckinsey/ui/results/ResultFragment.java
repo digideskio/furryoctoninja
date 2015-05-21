@@ -59,7 +59,6 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     private FormQuestionPagerAdapter adapter;
 
     private Survey surveyResult;
-    private int idx;
 
     public static Fragment newInstance() {
         return new ResultFragment();
@@ -108,20 +107,17 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-
-                idx = position;
-                updateBarChart(idx);
+                updateBarChart(position);
             }
         });
-
-        formPresenter.loadSurvey();
 
         surveyRepository.fetchSurveyResults()
                 .subscribe(new Action1<Survey>() {
                     @Override
                     public void call(Survey surveyResult) {
+                        updateUi(surveyResult);
                         ResultFragment.this.surveyResult = surveyResult;
-                        updateBarChart(idx);
+                        updateBarChart(0);
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -152,6 +148,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
 
         PieDataSet ds = new PieDataSet(entries, "");
         ds.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        ds.setSliceSpace(3);
 
         PieData data =  new PieData(labels, ds);
         data.setValueTextSize(15);
@@ -162,7 +159,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
                 return String.valueOf((int) Math.floor(value));
             }
         });
-
+        mChart.highlightValues(null); // undo all highlights
         mChart.clearAnimation();
         mChart.setData(data);
         mChart.setCenterText("Razem:\n" + sum);
