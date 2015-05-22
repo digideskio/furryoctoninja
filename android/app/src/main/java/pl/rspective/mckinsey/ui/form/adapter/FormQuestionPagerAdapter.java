@@ -41,7 +41,10 @@ public class FormQuestionPagerAdapter extends SmartFragmentStatePagerAdapter imp
     @Override
     public Fragment getItem(int position) {
         FormQuestionFragment fragment = FormQuestionFragment.newInstance(position, questions.get(position));
-        fragment.setQuestionListener(questionListener);
+
+        if(questionListener != null) {
+            fragment.setQuestionListener(questionListener);
+        }
         return fragment;
     }
 

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.squareup.otto.Bus;
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 import com.yalantis.contextmenu.lib.MenuParams;
 import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
@@ -34,6 +35,9 @@ import rx.subjects.PublishSubject;
 import static com.norbsoft.typefacehelper.TypefaceHelper.typeface;
 
 public class MainActivity extends AbsActivity implements OnMenuItemClickListener, OnMenuItemLongClickListener, IMainView, Observer<NetworkAction> {
+
+    @Inject
+    Bus bus;
 
     @Inject
     PublishSubject<NetworkAction> networkActivity;
@@ -144,18 +148,15 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
 
     @Override
     public void onError(Throwable e) {
-//        loadingContainer.setVisibility(View.GONE);
     }
 
     @Override
         public void onNext(NetworkAction networkAction) {
         switch (networkAction) {
             case HTTP_REQUEST_START:
-//                loadingContainer.setVisibility(View.VISIBLE);
                 break;
 
             case HTTP_REQUEST_END:
-//                loadingContainer.setVisibility(View.GONE);
                 break;
         }
     }
@@ -174,6 +175,13 @@ public class MainActivity extends AbsActivity implements OnMenuItemClickListener
                 .setTitleText("Nowa ankieta!")
                 .setContentText("Ankieta została przeładowana")
                 .setCustomImage(R.drawable.ic_synchronisation)
+                .setConfirmText("Ok")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                    }
+                })
                 .show();
     }
 }

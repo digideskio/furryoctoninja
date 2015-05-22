@@ -22,6 +22,8 @@ import javax.inject.Inject;
 import pl.rspective.data.local.LocalPreferences;
 import pl.rspective.data.local.SurveyLocalStorage;
 import pl.rspective.mckinsey.R;
+import pl.rspective.mckinsey.architecture.bus.events.SurveyChangedEvent;
+import pl.rspective.mckinsey.architecture.bus.events.SurveyRestartEvent;
 import pl.rspective.mckinsey.architecture.bus.events.SurveyResultsUpdateEvent;
 import pl.rspective.mckinsey.dagger.Injector;
 import pl.rspective.mckinsey.data.model.AppEventStatus;
@@ -73,10 +75,12 @@ public class OneSignalReceiver extends GcmBroadcastReceiver {
                     generateNotification(context, context.getString(R.string.app_name), context.getString(R.string.push_message_new_survey_subtitle));
                     localPreferences.setAppEventStatus(AppEventStatus.SURVEY_RESTART_PUSH_MESSAGE.ordinal());
                     Log.d(TAG, "Survey was restarted");
+                    bus.post(new SurveyRestartEvent());
                     break;
                 case SURVEY_CHANGED:
                     localPreferences.setAppEventStatus(AppEventStatus.SURVEY_CHANGED_PUSH_MESSAGE.ordinal());
                     Log.d(TAG, "Survey was changed");
+                    bus.post(new SurveyChangedEvent());
                     break;
                 case SURVEY_RESULTS_UPDATED:
                     Log.d(TAG, "Refresh survey results");

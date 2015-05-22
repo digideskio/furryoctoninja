@@ -13,4 +13,6 @@ public interface IFormPresenter extends BasePresenter<IFormView> {
 
     void submitSurvey();
 
+    void resetSurvey();
+
 }

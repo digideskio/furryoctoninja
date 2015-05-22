@@ -1,6 +1,7 @@
 package pl.rspective.mckinsey.architecture.dagger.modules;
 
 import com.squareup.otto.Bus;
+import com.squareup.otto.ThreadEnforcer;
 
 import javax.inject.Singleton;
 
@@ -19,7 +20,7 @@ public final class BusModule {
     @Provides
     @Singleton
     public Bus provideBus() {
-        return new Bus();
+        return new Bus(ThreadEnforcer.ANY);
     }
 
 }

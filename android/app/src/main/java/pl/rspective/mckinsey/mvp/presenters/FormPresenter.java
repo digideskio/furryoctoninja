@@ -1,5 +1,7 @@
 package pl.rspective.mckinsey.mvp.presenters;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.otto.Bus;
@@ -14,6 +16,7 @@ import pl.rspective.data.local.SurveyLocalStorage;
 import pl.rspective.data.local.model.StorageType;
 import pl.rspective.data.repository.SurveyRepository;
 import pl.rspective.data.repository.UserRepository;
+import pl.rspective.data.rest.SurveyResultCode;
 import pl.rspective.data.rest.model.SurveySubmitRequest;
 import pl.rspective.data.rest.model.UserRole;
 import pl.rspective.mckinsey.architecture.bus.events.AnswerUpdateEvent;
@@ -24,6 +27,8 @@ import rx.Subscription;
 import rx.functions.Action1;
 
 public class FormPresenter implements IFormPresenter {
+
+    private static final String TAG = "FormPresenter";
 
     private Bus bus;
     private LocalPreferences localPreferences;
@@ -117,11 +122,11 @@ public class FormPresenter implements IFormPresenter {
 
                         FormPresenter.this.survey = survey;
 
-                        formView.updateUi(survey);
-
                         if(survey.isSubmited()) {
                             formView.showResultFragment();
                         }
+
+                        formView.updateUi(survey);
 
                         if(survey.isReady() && !survey.isSubmited()) {
                             formView.showSubmitButton();
@@ -146,9 +151,8 @@ public class FormPresenter implements IFormPresenter {
                 .subscribe(new Action1<Response>() {
                     @Override
                     public void call(Response response) {
-                        survey.setSubmited(true);
-                        storeSurvey();
-                        formView.showSubmitDialog(SurveySubmitResultType.SURVEY_OK);
+                        handleSurveySubmitResponse(response);
+
                     }
                 }, new Action1<Throwable>() {
                     @Override
@@ -156,6 +160,32 @@ public class FormPresenter implements IFormPresenter {
                         formView.showSubmitDialog(SurveySubmitResultType.SURVEY_ERROR);
                     }
                 });
+    }
+
+    @Override
+    public void resetSurvey() {
+        localPreferences.setSurveyLoaded(true);
+        localStorage.clear(StorageType.SURVEY);
+        loadSurvey();
+    }
+
+    private void handleSurveySubmitResponse(Response response) {
+        switch(response.getStatus()) {
+            case SurveyResultCode.SURVEY_CHANGED_RESPONSE:
+                Log.d(TAG, "205 - survey was changed");
+                formView.showSubmitDialog(SurveySubmitResultType.SURVEY_WAS_CHANGED);
+                return;
+            case SurveyResultCode.SURVEY_ALREADY_SUBMITED_RESPONSE:
+                Log.d(TAG, "409 - survey already sent");
+                formView.showSubmitDialog(SurveySubmitResultType.SURVEY_ALREADY_SEND);
+                return;
+            case SurveyResultCode.SURVEY_OK_RESPONSE:
+                Log.d(TAG, "200 - everything is fine");
+                survey.setSubmited(true);
+                storeSurvey();
+                formView.showSubmitDialog(SurveySubmitResultType.SURVEY_OK);
+                return;
+        }
     }
 
     @Override

@@ -25,34 +25,39 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import pl.rspective.data.entity.Answer;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.Survey;
-import pl.rspective.data.repository.SurveyRepository;
+import pl.rspective.data.local.LocalPreferences;
 import pl.rspective.mckinsey.R;
+import pl.rspective.mckinsey.architecture.bus.events.SurveyRestartEvent;
 import pl.rspective.mckinsey.architecture.bus.events.SurveyResultsUpdateEvent;
 import pl.rspective.mckinsey.dagger.Injector;
-import pl.rspective.mckinsey.data.model.SurveySubmitResultType;
-import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
-import pl.rspective.mckinsey.mvp.views.IFormView;
-import pl.rspective.mckinsey.ui.form.FormQuestionFragment;
+import pl.rspective.mckinsey.data.model.AppEventStatus;
+import pl.rspective.mckinsey.mvp.presenters.IFormResultPresenter;
+import pl.rspective.mckinsey.mvp.views.IFormResultView;
+import pl.rspective.mckinsey.ui.AbsActivity;
+import pl.rspective.mckinsey.ui.form.MasterFormFragment;
 import pl.rspective.mckinsey.ui.form.adapter.FormQuestionPagerAdapter;
-import rx.functions.Action1;
 
 
-public class ResultFragment extends Fragment implements IFormView, FormQuestionFragment.QuestionListener {
+public class ResultFragment extends Fragment implements IFormResultView {
 
     @Inject
     Bus bus;
+
     @Inject
-    IFormPresenter formPresenter;
+    LocalPreferences localPreferences;
+
     @Inject
-    SurveyRepository surveyRepository;
+    IFormResultPresenter formPresenter;
 
     @InjectView(R.id.viewpager)
     ViewPager viewPager;
+
     @InjectView(R.id.viewpagertab)
     SmartTabLayout smartTabLayout;
+
     @InjectView(R.id.barchart)
     PieChart mChart;
 
@@ -102,7 +107,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        adapter = new FormQuestionPagerAdapter(getFragmentManager(), this);
+        adapter = new FormQuestionPagerAdapter(getFragmentManager(), null);
         smartTabLayout.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -111,20 +116,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
             }
         });
 
-        surveyRepository.fetchSurveyResults()
-                .subscribe(new Action1<Survey>() {
-                    @Override
-                    public void call(Survey surveyResult) {
-                        updateUi(surveyResult);
-                        ResultFragment.this.surveyResult = surveyResult;
-                        updateBarChart(0);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-
-                    }
-                });
+        formPresenter.loadSurveyResults();
     }
 
     private void updateBarChart(int idx) {
@@ -150,7 +142,7 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
         ds.setColors(ColorTemplate.VORDIPLOM_COLORS);
         ds.setSliceSpace(3);
 
-        PieData data =  new PieData(labels, ds);
+        PieData data = new PieData(labels, ds);
         data.setValueTextSize(15);
         data.setDrawValues(true);
         data.setValueFormatter(new ValueFormatter() {
@@ -174,33 +166,17 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
 
     @Override
     public void updateUi(Survey survey) {
-        if(survey == null || survey.getQuestions() == null) {
+        if (survey == null || survey.getQuestions() == null) {
             return;
         }
+
+        this.surveyResult = survey;
+
+        updateBarChart(0);
 
         adapter.updateData(survey.getQuestions());
         viewPager.setAdapter(adapter);
         smartTabLayout.setViewPager(viewPager);
-    }
-
-    @Override
-    public void showSubmitButton() {
-
-    }
-
-    @Override
-    public void showResultFragment() {
-
-    }
-
-    @Override
-    public void showSubmitDialog(SurveySubmitResultType type) {
-
-    }
-
-    @Override
-    public void nextQuestion(int position) {
-
     }
 
     @Override
@@ -209,12 +185,38 @@ public class ResultFragment extends Fragment implements IFormView, FormQuestionF
     }
 
     @Override
-    public void onQuestionUpdate(int number, Question question, Answer answer) {
-        formPresenter.updateSurvey(number, question, answer);
+    public void showResultFragment() {
+        ((AbsActivity) getActivity()).addFragment(ResultFragment.newInstance(), false, R.id.fl_main_fragment_container);
     }
+
+    @Override
+    public void showFormFragment() {
+        ((AbsActivity) getActivity()).addFragment(MasterFormFragment.newInstance(), false, R.id.fl_main_fragment_container);
+    }
+
 
     @Subscribe
     public void onSurveyResultsUpdateEvent(SurveyResultsUpdateEvent updateEvent) {
-        formPresenter.loadSurvey();
+        formPresenter.loadSurveyResults();
+    }
+
+    @Subscribe
+    public void onSurveyResetEvent(SurveyRestartEvent surveyRestartEvent) {
+        localPreferences.setAppEventStatus(AppEventStatus.NO_EVENTS.ordinal());
+
+        new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Nowa ankieta!")
+                .setContentText("Nastąpi ponowne załadowanie ankiety")
+                .setConfirmText("Ok")
+                .setCustomImage(R.drawable.ic_synchronisation)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                        formPresenter.restartSurvey();
+                    }
+                })
+                .show();
+
     }
 }

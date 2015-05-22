@@ -45,7 +45,7 @@ public class MainPresenter implements IMainPresenter {
 
     @Override
     public Fragment getStartFragment() {
-        if(userRepository.loadUser().getRole().equals(UserRole.ADMIN)) {
+        if(isAdmin()) {
             return ResultFragment.newInstance();
         }
 
@@ -73,11 +73,13 @@ public class MainPresenter implements IMainPresenter {
 
                 if(survey == null || !survey.isSubmited() && userRepository.loadUser().getRole().equals(UserRole.USER)) {
                     localPreferences.setSurveyLoaded(true);
+                    surveyLocalStorage.clear(StorageType.SURVEY);
                     view.showSurveyReloadDialog();
                 }
                 break;
             case SURVEY_RESTART_PUSH_MESSAGE:
                 localPreferences.setSurveyLoaded(true);
+                surveyLocalStorage.clear(StorageType.SURVEY);
                 view.showSurveyReloadDialog();
                 break;
             case NO_EVENTS:
@@ -90,6 +92,11 @@ public class MainPresenter implements IMainPresenter {
     @Override
     public void userLogout() {
         userRepository.clearUser();
+    }
+
+    @Override
+    public boolean isAdmin() {
+        return userRepository.loadUser().getRole().equals(UserRole.ADMIN);
     }
 
     @Override

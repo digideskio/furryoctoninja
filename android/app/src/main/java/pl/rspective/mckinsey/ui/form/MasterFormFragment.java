@@ -13,6 +13,8 @@ import android.widget.Button;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
@@ -23,8 +25,11 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import pl.rspective.data.entity.Answer;
 import pl.rspective.data.entity.Question;
 import pl.rspective.data.entity.Survey;
+import pl.rspective.data.local.LocalPreferences;
 import pl.rspective.mckinsey.R;
+import pl.rspective.mckinsey.architecture.bus.events.SurveyChangedEvent;
 import pl.rspective.mckinsey.dagger.Injector;
+import pl.rspective.mckinsey.data.model.AppEventStatus;
 import pl.rspective.mckinsey.data.model.SurveySubmitResultType;
 import pl.rspective.mckinsey.mvp.presenters.IFormPresenter;
 import pl.rspective.mckinsey.mvp.views.IFormView;
@@ -35,6 +40,12 @@ import pl.rspective.mckinsey.ui.results.ResultFragment;
 import static com.norbsoft.typefacehelper.TypefaceHelper.typeface;
 
 public class MasterFormFragment extends Fragment implements IFormView, FormQuestionFragment.QuestionListener {
+
+    @Inject
+    Bus bus;
+
+    @Inject
+    LocalPreferences localPreferences;
 
     @Inject
     IFormPresenter formPresenter;
@@ -64,7 +75,14 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
     @Override
     public void onResume() {
         super.onResume();
+        bus.register(this);
         formPresenter.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        bus.unregister(this);
     }
 
     @Nullable
@@ -103,7 +121,7 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
 
     @Override
     public void showSubmitButton() {
-        if(btnSurveySubmit.getVisibility() == View.VISIBLE) {
+        if (btnSurveySubmit.getVisibility() == View.VISIBLE) {
             return;
         }
 
@@ -135,6 +153,34 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
                             }
                         });
                 dialog.setCancelable(false);
+                dialog.show();
+                break;
+            case SURVEY_ALREADY_SEND:
+                dialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Uwaga")
+                        .setContentText(getString(resultType.getLabelTxtId()))
+                        .setConfirmText(getString(resultType.getButtonTxtId()))
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                showResultFragment();
+                                sDialog.dismissWithAnimation();
+                            }
+                        });
+                dialog.show();
+                break;
+            case SURVEY_WAS_CHANGED:
+                dialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Uwaga")
+                        .setContentText(getString(resultType.getLabelTxtId()))
+                        .setConfirmText(getString(resultType.getButtonTxtId()))
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                formPresenter.resetSurvey();
+                                sDialog.dismissWithAnimation();
+                            }
+                        });
                 dialog.show();
                 break;
             case SURVEY_ERROR:
@@ -184,6 +230,26 @@ public class MasterFormFragment extends Fragment implements IFormView, FormQuest
                         btnSurveySubmit.setEnabled(false);
                         sDialog.dismissWithAnimation();
                         formPresenter.submitSurvey();
+                    }
+                })
+                .show();
+    }
+
+    @Subscribe
+    public void onSurveyChangedEvent(SurveyChangedEvent changedEvent) {
+        localPreferences.setAppEventStatus(AppEventStatus.NO_EVENTS.ordinal());
+
+        formPresenter.resetSurvey();
+        formPresenter.loadSurvey();
+
+        new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Ankieta aktualizacja")
+                .setContentText("Nastąpiła aktualizacja ankiety")
+                .setConfirmText("Ok")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
                     }
                 })
                 .show();
