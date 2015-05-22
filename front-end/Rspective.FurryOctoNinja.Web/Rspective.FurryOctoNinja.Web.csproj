@@ -292,6 +292,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="readme.txt" />
     <Content Include="Scripts\angular-loading-bar.js" />
     <Content Include="Scripts\angular-local-storage.js" />
     <Content Include="Scripts\angular-mocks.js" />
