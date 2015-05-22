@@ -1,7 +1,7 @@
 # McKinsey
 
 ## Test envoirentment has been prepared, and application has beeen deployed :
-http://furryoctoninja.apphb.com/
+- http://furryoctoninja.apphb.com/
 
 - Provider: [AppHarbor](https://appharbor.com)
 
@@ -24,11 +24,11 @@ http://furryoctoninja.apphb.com/
 ## How to log in? 
 Please use one of the test user we have prepared:
 
-bandro	: furryninja2014
-polok	: furryninja2014
-pavel	: furryninja2014
-roger	: furryninja2014
-admin	: furryninja2014
+- bandro	: furryninja2014
+- polok		: furryninja2014
+- pavel		: furryninja2014
+- roger		: furryninja2014
+- admin		: furryninja2014
 
 ## Database: 
 We use EF Code First Migrations. Test database has been also prepared, but below three quick steps how to prepare them:
@@ -53,21 +53,21 @@ Both: web and android apps uses the same API, but they use different Client Ids:
 
 ### Methods:
 
-/api/survey - GET (same as: /api/survey/get)
-/api/survey - POST (same as: /api/survey/post)
-/api/survey/notify - POST
-/api/survey/reset - POST
-/api/survey/results - GET
-/api/survey/users - GET
-/api/survey/validate - POST
-/api/survey/save - POST
-/api/auth/login - POST
-/api/user/current - GET
-/api/user/all - GET
-/api/user - POST (same as: /api/user/post)
-/api/user - DELETE (same as: /api/user/delete)
-/api/user - PUT (same as: /api/user/put)
-/api/user - GET (same as: /api/user/get)
+- /api/survey - GET (same as: /api/survey/get)
+- /api/survey - POST (same as: /api/survey/post)
+- /api/survey/notify - POST
+- /api/survey/reset - POST
+- /api/survey/results - GET
+- /api/survey/users - GET
+- /api/survey/validate - POST
+- /api/survey/save - POST
+- /api/auth/login - POST
+- /api/user/current - GET
+- /api/user/all - GET
+- /api/user - POST (same as: /api/user/post)
+- /api/user - DELETE (same as: /api/user/delete)
+- /api/user - PUT (same as: /api/user/put)
+- /api/user - GET (same as: /api/user/get)
 
 ## Headers
 
