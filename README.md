@@ -48,8 +48,8 @@ We use OneSignal as a provider, and this application uses our instance of OneSig
 ## API:
 Both: web and android apps uses the same API, but they use different Client Ids:
 
-### Client "AngularJS": El246n9cf1minYI0YGcBVQ8971fK8Gfp
-### Client "Android": p35iw0R6RO1730BSK432qswrZldwY0jR
+- Client "AngularJS": El246n9cf1minYI0YGcBVQ8971fK8Gfp
+- Client "Android": p35iw0R6RO1730BSK432qswrZldwY0jR
 
 ### Methods:
 
