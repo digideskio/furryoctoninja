@@ -34,13 +34,19 @@ Please use one of the test user we have prepared:
 We use EF Code First Migrations. Test database has been also prepared, but below three quick steps how to prepare them:
 
 ### Remove all data:
+```
 Update-Database -TargetMigration:$InitialDatabase 
+```
 
 ### Add migration:
+```
 Add-Migration "Initial"
+```
 
 ### Update
+```
 Update-Database
+```
 
 ## Push notifications:
 We use OneSignal as a provider, and this application uses our instance of OneSignal (user: dev@rspective.pl)
@@ -70,8 +76,6 @@ Both: web and android apps uses the same API, but they use different Client Ids:
 - /api/user - GET (same as: /api/user/get)
 
 ## Headers
-
-- Authorization
 
 Schema
 
