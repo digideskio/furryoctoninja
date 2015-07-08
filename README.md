@@ -1,55 +1,8 @@
-# McKinsey
+# furryoctoninja aka the survey apps
 
-## Test envoirentment has been prepared, and application has beeen deployed :
-- http://furryoctoninja.apphb.com/
+Create surveys with single-choice answers, announce new surveys to your target audience with push notifications, complete and submit the survey on your mobile device, check the overall progress, look up the submissions and analyze the result statistics with graphical charts.
 
-- Provider: [AppHarbor](https://appharbor.com)
-
-- Email: dev@rspective.pl
-
-- Username: furryoctoninja
-
-- App url:	http://furryoctoninja.apphb.com/
-
-- Repository Url: https://furryoctoninja@appharbor.com/furryoctoninja.git
-
-- Deployment Url: https://support.appharbor.com/kb/getting-started/deploying-your-first-application-using-git
-
-- PUSH service: https://www.onesignal.com
-
-- PUSH service user: dev@rspective.pl
-
-- Template Url: http://www.bootstrapzero.com/bootstrap-template/google-plus
-
-## How to log in? 
-Please use one of the test user we have prepared:
-
-- bandro	: furryninja2014
-- polok		: furryninja2014
-- pavel		: furryninja2014
-- roger		: furryninja2014
-- admin		: furryninja2014
-
-## Database: 
-We use EF Code First Migrations. Test database has been also prepared, but below three quick steps how to prepare them:
-
-### Remove all data:
-```
-Update-Database -TargetMigration:$InitialDatabase 
-```
-
-### Add migration:
-```
-Add-Migration "Initial"
-```
-
-### Update
-```
-Update-Database
-```
-
-## Push notifications:
-We use OneSignal as a provider, and this application uses our instance of OneSignal (user: dev@rspective.pl)
+Technically, a .net webapp with angular.js front-end, plus an android app.
 
 ## API:
 Both: web and android apps uses the same API, but they use different Client Ids:
@@ -75,7 +28,7 @@ Both: web and android apps uses the same API, but they use different Client Ids:
 - /api/user - PUT (same as: /api/user/put)
 - /api/user - GET (same as: /api/user/get)
 
-## Headers
+### Headers
 
 Schema
 
@@ -121,6 +74,61 @@ Postman-Token: 15bcd829-1d98-82c8-ea14-30920b2221f9
     ]
 }
 ```
+
+------
+
+## Staging environment :
+- http://furryoctoninja.apphb.com/
+
+- Provider: [AppHarbor](https://appharbor.com)
+
+- Email: dev@rspective.pl
+
+- Username: furryoctoninja
+
+- App url:	http://furryoctoninja.apphb.com/
+
+- Repository Url: https://furryoctoninja@appharbor.com/furryoctoninja.git
+
+- Deployment Url: https://support.appharbor.com/kb/getting-started/deploying-your-first-application-using-git
+
+- PUSH service: https://www.onesignal.com
+
+- PUSH service user: dev@rspective.pl
+
+- Template Url: http://www.bootstrapzero.com/bootstrap-template/google-plus
+
+### How to log in? 
+Test users:
+
+- bandro	: furryninja2014
+- polok		: furryninja2014
+- pavel		: furryninja2014
+- roger		: furryninja2014
+- admin		: furryninja2014
+
+### Database: 
+We use EF Code First Migrations. Test database has been also prepared, but below three quick steps how to prepare them:
+
+#### Remove all data:
+```
+Update-Database -TargetMigration:$InitialDatabase 
+```
+
+#### Add migration:
+```
+Add-Migration "Initial"
+```
+
+#### Update
+```
+Update-Database
+```
+
+### Push notifications:
+We use OneSignal as a provider, and this application uses our instance of OneSignal (user: dev@rspective.pl)
+
+-----
 
 ## Questions?
 In case of any questions don't hesitate to contact us at dev@rspective.pl :)
