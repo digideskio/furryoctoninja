@@ -2,8 +2,8 @@ package pl.rspective.data.local.model;
 
 public enum StorageType {
 
-    SURVEY("mckinsey_survey"),
-    USERS("mckinsey_users");
+    SURVEY("survey"),
+    USERS("users");
 
     private String tag;
 

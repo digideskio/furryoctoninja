@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="pl.rspective.mckinsey"
+    package="pl.rspective.survey"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -13,18 +13,18 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
 
     <permission
-        android:name="pl.rspective.mckinsey.permission.C2D_MESSAGE"
+        android:name="pl.rspective.survey.permission.C2D_MESSAGE"
         android:protectionLevel="signature"/>
-    <uses-permission android:name="pl.rspective.mckinsey.permission.C2D_MESSAGE"/>
+    <uses-permission android:name="pl.rspective.survey.permission.C2D_MESSAGE"/>
 
     <application
-        android:name=".McKinseyApp"
+        android:name=".SurveyApp"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.SplashActivity"
+            android:name="pl.rspective.survey.ui.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -35,22 +35,22 @@
         </activity>
 
         <activity
-            android:name=".ui.LoginActivity"
+            android:name="pl.rspective.survey.ui.LoginActivity"
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".ui.MainActivity"
+        <activity android:name="pl.rspective.survey.ui.MainActivity"
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"/>
 
-        <service android:name=".infrastructure.onesignal.McKinseyGcmIntentService"/>
+        <service android:name=".infrastructure.onesignal.SurveyGcmIntentService"/>
 
         <receiver
-            android:name=".infrastructure.onesignal.OneSignalReceiver"
+            android:name="pl.rspective.survey.infrastructure.onesignal.OneSignalReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
-                <category android:name="pl.rspective.mckinsey"/>
+                <category android:name="pl.rspective.survey"/>
             </intent-filter>
         </receiver>
 

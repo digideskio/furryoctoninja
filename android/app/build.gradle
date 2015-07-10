@@ -15,7 +15,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "pl.rspective.mckinsey"
+        applicationId "pl.rspective.survey"
         minSdkVersion 14
         targetSdkVersion 21
 
