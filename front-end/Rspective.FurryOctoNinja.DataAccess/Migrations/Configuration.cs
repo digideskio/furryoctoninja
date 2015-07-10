@@ -104,7 +104,7 @@
             {
                 CreatedDate = DateTime.UtcNow,
                 Title = "Test",
-                Description = "Some test survey",
+                Description = "Test survey",
                 Questions = new Question[] { 
                         new Question() {
                             Text = "Czy lubisz koty?",
@@ -117,18 +117,16 @@
                         new Question() {
                             Text = "Na kogo zagłosujesz w II turze wyborów?",
                             Answers = new Answer[] {
-                                new Answer() { Text = "Bronek" },
-                                new Answer() { Text = "Duda" },
-                                new Answer() { Text = "Sarna z krzesłem na głowie" }
+                                new Answer() { Text = "Bronisław Komorowski" },
+                                new Answer() { Text = "Andrzej Duda" },
+                                new Answer() { Text = "Nie wiem" }
                             }
                         },
                         new Question() {
-                            Text = "Czy kibucujesz Barcelonie?",
+                            Text = "Która drużyna wygra finał Ligi Mistrzów?",
                             Answers = new Answer[] {
-                                new Answer() { Text = "Tak" },
-                                new Answer() { Text = "Yes" },
-                                new Answer() { Text = "Oui" },
-                                new Answer() { Text = "Ja" }
+                                new Answer() { Text = "Barcelona" },
+                                new Answer() { Text = "FC Bayern Monachium" }
                             }
                         }
                     }

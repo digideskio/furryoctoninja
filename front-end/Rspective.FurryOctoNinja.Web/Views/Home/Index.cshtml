@@ -13,24 +13,31 @@
 }
 
 @section menu {
-<div class="navbar navbar-default sub-header">
-    <div class="col-xs-12">
-        <div class="collapse navbar-collapse" id="navbar-collapse2">
-            <ul class="nav navbar-nav navbar-left">
-                <li ng-hide="isAdmin()" ng-cloak ng-class="{ active : isView('/survey') || isView('/survey/results') }"><a ng-click="loadView('/survey')">Survey</a></li>
-                <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/survey') }"><a ng-click="loadView('/admin/survey')">Survey</a></li>
-                <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/results') }"><a ng-click="loadView('/admin/results')">Results</a></li>
-                <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/progress') }"><a ng-click="loadView('/admin/progress')">Progress</a></li>
-                <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/users') }"><a ng-click="loadView('/admin/users')">Users</a></li>
-            </ul>
+    <div class="navbar navbar-default sub-header">
+        <div class="col-xs-12">
+            <div class="collapse navbar-collapse" id="navbar-collapse2">
+                <ul class="nav navbar-nav navbar-left">
+                    <li ng-hide="isAdmin()" ng-cloak ng-class="{ active : isView('/survey') || isView('/survey/results') }"><a ng-click="loadView('/survey')">Survey</a></li>
+                    <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/survey') }"><a ng-click="loadView('/admin/survey')">Survey</a></li>
+                    <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/results') }"><a ng-click="loadView('/admin/results')">Results</a></li>
+                    <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/progress') }"><a ng-click="loadView('/admin/progress')">Progress</a></li>
+                    <li ng-show="isAdmin()" ng-cloak ng-class="{ active : isView('/admin/users') }"><a ng-click="loadView('/admin/users')">Users</a></li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
 }
-
 <section class="row">
     <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
         <div ng-view></div>
     </div>
 </section>
-
+<script type="text/javascript">
+    (function () {
+        $(document).ready(function () {
+            if (!window.location.hash) {
+                window.location.hash = angular.element("body").scope().isAdmin() ? '/admin/survey' : '/survey';
+            }
+        });
+    })();
+</script>

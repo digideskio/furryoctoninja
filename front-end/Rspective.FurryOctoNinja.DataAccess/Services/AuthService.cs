@@ -41,10 +41,11 @@ namespace Rspective.FurryOctoNinja.DataAccess.Services
                 return result; 
             }
 
+            this.tokenRepository.Invalidate(client.Id, user.Id, DateTime.UtcNow);
+
             var expiration = DateTime.UtcNow.AddMinutes(client.TokenExpirationTime);
             var token = GenerateToken(client, user, expiration);
 
-            this.tokenRepository.Invalidate(client.Id, user.Id, expiration);
             this.tokenRepository.Create(new ApplicationToken() {
                 Token = token,
                 Expiration = expiration,
