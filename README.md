@@ -4,6 +4,7 @@ Create surveys with single-choice answers, announce new surveys to your target a
 
 Technically, a .net webapp with angular.js front-end, plus an android app.
 
+
 ## API:
 Both: web and android apps uses the same API, but they use different Client Ids:
 
@@ -132,3 +133,15 @@ We use OneSignal as a provider, and this application uses our instance of OneSig
 
 ## Questions?
 In case of any questions don't hesitate to contact us at dev@rspective.pl :)
+
+-----
+
+## Pics or didn't happen!
+
+android app:
+
+![furryoctoninja android app screenshot](/android/art/survey_demo.gif?raw=true)
+
+web app:
+
+![furryoctoninja webapp screenshot](/front-end/art/website.png?raw=true)
