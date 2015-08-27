@@ -8,7 +8,6 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="furryoctoninja" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
@@ -84,17 +83,19 @@
                         <outlet property="errorMsg" destination="DLh-fy-INz" id="z9q-nq-k5N"/>
                         <outlet property="loader" destination="iNv-Pb-fRo" id="efD-7O-jxl"/>
                         <outlet property="password" destination="WX9-Ze-pjO" id="Yff-Ys-mMU"/>
+                        <outlet property="submitButton" destination="pQs-sz-GA4" id="boW-33-iHX"/>
                         <outlet property="username" destination="84C-62-GqG" id="OLD-xa-3yF"/>
                         <segue destination="XiV-2I-eym" kind="show" identifier="surveyView" id="vCY-P5-kKC"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="257" y="431"/>
         </scene>
-        <!--View Controller-->
+        <!--Survey View Controller-->
         <scene sceneID="bvC-iv-4dG">
             <objects>
-                <viewController id="XiV-2I-eym" sceneMemberID="viewController">
+                <viewController id="XiV-2I-eym" customClass="SurveyViewController" customModule="furryoctoninja" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cJX-wo-aVb"/>
                         <viewControllerLayoutGuide type="bottom" id="Ym2-Xv-0ij"/>

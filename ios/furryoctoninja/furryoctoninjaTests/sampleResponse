@@ -1,0 +1,66 @@
+//get
+{
+   "Id": 5,
+   "Title": "Test",
+   "Description": "Test survey",
+   "CreatedDate": 1433838283,
+   "Questions": [
+      {
+         "Id": 22,
+         "Text": "Pytanie 1",
+         "Answers": [
+            {
+               "Id": 64,
+               "Text": "Odp 4"
+            },
+            {
+               "Id": 65,
+               "Text": "Odp 1"
+            },
+            {
+               "Id": 66,
+               "Text": "Odp 2"
+            },
+            {
+               "Id": 67,
+               "Text": "Odp 3"
+            }
+         ]
+      },
+      {
+         "Id": 23,
+         "Text": "fsafsd",
+         "Answers": [
+            {
+               "Id": 68,
+               "Text": "fsdfsda"
+            },
+            {
+               "Id": 69,
+               "Text": "fsafsda"
+            }
+         ]
+      }
+   ],
+   "CompletedByUser": true
+}
+
+//sends
+{
+"Modified": 1433838283,
+"Id": 5,
+"Answers": [
+        {
+            "QuestionId": 22,
+            "AnswerId": "66"
+        },
+        {
+            "QuestionId": 23,
+            "AnswerId": "68"
+        },
+        {
+            "QuestionId": 24,
+            "AnswerId": "71"
+        }
+    ]
+}
