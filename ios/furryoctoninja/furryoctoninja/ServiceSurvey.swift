@@ -15,50 +15,61 @@ class ServiceSurvey{
     let surveyURL = AppSettings.apiURL + "/api/survey"
     var errorDescription = "Service unavailable"
     
-    let headers = [
-        "Authorization": "Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==",
-        "Content-Type": "application/x-www-form-urlencoded"
-    ]
-    
-    func loadSurvey(callback: (result: Survey) -> ()){
+    func loadSurvey(callback: (result: Survey, error: String) -> ()){
         let (dictionary, error) = Locksmith.loadDataForUserAccount(AppSettings.currentUser)
         let token:String = (dictionary?["Token"] as? String)!
         let headers = [
             "Authorization": "Token " + AppSettings.clientId + ":" + token
         ]
-
-        
         Alamofire.request(.GET, surveyURL, headers: headers)
             .responseJSON { _, _, JSON, error in
                 debugPrint(JSON)
                 if JSON != nil {
-                    self.parseJson(JSON)
-                    callback(result: Survey())
+                    var survey = self.parseSurveyJson(JSON)
+                    callback(result: survey, error: "")
                 }else{
                     self.errorDescription = error!.localizedDescription
+                    callback(result: Survey(), error: self.errorDescription)
                 }
         }
 
     }
     
-    func parseJson(data:AnyObject?){
+    private func parseSurveyJson(data:AnyObject?) -> Survey{
         let json = JSON(data!)
+        var survey = Survey()
         
-        if let token = json["Token"].string {
-            Locksmith.saveData(["Token": token], forUserAccount: AppSettings.currentUser)
-            
-        } else {
-            print("serialization false !!!")
-            //self.checkError(json)
+        if let id = json["Id"].int,
+            let title = json["Ttles"].string,
+            let description = json["Description"].string,
+            let createdDate = json["CreatedDate"].int,
+            let completedByUser = json["CompletedByUser"].bool,
+            let questions = json["Questions"].array{
+                var questions_arr: [Question] = []
+                for question in questions{
+                    var question_it = Question()
+                    if let q_id = question["Id"].int,
+                        let q_text = question["Text"].string,
+                        let answers = question["Answers"].array{
+                            question_it = (Question(id:q_id,text: q_text, answers: []))
+                            for answer in answers {
+                                if let a_id = answer["Id"].int,
+                                    let a_text = answer["Text"].string{
+                                        question_it.answers?.append(Answer(id:a_id, text:a_text))
+                                }
+                            }
+                        questions_arr.append(question_it)
+                    }
+                }
+                survey = Survey(id: id, title:title, description: description, createdDate: createdDate, questions: questions_arr, completedByUser: completedByUser)
+        }else{
+            debugPrint("JSON Parsing error")
+            self.errorDescription = "Data cannot be loaded"
         }
         
+       return survey
     }
     
-    func checkError(json:JSON){
-        if let error = json["OverallErrors"].array {
-            self.errorDescription = error[0].string!
-        }
-    }
     
         
 }

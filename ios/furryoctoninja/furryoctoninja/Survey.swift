@@ -8,26 +8,23 @@
 
 import Foundation
 
-class Survey {
+struct Survey {
     var id: Int = 0
     var title: String = ""
     var description: String = ""
     var createdDate: Int = 0
     var questions: [Question]?
     var completedByUser: Bool = false
-    
-    required init(){
-    }
 
 }
 
-class Question {
+struct Question {
     var id: Int = 0
     var text: String = ""
     var answers: [Answer]?
 }
 
-class Answer {
+struct Answer {
     var id: Int = 0
     var text: String = ""
 }

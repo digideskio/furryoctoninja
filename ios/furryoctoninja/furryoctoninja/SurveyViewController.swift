@@ -10,32 +10,23 @@ import Foundation
 import UIKit
 
 class SurveyViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         println("Loaded View")
         let serviceSurvey = ServiceSurvey()
         serviceSurvey.loadSurvey({
-            (result:Survey) -> () in
-            if (result.description == "") {
+            (result:Survey, error:String) -> () in
+            if (error == "") {
                 //perform loading survey
             }
             else {
-                //error
+                //error_msg.text = error
             }
         })
         
     }
-    override func viewDidAppear(animated: Bool) {
-        println("Loaded View")
-    }
     
-    //@IBOutlet weak var loader: UIActivityIndicatorView!
-    
-    
-    // FOR TESTS ONLY TB REMOVED
-    
-    
-    // Tests END
 
 }

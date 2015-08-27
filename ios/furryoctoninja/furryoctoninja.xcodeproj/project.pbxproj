@@ -112,11 +112,11 @@
 				61DB12B31B870AC50077D40A /* Model */,
 				6134F9071B7C9B730008C642 /* AppDelegate.swift */,
 				6134F9091B7C9B730008C642 /* LoginViewController.swift */,
+				6142A0A91B8EF1A700D4D42A /* SurveyViewController.swift */,
 				6134F90B1B7C9B730008C642 /* Main.storyboard */,
 				6134F90E1B7C9B730008C642 /* Images.xcassets */,
 				6134F9101B7C9B730008C642 /* LaunchScreen.xib */,
 				6134F9051B7C9B730008C642 /* Supporting Files */,
-				6142A0A91B8EF1A700D4D42A /* SurveyViewController.swift */,
 			);
 			path = furryoctoninja;
 			sourceTree = "<group>";
