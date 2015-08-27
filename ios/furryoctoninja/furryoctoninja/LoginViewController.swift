@@ -23,21 +23,40 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var username: UITextField!
 
     @IBOutlet weak var password: UITextField!
-    
 
     @IBOutlet weak var errorMsg: UILabel!
     
+    @IBOutlet weak var loader: UIActivityIndicatorView!
+    
+    
     @IBAction func submit(sender: UIButton) {
-        performSegueWithIdentifier("surveyView", sender: self)
+        self.errorMsg.text = ""
+        self.loader.startAnimating()
+        let serviceLogin = ServiceLogin()
+        serviceLogin.login(self.username.text, password: self.password.text, callback: {
+            (result: Bool) -> () in
+            
+                if result {
+                    self.performSegueWithIdentifier("surveyView", sender: self)
+                }
+                else {
+                    self.errorMsg.text = serviceLogin.errorDescription
+                }
+                self.loader.stopAnimating()
+            })
+        
+        
     }
     
     
-    func userTokenActive() -> Bool {
-        return true;
-    }
-    
-    
-    
+    // FOR TESTS ONLY TB REMOVED
 
+    @IBAction func Cred(sender: UIButton) {
+            self.username.text = "shem"
+            self.password.text = "furryninja2014"
+        
+    }
+    
+    // Tests END
 }
 

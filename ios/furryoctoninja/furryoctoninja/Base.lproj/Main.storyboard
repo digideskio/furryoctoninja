@@ -8,6 +8,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="furryoctoninja" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
@@ -21,50 +22,74 @@
                                 <rect key="frame" x="16" y="100" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="16" y="100" width="368" height="30"/>
+                                </variation>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WX9-Ze-pjO">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WX9-Ze-pjO">
                                 <rect key="frame" x="16" y="143" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="error msg" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DLh-fy-INz">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DLh-fy-INz">
                                 <rect key="frame" x="16" y="263" width="568" height="54"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="16" y="263" width="368" height="54"/>
+                                </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQs-sz-GA4">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQs-sz-GA4">
                                 <rect key="frame" x="16" y="207" width="568" height="30"/>
                                 <state key="normal" title="submit">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="submit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uDm-YA-ydw"/>
-                                    <segue destination="XiV-2I-eym" kind="show" identifier="surveyView" id="LkP-9d-UGo"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gle-L6-gQW">
+                                <rect key="frame" x="16" y="318" width="34" height="30"/>
+                                <state key="normal" title="Cred">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="Cred:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aXx-B0-8pt"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="iNv-Pb-fRo">
+                                <rect key="frame" x="290" y="263" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="84C-62-GqG" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="30h-Ag-H8k"/>
-                            <constraint firstItem="pQs-sz-GA4" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="3L0-Pm-DPv"/>
-                            <constraint firstItem="DLh-fy-INz" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="IEN-eF-qYw"/>
-                            <constraint firstItem="DLh-fy-INz" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="QRt-ky-voW"/>
-                            <constraint firstItem="pQs-sz-GA4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="SLH-ax-hht"/>
-                            <constraint firstItem="WX9-Ze-pjO" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="Uvp-Kj-KpF"/>
-                            <constraint firstItem="WX9-Ze-pjO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="b7N-rH-Tng"/>
-                            <constraint firstItem="84C-62-GqG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="nAs-Gl-ycH"/>
+                            <constraint firstItem="pQs-sz-GA4" firstAttribute="leading" secondItem="Gle-L6-gQW" secondAttribute="leading" id="Ggb-kN-49o"/>
+                            <constraint firstItem="pQs-sz-GA4" firstAttribute="leading" secondItem="DLh-fy-INz" secondAttribute="leading" id="Ma1-58-g05"/>
+                            <constraint firstItem="pQs-sz-GA4" firstAttribute="leading" secondItem="84C-62-GqG" secondAttribute="leading" id="Pa0-Ry-nFw"/>
+                            <constraint firstItem="pQs-sz-GA4" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="207" id="Pe7-ns-C4S"/>
+                            <constraint firstItem="pQs-sz-GA4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="YEg-rH-gx3"/>
+                            <constraint firstItem="pQs-sz-GA4" firstAttribute="trailing" secondItem="DLh-fy-INz" secondAttribute="trailing" id="aAJ-Ab-J7N"/>
+                            <constraint firstItem="DLh-fy-INz" firstAttribute="top" secondItem="pQs-sz-GA4" secondAttribute="bottom" constant="26" id="cTb-PI-a40"/>
+                            <constraint firstItem="pQs-sz-GA4" firstAttribute="trailing" secondItem="84C-62-GqG" secondAttribute="trailing" id="dSF-KE-3Ze"/>
+                            <constraint firstItem="pQs-sz-GA4" firstAttribute="leading" secondItem="WX9-Ze-pjO" secondAttribute="leading" id="eXr-5D-zXg"/>
+                            <constraint firstItem="pQs-sz-GA4" firstAttribute="trailing" secondItem="WX9-Ze-pjO" secondAttribute="trailing" id="f6s-J2-MKJ"/>
+                            <constraint firstItem="iNv-Pb-fRo" firstAttribute="top" secondItem="DLh-fy-INz" secondAttribute="top" id="gtp-Xx-cmh"/>
+                            <constraint firstItem="pQs-sz-GA4" firstAttribute="top" secondItem="WX9-Ze-pjO" secondAttribute="bottom" constant="34" id="lsh-1t-QW0"/>
+                            <constraint firstItem="pQs-sz-GA4" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="roQ-pb-ZoS"/>
+                            <constraint firstItem="iNv-Pb-fRo" firstAttribute="centerX" secondItem="DLh-fy-INz" secondAttribute="centerX" id="vKl-me-poN"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="errorMsg" destination="DLh-fy-INz" id="z9q-nq-k5N"/>
+                        <outlet property="loader" destination="iNv-Pb-fRo" id="efD-7O-jxl"/>
                         <outlet property="password" destination="WX9-Ze-pjO" id="Yff-Ys-mMU"/>
                         <outlet property="username" destination="84C-62-GqG" id="OLD-xa-3yF"/>
+                        <segue destination="XiV-2I-eym" kind="show" identifier="surveyView" id="vCY-P5-kKC"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="150" y="445"/>
+            <point key="canvasLocation" x="257" y="431"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="bvC-iv-4dG">
@@ -77,6 +102,14 @@
                     <view key="view" contentMode="scaleToFill" id="mrb-jB-u0r">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="AAA" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gmw-4p-1H1">
+                                <rect key="frame" x="321" y="89" width="34" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>

@@ -1,0 +1,971 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01B6A5AB933D3DAF95754A83E3FB3E36 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2C52CDDF37EB3EEF4F833950483045 /* Manager.swift */; };
+		1E2FAF8399D6E4BAD02FAE6CEF9455DC /* Pods-furryoctoninja-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 16D768BB9F68EE09DAA815D66BE2DDE1 /* Pods-furryoctoninja-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		23F5940A08DB5F0B129F9DFF7CCC3452 /* SwiftyJSON-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 85E62DA073C367ACFC8C77B0B6180FD1 /* SwiftyJSON-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2CE2FBB769DE8604B4704AA32F0B0EB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4EC4B75BAE91861986227C1BE7B931E /* Foundation.framework */; };
+		2DB6FB7DC222A98D01B972575A3B91AF /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23700482F00F9C20885B9E4F4EA31A50 /* Validation.swift */; };
+		3769B9433B301E32A9DC200E73038AF3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4EC4B75BAE91861986227C1BE7B931E /* Foundation.framework */; };
+		39A8A7DB3537BDC61EF618B1737C1EB5 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F861572AEF58AF8E8738463397C601 /* SwiftyJSON.swift */; };
+		3CA665E5D1483650A3C24E03EBD6A354 /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46459B880E89B0BEEC38C94933352DE8 /* ServerTrustPolicy.swift */; };
+		4D8D12CC566DD340304C853B558386A7 /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3853DCECE45AF48670A17D9851A78EBF /* Upload.swift */; };
+		713197C3BE6992D9E882E11A06CEB453 /* Locksmith-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 529731D88B6AF5DD60E374DFB64F9BAD /* Locksmith-dummy.m */; };
+		77BC5B3A94FC07C0673F39D9FF26DDA8 /* Locksmith.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 976EAEE0A997E1EDA02F6D679D983638 /* Locksmith.bundle */; };
+		900FC0FC28F485FC77EF4320D8F9BEDB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5133BC29898B3A3354DB6BB5953C1E51 /* UIKit.framework */; };
+		90EF20BB8DC0A183A97CEE5D4BE375EE /* SwiftyJSON-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D3575B7F9DE11C652ED4F55D4D976B /* SwiftyJSON-dummy.m */; };
+		91421DC7E0D27A9D8EDDA8EF19C2CF57 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E4CCF78DB45E3C90136901817AA6B2E /* Security.framework */; };
+		A0AE9C3D2ED56EC287D5B8ED2AC44CF7 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D484639EB86EDA8B07123C4806A065D /* MultipartFormData.swift */; };
+		A36349284AC84BB4928AEF6209BEF8D2 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEB1A05E5B8025B5A5C7282FB1CCCA99 /* ParameterEncoding.swift */; };
+		A4748D65B43B873E0B3FC6BB51741D41 /* Alamofire-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B84A1AAD1437091E7878501D4E5C5BF0 /* Alamofire-dummy.m */; };
+		A71AB479176CE53258B67957A856F158 /* LocksmithRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64F2E5798BFA1561617D27A32256CE /* LocksmithRequest.swift */; };
+		B28D86C647A7F3435C93502302826C60 /* Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 11F3FA963510B36DAE374EE26FB84BFA /* Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B2E24E588A2869AE1F5ADB28A08ADD22 /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F52F3CC66F8EE86EA0E62D2E85B3F0 /* ResponseSerialization.swift */; };
+		BEA508D3FF41353E45ED868FA28E49F9 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83566B7EC126A7E0E47D6ADCC24ED6E9 /* Alamofire.swift */; };
+		C15BD6F28C813BC8B989EBA0AE75BD2F /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB183C59D61DA07F6C114A1FDF305BCE /* Download.swift */; };
+		CD383AD2E7ABC75521C41F11BFCF2B84 /* Locksmith-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CD180EFC8B11288372581AEC1EB671B5 /* Locksmith-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CEB9421A9652802215884AF08D39D2C5 /* Pods-furryoctoninja-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C254BEAF6A206237101F864889346A /* Pods-furryoctoninja-dummy.m */; };
+		D8FBB583090058000485BC19D660363E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4EC4B75BAE91861986227C1BE7B931E /* Foundation.framework */; };
+		DAD8427F2D0397BD07E614DEE4D86CFF /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B796735BC40D41EE91277A0AC3FC029 /* Request.swift */; };
+		E0E0DB2CCB837B62C8B3BC558D8E2A55 /* Locksmith.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1D7E63220E287994F490618E4FEC26 /* Locksmith.swift */; };
+		F195AB96855BFC696AA07CD6091B826A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4EC4B75BAE91861986227C1BE7B931E /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2AEC575D7ABE3F0D4BE706B2072C8EFA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E7DB9CA8346B6FEB17B69B9220A1CCFF;
+			remoteInfo = "Locksmith-Locksmith";
+		};
+		3DDD26C297E2154EA3759EA881997103 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4A161C541926F96EA23CF9EDC47E6A99;
+			remoteInfo = Locksmith;
+		};
+		53EEC683B6978AAC9DAEDAF617833D6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4F20504B760DF5F2589AA10DFD8B965E;
+			remoteInfo = Alamofire;
+		};
+		92E05C5E434AD8A8F2C6EDBD516843B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B9A04D3C9B208813656510FDA8ADAE02;
+			remoteInfo = SwiftyJSON;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		01880CFC09F2614D0BC178FC2984047E /* Locksmith-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Locksmith-prefix.pch"; sourceTree = "<group>"; };
+		11F3FA963510B36DAE374EE26FB84BFA /* Alamofire-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-umbrella.h"; sourceTree = "<group>"; };
+		16D768BB9F68EE09DAA815D66BE2DDE1 /* Pods-furryoctoninja-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-furryoctoninja-umbrella.h"; sourceTree = "<group>"; };
+		1BE13A7F7B262DE505C375E5BA28C171 /* Alamofire.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.xcconfig; sourceTree = "<group>"; };
+		1CBCF4708B3F50D99CFAF5CECF8132E0 /* Pods-furryoctoninja-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-furryoctoninja-acknowledgements.markdown"; sourceTree = "<group>"; };
+		2181C02ACEDC734F88321BE90EB1065E /* Locksmith.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Locksmith.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		23700482F00F9C20885B9E4F4EA31A50 /* Validation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = Source/Validation.swift; sourceTree = "<group>"; };
+		2B5D41D1F431ADAE8761F000EF373975 /* Alamofire-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-prefix.pch"; sourceTree = "<group>"; };
+		2E4CCF78DB45E3C90136901817AA6B2E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		31F861572AEF58AF8E8738463397C601 /* SwiftyJSON.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = Source/SwiftyJSON.swift; sourceTree = "<group>"; };
+		3853DCECE45AF48670A17D9851A78EBF /* Upload.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Upload.swift; path = Source/Upload.swift; sourceTree = "<group>"; };
+		46459B880E89B0BEEC38C94933352DE8 /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ServerTrustPolicy.swift; path = Source/ServerTrustPolicy.swift; sourceTree = "<group>"; };
+		46C1F65A471DA06D480722352520FB63 /* Locksmith-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Locksmith-Private.xcconfig"; sourceTree = "<group>"; };
+		4AEEC5BFFEF9DA903CE6F47752D15515 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B796735BC40D41EE91277A0AC3FC029 /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Source/Request.swift; sourceTree = "<group>"; };
+		5133BC29898B3A3354DB6BB5953C1E51 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		529731D88B6AF5DD60E374DFB64F9BAD /* Locksmith-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Locksmith-dummy.m"; sourceTree = "<group>"; };
+		61E1796704E4C8CA69203EB993A8D45C /* Pods-furryoctoninja.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-furryoctoninja.debug.xcconfig"; sourceTree = "<group>"; };
+		63FA02BC817EBD9DC06FAD4F4630C1DB /* SwiftyJSON.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SwiftyJSON.modulemap; sourceTree = "<group>"; };
+		669373D85ABC8D5B689C9B933B2EA1B1 /* SwiftyJSON-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-prefix.pch"; sourceTree = "<group>"; };
+		6D2C52CDDF37EB3EEF4F833950483045 /* Manager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Manager.swift; path = Source/Manager.swift; sourceTree = "<group>"; };
+		6FFC1EF41B613880A3FBBB71217E98A8 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D484639EB86EDA8B07123C4806A065D /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
+		7E4911E7ADDF92EA156598069BE2ADB7 /* Pods-furryoctoninja-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-furryoctoninja-acknowledgements.plist"; sourceTree = "<group>"; };
+		83566B7EC126A7E0E47D6ADCC24ED6E9 /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
+		85265035A7512E9521DC1DE561F1228D /* Locksmith.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Locksmith.modulemap; sourceTree = "<group>"; };
+		85E62DA073C367ACFC8C77B0B6180FD1 /* SwiftyJSON-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-umbrella.h"; sourceTree = "<group>"; };
+		8F1D7E63220E287994F490618E4FEC26 /* Locksmith.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Locksmith.swift; path = Pod/Classes/Locksmith.swift; sourceTree = "<group>"; };
+		95F52F3CC66F8EE86EA0E62D2E85B3F0 /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
+		976EAEE0A997E1EDA02F6D679D983638 /* Locksmith.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Locksmith.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B64F2E5798BFA1561617D27A32256CE /* LocksmithRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LocksmithRequest.swift; path = Pod/Classes/LocksmithRequest.swift; sourceTree = "<group>"; };
+		A0D3575B7F9DE11C652ED4F55D4D976B /* SwiftyJSON-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyJSON-dummy.m"; sourceTree = "<group>"; };
+		ADAF935D8F6619FE396DFDDE5FC60E17 /* Locksmith.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Locksmith.xcconfig; sourceTree = "<group>"; };
+		AEB1A05E5B8025B5A5C7282FB1CCCA99 /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
+		B2C254BEAF6A206237101F864889346A /* Pods-furryoctoninja-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-furryoctoninja-dummy.m"; sourceTree = "<group>"; };
+		B84A1AAD1437091E7878501D4E5C5BF0 /* Alamofire-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Alamofire-dummy.m"; sourceTree = "<group>"; };
+		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		BD79B83AE014FB7D35AB65133697A8C8 /* SwiftyJSON.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyJSON.xcconfig; sourceTree = "<group>"; };
+		BDFD6BDED1543DF5F7EBD546120C5980 /* SwiftyJSON-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "SwiftyJSON-Private.xcconfig"; sourceTree = "<group>"; };
+		CB183C59D61DA07F6C114A1FDF305BCE /* Download.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Download.swift; path = Source/Download.swift; sourceTree = "<group>"; };
+		CD180EFC8B11288372581AEC1EB671B5 /* Locksmith-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Locksmith-umbrella.h"; sourceTree = "<group>"; };
+		DC068FF0F65C2BBD7488840AFCBBB60F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DE00B4659AB8663CCB5350404BB7F873 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E0217E71BD4110B54B59B7F9FDE404C1 /* Pods-furryoctoninja-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-furryoctoninja-frameworks.sh"; sourceTree = "<group>"; };
+		E4EC4B75BAE91861986227C1BE7B931E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		E609AA6073829FD83DF1A0E509E7DF19 /* Pods-furryoctoninja.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-furryoctoninja.release.xcconfig"; sourceTree = "<group>"; };
+		EB1A3C3256D7A07FFD5C8EC39EED2BD8 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EB4CB50B42FA0112BD3CB968CB68AC93 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC25BDC8D221611904891CF30BFEF011 /* Pods-furryoctoninja.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-furryoctoninja.modulemap"; sourceTree = "<group>"; };
+		EC3B0B5B2DD8C44875F46C95336E5912 /* Alamofire-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Alamofire-Private.xcconfig"; sourceTree = "<group>"; };
+		F42926BA234D4998397AC1B146FD1229 /* Pods_furryoctoninja.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_furryoctoninja.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F57562BE617E17CB02B43C848FDECF09 /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Alamofire.modulemap; sourceTree = "<group>"; };
+		FEA66E064CDFB8013D693105F9734508 /* Pods-furryoctoninja-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-furryoctoninja-resources.sh"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		060F11FBF4683413096B7D23B2B0E1EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F195AB96855BFC696AA07CD6091B826A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		36FD93744F7FE37C8CBEDF25BC7191D2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CE2FBB769DE8604B4704AA32F0B0EB8 /* Foundation.framework in Frameworks */,
+				91421DC7E0D27A9D8EDDA8EF19C2CF57 /* Security.framework in Frameworks */,
+				900FC0FC28F485FC77EF4320D8F9BEDB /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE14E22398C4D9284DEC14551B7D9BCE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C78F0A9E2D39F18221ADF2CC12696DF9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D8FBB583090058000485BC19D660363E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBEEDA6A29AD33FB9CFD183DA7A8F5B4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3769B9433B301E32A9DC200E73038AF3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00E06BB088F0DBA3E4E76EA5835B7761 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6FFC1EF41B613880A3FBBB71217E98A8 /* Info.plist */,
+				63FA02BC817EBD9DC06FAD4F4630C1DB /* SwiftyJSON.modulemap */,
+				BD79B83AE014FB7D35AB65133697A8C8 /* SwiftyJSON.xcconfig */,
+				BDFD6BDED1543DF5F7EBD546120C5980 /* SwiftyJSON-Private.xcconfig */,
+				A0D3575B7F9DE11C652ED4F55D4D976B /* SwiftyJSON-dummy.m */,
+				669373D85ABC8D5B689C9B933B2EA1B1 /* SwiftyJSON-prefix.pch */,
+				85E62DA073C367ACFC8C77B0B6180FD1 /* SwiftyJSON-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SwiftyJSON";
+			sourceTree = "<group>";
+		};
+		03B868192B3E2B48AE0C684BBB839598 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				046C3CAE443CAC3F83B4A16FE66772E4 /* Pods-furryoctoninja */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		046C3CAE443CAC3F83B4A16FE66772E4 /* Pods-furryoctoninja */ = {
+			isa = PBXGroup;
+			children = (
+				DE00B4659AB8663CCB5350404BB7F873 /* Info.plist */,
+				EC25BDC8D221611904891CF30BFEF011 /* Pods-furryoctoninja.modulemap */,
+				1CBCF4708B3F50D99CFAF5CECF8132E0 /* Pods-furryoctoninja-acknowledgements.markdown */,
+				7E4911E7ADDF92EA156598069BE2ADB7 /* Pods-furryoctoninja-acknowledgements.plist */,
+				B2C254BEAF6A206237101F864889346A /* Pods-furryoctoninja-dummy.m */,
+				E0217E71BD4110B54B59B7F9FDE404C1 /* Pods-furryoctoninja-frameworks.sh */,
+				FEA66E064CDFB8013D693105F9734508 /* Pods-furryoctoninja-resources.sh */,
+				16D768BB9F68EE09DAA815D66BE2DDE1 /* Pods-furryoctoninja-umbrella.h */,
+				61E1796704E4C8CA69203EB993A8D45C /* Pods-furryoctoninja.debug.xcconfig */,
+				E609AA6073829FD83DF1A0E509E7DF19 /* Pods-furryoctoninja.release.xcconfig */,
+			);
+			name = "Pods-furryoctoninja";
+			path = "Target Support Files/Pods-furryoctoninja";
+			sourceTree = "<group>";
+		};
+		122DA2E5084A4393C29BE363C764795C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3CBC1C1D0C6A572681EE7D6067EC5A48 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		229572E45CFF44C9B23BD296863575EC /* SwiftyJSON */ = {
+			isa = PBXGroup;
+			children = (
+				31F861572AEF58AF8E8738463397C601 /* SwiftyJSON.swift */,
+				00E06BB088F0DBA3E4E76EA5835B7761 /* Support Files */,
+			);
+			path = SwiftyJSON;
+			sourceTree = "<group>";
+		};
+		3269582C2C197F5B8802D7BFCF83093B /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				DC068FF0F65C2BBD7488840AFCBBB60F /* Info.plist */,
+				85265035A7512E9521DC1DE561F1228D /* Locksmith.modulemap */,
+				ADAF935D8F6619FE396DFDDE5FC60E17 /* Locksmith.xcconfig */,
+				46C1F65A471DA06D480722352520FB63 /* Locksmith-Private.xcconfig */,
+				529731D88B6AF5DD60E374DFB64F9BAD /* Locksmith-dummy.m */,
+				01880CFC09F2614D0BC178FC2984047E /* Locksmith-prefix.pch */,
+				CD180EFC8B11288372581AEC1EB671B5 /* Locksmith-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Locksmith";
+			sourceTree = "<group>";
+		};
+		3CBC1C1D0C6A572681EE7D6067EC5A48 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				E4EC4B75BAE91861986227C1BE7B931E /* Foundation.framework */,
+				2E4CCF78DB45E3C90136901817AA6B2E /* Security.framework */,
+				5133BC29898B3A3354DB6BB5953C1E51 /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		77B90BCF3FD46155F21824ECE1E08BCD /* Locksmith */ = {
+			isa = PBXGroup;
+			children = (
+				8F1D7E63220E287994F490618E4FEC26 /* Locksmith.swift */,
+				9B64F2E5798BFA1561617D27A32256CE /* LocksmithRequest.swift */,
+				3269582C2C197F5B8802D7BFCF83093B /* Support Files */,
+			);
+			path = Locksmith;
+			sourceTree = "<group>";
+		};
+		7D5A41CD55A81F3207780CD380FD429D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DB972228D15307EF189473FAD9B918D8 /* Alamofire */,
+				77B90BCF3FD46155F21824ECE1E08BCD /* Locksmith */,
+				229572E45CFF44C9B23BD296863575EC /* SwiftyJSON */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				122DA2E5084A4393C29BE363C764795C /* Frameworks */,
+				7D5A41CD55A81F3207780CD380FD429D /* Pods */,
+				CCA510CFBEA2D207524CDA0D73C3B561 /* Products */,
+				03B868192B3E2B48AE0C684BBB839598 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		CCA510CFBEA2D207524CDA0D73C3B561 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4AEEC5BFFEF9DA903CE6F47752D15515 /* Alamofire.framework */,
+				976EAEE0A997E1EDA02F6D679D983638 /* Locksmith.bundle */,
+				2181C02ACEDC734F88321BE90EB1065E /* Locksmith.framework */,
+				F42926BA234D4998397AC1B146FD1229 /* Pods_furryoctoninja.framework */,
+				EB4CB50B42FA0112BD3CB968CB68AC93 /* SwiftyJSON.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DB972228D15307EF189473FAD9B918D8 /* Alamofire */ = {
+			isa = PBXGroup;
+			children = (
+				83566B7EC126A7E0E47D6ADCC24ED6E9 /* Alamofire.swift */,
+				CB183C59D61DA07F6C114A1FDF305BCE /* Download.swift */,
+				6D2C52CDDF37EB3EEF4F833950483045 /* Manager.swift */,
+				7D484639EB86EDA8B07123C4806A065D /* MultipartFormData.swift */,
+				AEB1A05E5B8025B5A5C7282FB1CCCA99 /* ParameterEncoding.swift */,
+				4B796735BC40D41EE91277A0AC3FC029 /* Request.swift */,
+				95F52F3CC66F8EE86EA0E62D2E85B3F0 /* ResponseSerialization.swift */,
+				46459B880E89B0BEEC38C94933352DE8 /* ServerTrustPolicy.swift */,
+				3853DCECE45AF48670A17D9851A78EBF /* Upload.swift */,
+				23700482F00F9C20885B9E4F4EA31A50 /* Validation.swift */,
+				DF4E9B3580F3E00343C9B050B7199686 /* Support Files */,
+			);
+			path = Alamofire;
+			sourceTree = "<group>";
+		};
+		DF4E9B3580F3E00343C9B050B7199686 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				F57562BE617E17CB02B43C848FDECF09 /* Alamofire.modulemap */,
+				1BE13A7F7B262DE505C375E5BA28C171 /* Alamofire.xcconfig */,
+				EC3B0B5B2DD8C44875F46C95336E5912 /* Alamofire-Private.xcconfig */,
+				B84A1AAD1437091E7878501D4E5C5BF0 /* Alamofire-dummy.m */,
+				2B5D41D1F431ADAE8761F000EF373975 /* Alamofire-prefix.pch */,
+				11F3FA963510B36DAE374EE26FB84BFA /* Alamofire-umbrella.h */,
+				EB1A3C3256D7A07FFD5C8EC39EED2BD8 /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Alamofire";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		0D10B1AE1DC1864DCA356602C1FD9529 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E2FAF8399D6E4BAD02FAE6CEF9455DC /* Pods-furryoctoninja-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15AFE84EAB0274046EA7CEBA9FFA7FC5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B28D86C647A7F3435C93502302826C60 /* Alamofire-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE8F609FD9A244777DB6C3B5C55E822E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23F5940A08DB5F0B129F9DFF7CCC3452 /* SwiftyJSON-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9B9C7D6BDC047C219D6D7BD06C564CB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD383AD2E7ABC75521C41F11BFCF2B84 /* Locksmith-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		4A161C541926F96EA23CF9EDC47E6A99 /* Locksmith */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6CFF46E2E6C8BECB54CC6688FA77C8A /* Build configuration list for PBXNativeTarget "Locksmith" */;
+			buildPhases = (
+				6F970338FAAA9B10EE917A1210A22EDE /* Sources */,
+				36FD93744F7FE37C8CBEDF25BC7191D2 /* Frameworks */,
+				C833CA211FE72D0E7CF5CFC4C1AA2354 /* Resources */,
+				D9B9C7D6BDC047C219D6D7BD06C564CB /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				74E0D28FE83F1B7E8CB80746C3052C7B /* PBXTargetDependency */,
+			);
+			name = Locksmith;
+			productName = Locksmith;
+			productReference = 2181C02ACEDC734F88321BE90EB1065E /* Locksmith.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4B822E00157028FD60D4F613EA314AB0 /* Pods-furryoctoninja */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 95A4D0390A568457A652446453DEE934 /* Build configuration list for PBXNativeTarget "Pods-furryoctoninja" */;
+			buildPhases = (
+				4AE624AEEE2886B5FACDE8F8C2780753 /* Sources */,
+				060F11FBF4683413096B7D23B2B0E1EE /* Frameworks */,
+				0D10B1AE1DC1864DCA356602C1FD9529 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AB8908D453A9E237FE3A343FDCE299A3 /* PBXTargetDependency */,
+				A5B5E960EBF4DC751615D12532418B6C /* PBXTargetDependency */,
+				0FF251987D25878533D57BDC07A5E7D8 /* PBXTargetDependency */,
+			);
+			name = "Pods-furryoctoninja";
+			productName = "Pods-furryoctoninja";
+			productReference = F42926BA234D4998397AC1B146FD1229 /* Pods_furryoctoninja.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4F20504B760DF5F2589AA10DFD8B965E /* Alamofire */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F75B0AC43CA57A104A33B16BDE5B5839 /* Build configuration list for PBXNativeTarget "Alamofire" */;
+			buildPhases = (
+				4981EFD098B1E33C380410519268BB31 /* Sources */,
+				C78F0A9E2D39F18221ADF2CC12696DF9 /* Frameworks */,
+				15AFE84EAB0274046EA7CEBA9FFA7FC5 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Alamofire;
+			productName = Alamofire;
+			productReference = 4AEEC5BFFEF9DA903CE6F47752D15515 /* Alamofire.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		B9A04D3C9B208813656510FDA8ADAE02 /* SwiftyJSON */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6AF45366202C75BFCB13738AB00EC1DF /* Build configuration list for PBXNativeTarget "SwiftyJSON" */;
+			buildPhases = (
+				857F4306B6C6D8D06B3382A44BD3CD69 /* Sources */,
+				CBEEDA6A29AD33FB9CFD183DA7A8F5B4 /* Frameworks */,
+				BE8F609FD9A244777DB6C3B5C55E822E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftyJSON;
+			productName = SwiftyJSON;
+			productReference = EB4CB50B42FA0112BD3CB968CB68AC93 /* SwiftyJSON.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E7DB9CA8346B6FEB17B69B9220A1CCFF /* Locksmith-Locksmith */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AFF21AFB44D111BDCCA13E447382D161 /* Build configuration list for PBXNativeTarget "Locksmith-Locksmith" */;
+			buildPhases = (
+				100B9D7F0B3DAE865CAABB6AD53892E5 /* Sources */,
+				BE14E22398C4D9284DEC14551B7D9BCE /* Frameworks */,
+				DC68A3B982D2EB07DFECE5CF22D3D09A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Locksmith-Locksmith";
+			productName = "Locksmith-Locksmith";
+			productReference = 976EAEE0A997E1EDA02F6D679D983638 /* Locksmith.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = CCA510CFBEA2D207524CDA0D73C3B561 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4F20504B760DF5F2589AA10DFD8B965E /* Alamofire */,
+				4A161C541926F96EA23CF9EDC47E6A99 /* Locksmith */,
+				E7DB9CA8346B6FEB17B69B9220A1CCFF /* Locksmith-Locksmith */,
+				4B822E00157028FD60D4F613EA314AB0 /* Pods-furryoctoninja */,
+				B9A04D3C9B208813656510FDA8ADAE02 /* SwiftyJSON */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C833CA211FE72D0E7CF5CFC4C1AA2354 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77BC5B3A94FC07C0673F39D9FF26DDA8 /* Locksmith.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC68A3B982D2EB07DFECE5CF22D3D09A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		100B9D7F0B3DAE865CAABB6AD53892E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4981EFD098B1E33C380410519268BB31 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4748D65B43B873E0B3FC6BB51741D41 /* Alamofire-dummy.m in Sources */,
+				BEA508D3FF41353E45ED868FA28E49F9 /* Alamofire.swift in Sources */,
+				C15BD6F28C813BC8B989EBA0AE75BD2F /* Download.swift in Sources */,
+				01B6A5AB933D3DAF95754A83E3FB3E36 /* Manager.swift in Sources */,
+				A0AE9C3D2ED56EC287D5B8ED2AC44CF7 /* MultipartFormData.swift in Sources */,
+				A36349284AC84BB4928AEF6209BEF8D2 /* ParameterEncoding.swift in Sources */,
+				DAD8427F2D0397BD07E614DEE4D86CFF /* Request.swift in Sources */,
+				B2E24E588A2869AE1F5ADB28A08ADD22 /* ResponseSerialization.swift in Sources */,
+				3CA665E5D1483650A3C24E03EBD6A354 /* ServerTrustPolicy.swift in Sources */,
+				4D8D12CC566DD340304C853B558386A7 /* Upload.swift in Sources */,
+				2DB6FB7DC222A98D01B972575A3B91AF /* Validation.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4AE624AEEE2886B5FACDE8F8C2780753 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEB9421A9652802215884AF08D39D2C5 /* Pods-furryoctoninja-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F970338FAAA9B10EE917A1210A22EDE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				713197C3BE6992D9E882E11A06CEB453 /* Locksmith-dummy.m in Sources */,
+				E0E0DB2CCB837B62C8B3BC558D8E2A55 /* Locksmith.swift in Sources */,
+				A71AB479176CE53258B67957A856F158 /* LocksmithRequest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		857F4306B6C6D8D06B3382A44BD3CD69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90EF20BB8DC0A183A97CEE5D4BE375EE /* SwiftyJSON-dummy.m in Sources */,
+				39A8A7DB3537BDC61EF618B1737C1EB5 /* SwiftyJSON.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0FF251987D25878533D57BDC07A5E7D8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftyJSON;
+			target = B9A04D3C9B208813656510FDA8ADAE02 /* SwiftyJSON */;
+			targetProxy = 92E05C5E434AD8A8F2C6EDBD516843B7 /* PBXContainerItemProxy */;
+		};
+		74E0D28FE83F1B7E8CB80746C3052C7B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Locksmith-Locksmith";
+			target = E7DB9CA8346B6FEB17B69B9220A1CCFF /* Locksmith-Locksmith */;
+			targetProxy = 2AEC575D7ABE3F0D4BE706B2072C8EFA /* PBXContainerItemProxy */;
+		};
+		A5B5E960EBF4DC751615D12532418B6C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Locksmith;
+			target = 4A161C541926F96EA23CF9EDC47E6A99 /* Locksmith */;
+			targetProxy = 3DDD26C297E2154EA3759EA881997103 /* PBXContainerItemProxy */;
+		};
+		AB8908D453A9E237FE3A343FDCE299A3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Alamofire;
+			target = 4F20504B760DF5F2589AA10DFD8B965E /* Alamofire */;
+			targetProxy = 53EEC683B6978AAC9DAEDAF617833D6D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0B467278A8D4094DE833171E10E6E12F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BDFD6BDED1543DF5F7EBD546120C5980 /* SwiftyJSON-Private.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 2.2.1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 2;
+				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftyJSON/SwiftyJSON-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftyJSON/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftyJSON/SwiftyJSON.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = SwiftyJSON;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		1535B17C21E49E15F38B62C9D3D3B8A1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC3B0B5B2DD8C44875F46C95336E5912 /* Alamofire-Private.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1.3.1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Alamofire/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Alamofire;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		1FDE3B788B33B09CA9C653EA2662DD41 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46C1F65A471DA06D480722352520FB63 /* Locksmith-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				PRODUCT_NAME = Locksmith;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		72B31FB4A22E6D58FB51B2774BB71419 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BDFD6BDED1543DF5F7EBD546120C5980 /* SwiftyJSON-Private.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 2.2.1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 2;
+				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftyJSON/SwiftyJSON-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftyJSON/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftyJSON/SwiftyJSON.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = SwiftyJSON;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		79767E4BC6B70F0A9537FBA201C789A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E609AA6073829FD83DF1A0E509E7DF19 /* Pods-furryoctoninja.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-furryoctoninja/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pods-furryoctoninja/Pods-furryoctoninja.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_furryoctoninja;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		7EA0650593E43B3FA9B3B7518E42B20A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC3B0B5B2DD8C44875F46C95336E5912 /* Alamofire-Private.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1.3.1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Alamofire/Alamofire-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Alamofire/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = Alamofire;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8BCC34147B146A10D59962984B1E987F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46C1F65A471DA06D480722352520FB63 /* Locksmith-Private.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1.2.2;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Locksmith/Locksmith-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Locksmith/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Locksmith/Locksmith.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Locksmith;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		8E9A86CE4413636A03A52A6E1A70991C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46C1F65A471DA06D480722352520FB63 /* Locksmith-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				PRODUCT_NAME = Locksmith;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		9A5504E952432432659AEE867B32196A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46C1F65A471DA06D480722352520FB63 /* Locksmith-Private.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1.2.2;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Locksmith/Locksmith-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Locksmith/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Locksmith/Locksmith.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = Locksmith;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		A70CDAD61F90AC503C7D04CC22DA2923 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		AFD944F113D00C0A3D67351D4C143178 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 61E1796704E4C8CA69203EB993A8D45C /* Pods-furryoctoninja.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-furryoctoninja/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pods-furryoctoninja/Pods-furryoctoninja.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_furryoctoninja;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FB45FFD90572718D82AB9092B750F0CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A70CDAD61F90AC503C7D04CC22DA2923 /* Debug */,
+				FB45FFD90572718D82AB9092B750F0CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6AF45366202C75BFCB13738AB00EC1DF /* Build configuration list for PBXNativeTarget "SwiftyJSON" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				72B31FB4A22E6D58FB51B2774BB71419 /* Debug */,
+				0B467278A8D4094DE833171E10E6E12F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		95A4D0390A568457A652446453DEE934 /* Build configuration list for PBXNativeTarget "Pods-furryoctoninja" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AFD944F113D00C0A3D67351D4C143178 /* Debug */,
+				79767E4BC6B70F0A9537FBA201C789A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AFF21AFB44D111BDCCA13E447382D161 /* Build configuration list for PBXNativeTarget "Locksmith-Locksmith" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E9A86CE4413636A03A52A6E1A70991C /* Debug */,
+				1FDE3B788B33B09CA9C653EA2662DD41 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B6CFF46E2E6C8BECB54CC6688FA77C8A /* Build configuration list for PBXNativeTarget "Locksmith" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A5504E952432432659AEE867B32196A /* Debug */,
+				8BCC34147B146A10D59962984B1E987F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F75B0AC43CA57A104A33B16BDE5B5839 /* Build configuration list for PBXNativeTarget "Alamofire" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7EA0650593E43B3FA9B3B7518E42B20A /* Debug */,
+				1535B17C21E49E15F38B62C9D3D3B8A1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
