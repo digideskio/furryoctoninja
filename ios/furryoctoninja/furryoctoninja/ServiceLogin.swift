@@ -17,7 +17,6 @@ class ServiceLogin{
     var expiration = ""
     var errorDescription = "Service unavailable"
     
-    
     func loginBody(username:String, password:String) -> Dictionary<String, String> {
         return  [
             "login" : username,
@@ -36,6 +35,7 @@ class ServiceLogin{
                     callback(result: self.logged)
                 }else{
                     self.errorDescription = error!.localizedDescription
+                    callback(result: self.logged)
                 }
             }
     }

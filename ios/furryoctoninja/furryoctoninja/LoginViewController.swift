@@ -29,9 +29,12 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loader: UIActivityIndicatorView!
     
     
+    @IBOutlet weak var submitButton: UIButton!
+    
     @IBAction func submit(sender: UIButton) {
         self.errorMsg.text = ""
         self.loader.startAnimating()
+        self.submitButton.enabled = false;
         let serviceLogin = ServiceLogin()
         serviceLogin.login(self.username.text, password: self.password.text, callback: {
             (result: Bool) -> () in
@@ -41,10 +44,10 @@ class LoginViewController: UIViewController {
                 }
                 else {
                     self.errorMsg.text = serviceLogin.errorDescription
+                    self.loader.stopAnimating()
+                    self.submitButton.enabled = true;
                 }
-                self.loader.stopAnimating()
             })
-        
         
     }
     
