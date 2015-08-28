@@ -15,7 +15,7 @@ class ServiceSurvey{
     let surveyURL = AppSettings.apiURL + "/api/survey"
     var errorDescription = "Service unavailable"
     
-    func loadSurvey(callback: (result: Survey, error: String) -> ()){
+    func loadSurvey(callback: (result: Survey, error_i: String) -> ()){
         let (dictionary, error) = Locksmith.loadDataForUserAccount(AppSettings.currentUser)
         let token:String = (dictionary?["Token"] as? String)!
         let headers = [
@@ -23,13 +23,12 @@ class ServiceSurvey{
         ]
         Alamofire.request(.GET, surveyURL, headers: headers)
             .responseJSON { _, _, JSON, error in
-                debugPrint(JSON)
                 if JSON != nil {
                     var survey = self.parseSurveyJson(JSON)
-                    callback(result: survey, error: "")
+                    callback(result: survey, error_i: "")
                 }else{
                     self.errorDescription = error!.localizedDescription
-                    callback(result: Survey(), error: self.errorDescription)
+                    callback(result: Survey(), error_i: self.errorDescription)
                 }
         }
 
@@ -40,37 +39,53 @@ class ServiceSurvey{
         var survey = Survey()
         
         if let id = json["Id"].int,
-            let title = json["Ttles"].string,
+            let title = json["Title"].string,
             let description = json["Description"].string,
             let createdDate = json["CreatedDate"].int,
             let completedByUser = json["CompletedByUser"].bool,
-            let questions = json["Questions"].array{
-                var questions_arr: [Question] = []
-                for question in questions{
-                    var question_it = Question()
-                    if let q_id = question["Id"].int,
-                        let q_text = question["Text"].string,
-                        let answers = question["Answers"].array{
-                            question_it = (Question(id:q_id,text: q_text, answers: []))
-                            for answer in answers {
-                                if let a_id = answer["Id"].int,
-                                    let a_text = answer["Text"].string{
-                                        question_it.answers?.append(Answer(id:a_id, text:a_text))
-                                }
-                            }
-                        questions_arr.append(question_it)
-                    }
-                }
-                survey = Survey(id: id, title:title, description: description, createdDate: createdDate, questions: questions_arr, completedByUser: completedByUser)
+            let questions = json["Questions"].array
+        {
+                survey = Survey(id: id, title:title, description: description, createdDate: createdDate, questions: parseQuestionsJson(questions), completedByUser: completedByUser)
         }else{
-            debugPrint("JSON Parsing error")
+            debugPrintln("JSON Parsing error - main parameters")
+            debugPrintln(json)
             self.errorDescription = "Data cannot be loaded"
         }
         
        return survey
     }
-    
-    
-        
-}
 
+    private func parseQuestionsJson(questionsJSON:[JSON]) -> [Question]{
+        var questions: [Question] = []
+        for questionJSON in questionsJSON{
+            if let id = questionJSON["Id"].int,
+                let text = questionJSON["Text"].string,
+                let answers = questionJSON["Answers"].array
+            {
+                    questions.append(Question(id:id,text: text, answers:parseAnswersJson(answers)))
+            } else {
+                debugPrintln("JSON Parsing error - question")
+                debugPrintln(questionJSON)
+            }
+            
+        }
+        return questions
+    }
+
+    private func parseAnswersJson(answersJSON:[JSON]) -> [Answer]{
+        var answers: [Answer] = []
+        for answerJSON in answersJSON {
+            if let id = answerJSON["Id"].int,
+                let text = answerJSON["Text"].string
+            {
+                answers.append(Answer(id:id, text:text))
+            } else {
+                debugPrintln("JSON Parsing error - answer")
+                debugPrintln(answersJSON)
+                self.errorDescription = "Data cannot be loaded"
+            }
+        }
+        return answers
+
+    }
+}

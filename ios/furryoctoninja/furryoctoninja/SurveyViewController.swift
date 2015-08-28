@@ -9,24 +9,73 @@
 import Foundation
 import UIKit
 
-class SurveyViewController: UIViewController {
+class SurveyViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    var survey:Survey = Survey()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        println("Loaded View")
         let serviceSurvey = ServiceSurvey()
         serviceSurvey.loadSurvey({
-            (result:Survey, error:String) -> () in
-            if (error == "") {
-                //perform loading survey
-            }
-            else {
-                //error_msg.text = error
-            }
+            (result:Survey, error_i:String) -> () in
+                if (error_i == "") {
+                    self.survey = result
+                    self.tableView.reloadData()
+                }
+                else {
+                    self.errorMsg.text = error_i
+                }
         })
         
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.hideUnusedRows()
     }
+    
+    
+    @IBOutlet weak var errorMsg: UILabel!
+    
+    @IBOutlet var tableView: UITableView!
+    
+    let textCellIdentifier = "TextCell"
+    
+    private func hideUnusedRows(){
+        self.tableView.tableFooterView = UIView(frame: CGRect.zeroRect)
+    }
+    
+    // Delegate
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.survey.id == 0{
+            debugPrintln("wiating for data")
+            //Loader needed
+            return -1
+        }else{
+            return self.survey.questions!.count
+        }
+        
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        let row = indexPath.row
+        if row >= 0 {
+            cell.textLabel?.text = self.survey.questions![row].text
+        }
+        return cell
+    }
+    
+    // Delegate
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        //tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        let row = indexPath.row
+    }
+    
+    
     
 
 }
