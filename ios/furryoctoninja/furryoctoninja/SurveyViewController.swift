@@ -14,7 +14,7 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.errorMsg.text = ""
+        self.titleUI.text = ""
         let serviceSurvey = ServiceSurvey()
         
         serviceSurvey.loadSurvey({
@@ -22,9 +22,11 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
                 if (error_i == "") {
                     self.survey = result
                     self.tableView.reloadData()
+                    self.titleUI.text = self.survey.title
+                    self.descriptionUI.text = self.survey.description
                 }
                 else {
-                    self.errorMsg.text = error_i
+                    self.titleUI.text = error_i
                 }
         })
         
@@ -33,8 +35,13 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
         self.hideUnusedRows()
     }
     
+    @IBAction func returned(segue: UIStoryboardSegue) {
+        
+    }
     
-    @IBOutlet weak var errorMsg: UILabel!
+    @IBOutlet weak var descriptionUI: UILabel!
+    
+    @IBOutlet weak var titleUI: UILabel!
     
     @IBOutlet var tableView: UITableView!
     
@@ -75,6 +82,8 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
         //tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         let row = indexPath.row
+        ServiceData.currentQuestion = self.survey.questions![row]
+        performSegueWithIdentifier("showAnswers", sender: self)
     }
     
     
