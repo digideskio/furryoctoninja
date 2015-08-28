@@ -14,7 +14,9 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.errorMsg.text = ""
         let serviceSurvey = ServiceSurvey()
+        
         serviceSurvey.loadSurvey({
             (result:Survey, error_i:String) -> () in
                 if (error_i == "") {

@@ -13,7 +13,7 @@ import Alamofire
 
 class ServiceSurvey{
     let surveyURL = AppSettings.apiURL + "/api/survey"
-    var errorDescription = "Service unavailable"
+    var errorDescription = ""
     
     func loadSurvey(callback: (result: Survey, error_i: String) -> ()){
         let (dictionary, error) = Locksmith.loadDataForUserAccount(AppSettings.currentUser)
@@ -24,8 +24,8 @@ class ServiceSurvey{
         Alamofire.request(.GET, surveyURL, headers: headers)
             .responseJSON { _, _, JSON, error in
                 if JSON != nil {
-                    var survey = self.parseSurveyJson(JSON)
-                    callback(result: survey, error_i: "")
+                    var (survey, errorDescription)  = self.parseSurveyJson(JSON)
+                    callback(result: survey, error_i: errorDescription)
                 }else{
                     self.errorDescription = error!.localizedDescription
                     callback(result: Survey(), error_i: self.errorDescription)
@@ -34,7 +34,7 @@ class ServiceSurvey{
 
     }
     
-    private func parseSurveyJson(data:AnyObject?) -> Survey{
+    private func parseSurveyJson(data:AnyObject?) -> (Survey, error:String){
         let json = JSON(data!)
         var survey = Survey()
         
@@ -52,7 +52,7 @@ class ServiceSurvey{
             self.errorDescription = "Data cannot be loaded"
         }
         
-       return survey
+       return (survey, self.errorDescription)
     }
 
     private func parseQuestionsJson(questionsJSON:[JSON]) -> [Question]{
@@ -82,7 +82,6 @@ class ServiceSurvey{
             } else {
                 debugPrintln("JSON Parsing error - answer")
                 debugPrintln(answersJSON)
-                self.errorDescription = "Data cannot be loaded"
             }
         }
         return answers
