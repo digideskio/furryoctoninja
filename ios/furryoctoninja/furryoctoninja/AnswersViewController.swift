@@ -10,14 +10,14 @@ import Foundation
 import UIKit
 
 class AnswersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    var answers = ServiceData.currentQuestion.answers!
+    var question = ServiceData.currentSurvey.questions![ServiceData.currentQuestionRow]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.hideUnusedRows()
-        self.questionTitle.text = ServiceData.currentQuestion.text
+        self.questionTitle.text = self.question.text
     }
     
     @IBOutlet weak var questionTitle: UILabel!
@@ -37,7 +37,7 @@ class AnswersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.answers.count
+        return self.question.answers!.count
         
     }
     
@@ -45,16 +45,25 @@ class AnswersViewController: UIViewController, UITableViewDataSource, UITableVie
         let cell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
         let row = indexPath.row
         
-        cell.textLabel?.text = self.answers[row].text
+        cell.textLabel?.text = self.question.answers![row].text
+        if self.question.answers![row].checked == true{
+            cell.backgroundColor = UIColor.lightGrayColor()
+        }
         
         return cell
     }
     
     // Delegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
         let row = indexPath.row
+        if (ServiceData.completed == false) {
+            let answerId : Int = self.question.answers![row].id
+            ServiceData.markAnswer(answerId)
+        }else {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
+        
+        
     }
     
     

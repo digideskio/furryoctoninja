@@ -23,6 +23,7 @@ class ServiceSurvey{
         ]
         Alamofire.request(.GET, surveyURL, headers: headers)
             .responseJSON { _, _, JSON, error in
+                debugPrint(JSON)
                 if JSON != nil {
                     var (survey, errorDescription)  = self.parseSurveyJson(JSON)
                     callback(result: survey, error_i: errorDescription)

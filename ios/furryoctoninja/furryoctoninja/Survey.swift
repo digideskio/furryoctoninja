@@ -27,5 +27,10 @@ struct Question {
 struct Answer {
     var id: Int = 0
     var text: String = ""
+    var checked: Bool? = false
+    
+    init(id: Int, text: String){
+        self.id = id
+        self.text = text
+    }
 }
-

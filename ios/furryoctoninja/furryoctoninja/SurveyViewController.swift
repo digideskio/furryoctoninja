@@ -21,6 +21,7 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
             (result:Survey, error_i:String) -> () in
                 if (error_i == "") {
                     self.survey = result
+                    ServiceData.currentSurvey = result
                     self.tableView.reloadData()
                     self.titleUI.text = self.survey.title
                     self.descriptionUI.text = self.survey.description
@@ -33,10 +34,14 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.hideUnusedRows()
+        self.sendSurveyButton.enabled = false
     }
     
     @IBAction func returned(segue: UIStoryboardSegue) {
-        
+        self.tableView.reloadData()
+        if ServiceData.allChecked() == true {
+           self.sendSurveyButton.enabled = true
+        }
     }
     
     @IBOutlet weak var descriptionUI: UILabel!
@@ -44,6 +49,11 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var titleUI: UILabel!
     
     @IBOutlet var tableView: UITableView!
+    
+    @IBOutlet weak var sendSurveyButton: UIButton!
+    
+    @IBAction func sendSurvey(sender: AnyObject) {
+    }
     
     let textCellIdentifier = "TextCell"
     
@@ -60,7 +70,7 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.survey.id == 0{
             debugPrintln("wiating for data")
-            //Loader needed
+            //TODO Loader needed
             return -1
         }else{
             return self.survey.questions!.count
@@ -73,6 +83,9 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
         let row = indexPath.row
         if row >= 0 {
             cell.textLabel?.text = self.survey.questions![row].text
+            if ServiceData.questionAnswered(row) == true {
+                cell.backgroundColor = UIColor.greenColor()
+            }
         }
         return cell
     }
@@ -80,9 +93,9 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
     // Delegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         //tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
+        var s = ServiceData.currentSurvey
         let row = indexPath.row
-        ServiceData.currentQuestion = self.survey.questions![row]
+        ServiceData.currentQuestionRow = row
         performSegueWithIdentifier("showAnswers", sender: self)
     }
     
