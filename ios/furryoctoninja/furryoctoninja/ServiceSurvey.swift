@@ -16,12 +16,7 @@ class ServiceSurvey{
     var errorDescription = ""
     
     func loadSurvey(callback: (result: Survey, error_i: String) -> ()){
-        let (dictionary, error) = Locksmith.loadDataForUserAccount(AppSettings.currentUser)
-        let token:String = (dictionary?["Token"] as? String)!
-        let headers = [
-            "Authorization": "Token " + AppSettings.clientId + ":" + token
-        ]
-        Alamofire.request(.GET, surveyURL, headers: headers)
+        Alamofire.request(.GET, surveyURL, headers: AppSettings.token_header())
             .responseJSON { _, _, JSON, error in
                 debugPrint(JSON)
                 if JSON != nil {
@@ -33,6 +28,27 @@ class ServiceSurvey{
                 }
         }
 
+    }
+    
+    func sendSurvey(answers: [String: AnyObject], callback: (result: Bool, error_i: String) -> ()){
+        Alamofire.request(.POST, surveyURL, headers: AppSettings.token_header(), parameters: answers, encoding: .JSON)
+            .responseJSON{ request, response, JSON, error in
+                debugPrintln("Req")
+                debugPrintln(NSString(data: request.HTTPBody!, encoding:NSUTF8StringEncoding)!)
+                debugPrintln("Res")
+                debugPrintln(response)
+                debugPrintln("Req")
+                debugPrintln(JSON)
+                if response != nil {
+                    let success:Bool = ( response?.statusCode == 200 )
+                    let err = (error != nil) ? (error?.description)! : ""
+                    callback(result: success, error_i: err)
+                }else{
+                    self.errorDescription = error!.localizedDescription
+                    callback(result: false, error_i: self.errorDescription)
+                }
+        }
+        
     }
     
     private func parseSurveyJson(data:AnyObject?) -> (Survey, error:String){
@@ -86,6 +102,6 @@ class ServiceSurvey{
             }
         }
         return answers
-
     }
+    
 }

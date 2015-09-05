@@ -20,6 +20,7 @@
 		6142A0AA1B8EF1A700D4D42A /* SurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6142A0A91B8EF1A700D4D42A /* SurveyViewController.swift */; };
 		6142A0AC1B9048EE00D4D42A /* AnswersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6142A0AB1B9048EE00D4D42A /* AnswersViewController.swift */; };
 		6142A0AE1B904A8300D4D42A /* ServiceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6142A0AD1B904A8300D4D42A /* ServiceData.swift */; };
+		617BB2EA1B98787400343D5E /* PollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617BB2E91B98787400343D5E /* PollViewController.swift */; };
 		61DB12B51B870B070077D40A /* ServiceLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB12B41B870B070077D40A /* ServiceLogin.swift */; };
 		D8E1A764EA9278828C0BA3DE /* Pods_furryoctoninja.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D897E888B7CC45EDCFDFC07C /* Pods_furryoctoninja.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
@@ -67,6 +68,7 @@
 		6142A0A91B8EF1A700D4D42A /* SurveyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyViewController.swift; sourceTree = "<group>"; };
 		6142A0AB1B9048EE00D4D42A /* AnswersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswersViewController.swift; sourceTree = "<group>"; };
 		6142A0AD1B904A8300D4D42A /* ServiceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceData.swift; sourceTree = "<group>"; };
+		617BB2E91B98787400343D5E /* PollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollViewController.swift; sourceTree = "<group>"; };
 		61DB12B41B870B070077D40A /* ServiceLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceLogin.swift; sourceTree = "<group>"; };
 		D897E888B7CC45EDCFDFC07C /* Pods_furryoctoninja.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_furryoctoninja.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -118,6 +120,7 @@
 				6134F9091B7C9B730008C642 /* LoginViewController.swift */,
 				6142A0A91B8EF1A700D4D42A /* SurveyViewController.swift */,
 				6142A0AB1B9048EE00D4D42A /* AnswersViewController.swift */,
+				617BB2E91B98787400343D5E /* PollViewController.swift */,
 				6134F90B1B7C9B730008C642 /* Main.storyboard */,
 				6134F90E1B7C9B730008C642 /* Images.xcassets */,
 				6134F9101B7C9B730008C642 /* LaunchScreen.xib */,
@@ -343,6 +346,7 @@
 				6134F9081B7C9B730008C642 /* AppDelegate.swift in Sources */,
 				6113F06C1B8EE45500154CD3 /* ServiceSurvey.swift in Sources */,
 				6142A0AE1B904A8300D4D42A /* ServiceData.swift in Sources */,
+				617BB2EA1B98787400343D5E /* PollViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

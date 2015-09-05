@@ -28,7 +28,6 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var loader: UIActivityIndicatorView!
     
-    
     @IBOutlet weak var submitButton: UIButton!
     
     @IBAction func submit(sender: UIButton) {
@@ -38,7 +37,6 @@ class LoginViewController: UIViewController {
         let serviceLogin = ServiceLogin()
         serviceLogin.login(self.username.text, password: self.password.text, callback: {
             (result: Bool) -> () in
-            
                 if result {
                     self.performSegueWithIdentifier("surveyView", sender: self)
                 }
@@ -48,12 +46,10 @@ class LoginViewController: UIViewController {
                     self.submitButton.enabled = true;
                 }
             })
-        
     }
     
     
     // FOR TESTS ONLY TB REMOVED
-
     @IBAction func Cred(sender: UIButton) {
             self.username.text = "shem"
             self.password.text = "furryninja2014"
@@ -61,11 +57,9 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func CredNotSubmitted(sender: UIButton) {
-        self.username.text = "wi"
+        self.username.text = "a"
         self.password.text = "furryninja2014"
-        
-    }
-    
+    }    
     // Tests END
 }
 

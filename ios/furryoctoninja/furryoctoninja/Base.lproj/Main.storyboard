@@ -104,7 +104,6 @@
         <!--Survey View Controller-->
         <scene sceneID="bvC-iv-4dG">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1D1-db-CaY" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="XiV-2I-eym" customClass="SurveyViewController" customModule="furryoctoninja" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cJX-wo-aVb"/>
@@ -117,13 +116,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gmw-4p-1H1">
                                 <rect key="frame" x="16" y="28" width="568" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNX-Y0-4dO">
                                 <rect key="frame" x="16" y="57" width="568" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Lrp-5w-RZL">
@@ -138,7 +137,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="D0g-td-Pr7">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -179,10 +178,30 @@
                         <outlet property="tableView" destination="Lrp-5w-RZL" id="vW1-1K-5m3"/>
                         <outlet property="titleUI" destination="Gmw-4p-1H1" id="jnL-8O-huB"/>
                         <segue destination="3rf-2L-acb" kind="show" identifier="showAnswers" id="W7d-yp-IJy"/>
+                        <segue destination="Znj-95-8yy" kind="show" identifier="sendSurvey" id="zQE-7f-wkz"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1D1-db-CaY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1067" y="445"/>
+        </scene>
+        <!--Poll View Controller-->
+        <scene sceneID="zIE-1l-ute">
+            <objects>
+                <viewController id="Znj-95-8yy" customClass="PollViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aX9-UA-QaR"/>
+                        <viewControllerLayoutGuide type="bottom" id="YYf-Nh-J7O"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uhc-XM-1O3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UeO-rx-7qo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1067" y="1177"/>
         </scene>
         <!--Answers View Controller-->
         <scene sceneID="SqD-62-gaC">
@@ -202,7 +221,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="TBk-aC-3h2" kind="unwind" unwindAction="returned:" id="EJt-mh-70D"/>
+                                    <segue destination="TBk-aC-3h2" kind="unwind" identifier="toQuestions" unwindAction="returned:" id="EJt-mh-70D"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="xzE-ys-sIO">
@@ -218,7 +237,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zp6-3d-qEe">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -232,7 +251,7 @@
                                     <constraint firstAttribute="height" constant="39" id="Gyo-jT-yeL"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -251,6 +270,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="rkC-eE-6Ci" id="zB7-j3-dNE"/>
                         <outlet property="questionTitle" destination="zye-nl-CQZ" id="0HN-WA-oIA"/>
                         <outlet property="tableView" destination="xzE-ys-sIO" id="eTJ-Ad-8N0"/>
                     </connections>

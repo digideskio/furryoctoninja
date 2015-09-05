@@ -34,3 +34,20 @@ struct Answer {
         self.text = text
     }
 }
+
+var QuestionAnswer = {
+    (questionId:Int, answerId:Int) in
+        [
+            "QuestionId": questionId,
+            "AnswerId": answerId
+        ]
+}
+
+var SurveyAnswerBody =  {
+    (currentTimestamp:Int, id:Int, answers: Array<[String:Int]>) -> [String: AnyObject] in
+        [
+            "Modified": currentTimestamp,
+            "Id": id,
+            "Answers": answers
+        ]
+}

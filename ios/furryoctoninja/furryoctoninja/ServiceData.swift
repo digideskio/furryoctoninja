@@ -5,8 +5,9 @@
 //  Created by Przemysław Barański on 28/08/2015.
 //  Copyright (c) 2015 rspective. All rights reserved.
 //
+import SwiftyJSON
 
-struct ServiceData{
+class ServiceData{
     static var currentSurvey: Survey = Survey()
     static var currentQuestionRow: Int = 0
     
@@ -41,4 +42,24 @@ struct ServiceData{
         }
         return true
     }
+    
+    static func userAnswers() -> [String: AnyObject]{
+        let currentTimestamp = Int(NSDate().timeIntervalSince1970)
+        let id = currentSurvey.id
+        
+        let answers: Array<[String:Int]> = {
+            var foundAnswers: Array<[String:Int]> = []
+            for question in self.currentSurvey.questions! {
+                for answer in question.answers!{
+                    if answer.checked == true {
+                        foundAnswers.append(QuestionAnswer(question.id, answer.id))
+                    }
+                }
+            }
+            return foundAnswers
+        }()
+        
+        return SurveyAnswerBody(currentTimestamp, id, answers)
+    }
+    
 }

@@ -11,11 +11,16 @@ import UIKit
 
 class SurveyViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var survey:Survey = Survey()
+    let serviceSurvey = ServiceSurvey()
+    let textCellIdentifier = "TextCell"
+    
+    private func hideUnusedRows(){
+        self.tableView.tableFooterView = UIView(frame: CGRect.zeroRect)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.titleUI.text = ""
-        let serviceSurvey = ServiceSurvey()
         
         serviceSurvey.loadSurvey({
             (result:Survey, error_i:String) -> () in
@@ -53,19 +58,25 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var sendSurveyButton: UIButton!
     
     @IBAction func sendSurvey(sender: AnyObject) {
-    }
-    
-    let textCellIdentifier = "TextCell"
-    
-    private func hideUnusedRows(){
-        self.tableView.tableFooterView = UIView(frame: CGRect.zeroRect)
+        self.serviceSurvey.sendSurvey(ServiceData.userAnswers(), callback: {
+            (result:Bool, error_i:String) -> () in
+            if result {
+                self.performSegueWithIdentifier("sendSurvey", sender: self)
+            }
+            else {
+                let alert = UIAlertView()
+                alert.title = "Error"
+                alert.message = error_i
+                alert.addButtonWithTitle("OK")
+                alert.show()
+            }
+        })
     }
     
     // Delegate
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.survey.id == 0{
@@ -75,7 +86,6 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
         }else{
             return self.survey.questions!.count
         }
-        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
