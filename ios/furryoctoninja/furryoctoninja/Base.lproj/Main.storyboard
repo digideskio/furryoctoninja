@@ -154,26 +154,33 @@
                                     <action selector="sendSurvey:" destination="XiV-2I-eym" eventType="touchUpInside" id="Cd9-mj-NOZ"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8Ml-1V-dOq">
+                                <rect key="frame" x="290" y="567" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="hNX-Y0-4dO" firstAttribute="top" secondItem="Gmw-4p-1H1" secondAttribute="bottom" constant="8" id="01a-jg-Qqv"/>
                             <constraint firstItem="Lrp-5w-RZL" firstAttribute="leading" secondItem="mrb-jB-u0r" secondAttribute="leadingMargin" id="4Ny-ig-xtr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8Ml-1V-dOq" secondAttribute="trailing" constant="274" id="64O-3p-v7B"/>
                             <constraint firstItem="Gmw-4p-1H1" firstAttribute="trailing" secondItem="mrb-jB-u0r" secondAttribute="trailingMargin" id="EMw-z9-IYY"/>
                             <constraint firstItem="hNX-Y0-4dO" firstAttribute="trailing" secondItem="mrb-jB-u0r" secondAttribute="trailingMargin" id="OVc-Sz-Xdz"/>
                             <constraint firstItem="Lrp-5w-RZL" firstAttribute="top" secondItem="hNX-Y0-4dO" secondAttribute="bottom" constant="18" id="Tm7-eh-8HI"/>
                             <constraint firstItem="Kok-UP-C8q" firstAttribute="trailing" secondItem="mrb-jB-u0r" secondAttribute="trailingMargin" id="bPC-uA-Aj1"/>
                             <constraint firstItem="hNX-Y0-4dO" firstAttribute="leading" secondItem="mrb-jB-u0r" secondAttribute="leadingMargin" id="fSq-fw-In5"/>
+                            <constraint firstItem="8Ml-1V-dOq" firstAttribute="top" secondItem="Kok-UP-C8q" secondAttribute="bottom" constant="-25" id="gZ2-9F-U2A"/>
                             <constraint firstItem="Gmw-4p-1H1" firstAttribute="top" secondItem="cJX-wo-aVb" secondAttribute="bottom" constant="8" id="hQJ-4J-ZpC"/>
                             <constraint firstItem="Gmw-4p-1H1" firstAttribute="leading" secondItem="mrb-jB-u0r" secondAttribute="leadingMargin" id="o2s-U5-wCM"/>
                             <constraint firstItem="Kok-UP-C8q" firstAttribute="top" secondItem="Lrp-5w-RZL" secondAttribute="bottom" constant="8" id="qaG-0m-D6o"/>
                             <constraint firstItem="Kok-UP-C8q" firstAttribute="leading" secondItem="mrb-jB-u0r" secondAttribute="leadingMargin" id="rTe-IB-aVC"/>
                             <constraint firstItem="Lrp-5w-RZL" firstAttribute="trailing" secondItem="mrb-jB-u0r" secondAttribute="trailingMargin" id="tW8-69-obM"/>
+                            <constraint firstItem="8Ml-1V-dOq" firstAttribute="leading" secondItem="mrb-jB-u0r" secondAttribute="leadingMargin" constant="274" id="w84-JZ-l7N"/>
                             <constraint firstItem="Ym2-Xv-0ij" firstAttribute="top" secondItem="Kok-UP-C8q" secondAttribute="bottom" constant="8" id="wud-lM-Chn"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="descriptionUI" destination="hNX-Y0-4dO" id="Azg-ti-L1R"/>
+                        <outlet property="loader" destination="8Ml-1V-dOq" id="rb1-jc-6Vl"/>
                         <outlet property="sendSurveyButton" destination="Kok-UP-C8q" id="js9-Oy-C0T"/>
                         <outlet property="tableView" destination="Lrp-5w-RZL" id="vW1-1K-5m3"/>
                         <outlet property="titleUI" destination="Gmw-4p-1H1" id="jnL-8O-huB"/>

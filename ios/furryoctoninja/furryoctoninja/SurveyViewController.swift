@@ -57,7 +57,10 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBOutlet weak var sendSurveyButton: UIButton!
     
+    @IBOutlet weak var loader: UIActivityIndicatorView!
+    
     @IBAction func sendSurvey(sender: AnyObject) {
+        self.loader.startAnimating()
         self.serviceSurvey.sendSurvey(ServiceData.userAnswers(), callback: {
             (result:Bool, error_i:String) -> () in
             if result {
@@ -70,6 +73,7 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
                 alert.addButtonWithTitle("OK")
                 alert.show()
             }
+            self.loader.stopAnimating()
         })
     }
     
