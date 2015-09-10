@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Charts
 
 class PollViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var surveyWithAnswers:Survey = Survey()
