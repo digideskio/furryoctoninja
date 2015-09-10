@@ -13,10 +13,14 @@ import Alamofire
 
 class ServiceSurvey{
     let surveyURL = AppSettings.apiURL + "/api/survey"
+    let surveyWithAnswersURL = AppSettings.apiURL + "/api/survey/results"
     var errorDescription = ""
+    var surveyFilled = false;
     
-    func loadSurvey(callback: (result: Survey, error_i: String) -> ()){
-        Alamofire.request(.GET, surveyURL, headers: AppSettings.token_header())
+    func loadSurvey(callback: (result: Survey, error_i: String) -> (), surveyFilled:Bool = false){
+        self.surveyFilled = surveyFilled
+        let url =  surveyFilled ? self.surveyWithAnswersURL : self.surveyURL
+        Alamofire.request(.GET, url, headers: AppSettings.token_header())
             .responseJSON { _, _, JSON, error in
                 debugPrint(JSON)
                 if JSON != nil {
@@ -54,15 +58,33 @@ class ServiceSurvey{
     private func parseSurveyJson(data:AnyObject?) -> (Survey, error:String){
         let json = JSON(data!)
         var survey = Survey()
-        
-        if let id = json["Id"].int,
+        var surveyId = 0
+        var createdDate = 0
+        //Those are the differences between survey to fill and filled
+        if surveyFilled {
+            if let id = json["SurveyId"].int{
+                    surveyId = id
+            }else{
+                debugPrintln("JSON Parsing error - SurveyId")
+            }
+
+        }else{
+            if let id = json["Id"].int,
+                let date = json["CreatedDate"].int{
+                    surveyId = id
+                    createdDate = date
+            }else{
+                debugPrintln("JSON Parsing error - Id or CreationDate")
+            }
+        }
+        //difference end
+        if
             let title = json["Title"].string,
             let description = json["Description"].string,
-            let createdDate = json["CreatedDate"].int,
             let completedByUser = json["CompletedByUser"].bool,
             let questions = json["Questions"].array
         {
-                survey = Survey(id: id, title:title, description: description, createdDate: createdDate, questions: parseQuestionsJson(questions), completedByUser: completedByUser)
+                survey = Survey(id: surveyId, title:title, description: description, createdDate: createdDate, questions: parseQuestionsJson(questions), completedByUser: completedByUser)
         }else{
             debugPrintln("JSON Parsing error - main parameters")
             debugPrintln(json)
@@ -95,11 +117,24 @@ class ServiceSurvey{
             if let id = answerJSON["Id"].int,
                 let text = answerJSON["Text"].string
             {
-                answers.append(Answer(id:id, text:text))
+                if self.surveyFilled{
+                    if let isUserChoice = answerJSON["IsUserChoice"].bool,
+                        let count = answerJSON["Count"].int
+                    {
+                        answers.append(Answer(id:id, text:text, isUserChoice:isUserChoice, count:count))
+                    }else {
+                        debugPrintln("JSON Parsing error - answer for filled survey")
+                        debugPrintln(answersJSON)
+                    }
+                }else {
+                    answers.append(Answer(id:id, text:text))
+                }
             } else {
                 debugPrintln("JSON Parsing error - answer")
                 debugPrintln(answersJSON)
             }
+            
+            
         }
         return answers
     }

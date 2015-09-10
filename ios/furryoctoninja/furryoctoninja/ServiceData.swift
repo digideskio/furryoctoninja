@@ -17,9 +17,9 @@ class ServiceData{
         var answers = self.currentSurvey.questions![self.currentQuestionRow].answers!
         for row in 0..<(answers.count) {
             if answers[row].id == answerCheckId {
-                self.currentSurvey.questions![self.currentQuestionRow].answers![row].checked = true
+                self.currentSurvey.questions![self.currentQuestionRow].answers![row].isUserChoice = true
             }else{
-                self.currentSurvey.questions![self.currentQuestionRow].answers![row].checked = false
+                self.currentSurvey.questions![self.currentQuestionRow].answers![row].isUserChoice = false
             }
         }
     }
@@ -27,7 +27,7 @@ class ServiceData{
     static func questionAnswered(questionIndex: Int) -> Bool{
         var answers = self.currentSurvey.questions![questionIndex].answers!
         for row in 0..<(answers.count) {
-            if answers[row].checked == true {
+            if answers[row].isUserChoice == true {
                 return true
             }
         }
@@ -67,7 +67,7 @@ class ServiceData{
             var foundAnswers: Array<[String:Int]> = []
             for question in self.currentSurvey.questions! {
                 for answer in question.answers!{
-                    if answer.checked == true {
+                    if answer.isUserChoice == true {
                         foundAnswers.append(QuestionAnswer(question.id, answer.id))
                     }
                 }

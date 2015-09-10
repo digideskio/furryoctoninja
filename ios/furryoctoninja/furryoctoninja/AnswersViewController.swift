@@ -45,7 +45,7 @@ class AnswersViewController: UIViewController, UITableViewDataSource, UITableVie
         let row = indexPath.row
         
         cell.textLabel?.text = self.question.answers![row].text
-        if self.question.answers![row].checked == true{
+        if self.question.answers![row].isUserChoice == true{
             cell.backgroundColor = UIColor.lightGrayColor()
         }
         

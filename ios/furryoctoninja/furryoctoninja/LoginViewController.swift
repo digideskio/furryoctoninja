@@ -57,8 +57,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func CredNotSubmitted(sender: UIButton) {
-        self.username.text = "d"
-        self.password.text = "furryninja2014"
+        self.username.text = "e"
+        self.password.text = "e"
     }    
     // Tests END
 }

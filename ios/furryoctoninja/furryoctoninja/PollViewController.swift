@@ -34,7 +34,7 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         
-        if self.surveyWithAnswers.id == 0 && AppSettings.tokenNotAvailable() == false{
+        if self.surveyWithAnswers.id == -1 && AppSettings.tokenNotAvailable() == false{
             serviceSurvey.loadSurvey({
                 (result:Survey, error_i:String) -> () in
                 if (error_i == "") {
@@ -52,7 +52,7 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 else {
                     self.questionTitle.text = error_i
                 }
-            })
+            }, surveyFilled:true)
             
             self.tableView.delegate = self
             self.tableView.dataSource = self
@@ -81,7 +81,7 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.surveyWithAnswers.id == 0{
+        if self.surveyWithAnswers.id == -1{
             debugPrintln("wiating for data")
             //TODO Loader needed
             return -1
@@ -96,8 +96,10 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let row = indexPath.row
         
         cell.textLabel?.text = self.question.answers![row].text
-        if self.question.answers![row].checked == true{
+        if self.question.answers![row].isUserChoice == true{
             cell.backgroundColor = UIColor.lightGrayColor()
+        }else{
+            cell.backgroundColor = UIColor.whiteColor()
         }
         
         cell.userInteractionEnabled = false

@@ -9,7 +9,7 @@
 import Foundation
 
 struct Survey {
-    var id: Int = 0
+    var id: Int = -1
     var title: String = ""
     var description: String = ""
     var createdDate: Int = 0
@@ -27,11 +27,19 @@ struct Question {
 struct Answer {
     var id: Int = 0
     var text: String = ""
-    var checked: Bool? = false
+    var isUserChoice: Bool? = false
+    var count: Int = 0
     
     init(id: Int, text: String){
         self.id = id
         self.text = text
+    }
+    
+    init(id: Int, text: String, isUserChoice: Bool, count: Int){
+        self.id = id
+        self.text = text
+        self.isUserChoice = isUserChoice
+        self.count = count
     }
 }
 

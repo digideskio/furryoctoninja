@@ -83,7 +83,7 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.survey.id == 0{
+        if self.survey.id == -1{
             debugPrintln("wiating for data")
             //TODO Loader needed
             return -1
