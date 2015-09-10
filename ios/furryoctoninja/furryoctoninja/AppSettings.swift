@@ -17,5 +17,10 @@ struct AppSettings {
         let token:String = (dictionary?["Token"] as? String)!
         return [ "Authorization": "Token " + AppSettings.clientId + ":" + token ]        
     }
+    
+    static func tokenNotAvailable() -> Bool{
+        let (dictionary, error) = Locksmith.loadDataForUserAccount(AppSettings.currentUser)
+        return error != nil
+    }
 }
 

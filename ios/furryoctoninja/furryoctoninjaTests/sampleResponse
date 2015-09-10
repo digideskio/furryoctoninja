@@ -64,3 +64,61 @@
         }
     ]
 }
+
+//results
+{
+"SurveyId": 0,
+"Title": "Test",
+"Description": "Test survey",
+"Questions": [
+    {
+        "Id": 22,
+        "Text": "Pytanie 1",
+        "Answers": [
+            {
+                "Id": 64,
+                "Text": "Odp 4",
+                "Count": 5,
+                "IsUserChoice": false
+            },
+            {
+                "Id": 65,
+                "Text": "Odp 1",
+                "Count": 1,
+                "IsUserChoice": false
+            },
+            {
+                "Id": 66,
+                "Text": "Odp 2",
+                "Count": 2,
+                "IsUserChoice": true
+            },
+            {
+                "Id": 67,
+                "Text": "Odp 3",
+                "Count": 0,
+                "IsUserChoice": false
+            }
+        ]
+    },
+    {
+        "Id": 23,
+        "Text": "fsafsd",
+        "Answers": [
+            {
+                "Id": 68,
+                "Text": "fsdfsda",
+                "Count": 6,
+                "IsUserChoice": true
+            },
+            {
+                "Id": 69,
+                "Text": "fsafsda",
+                "Count": 2,
+                "IsUserChoice": false
+            }
+        ]
+    }
+],
+"CompletedByUser": true
+}

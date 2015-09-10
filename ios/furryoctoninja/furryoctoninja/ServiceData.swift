@@ -34,6 +34,22 @@ class ServiceData{
         return false
     }
     
+    static func nextQuestion() -> Question{
+        if currentSurvey.questions!.count-1 > currentQuestionRow{
+           currentQuestionRow++
+        }
+        return ServiceData.currentSurvey.questions![ServiceData.currentQuestionRow]
+    }
+    
+    static func previousQuestion() -> Question{
+        if currentQuestionRow > 0{
+            currentQuestionRow--
+        }
+        return ServiceData.currentSurvey.questions![ServiceData.currentQuestionRow]
+        
+    }
+    
+    
     static func allChecked() -> Bool {
         for row in 0..<(self.currentSurvey.questions!.count) {
             if self.questionAnswered(row) == false{

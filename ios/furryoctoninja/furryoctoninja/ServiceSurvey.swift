@@ -31,7 +31,7 @@ class ServiceSurvey{
     }
     
     func sendSurvey(answers: [String: AnyObject], callback: (result: Bool, error_i: String) -> ()){
-        Alamofire.request(.POST, surveyURL, headers: AppSettings.token_header(), parameters: answers, encoding: .JSON)
+        Alamofire.request(.POST, self.surveyURL, headers: AppSettings.token_header(), parameters: answers, encoding: .JSON)
             .responseJSON{ request, response, JSON, error in
                 debugPrintln("Req")
                 debugPrintln(NSString(data: request.HTTPBody!, encoding:NSUTF8StringEncoding)!)
