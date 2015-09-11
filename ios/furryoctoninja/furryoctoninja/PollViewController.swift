@@ -49,7 +49,6 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     ServiceData.currentSurvey = result
                     self.question = ServiceData.currentSurvey.questions![0]
                     self.tableView.reloadData()
-                    self.setChart(["a","b","c","d"])
                 }
                 else {
                     self.questionTitle.text = error_i
@@ -61,8 +60,10 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    func setChart(dataPoints: [String], values: [Double] = [1,3,7,10]){
-        
+    func setChart(){
+        var answersToDisplay = self.question.answers!.filter{$0.count > 0}
+        var dataPoints: [String] = answersToDisplay.map({return $0.text})
+        var values: [Double] = answersToDisplay.map({return Double($0.count)})
         var dataEntries: [ChartDataEntry] = []
         
         for i in 0..<dataPoints.count {
@@ -70,10 +71,16 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
             dataEntries.append(dataEntry)
         }
         
-        let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "Answer")
-        let pieChartData = PieChartData(xVals: dataPoints, dataSet: pieChartDataSet)
-        pieChartView.data = pieChartData
+        let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "")
+        pieChartDataSet.colors = ChartColorTemplates.vordiplom()
+        pieChartDataSet.valueTextColor = UIColor.darkGrayColor()
         
+        let pieChartData = PieChartData(xVals: dataPoints, dataSet: pieChartDataSet)
+
+        pieChartView.data = pieChartData
+        pieChartView.descriptionText = ""
+        pieChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
+
     }
     
     @IBOutlet weak var pieChartView: PieChartView!
@@ -102,6 +109,7 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
             //TODO Loader needed
             return -1
         }else{
+            self.setChart()
             self.questionTitle.text = self.question.text
             return self.question.answers!.count
         }

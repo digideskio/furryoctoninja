@@ -217,7 +217,7 @@
                                     <action selector="previousQuestion:" destination="Znj-95-8yy" eventType="touchUpInside" id="8Pd-hf-FkH"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Tgf-Tu-sQ7">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Tgf-Tu-sQ7">
                                 <rect key="frame" x="16" y="300" width="568" height="254"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -238,16 +238,16 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdv-53-Nbs">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question Title" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdv-53-Nbs">
                                 <rect key="frame" x="16" y="20" width="568" height="39"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="39" id="mkj-8I-zYs"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qpo-Io-Ooo" customClass="PieChartView" customModule="Charts">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qpo-Io-Ooo" customClass="PieChartView" customModule="Charts">
                                 <rect key="frame" x="16" y="67" width="568" height="217"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -266,7 +266,6 @@
                             <constraint firstItem="f99-3F-riC" firstAttribute="top" secondItem="Tgf-Tu-sQ7" secondAttribute="bottom" constant="8" id="3pv-t9-csW"/>
                             <constraint firstItem="YYf-Nh-J7O" firstAttribute="top" secondItem="Tgf-Tu-sQ7" secondAttribute="bottom" constant="46" id="7Ig-w9-QRP"/>
                             <constraint firstItem="Qpo-Io-Ooo" firstAttribute="leading" secondItem="hdv-53-Nbs" secondAttribute="leading" id="HzB-vM-hVn"/>
-                            <constraint firstAttribute="bottom" secondItem="Qpo-Io-Ooo" secondAttribute="bottom" constant="316" id="OUu-MY-5KH"/>
                             <constraint firstItem="Qpo-Io-Ooo" firstAttribute="trailing" secondItem="hdv-53-Nbs" secondAttribute="trailing" id="RZ1-Nh-xW4"/>
                             <constraint firstItem="fQA-6t-uIc" firstAttribute="trailing" secondItem="uhc-XM-1O3" secondAttribute="trailingMargin" id="Rn2-i2-HtS"/>
                             <constraint firstItem="hdv-53-Nbs" firstAttribute="top" secondItem="aX9-UA-QaR" secondAttribute="bottom" id="Tsk-aA-Wzs"/>
