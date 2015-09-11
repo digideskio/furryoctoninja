@@ -36,7 +36,7 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidAppear(true)
         
         if self.surveyWithAnswers.id == -1 && AppSettings.tokenNotAvailable() == false{
-            serviceSurvey.loadSurvey({
+            serviceSurvey.loadSurvey(surveyFilled:true, callback: {
                 (result:Survey, error_i:String) -> () in
                 if (error_i == "") {
                     if (result.completedByUser == false){
@@ -49,19 +49,34 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     ServiceData.currentSurvey = result
                     self.question = ServiceData.currentSurvey.questions![0]
                     self.tableView.reloadData()
+                    self.setChart(["a","b","c","d"])
                 }
                 else {
                     self.questionTitle.text = error_i
                 }
-            }, surveyFilled:true)
-            
+            })
             self.tableView.delegate = self
             self.tableView.dataSource = self
             self.hideUnusedRows()
-
+        }
+    }
+    
+    func setChart(dataPoints: [String], values: [Double] = [1,3,7,10]){
+        
+        var dataEntries: [ChartDataEntry] = []
+        
+        for i in 0..<dataPoints.count {
+            let dataEntry = ChartDataEntry(value: values[i], xIndex: i)
+            dataEntries.append(dataEntry)
         }
         
+        let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "Answer")
+        let pieChartData = PieChartData(xVals: dataPoints, dataSet: pieChartDataSet)
+        pieChartView.data = pieChartData
+        
     }
+    
+    @IBOutlet weak var pieChartView: PieChartView!
     
     @IBOutlet weak var questionTitle: UILabel!
     

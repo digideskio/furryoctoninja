@@ -22,7 +22,7 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         self.titleUI.text = ""
         
-        self.serviceSurvey.loadSurvey({
+        self.serviceSurvey.loadSurvey(callback: {
             (result:Survey, error_i:String) -> () in
                 if (error_i == "") {
                     self.survey = result

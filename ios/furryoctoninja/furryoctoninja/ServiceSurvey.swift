@@ -17,7 +17,7 @@ class ServiceSurvey{
     var errorDescription = ""
     var surveyFilled = false;
     
-    func loadSurvey(callback: (result: Survey, error_i: String) -> (), surveyFilled:Bool = false){
+    func loadSurvey(surveyFilled:Bool = false, callback: (result: Survey, error_i: String) -> ()){
         self.surveyFilled = surveyFilled
         let url =  surveyFilled ? self.surveyWithAnswersURL : self.surveyURL
         Alamofire.request(.GET, url, headers: AppSettings.token_header())
@@ -117,6 +117,7 @@ class ServiceSurvey{
             if let id = answerJSON["Id"].int,
                 let text = answerJSON["Text"].string
             {
+                 //Those are the differences between survey to fill and filled
                 if self.surveyFilled{
                     if let isUserChoice = answerJSON["IsUserChoice"].bool,
                         let count = answerJSON["Count"].int
@@ -129,6 +130,7 @@ class ServiceSurvey{
                 }else {
                     answers.append(Answer(id:id, text:text))
                 }
+                //differencess end
             } else {
                 debugPrintln("JSON Parsing error - answer")
                 debugPrintln(answersJSON)
