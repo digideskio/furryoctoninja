@@ -10,11 +10,12 @@ import Foundation
 import UIKit
 import Charts
 
-class PollViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class PollViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     var surveyWithAnswers:Survey = Survey()
     let serviceSurvey = ServiceSurvey()
     var question = Question()
     let textCellIdentifier = "AnswerCell"
+    let collectionCellIdentifier = "QuestionCell"
     
     private func hideUnusedRows(){
         self.tableView.tableFooterView = UIView(frame: CGRect.zeroRect)
@@ -23,7 +24,7 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loader.startAnimating()
-        ServiceData.currentQuestionRow = 1
+        ServiceData.currentQuestionRow = 0
         
         if(AppSettings.tokenNotAvailable()){
             dispatch_async(dispatch_get_main_queue()) {
@@ -49,6 +50,7 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     ServiceData.currentSurvey = result
                     self.question = ServiceData.currentSurvey.questions![0]
                     self.tableView.reloadData()
+                    self.collectionView.reloadData()
                     self.loader.stopAnimating()
                 }
                 else {
@@ -58,6 +60,8 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
             })
             self.tableView.delegate = self
             self.tableView.dataSource = self
+            self.collectionView.delegate = self
+            self.collectionView.dataSource = self
             self.hideUnusedRows()
         }
     }
@@ -92,6 +96,8 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var questionTitle: UILabel!
     
     @IBOutlet var tableView: UITableView!
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     
     @IBAction func nextQuestion(sender: AnyObject) {
         self.question = ServiceData.nextQuestion()
@@ -135,11 +141,49 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return cell
     }
     
-    // Delegate
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        // 1
+        return 1
     }
     
     
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // 2
+        if self.surveyWithAnswers.id == -1{
+            return -1
+        }else{
+            return self.surveyWithAnswers.questions!.count
+        }
+
+    }
     
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.collectionCellIdentifier, forIndexPath: indexPath) as! MyCollectionViewCell
+        
+        // Configure the cell
+        // 3
+        let row = indexPath.row
+        if row == ServiceData.currentQuestionRow {
+            cell.backgroundColor = UIColor.lightGrayColor()
+        }else{
+            cell.backgroundColor = UIColor.whiteColor()
+        }
+        
+        cell.myLabel.text = String(row+1)
+        return cell
+    }
     
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let row = indexPath.row
+        self.question = ServiceData.questionAtRow(row)
+        self.tableView.reloadData()
+        self.collectionView.reloadData()
+    }
+    
+}
+
+import UIKit
+class MyCollectionViewCell: UICollectionViewCell {
+    
+    @IBOutlet weak var myLabel: UILabel!
 }

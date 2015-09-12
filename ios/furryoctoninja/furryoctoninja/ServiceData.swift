@@ -34,6 +34,11 @@ class ServiceData{
         return false
     }
     
+    static func questionAtRow(row:Int) -> Question{
+        currentQuestionRow = row
+        return ServiceData.currentSurvey.questions![row]
+    }
+    
     static func nextQuestion() -> Question{
         if currentSurvey.questions!.count-1 > currentQuestionRow{
            currentQuestionRow++
@@ -48,7 +53,6 @@ class ServiceData{
         return ServiceData.currentSurvey.questions![ServiceData.currentQuestionRow]
         
     }
-    
     
     static func allChecked() -> Bool {
         for row in 0..<(self.currentSurvey.questions!.count) {

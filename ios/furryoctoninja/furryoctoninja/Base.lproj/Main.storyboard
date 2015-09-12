@@ -208,18 +208,68 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f99-3F-riC">
-                                <rect key="frame" x="16" y="562" width="35" height="30"/>
-                                <state key="normal" title="Back">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="previousQuestion:" destination="Znj-95-8yy" eventType="touchUpInside" id="8Pd-hf-FkH"/>
-                                </connections>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Tgf-Tu-sQ7">
-                                <rect key="frame" x="16" y="300" width="568" height="254"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdv-53-Nbs">
+                                <rect key="frame" x="16" y="20" width="568" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qpo-Io-Ooo" customClass="PieChartView" customModule="Charts">
+                                <rect key="frame" x="16" y="47" width="568" height="236.5"/>
+                                <subviews>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="q3K-Ag-iEh">
+                                        <rect key="frame" x="274" y="30" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="q3K-Ag-iEh" secondAttribute="centerX" id="FGg-YE-30B"/>
+                                    <constraint firstItem="q3K-Ag-iEh" firstAttribute="top" secondItem="Qpo-Io-Ooo" secondAttribute="top" constant="30" id="oT4-Ku-bjA"/>
+                                    <constraint firstItem="q3K-Ag-iEh" firstAttribute="leading" secondItem="Qpo-Io-Ooo" secondAttribute="leading" constant="274" id="rQL-Fr-MB2"/>
+                                </constraints>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ngk-vv-54I">
+                                <rect key="frame" x="16" y="537" width="568" height="55"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="ej2-hQ-RGX"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="L9w-sC-gZm">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="QuestionCell" id="kDI-dx-dF0" customClass="MyCollectionViewCell" customModule="furryoctoninja" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mKF-zI-7hg">
+                                                    <rect key="frame" x="4" y="14" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="myLabel" destination="mKF-zI-7hg" id="GUk-AO-HW9"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Tgf-Tu-sQ7">
+                                <rect key="frame" x="16" y="292" width="568" height="236"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="236" id="1GI-XN-l4h"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AnswerCell" textLabel="sQg-z6-YTl" style="IBUITableViewCellStyleDefault" id="iOL-gS-KiY">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -238,56 +288,30 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdv-53-Nbs">
-                                <rect key="frame" x="16" y="20" width="568" height="39"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="39" id="mkj-8I-zYs"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qpo-Io-Ooo" customClass="PieChartView" customModule="Charts">
-                                <rect key="frame" x="16" y="67" width="568" height="217"/>
-                                <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="q3K-Ag-iEh">
-                                        <rect key="frame" x="274" y="30" width="20" height="20"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="centerX" secondItem="q3K-Ag-iEh" secondAttribute="centerX" id="FGg-YE-30B"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fQA-6t-uIc">
-                                <rect key="frame" x="552" y="562" width="32" height="30"/>
-                                <state key="normal" title="Next">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="nextQuestion:" destination="Znj-95-8yy" eventType="touchUpInside" id="r3i-Ms-BmC"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="f99-3F-riC" firstAttribute="top" secondItem="Tgf-Tu-sQ7" secondAttribute="bottom" constant="8" id="3pv-t9-csW"/>
-                            <constraint firstItem="YYf-Nh-J7O" firstAttribute="top" secondItem="Tgf-Tu-sQ7" secondAttribute="bottom" constant="46" id="7Ig-w9-QRP"/>
+                            <constraint firstItem="hdv-53-Nbs" firstAttribute="leading" secondItem="uhc-XM-1O3" secondAttribute="leadingMargin" id="8Do-HA-KGc"/>
+                            <constraint firstItem="Ngk-vv-54I" firstAttribute="trailing" secondItem="uhc-XM-1O3" secondAttribute="trailingMargin" id="D1t-VV-Wll"/>
                             <constraint firstItem="Qpo-Io-Ooo" firstAttribute="leading" secondItem="hdv-53-Nbs" secondAttribute="leading" id="HzB-vM-hVn"/>
                             <constraint firstItem="Qpo-Io-Ooo" firstAttribute="trailing" secondItem="hdv-53-Nbs" secondAttribute="trailing" id="RZ1-Nh-xW4"/>
-                            <constraint firstItem="fQA-6t-uIc" firstAttribute="trailing" secondItem="uhc-XM-1O3" secondAttribute="trailingMargin" id="Rn2-i2-HtS"/>
                             <constraint firstItem="hdv-53-Nbs" firstAttribute="top" secondItem="aX9-UA-QaR" secondAttribute="bottom" id="Tsk-aA-Wzs"/>
-                            <constraint firstItem="Qpo-Io-Ooo" firstAttribute="leading" secondItem="f99-3F-riC" secondAttribute="leading" id="UIy-1D-WUK"/>
+                            <constraint firstItem="Ngk-vv-54I" firstAttribute="top" secondItem="Tgf-Tu-sQ7" secondAttribute="bottom" constant="9" id="VDR-rP-W8b"/>
+                            <constraint firstItem="Qpo-Io-Ooo" firstAttribute="leading" secondItem="uhc-XM-1O3" secondAttribute="leadingMargin" id="W6r-iF-WiF"/>
+                            <constraint firstItem="Qpo-Io-Ooo" firstAttribute="trailing" secondItem="uhc-XM-1O3" secondAttribute="trailingMargin" id="WBe-qA-qAV"/>
                             <constraint firstItem="hdv-53-Nbs" firstAttribute="trailing" secondItem="Tgf-Tu-sQ7" secondAttribute="trailing" id="ZQr-2f-JN2"/>
                             <constraint firstItem="hdv-53-Nbs" firstAttribute="leading" secondItem="Tgf-Tu-sQ7" secondAttribute="leading" id="btQ-3e-Q71"/>
+                            <constraint firstItem="Tgf-Tu-sQ7" firstAttribute="top" secondItem="Qpo-Io-Ooo" secondAttribute="bottom" constant="8" id="cp9-bL-j8y"/>
+                            <constraint firstItem="YYf-Nh-J7O" firstAttribute="top" secondItem="Tgf-Tu-sQ7" secondAttribute="bottom" constant="72" id="gCP-L1-O4Q"/>
+                            <constraint firstItem="Tgf-Tu-sQ7" firstAttribute="leading" secondItem="uhc-XM-1O3" secondAttribute="leadingMargin" id="gTR-dL-8F0"/>
                             <constraint firstItem="Qpo-Io-Ooo" firstAttribute="top" secondItem="hdv-53-Nbs" secondAttribute="bottom" constant="8" id="gab-Qw-QU8"/>
-                            <constraint firstItem="Tgf-Tu-sQ7" firstAttribute="top" secondItem="Qpo-Io-Ooo" secondAttribute="bottom" constant="16" id="j9r-zB-Vcp"/>
+                            <constraint firstItem="hdv-53-Nbs" firstAttribute="trailing" secondItem="uhc-XM-1O3" secondAttribute="trailingMargin" id="iaB-sO-xDe"/>
                             <constraint firstItem="Tgf-Tu-sQ7" firstAttribute="trailing" secondItem="uhc-XM-1O3" secondAttribute="trailingMargin" id="jh0-i3-jWf"/>
-                            <constraint firstItem="f99-3F-riC" firstAttribute="baseline" secondItem="fQA-6t-uIc" secondAttribute="baseline" id="nQ3-tT-ctU"/>
-                            <constraint firstItem="f99-3F-riC" firstAttribute="leading" secondItem="uhc-XM-1O3" secondAttribute="leadingMargin" id="slH-je-n3s"/>
+                            <constraint firstItem="Ngk-vv-54I" firstAttribute="leading" secondItem="uhc-XM-1O3" secondAttribute="leadingMargin" id="nMr-Ff-7ke"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="collectionView" destination="Ngk-vv-54I" id="Jjb-DC-ffW"/>
                         <outlet property="loader" destination="q3K-Ag-iEh" id="k9y-5N-pku"/>
                         <outlet property="pieChartView" destination="Qpo-Io-Ooo" id="eEQ-zf-QVq"/>
                         <outlet property="questionTitle" destination="hdv-53-Nbs" id="Kqh-Dt-WK3"/>
