@@ -22,6 +22,7 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.loader.startAnimating()
         ServiceData.currentQuestionRow = 1
         
         if(AppSettings.tokenNotAvailable()){
@@ -34,7 +35,6 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
-        
         if self.surveyWithAnswers.id == -1 && AppSettings.tokenNotAvailable() == false{
             serviceSurvey.loadSurvey(surveyFilled:true, callback: {
                 (result:Survey, error_i:String) -> () in
@@ -49,9 +49,11 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     ServiceData.currentSurvey = result
                     self.question = ServiceData.currentSurvey.questions![0]
                     self.tableView.reloadData()
+                    self.loader.stopAnimating()
                 }
                 else {
                     self.questionTitle.text = error_i
+                    self.loader.stopAnimating()
                 }
             })
             self.tableView.delegate = self
@@ -80,8 +82,10 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
         pieChartView.data = pieChartData
         pieChartView.descriptionText = ""
         pieChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
-
     }
+ 
+    
+    @IBOutlet weak var loader: UIActivityIndicatorView!
     
     @IBOutlet weak var pieChartView: PieChartView!
     

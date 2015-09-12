@@ -238,7 +238,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question Title" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdv-53-Nbs">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdv-53-Nbs">
                                 <rect key="frame" x="16" y="20" width="568" height="39"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="39" id="mkj-8I-zYs"/>
@@ -249,7 +249,15 @@
                             </label>
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qpo-Io-Ooo" customClass="PieChartView" customModule="Charts">
                                 <rect key="frame" x="16" y="67" width="568" height="217"/>
+                                <subviews>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="q3K-Ag-iEh">
+                                        <rect key="frame" x="274" y="30" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="q3K-Ag-iEh" secondAttribute="centerX" id="FGg-YE-30B"/>
+                                </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fQA-6t-uIc">
                                 <rect key="frame" x="552" y="562" width="32" height="30"/>
@@ -280,6 +288,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loader" destination="q3K-Ag-iEh" id="k9y-5N-pku"/>
                         <outlet property="pieChartView" destination="Qpo-Io-Ooo" id="eEQ-zf-QVq"/>
                         <outlet property="questionTitle" destination="hdv-53-Nbs" id="Kqh-Dt-WK3"/>
                         <outlet property="tableView" destination="Tgf-Tu-sQ7" id="IIi-OW-TOX"/>
