@@ -23,9 +23,10 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        var nav = self.navigationController!
+        prepareNav(navigationItem, navController: nav)
         self.loader.startAnimating()
         ServiceData.currentQuestionRow = 0
-        
         if(AppSettings.tokenNotAvailable()){
             self.goToLogginView()
         }
@@ -60,33 +61,32 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.collectionView.delegate = self
             self.collectionView.dataSource = self
             self.hideUnusedRows()
-            
-            let refreashButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refreash")
-            navigationItem.rightBarButtonItem = refreashButton
-            
-            let logoutButton = UIBarButtonItem(title: "aa", style: .Plain, target: self, action: "logout")
-            navigationItem.leftBarButtonItem = logoutButton
-            
-//            let logoutButton = UIBarButtonItem(image: navigationItem.backBarButtonItem?.image, style: .Plain, target: self, action: "logout")
-//            navigationItem.leftBarButtonItem = logoutButton
-            
-            var nav = self.navigationController
-            nav?.setNavigationBarHidden(false, animated: true)
-            nav?.navigationBar.barTintColor = UIColor.whiteColor()
-            
-            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-            imageView.contentMode = .ScaleAspectFit
-            imageView.image =  UIImage(named: "logo")
-            navigationItem.titleView = imageView
-
 
         }
     }
     
+    func prepareNav(navItem: UINavigationItem, navController: UINavigationController){
+        let refreashButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refreash")
+        navItem.rightBarButtonItem = refreashButton
+        
+        let imageLogout = UIImage(named: "logout")
+        let logout = Common.imageWithImage(imageLogout!, scaledToSize: CGSizeMake(40,40))
+        
+        let logoutButton = UIBarButtonItem(image: logout, style: .Plain, target: self, action: "logout")
+        navItem.leftBarButtonItem = logoutButton
+        
+        navController.setNavigationBarHidden(false, animated: true)
+        navController.navigationBar.barTintColor = UIColor.whiteColor()
+        
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 30))
+        imageView.contentMode = .ScaleAspectFit
+        imageView.image =  UIImage(named: "logo")
+        navItem.titleView = imageView
+
+    }
+    
     func logout(){
         AppSettings.logout()
-        var nav = self.navigationController
-        nav?.setNavigationBarHidden(true, animated: false)
         self.goToLogginView()
     }
     

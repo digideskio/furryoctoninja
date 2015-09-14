@@ -20,6 +20,8 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        var nav = self.navigationController!
+        prepareNav(navigationItem, navController: nav)
         self.titleUI.text = ""
         
         self.serviceSurvey.loadSurvey(callback: {
@@ -76,6 +78,42 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
             self.loader.stopAnimating()
         })
     }
+    
+    func prepareNav(navItem: UINavigationItem, navController: UINavigationController){
+        let refreashButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refreash")
+        navItem.rightBarButtonItem = refreashButton
+        
+        let imageLogout = UIImage(named: "logout")
+        let logout = Common.imageWithImage(imageLogout!, scaledToSize: CGSizeMake(40,40))
+        
+        let logoutButton = UIBarButtonItem(image: logout, style: .Plain, target: self, action: "logout")
+        navItem.leftBarButtonItem = logoutButton
+        
+        navController.setNavigationBarHidden(false, animated: true)
+        navController.navigationBar.barTintColor = UIColor.whiteColor()
+        
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 30))
+        imageView.contentMode = .ScaleAspectFit
+        imageView.image =  UIImage(named: "logo")
+        navItem.titleView = imageView
+        
+    }
+    
+    func logout(){
+        AppSettings.logout()
+        self.goToLogginView()
+    }
+    
+    func refreash(){
+        self.viewDidLoad()
+    }
+    
+    func goToLogginView(){
+        dispatch_async(dispatch_get_main_queue()) {
+            self.performSegueWithIdentifier("goToLogin", sender: self)
+        }
+    }
+
     
     // Delegate
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

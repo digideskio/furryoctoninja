@@ -189,6 +189,7 @@
                         <outlet property="titleUI" destination="Gmw-4p-1H1" id="jnL-8O-huB"/>
                         <segue destination="3rf-2L-acb" kind="show" identifier="showAnswers" id="W7d-yp-IJy"/>
                         <segue destination="Znj-95-8yy" kind="show" identifier="sendSurvey" id="zQE-7f-wkz"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="goToLogin" id="SKO-Ax-fxQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1D1-db-CaY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -198,7 +199,6 @@
         <!--Navigation Controller-->
         <scene sceneID="RLv-XC-aZK">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ovw-GJ-OT5" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="ERD-Rj-XM9" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2sa-gs-wP1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -211,6 +211,7 @@
                         <segue destination="Znj-95-8yy" kind="relationship" relationship="rootViewController" id="rdc-sq-ge5"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ovw-GJ-OT5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1336" y="1682"/>
         </scene>
@@ -415,6 +416,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="rdc-sq-ge5"/>
+        <segue reference="SKO-Ax-fxQ"/>
+        <segue reference="zQE-7f-wkz"/>
     </inferredMetricsTieBreakers>
 </document>

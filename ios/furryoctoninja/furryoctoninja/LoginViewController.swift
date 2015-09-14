@@ -12,18 +12,24 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
+        self.navigationItem.backBarButtonItem?.title = ""
+        self.navigationItem.setHidesBackButton(true, animated: false)
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
 
-    override func viewDidAppear(animated: Bool) {
-        var nav = self.navigationController
-        nav?.setNavigationBarHidden(true, animated: false)
-        super.viewDidAppear(true)
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 30))
+        imageView.contentMode = .ScaleAspectFit
+        imageView.image =  UIImage(named: "logo")
+        self.navigationItem.titleView = imageView
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewDidAppear(animated: Bool){
+       // self.navigationItem.setLeftBarButtonItem(nil, animated: false)
+        super.viewDidAppear(true)
+        self.navigationItem.backBarButtonItem?.title = ""
+        self.navigationItem.setHidesBackButton(true, animated: false)
+
+        
     }
 
     @IBOutlet weak var username: UITextField!
