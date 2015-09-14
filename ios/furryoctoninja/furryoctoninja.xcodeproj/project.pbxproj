@@ -14,12 +14,12 @@
 		6134F9081B7C9B730008C642 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6134F9071B7C9B730008C642 /* AppDelegate.swift */; };
 		6134F90A1B7C9B730008C642 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6134F9091B7C9B730008C642 /* LoginViewController.swift */; };
 		6134F90D1B7C9B730008C642 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6134F90B1B7C9B730008C642 /* Main.storyboard */; };
-		6134F90F1B7C9B730008C642 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6134F90E1B7C9B730008C642 /* Images.xcassets */; };
 		6134F9121B7C9B730008C642 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6134F9101B7C9B730008C642 /* LaunchScreen.xib */; };
 		6134F91E1B7C9B730008C642 /* furryoctoninjaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6134F91D1B7C9B730008C642 /* furryoctoninjaTests.swift */; };
 		6142A0AA1B8EF1A700D4D42A /* SurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6142A0A91B8EF1A700D4D42A /* SurveyViewController.swift */; };
 		6142A0AC1B9048EE00D4D42A /* AnswersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6142A0AB1B9048EE00D4D42A /* AnswersViewController.swift */; };
 		6142A0AE1B904A8300D4D42A /* ServiceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6142A0AD1B904A8300D4D42A /* ServiceData.swift */; };
+		6171E0681BA6AF3700516299 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6171E0671BA6AF3700516299 /* Images.xcassets */; };
 		617BB2EA1B98787400343D5E /* PollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617BB2E91B98787400343D5E /* PollViewController.swift */; };
 		61DB12B51B870B070077D40A /* ServiceLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB12B41B870B070077D40A /* ServiceLogin.swift */; };
 		D8E1A764EA9278828C0BA3DE /* Pods_furryoctoninja.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D897E888B7CC45EDCFDFC07C /* Pods_furryoctoninja.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -60,7 +60,6 @@
 		6134F9071B7C9B730008C642 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6134F9091B7C9B730008C642 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6134F90C1B7C9B730008C642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6134F90E1B7C9B730008C642 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6134F9111B7C9B730008C642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		6134F9171B7C9B730008C642 /* furryoctoninjaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = furryoctoninjaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6134F91C1B7C9B730008C642 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -68,6 +67,7 @@
 		6142A0A91B8EF1A700D4D42A /* SurveyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyViewController.swift; sourceTree = "<group>"; };
 		6142A0AB1B9048EE00D4D42A /* AnswersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswersViewController.swift; sourceTree = "<group>"; };
 		6142A0AD1B904A8300D4D42A /* ServiceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceData.swift; sourceTree = "<group>"; };
+		6171E0671BA6AF3700516299 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		617BB2E91B98787400343D5E /* PollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollViewController.swift; sourceTree = "<group>"; };
 		61DB12B41B870B070077D40A /* ServiceLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceLogin.swift; sourceTree = "<group>"; };
 		D897E888B7CC45EDCFDFC07C /* Pods_furryoctoninja.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_furryoctoninja.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,9 +122,9 @@
 				617BB2E91B98787400343D5E /* PollViewController.swift */,
 				6134F90B1B7C9B730008C642 /* Main.storyboard */,
 				6134F9071B7C9B730008C642 /* AppDelegate.swift */,
-				6134F90E1B7C9B730008C642 /* Images.xcassets */,
 				6134F9101B7C9B730008C642 /* LaunchScreen.xib */,
 				6134F9051B7C9B730008C642 /* Supporting Files */,
+				6171E0671BA6AF3700516299 /* Images.xcassets */,
 			);
 			path = furryoctoninja;
 			sourceTree = "<group>";
@@ -269,8 +269,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6134F90D1B7C9B730008C642 /* Main.storyboard in Resources */,
+				6171E0681BA6AF3700516299 /* Images.xcassets in Resources */,
 				6134F9121B7C9B730008C642 /* LaunchScreen.xib in Resources */,
-				6134F90F1B7C9B730008C642 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
