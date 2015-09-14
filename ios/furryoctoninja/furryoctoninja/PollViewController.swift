@@ -97,6 +97,8 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func goToLogginView(){
         dispatch_async(dispatch_get_main_queue()) {
+//            self.navigationItem.backBarButtonItem?.title = ""
+//            self.navigationItem.setHidesBackButton(true, animated: false)
             self.performSegueWithIdentifier("goToLogin", sender: self)
         }
     }
@@ -164,11 +166,20 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
         let row = indexPath.row
         
-        cell.textLabel?.text = self.question.answers![row].text
+        let msg : String = "(" + String(self.question.answers![row].count) + ") "
+        
+        cell.textLabel?.text = msg + self.question.answers![row].text
+        var blue = UIColor(red: 0, green: 165/255, blue: 0, alpha: 0.07)
+        var trans = UIColor(red: 0, green: 165/255, blue: 1, alpha: 0)
+        var white = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        cell.contentView.layer.cornerRadius = 2
+        cell.contentView.layer.masksToBounds = true
         if self.question.answers![row].isUserChoice == true{
-            cell.backgroundColor = UIColor.lightGrayColor()
+            cell.contentView.layer.backgroundColor = blue.CGColor
+            cell.textLabel?.backgroundColor = trans
         }else{
-            cell.backgroundColor = UIColor.whiteColor()
+            cell.contentView.layer.backgroundColor = white.CGColor
+            cell.textLabel?.backgroundColor = white
         }
         
         cell.userInteractionEnabled = false
@@ -177,13 +188,11 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        // 1
         return 1
     }
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // 2
         if self.surveyWithAnswers.id == -1{
             return -1
         }else{
@@ -194,16 +203,21 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.collectionCellIdentifier, forIndexPath: indexPath) as! MyCollectionViewCell
-        
-        // Configure the cell
-        // 3
         let row = indexPath.row
+        var blueChosen = UIColor(red: 0, green: 165/255, blue: 1, alpha: 0.3)
+        var blue = UIColor(red: 0, green: 165/255, blue: 1, alpha: 0.07)
+        cell.contentView.layer.cornerRadius = 7
+        cell.contentView.layer.masksToBounds = true
         if row == ServiceData.currentQuestionRow {
-            cell.backgroundColor = UIColor.lightGrayColor()
+             cell.contentView.layer.backgroundColor = blueChosen.CGColor
         }else{
-            cell.backgroundColor = UIColor.whiteColor()
+             cell.contentView.layer.backgroundColor = blue.CGColor
         }
-        
+
+//        cell.layer.cornerRadius = 20
+//        cell.layer.masksToBounds = true
+       
+ 
         cell.myLabel.text = String(row+1)
         return cell
     }

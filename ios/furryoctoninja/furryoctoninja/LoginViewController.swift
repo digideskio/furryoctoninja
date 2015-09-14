@@ -12,8 +12,8 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.backBarButtonItem?.title = ""
-        self.navigationItem.setHidesBackButton(true, animated: false)
+//        self.navigationItem.backBarButtonItem?.title = ""
+//        self.navigationItem.setHidesBackButton(true, animated: false)
         
         self.navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
 
@@ -24,9 +24,9 @@ class LoginViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool){
-       // self.navigationItem.setLeftBarButtonItem(nil, animated: false)
         super.viewDidAppear(true)
-        self.navigationItem.backBarButtonItem?.title = ""
+        //self.navigationItem.setLeftBarButtonItem(nil, animated: false)
+        //self.navigationItem.backBarButtonItem?.title = ""
         self.navigationItem.setHidesBackButton(true, animated: false)
 
         
@@ -69,8 +69,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func CredNotSubmitted(sender: UIButton) {
-        self.username.text = "g"
-        self.password.text = "g"
+        self.username.text = "h"
+        self.password.text = "h"
     }    
     // Tests END
 }

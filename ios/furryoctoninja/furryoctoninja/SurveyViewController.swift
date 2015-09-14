@@ -20,9 +20,9 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.titleUI.text = ""
         var nav = self.navigationController!
         prepareNav(navigationItem, navController: nav)
-        self.titleUI.text = ""
         
         self.serviceSurvey.loadSurvey(callback: {
             (result:Survey, error_i:String) -> () in
@@ -42,6 +42,14 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
         self.tableView.dataSource = self
         self.hideUnusedRows()
         self.sendSurveyButton.enabled = false
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        self.tableView.reloadData()
+        if ServiceData.allChecked() == true {
+            self.sendSurveyButton.enabled = true
+        }
     }
     
     @IBAction func returned(segue: UIStoryboardSegue) {
@@ -136,15 +144,26 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
         if row >= 0 {
             cell.textLabel?.text = self.survey.questions![row].text
             if ServiceData.questionAnswered(row) == true {
-                cell.backgroundColor = UIColor.greenColor()
+                //cell.backgroundColor = UIColor.greenColor()
+                var image : UIImage = UIImage(named: "checked2")!
+                cell.imageView!.image = image
+
+            }else{
+                var image : UIImage = UIImage(named: "unchecked2")!
+                cell.imageView!.image = image
+
             }
         }
+        
+        let bgColor = UIView()
+        bgColor.backgroundColor =  UIColor(red: 0, green: 165/255, blue: 0, alpha: 0.07)
+        cell.selectedBackgroundView = bgColor
         return cell
     }
     
     // Delegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
         var s = ServiceData.currentSurvey
         let row = indexPath.row
         ServiceData.currentQuestionRow = row
