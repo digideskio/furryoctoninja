@@ -22,5 +22,9 @@ struct AppSettings {
         let (dictionary, error) = Locksmith.loadDataForUserAccount(AppSettings.currentUser)
         return error != nil
     }
+    
+    static func logout() {
+        Locksmith.deleteDataForUserAccount(AppSettings.currentUser)
+    }
 }
 

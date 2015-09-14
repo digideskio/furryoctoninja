@@ -55,11 +55,13 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'Pods-furryoctoninja/Alamofire.framework'
   install_framework 'Pods-furryoctoninja/Charts.framework'
   install_framework 'Pods-furryoctoninja/Locksmith.framework'
+  install_framework 'Pods-furryoctoninja/SWRevealViewController.framework'
   install_framework 'Pods-furryoctoninja/SwiftyJSON.framework'
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Pods-furryoctoninja/Alamofire.framework'
   install_framework 'Pods-furryoctoninja/Charts.framework'
   install_framework 'Pods-furryoctoninja/Locksmith.framework'
+  install_framework 'Pods-furryoctoninja/SWRevealViewController.framework'
   install_framework 'Pods-furryoctoninja/SwiftyJSON.framework'
 fi

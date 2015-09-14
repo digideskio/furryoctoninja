@@ -27,10 +27,7 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
         ServiceData.currentQuestionRow = 0
         
         if(AppSettings.tokenNotAvailable()){
-            dispatch_async(dispatch_get_main_queue()) {
-                self.performSegueWithIdentifier("goToLogin", sender: self)
-                self.view.hidden = true
-            }
+            self.goToLogginView()
         }
     }
     
@@ -63,6 +60,44 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.collectionView.delegate = self
             self.collectionView.dataSource = self
             self.hideUnusedRows()
+            
+            let refreashButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refreash")
+            navigationItem.rightBarButtonItem = refreashButton
+            
+            let logoutButton = UIBarButtonItem(title: "aa", style: .Plain, target: self, action: "logout")
+            navigationItem.leftBarButtonItem = logoutButton
+            
+//            let logoutButton = UIBarButtonItem(image: navigationItem.backBarButtonItem?.image, style: .Plain, target: self, action: "logout")
+//            navigationItem.leftBarButtonItem = logoutButton
+            
+            var nav = self.navigationController
+            nav?.setNavigationBarHidden(false, animated: true)
+            nav?.navigationBar.barTintColor = UIColor.whiteColor()
+            
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+            imageView.contentMode = .ScaleAspectFit
+            imageView.image =  UIImage(named: "logo")
+            navigationItem.titleView = imageView
+
+
+        }
+    }
+    
+    func logout(){
+        AppSettings.logout()
+        var nav = self.navigationController
+        nav?.setNavigationBarHidden(true, animated: false)
+        self.goToLogginView()
+    }
+    
+    func refreash(){
+        self.surveyWithAnswers.id = -1
+        self.viewDidAppear(true)
+    }
+    
+    func goToLogginView(){
+        dispatch_async(dispatch_get_main_queue()) {
+            self.performSegueWithIdentifier("goToLogin", sender: self)
         }
     }
     
@@ -178,6 +213,7 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.question = ServiceData.questionAtRow(row)
         self.tableView.reloadData()
         self.collectionView.reloadData()
+        self.collectionView.flashScrollIndicators()
     }
     
 }

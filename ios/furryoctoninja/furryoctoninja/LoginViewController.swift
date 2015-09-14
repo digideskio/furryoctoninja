@@ -15,6 +15,12 @@ class LoginViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
+    override func viewDidAppear(animated: Bool) {
+        var nav = self.navigationController
+        nav?.setNavigationBarHidden(true, animated: false)
+        super.viewDidAppear(true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -57,8 +63,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func CredNotSubmitted(sender: UIButton) {
-        self.username.text = "e"
-        self.password.text = "e"
+        self.username.text = "g"
+        self.password.text = "g"
     }    
     // Tests END
 }
