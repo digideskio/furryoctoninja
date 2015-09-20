@@ -12,24 +12,13 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationItem.backBarButtonItem?.title = ""
-//        self.navigationItem.setHidesBackButton(true, animated: false)
-        
         self.navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
-
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 30))
-        imageView.contentMode = .ScaleAspectFit
-        imageView.image =  UIImage(named: "logo")
-        self.navigationItem.titleView = imageView
+        self.navigationItem.titleView = AppSettings.logo()
     }
     
     override func viewDidAppear(animated: Bool){
         super.viewDidAppear(true)
-        //self.navigationItem.setLeftBarButtonItem(nil, animated: false)
-        //self.navigationItem.backBarButtonItem?.title = ""
         self.navigationItem.setHidesBackButton(true, animated: false)
-
-        
     }
 
     @IBOutlet weak var username: UITextField!
@@ -69,8 +58,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func CredNotSubmitted(sender: UIButton) {
-        self.username.text = "h"
-        self.password.text = "h"
+        self.username.text = "j"
+        self.password.text = "j"
     }    
     // Tests END
 }

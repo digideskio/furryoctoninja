@@ -26,5 +26,11 @@ struct AppSettings {
     static func logout() {
         Locksmith.deleteDataForUserAccount(AppSettings.currentUser)
     }
+    
+    static func logo() -> UIImageView {
+        let imageView = UIImageView(frame: CGRectMake(0, 0, 0, 40))
+        imageView.image = Common.imageWithImage(UIImage(named: "logo_v3")!, scaledToSize: CGSizeMake(120,40))
+        return imageView
+    }
 }
 

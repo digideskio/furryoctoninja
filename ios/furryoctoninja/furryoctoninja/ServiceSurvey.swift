@@ -135,8 +135,6 @@ class ServiceSurvey{
                 debugPrintln("JSON Parsing error - answer")
                 debugPrintln(answersJSON)
             }
-            
-            
         }
         return answers
     }

@@ -56,21 +56,21 @@
 		6113F0691B8ED52300154CD3 /* sampleResponse */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sampleResponse; sourceTree = "<group>"; };
 		6113F06B1B8EE45500154CD3 /* ServiceSurvey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceSurvey.swift; sourceTree = "<group>"; };
 		611F8F711B871D8900DD9F8A /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
-		6134F9021B7C9B730008C642 /* furryoctoninja.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = furryoctoninja.app; path = "/Users/pbaranski/Developer/r/furryoctoninja/ios/furryoctoninja/build/Debug-iphoneos/furryoctoninja.app"; sourceTree = "<absolute>"; };
 		6134F9061B7C9B730008C642 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6134F9071B7C9B730008C642 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6134F9091B7C9B730008C642 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6134F90C1B7C9B730008C642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6134F9111B7C9B730008C642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		6134F9171B7C9B730008C642 /* furryoctoninjaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = furryoctoninjaTests.xctest; path = "/Users/pbaranski/Developer/r/furryoctoninja/ios/furryoctoninja/build/Debug-iphoneos/furryoctoninjaTests.xctest"; sourceTree = "<absolute>"; };
 		6134F91C1B7C9B730008C642 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6134F91D1B7C9B730008C642 /* furryoctoninjaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = furryoctoninjaTests.swift; sourceTree = "<group>"; };
 		6142A0A91B8EF1A700D4D42A /* SurveyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyViewController.swift; sourceTree = "<group>"; };
 		6142A0AB1B9048EE00D4D42A /* AnswersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswersViewController.swift; sourceTree = "<group>"; };
 		6142A0AD1B904A8300D4D42A /* ServiceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceData.swift; sourceTree = "<group>"; };
+		61513F221BA7630800BB8BA2 /* furryoctoninja.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = furryoctoninja.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61550A771BA6B9EF00F9A6F6 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		6171E0671BA6AF3700516299 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		617BB2E91B98787400343D5E /* PollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollViewController.swift; sourceTree = "<group>"; };
+		617D10131BA766D000257D27 /* furryoctoninjaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = furryoctoninjaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61DB12B41B870B070077D40A /* ServiceLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceLogin.swift; sourceTree = "<group>"; };
 		D897E888B7CC45EDCFDFC07C /* Pods_furryoctoninja.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_furryoctoninja.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -101,6 +101,8 @@
 				6134F91A1B7C9B730008C642 /* furryoctoninjaTests */,
 				B6512C51B98B25385071DD33 /* Pods */,
 				A63B9E513CA9CF744F24F73F /* Frameworks */,
+				61513F221BA7630800BB8BA2 /* furryoctoninja.app */,
+				617D10131BA766D000257D27 /* furryoctoninjaTests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -198,7 +200,7 @@
 			);
 			name = furryoctoninja;
 			productName = furryoctoninja;
-			productReference = 6134F9021B7C9B730008C642 /* furryoctoninja.app */;
+			productReference = 61513F221BA7630800BB8BA2 /* furryoctoninja.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6134F9161B7C9B730008C642 /* furryoctoninjaTests */ = {
@@ -216,7 +218,7 @@
 			);
 			name = furryoctoninjaTests;
 			productName = furryoctoninjaTests;
-			productReference = 6134F9171B7C9B730008C642 /* furryoctoninjaTests.xctest */;
+			productReference = 617D10131BA766D000257D27 /* furryoctoninjaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -230,6 +232,7 @@
 				TargetAttributes = {
 					6134F9011B7C9B730008C642 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 9CAMNPTNMF;
 					};
 					6134F9161B7C9B730008C642 = {
 						CreatedOnToolsVersion = 6.4;
@@ -418,7 +421,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -457,7 +460,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -471,17 +474,14 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/pbaranski/Developer/Cart/Carthage/Build/iOS,
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)",
-				);
+				CODE_SIGN_IDENTITY = "iPhone Developer: Michal Sedzielewski (JU2TWJSCM9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michal Sedzielewski (JU2TWJSCM9)";
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = furryoctoninja/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -491,23 +491,21 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/pbaranski/Developer/Cart/Carthage/Build/iOS,
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)",
-				);
+				CODE_SIGN_IDENTITY = "iPhone Developer: Michal Sedzielewski (JU2TWJSCM9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michal Sedzielewski (JU2TWJSCM9)";
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = furryoctoninja/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
 		6134F9251B7C9B730008C642 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Michal Sedzielewski (JU2TWJSCM9)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -526,6 +524,7 @@
 		6134F9261B7C9B730008C642 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Michal Sedzielewski (JU2TWJSCM9)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

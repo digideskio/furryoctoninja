@@ -46,7 +46,7 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     }
                     self.surveyWithAnswers = result
                     ServiceData.currentSurvey = result
-                    self.question = ServiceData.currentSurvey.questions![0]
+                    self.question = ServiceData.currentSurvey.questions![ServiceData.currentQuestionRow]
                     self.tableView.reloadData()
                     self.collectionView.reloadData()
                     self.loader.stopAnimating()
@@ -78,11 +78,7 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
         navController.setNavigationBarHidden(false, animated: true)
         navController.navigationBar.barTintColor = UIColor.whiteColor()
         
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 30))
-        imageView.contentMode = .ScaleAspectFit
-        imageView.image =  UIImage(named: "logo")
-        navItem.titleView = imageView
-
+        navItem.titleView = AppSettings.logo()
     }
     
     func logout(){
@@ -93,12 +89,11 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func refreash(){
         self.surveyWithAnswers.id = -1
         self.viewDidAppear(true)
+        
     }
     
     func goToLogginView(){
         dispatch_async(dispatch_get_main_queue()) {
-//            self.navigationItem.backBarButtonItem?.title = ""
-//            self.navigationItem.setHidesBackButton(true, animated: false)
             self.performSegueWithIdentifier("goToLogin", sender: self)
         }
     }
@@ -169,17 +164,14 @@ class PollViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let msg : String = "(" + String(self.question.answers![row].count) + ") "
         
         cell.textLabel?.text = msg + self.question.answers![row].text
-        var blue = UIColor(red: 0, green: 165/255, blue: 0, alpha: 0.07)
-        var trans = UIColor(red: 0, green: 165/255, blue: 1, alpha: 0)
-        var white = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
         cell.contentView.layer.cornerRadius = 2
         cell.contentView.layer.masksToBounds = true
         if self.question.answers![row].isUserChoice == true{
-            cell.contentView.layer.backgroundColor = blue.CGColor
-            cell.textLabel?.backgroundColor = trans
+            cell.contentView.layer.backgroundColor = Common.Colors.lightBlue.CGColor
+            cell.textLabel?.backgroundColor = Common.Colors.transparent
         }else{
-            cell.contentView.layer.backgroundColor = white.CGColor
-            cell.textLabel?.backgroundColor = white
+            cell.contentView.layer.backgroundColor = Common.Colors.white.CGColor
+            cell.textLabel?.backgroundColor = Common.Colors.white
         }
         
         cell.userInteractionEnabled = false

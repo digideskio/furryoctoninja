@@ -21,12 +21,7 @@ class AnswersViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
-        
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
-        imageView.contentMode = .ScaleAspectFit
-        imageView.image =  UIImage(named: "logo")
-        self.navigationItem.titleView = imageView
-
+        self.navigationItem.titleView = AppSettings.logo()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.hideUnusedRows()
@@ -60,20 +55,18 @@ class AnswersViewController: UIViewController, UITableViewDataSource, UITableVie
         let row = indexPath.row
         
         cell.textLabel?.text = self.question.answers![row].text
-        var green = UIColor(red: 0, green: 165/255, blue: 0, alpha: 0.07)
-        var trans = UIColor(red: 0, green: 165/255, blue: 1, alpha: 0)
-        var white = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+
         cell.contentView.layer.cornerRadius = 4
         cell.contentView.layer.masksToBounds = true
         if self.question.answers![row].isUserChoice == true{
-            cell.contentView.layer.backgroundColor = green.CGColor
-            cell.textLabel?.backgroundColor = trans
+            cell.contentView.layer.backgroundColor = Common.Colors.lightGreen.CGColor
+            cell.textLabel?.backgroundColor = Common.Colors.transparent
         }else{
-            cell.contentView.layer.backgroundColor = white.CGColor
-            cell.textLabel?.backgroundColor = white
+            cell.contentView.layer.backgroundColor = Common.Colors.white.CGColor
+            cell.textLabel?.backgroundColor = Common.Colors.white
         }
         let bgColor = UIView()
-        bgColor.backgroundColor = green
+        bgColor.backgroundColor = Common.Colors.lightGreen
         cell.selectedBackgroundView = bgColor
         
         return cell
@@ -87,8 +80,6 @@ class AnswersViewController: UIViewController, UITableViewDataSource, UITableVie
             ServiceData.markAnswer(answerId)
             self.question = ServiceData.currentSurvey.questions![ServiceData.currentQuestionRow]
             tableView.reloadData()
-            //self.performSegueWithIdentifier("toQuestions", sender:self)
-            //self.navigationController!.popViewControllerAnimated(true)
         }else {
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
@@ -106,14 +97,12 @@ class AnswersViewController: UIViewController, UITableViewDataSource, UITableVie
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(self.collectionCellIdentifier, forIndexPath: indexPath) as! MyCollectionViewCell
         let row = indexPath.row
-        var blueChosen = UIColor(red: 0, green: 165/255, blue: 1, alpha: 0.3)
-        var blue = UIColor(red: 0, green: 165/255, blue: 1, alpha: 0.07)
         cell.contentView.layer.cornerRadius = 7
         cell.contentView.layer.masksToBounds = true
         if row == ServiceData.currentQuestionRow {
-            cell.contentView.layer.backgroundColor = blueChosen.CGColor
+            cell.contentView.layer.backgroundColor = Common.Colors.superLightBlue.CGColor
         }else{
-            cell.contentView.layer.backgroundColor = blue.CGColor
+            cell.contentView.layer.backgroundColor = Common.Colors.lightBlue.CGColor
         }
       
         cell.myLabel.text = String(row+1)

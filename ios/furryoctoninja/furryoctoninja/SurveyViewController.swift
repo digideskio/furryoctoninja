@@ -100,10 +100,7 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
         navController.setNavigationBarHidden(false, animated: true)
         navController.navigationBar.barTintColor = UIColor.whiteColor()
         
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 30))
-        imageView.contentMode = .ScaleAspectFit
-        imageView.image =  UIImage(named: "logo")
-        navItem.titleView = imageView
+        navItem.titleView = AppSettings.logo()
         
     }
     
@@ -122,7 +119,6 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
 
-    
     // Delegate
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -131,7 +127,6 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.survey.id == -1{
             debugPrintln("wiating for data")
-            //TODO Loader needed
             return -1
         }else{
             return self.survey.questions!.count
@@ -144,19 +139,18 @@ class SurveyViewController: UIViewController, UITableViewDataSource, UITableView
         if row >= 0 {
             cell.textLabel?.text = self.survey.questions![row].text
             if ServiceData.questionAnswered(row) == true {
-                //cell.backgroundColor = UIColor.greenColor()
-                var image : UIImage = UIImage(named: "checked2")!
+                var image : UIImage =  Common.imageWithImage(UIImage(named: "checked2")!, scaledToSize: CGSizeMake(40,40))
                 cell.imageView!.image = image
 
             }else{
-                var image : UIImage = UIImage(named: "unchecked2")!
+                var image : UIImage =  Common.imageWithImage(UIImage(named: "unchecked2")!, scaledToSize: CGSizeMake(40,40))
                 cell.imageView!.image = image
 
             }
         }
         
         let bgColor = UIView()
-        bgColor.backgroundColor =  UIColor(red: 0, green: 165/255, blue: 0, alpha: 0.07)
+        bgColor.backgroundColor =  Common.Colors.lightGreen
         cell.selectedBackgroundView = bgColor
         return cell
     }

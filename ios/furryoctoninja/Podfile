@@ -7,7 +7,7 @@ target 'furryoctoninja' do
     pod 'SwiftyJSON', '~> 2.2.1'
     pod 'Locksmith', '1.2.2'
     pod 'Charts', '~> 2.1'
-    pod 'SWRevealViewController'
+#    pod 'SWRevealViewController'
 end
 
 target 'furryoctoninjaTests' do
