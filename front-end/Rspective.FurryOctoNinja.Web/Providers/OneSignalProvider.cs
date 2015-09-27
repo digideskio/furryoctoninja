@@ -35,7 +35,8 @@ namespace Rspective.FurryOctoNinja.Web.Providers
                         { "eventType", eventType }
                     }
                 },
-                { "isAndroid", true }
+                { "isAndroid", true },
+                { "isIos", true }
             };
 
             var json = JsonConvert.SerializeObject(payload);
